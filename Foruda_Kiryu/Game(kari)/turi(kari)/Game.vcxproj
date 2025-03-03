@@ -151,12 +151,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="BackGround.cpp" />
+    <ClCompile Include="Fish.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameCamera.cpp" />
     <ClCompile Include="GameCrear.cpp" />
     <ClCompile Include="GetRotation.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="PlayFishing.cpp" />
     <ClCompile Include="PositionSelection.cpp" />
     <ClCompile Include="Star.cpp" />
     <ClCompile Include="stdafx.cpp">
@@ -168,11 +170,13 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BackGround.h" />
+    <ClInclude Include="Fish.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameCamera.h" />
     <ClInclude Include="GameCrear.h" />
     <ClInclude Include="GetRotation.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="PlayFishing.h" />
     <ClInclude Include="PositionSelection.h" />
     <ClInclude Include="Star.h" />
     <ClInclude Include="stdafx.h" />

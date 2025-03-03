@@ -6,6 +6,7 @@ class Player;
 class GameCamera;
 class BackGround;
 class GetRotation;
+class PositionSelection;
 
 //Gameシーンを管理するクラス。
 class Game : public IGameObject
@@ -27,5 +28,6 @@ public:
 	SoundSource* gameBGM;		//ゲーム中のBGM。
 	GetRotation* getRotation;//回転を取得。
 	FontRender m_fontRender;
+	PositionSelection* positionSelection;//場所選択面
 };
 

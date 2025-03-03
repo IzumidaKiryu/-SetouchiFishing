@@ -55,6 +55,7 @@ void Player::Move()
 	//カメラの前方向と右方向のベクトルを持ってくる。
 	Vector3 forward = g_camera3D->GetForward();
 	Vector3 right = g_camera3D->GetRight();
+	forward *= 5.0f;//縦移動が遅くなるから×5をした。
 	//y方向には移動させない。
 	forward.y = 0.0f;
 	right.y = 0.0f;
