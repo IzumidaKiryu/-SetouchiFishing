@@ -20,6 +20,8 @@
     <ClCompile Include="GameCrear.cpp" />
     <ClCompile Include="GetRotation.cpp" />
     <ClCompile Include="PositionSelection.cpp" />
+    <ClCompile Include="PlayFishing.cpp" />
+    <ClCompile Include="Fish.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -35,5 +37,7 @@
     <ClInclude Include="GameCrear.h" />
     <ClInclude Include="GetRotation.h" />
     <ClInclude Include="PositionSelection.h" />
+    <ClInclude Include="PlayFishing.h" />
+    <ClInclude Include="Fish.h" />
   </ItemGroup>
 </Project>
