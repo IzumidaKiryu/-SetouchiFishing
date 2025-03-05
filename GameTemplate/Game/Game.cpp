@@ -4,10 +4,12 @@
 
 Game::Game()
 {
+
 }
 
 Game::~Game()
 {
+
 }
 
 bool Game::Start()
@@ -20,7 +22,9 @@ bool Game::Start()
 	m_animationClips[enAnimationClip_Jump].Load("Assets/animData/jump.tka");
 	m_animationClips[enAnimationClip_Jump].SetLoopFlag(false);
 
-	m_modelRender.Init("Assets/modelData/unityChan.tkm",m_animationClips,enAnimationClip_Num);
+	m_modelRender.Init("Assets/modelData/unityChan.tkm",m_animationClips,enAnimationClip_Num,enModelUpAxisY);
+	m_spriteRender.Init("Assets/sprite/Nozomi.DDS", 1920, 1080);
+
 	return true;
 }
 
@@ -28,9 +32,12 @@ void Game::Update()
 {
 	m_modelRender.PlayAnimation(enAnimationClip_Idle);
 	m_modelRender.Update();
+	m_spriteRender.Update();
 }
 
 void Game::Render(RenderContext& rc)
 {
 	m_modelRender.Draw(rc);
+	m_spriteRender.Draw(rc);
+	
 }
