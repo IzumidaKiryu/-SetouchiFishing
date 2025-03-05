@@ -30,6 +30,9 @@ bool Game::Start()
 
 void Game::Update()
 {
+	//wchar_t ws[256];
+	//swprintf_s(ws, 256, L"”ß–Â");
+	m_fontRender.SetText(L"s");
 	m_modelRender.PlayAnimation(enAnimationClip_Idle);
 	m_modelRender.Update();
 	m_spriteRender.Update();
@@ -39,5 +42,5 @@ void Game::Render(RenderContext& rc)
 {
 	m_modelRender.Draw(rc);
 	m_spriteRender.Draw(rc);
-	
+	m_fontRender.Draw(rc);
 }
