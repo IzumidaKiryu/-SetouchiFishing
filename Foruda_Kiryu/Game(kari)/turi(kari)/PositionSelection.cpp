@@ -48,7 +48,7 @@ void PositionSelection::Render(RenderContext& rc)
 
 }
 
-void PositionSelection::SettingFishType(fishingPosition position)
+void PositionSelection::SettingFishType(fishingPosition position)//
 {
 	int randumRank;
 	randumRank=rand()%100;
