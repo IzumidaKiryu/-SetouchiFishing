@@ -13,7 +13,7 @@ public:
 	/// <param name="filePath">ファイルパス。</param>
 	/// <param name="w">画像の横幅。</param>
 	/// <param name="h">画像の縦幅。</param>
-	void Init(const char* filePath, const float w, const float h);
+	void Init(const char* filePath, const float w, const float h, AlphaBlendMode alphaBlendMode = AlphaBlendMode_Trans);
 	/// <summary>
 	/// 座標を設定。
 	/// </summary>
