@@ -22,6 +22,7 @@
     <ClCompile Include="PositionSelection.cpp" />
     <ClCompile Include="PlayFishing.cpp" />
     <ClCompile Include="Fish.cpp" />
+    <ClCompile Include="CastUI.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -39,5 +40,6 @@
     <ClInclude Include="PositionSelection.h" />
     <ClInclude Include="PlayFishing.h" />
     <ClInclude Include="Fish.h" />
+    <ClInclude Include="CastUI.h" />
   </ItemGroup>
 </Project>
