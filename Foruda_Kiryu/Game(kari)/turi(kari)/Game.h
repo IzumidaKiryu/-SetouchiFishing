@@ -7,6 +7,7 @@ class GameCamera;
 class BackGround;
 class GetRotation;
 class PositionSelection;
+class PlayFishing;
 
 //Gameシーンを管理するクラス。
 class Game : public IGameObject
@@ -18,7 +19,7 @@ public:
 	void Update();
 	void Render(RenderContext& rc);
 
-	Vector3 rotationQuantity;
+	Vector3 m_rotationQuantity;
 	Vector3 m_InsideScale{ 1.02f,1.0f,1.0f };
 
 	SpriteRender hpBarInSide;
@@ -29,5 +30,6 @@ public:
 	GetRotation* getRotation;//回転を取得。
 	FontRender m_fontRender;
 	PositionSelection* positionSelection;//場所選択面
+	PlayFishing* m_playFishing;
 };
 
