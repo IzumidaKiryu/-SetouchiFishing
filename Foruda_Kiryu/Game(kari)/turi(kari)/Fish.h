@@ -1,7 +1,7 @@
 #pragma once
 class Fish : public IGameObject
 {
-//public:
+public:
 
 	Fish();
 	~Fish();
