@@ -8,6 +8,8 @@ public:
 
 	SpriteRender m_tensionGaugeInside;
 	SpriteRender m_tensionGaugeOutside;
+	SpriteRender m_tensionGaugeArrow;
 	void Render(RenderContext& rc);
+	
 };
 

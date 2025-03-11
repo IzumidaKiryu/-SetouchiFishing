@@ -1,5 +1,6 @@
 #pragma once
 class GaugeCastSuccessful;
+class TensionGauge;
 class CastGauge:public IGameObject
 {
 public:
@@ -24,5 +25,6 @@ public:
 	SpriteRender m_castGaugeInside;
 	SpriteRender m_castGaugeArrow;
 	GaugeCastSuccessful* m_gaugeCastSuccessful;
+	TensionGauge* tensionGauge;
 };
 

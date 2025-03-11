@@ -23,6 +23,7 @@ void GaugeCastSuccessful::SetRange()
 bool GaugeCastSuccessful::hitTest(float arrowPosition)
 {
 	if (m_rangelower <= arrowPosition && m_rangeMax >= arrowPosition) {
+
 		DeleteGO(this);
 		return true;
 	}

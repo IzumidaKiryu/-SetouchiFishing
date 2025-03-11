@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "CastGauge.h"
 #include "GaugeCastSuccessful.h"
+#include "TensionGauge.h"
 
 CastGauge::CastGauge()
 {
@@ -26,6 +27,7 @@ CastGauge::CastGauge()
 
 CastGauge::~CastGauge()
 {
+
 }
 
 void CastGauge::Update()
@@ -94,6 +96,7 @@ void CastGauge::HitTest()
 	if (g_pad[0]->IsTrigger(enButtonA)) {
 		if (m_gaugeCastSuccessful->hitTest(m_arrowPosition)==true)
 		{
+			tensionGauge=NewGO<TensionGauge>(0, "tensionGauge");
 			DeleteGO(this);
 		}
 	}
