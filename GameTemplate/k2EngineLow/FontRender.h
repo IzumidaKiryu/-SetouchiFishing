@@ -155,18 +155,7 @@ namespace nsK2EngineLow {
 		{
 			m_font.SetShadowParam(isDrawShadow, shadowOffset, shadowColor);
 		}
-	private:
-		/// <summary>
-		/// 2D描画パスから呼ばれる処理。
-		/// </summary>
-		/// <param name="rc"></param>
-		/*void OnRender2D(RenderContext& rc) override
-		{
-
-			m_font.Begin(rc);
-			m_font.Draw(m_text, Vector2(m_position.x, m_position.y), m_color, m_rotation, m_scale, m_pivot);
-			m_font.End(rc);
-		}*/
+	
 	private:
 		Vector3							m_position = Vector3::Zero;			//座標。	
 		float							m_scale = 1.0f;						//文字の大きさ。
