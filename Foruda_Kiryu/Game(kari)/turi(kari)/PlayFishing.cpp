@@ -7,6 +7,7 @@
 PlayFishing::PlayFishing()
 {
 	m_playFishingBackGround = NewGO< PlayFishingBackGround>(0, "playFishingBackGround");
+	CallCastGauge();
 }
 
 PlayFishing::~PlayFishing()
@@ -15,7 +16,6 @@ PlayFishing::~PlayFishing()
 
 void PlayFishing::Update()
 {
-	CallCastGauge();
 }
 
 void PlayFishing::CallCastGauge()

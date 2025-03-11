@@ -8,5 +8,6 @@ public:
 
 	Buri();
 	~Buri();
+
 };
 

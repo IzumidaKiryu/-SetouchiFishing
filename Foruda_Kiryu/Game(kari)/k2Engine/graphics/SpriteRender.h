@@ -88,6 +88,8 @@ public:
 			m_scale,
 			m_pivot);
 	}
+
+
 	/// <summary>
 	/// 描画処理。
 	/// </summary>
@@ -95,8 +97,10 @@ public:
 	void Draw(RenderContext& rc)
 	{
 		m_sprite.Draw(rc);
+
 	}
 private:
+
 	Sprite			m_sprite;								//スプライト。
 	Vector3			m_position;								//座標。
 	Quaternion		m_rotation = Quaternion::Identity;		//回転。

@@ -7,4 +7,5 @@ Buri::Buri()
 
 Buri::~Buri()
 {
+
 }
