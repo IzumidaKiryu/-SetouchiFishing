@@ -46,7 +46,7 @@ void PositionSelection::Render(RenderContext& rc)
 {
 }
 
-void PositionSelection::fishingPositionA_SetFish()
-{
-
-}
+//void PositionSelection::fishingPositionA_SetFish()
+//{
+//
+//}
