@@ -3,7 +3,6 @@
 
 Fish::Fish()
 {
-
 }
 
 Fish::~Fish()
@@ -14,7 +13,7 @@ void Fish::Update()
 {
 }
 
-void Fish::SetIndividualValue(float individualValue)//ŒÂ‘Ì’l‚ğİ’è‚·‚éB
+void Fish::SetIndividualValue()
 {
 	m_individualValue = individualValue;
 }

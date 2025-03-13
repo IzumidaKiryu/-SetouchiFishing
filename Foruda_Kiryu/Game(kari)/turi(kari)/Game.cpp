@@ -8,7 +8,6 @@
 #include "GameCrear.h"
 #include "GetRotation.h"
 #include "PositionSelection.h"
-#include "PlayFishing.h"
 
 Game::Game()
 {
@@ -78,7 +77,7 @@ void Game::Update()
 	//rotationQuantity = { getRotation->rotationQuantity*0.15f/*5.0f*/,2.0f,0.0f};
 
 
-	hpBarInSide.SetScale(m_rotationQuantity);
+	hpBarInSide.SetScale(rotationQuantity);
 
 	hpBarInSide.Update();
 

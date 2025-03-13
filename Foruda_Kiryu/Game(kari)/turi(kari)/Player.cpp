@@ -53,16 +53,16 @@ void Player::Move()
 	stickL.y = g_pad[0]->GetLStickYF();
 
 	//カメラの前方向と右方向のベクトルを持ってくる。
-	Vector3 forward/* = g_camera3D->GetForward()*/;
-	Vector3 right/* = g_camera3D->GetRight()*/;
+	Vector3 forward = g_camera3D->GetForward();
+	Vector3 right = g_camera3D->GetRight();
 	forward *= 5.0f;//縦移動が遅くなるから×5をした。
 	//y方向には移動させない。
 	forward.y = 0.0f;
 	right.y = 0.0f;
 
 	//左スティックの入力量と120.0fを乗算。
-	right.x= stickL.x * 120.0f;
-	forward.z= stickL.y * 120.0f;
+	right *= stickL.x * 120.0f;
+	forward *= stickL.y * 120.0f;
 
 	//移動速度にスティックの入力量を加算する。
 	moveSpeed += right + forward;

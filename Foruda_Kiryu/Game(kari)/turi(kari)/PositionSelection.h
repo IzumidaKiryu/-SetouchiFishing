@@ -23,14 +23,17 @@ struct fishingPosition {
 class PositionSelection : public IGameObject
 {
 public:
-	
 
 	PositionSelection();
 	~PositionSelection();
 	void Update();
 	void Render(RenderContext& rc);
-	void SettingFishType(fishingPosition Position);//魚のタイプを設定。
-	void SelectChangeFish(fishingPosition Position);//魚を変えるかどうか選ぶ。
+	void fishingPositionA_SetFish();
+	void fishingPositionB_SetFish();
+	void fishingPositionC_SetFish();
+	void fishingPositionD_SetFish();
+	void fishingPositionE_SetFish();
+	void fishingPositionF_SetFish();
 	float setFish=0.0f;
 	Player* player;			//プレイヤー。
 	GameCamera* gameCamera;			//ゲームカメラ。

@@ -1,8 +1,7 @@
 #pragma once
 
-
 namespace nsK2EngineLow {
-	class Light;
+
 	class ModelRender
 	{
 	public:
@@ -123,8 +122,6 @@ namespace nsK2EngineLow {
 		StructuredBuffer			m_worldMatrixArraySB;				// ワールド行列の配列のストラクチャードバッファ。
 		//std::vector< GemometryData > m_geometryDatas;					// ジオメトリ情報。
 		std::unique_ptr<int[]>		m_instanceNoToWorldMatrixArrayIndexTable;	// インスタンス番号からワールド行列の配列のインデックスに変換するテーブル。
-
-		Light* m_light=nullptr;
-};
+	};
 }
 
