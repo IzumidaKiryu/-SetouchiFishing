@@ -11,7 +11,8 @@
 
 Game::Game()
 {
-	positionSelection= NewGO<PositionSelection>(0, "positionSelection");
+	/*positionSelection= NewGO<PositionSelection>(0, "positionSelection");*/
+	m_playFishing = NewGO<PlayFishing>(0, "playFishing");
 	//////HPバー（内側）
 	//hpBarInSide.Init("Assets/modelData/HPbar.DDS", 1024, 128);
 	//hpBarInSide.SetPivot(Vector2(0.0f, 0.5f));
