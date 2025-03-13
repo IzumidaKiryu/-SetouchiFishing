@@ -26,7 +26,7 @@ void Fish::SetTimeUntilEscape(float timeUntilEscape)//“¦‚°‚é‚Ü‚Å‚ÌŠÔ‚ğİ’è‚·‚é
 
 bool Fish::TimeCount()
 {
-	if (m_time < m_timeUntilEscape) {
+	/*if (m_time < m_timeUntilEscape) {*/
 		m_time++;
 		if (m_time >= m_timeUntilEscape)
 		{
@@ -35,5 +35,5 @@ bool Fish::TimeCount()
 		else {
 			return false;
 		}
-	}
+	//}
 }

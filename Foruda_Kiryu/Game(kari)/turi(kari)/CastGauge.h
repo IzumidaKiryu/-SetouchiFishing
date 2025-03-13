@@ -14,7 +14,7 @@ public:
 	void SetGaugeSpead();
 	void HitTest();
 	float m_arrowPosition= -237.0f;//矢印のポジション（初期設定は-237）
-	bool upState=true;//上がっているかのステート
+	bool isUp=true;//上がっているかのステート
 	void Render(RenderContext& rc);
 	float m_gaugeUpperLimit = 237.0f;//ゲージの上限
 	float m_gaugeLowerLimit = -237.0f;//ゲージの下限

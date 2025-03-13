@@ -19,7 +19,7 @@ struct fishingPosition {
 	FishType fish;
 	bool fishChangeFlag;//魚を変えるかどうかのフラグ。
 };
-
+//#include "physics/PhysicsGhostObject.h"
 class PositionSelection : public IGameObject
 {
 public:
@@ -37,6 +37,7 @@ public:
 	BackGround* backGround;
 	SoundSource* gameBGM;		//ゲーム中のBGM。
 	FontRender m_fontRender;
+	//PhysicsGhostObject m_physicsGhostObject;
 	fishingPosition PositionA;
 	fishingPosition PositionB;
 	fishingPosition PositionC;

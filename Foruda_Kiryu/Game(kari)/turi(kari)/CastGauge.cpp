@@ -52,10 +52,10 @@ void CastGauge::SetArrowPosition()
 /// </summary>
 void CastGauge::UpAndDownManagement()
 {
-	if (upState == false) {
+	if (isUp == false) {
 		DownwardOperation();
 	}
-	if (upState == true) {
+	if (isUp == true) {
 		UpwardOperation();
 	}
 }
@@ -67,7 +67,7 @@ void CastGauge::UpwardOperation()
 	m_arrowPosition += m_gaugeSpead;
 	if (m_arrowPosition >= m_gaugeUpperLimit) {
 		m_arrowPosition =(-m_arrowPosition + m_gaugeUpperLimit)+ m_gaugeUpperLimit;//ãŒÀ‚ğ’Ê‚è‰ß‚¬‚½‚ç‚»‚Ì•ª–ß‚éˆ—B
-		upState = false;
+		isUp = false;
 	}
 }
 
@@ -79,7 +79,7 @@ void CastGauge::DownwardOperation()
 	m_arrowPosition -= m_gaugeSpead;
 	if (m_arrowPosition <= m_gaugeLowerLimit) {
 		m_arrowPosition = (-m_arrowPosition + m_gaugeLowerLimit) + m_gaugeLowerLimit;//‰ºŒÀ‚ğ’Ê‚è‰ß‚¬‚½‚ç‚»‚Ì•ª–ß‚éˆ—B
-		upState = true;
+		isUp = true;
 	}
 }
 
