@@ -8,12 +8,10 @@
 #include "GameCrear.h"
 #include "GetRotation.h"
 #include "PositionSelection.h"
-#include "PlayFishing.h"
 
 Game::Game()
 {
 	positionSelection= NewGO<PositionSelection>(0, "positionSelection");
-	//m_playFishing = NewGO<PlayFishing>(0, "playFishing");
 	//////HPバー（内側）
 	//hpBarInSide.Init("Assets/modelData/HPbar.DDS", 1024, 128);
 	//hpBarInSide.SetPivot(Vector2(0.0f, 0.5f));
@@ -78,7 +76,7 @@ void Game::Update()
 	//rotationQuantity = { getRotation->rotationQuantity*0.15f/*5.0f*/,2.0f,0.0f};
 
 
-	hpBarInSide.SetScale(m_rotationQuantity);
+	hpBarInSide.SetScale(rotationQuantity);
 
 	hpBarInSide.Update();
 

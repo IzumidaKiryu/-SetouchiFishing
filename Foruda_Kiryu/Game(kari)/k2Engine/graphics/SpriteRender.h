@@ -13,7 +13,7 @@ public:
 	/// <param name="filePath">ファイルパス。</param>
 	/// <param name="w">画像の横幅。</param>
 	/// <param name="h">画像の縦幅。</param>
-	void Init(const char* filePath, const float w, const float h, AlphaBlendMode alphaBlendMode = AlphaBlendMode_Trans);
+	void Init(const char* filePath, const float w, const float h);
 	/// <summary>
 	/// 座標を設定。
 	/// </summary>
@@ -88,8 +88,6 @@ public:
 			m_scale,
 			m_pivot);
 	}
-
-
 	/// <summary>
 	/// 描画処理。
 	/// </summary>
@@ -97,10 +95,8 @@ public:
 	void Draw(RenderContext& rc)
 	{
 		m_sprite.Draw(rc);
-
 	}
 private:
-
 	Sprite			m_sprite;								//スプライト。
 	Vector3			m_position;								//座標。
 	Quaternion		m_rotation = Quaternion::Identity;		//回転。
