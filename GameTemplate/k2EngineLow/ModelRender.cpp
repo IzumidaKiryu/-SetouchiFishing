@@ -55,6 +55,7 @@ void nsK2EngineLow::ModelRender::InitModel(const char* filePath, EnModelUpAxis e
 	//ディレクションライトの情報をディスクリプタヒープに定数バッファとして登録するためにモデルの初期化情報として渡す。
 	initData.m_expandConstantBuffer = &m_light->GetLight();
 	initData.m_expandConstantBufferSize = sizeof(m_light->GetLight());
+
 	//ノンスキンメッシュ用の頂点シェーダーのエントリーポイントを指定する。
 	initData.m_vsEntryPointFunc = "VSMain";
 

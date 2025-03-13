@@ -25,6 +25,8 @@ void nsK2EngineLow::Light::Init()
 	m_light.direction.d_color.y = 0.5f;
 	m_light.direction.d_color.z = 0.5f;
 
+	//Ž‹“_‚ÌˆÊ’u‚ðÝ’è‚·‚éB
+	m_light.direction.eyePos = g_camera3D->GetPosition();
 }
 
 void nsK2EngineLow::Light::Update()
