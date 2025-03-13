@@ -22,12 +22,7 @@
     <ClCompile Include="PositionSelection.cpp" />
     <ClCompile Include="PlayFishing.cpp" />
     <ClCompile Include="Fish.cpp" />
-
-    <ClCompile Include="Buri.cpp" />
-    <ClCompile Include="PlayFishingBackGround.cpp" />
-    <ClCompile Include="CastGauge.cpp" />
-    <ClCompile Include="GaugeCastSuccessful.cpp" />
-
+    <ClCompile Include="CastUI.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -45,10 +40,6 @@
     <ClInclude Include="PositionSelection.h" />
     <ClInclude Include="PlayFishing.h" />
     <ClInclude Include="Fish.h" />
-
-    <ClInclude Include="Buri.h" />
-    <ClInclude Include="PlayFishingBackGround.h" />
-    <ClInclude Include="CastGauge.h" />
-    <ClInclude Include="GaugeCastSuccessful.h" />
+    <ClInclude Include="CastUI.h" />
   </ItemGroup>
 </Project>
