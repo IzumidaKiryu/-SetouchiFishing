@@ -17,6 +17,9 @@ cbuffer DirectionLightCb : register(b1)
 {
     float3 ligDirection;
     float3 ligColor;
+	
+	//視点のデータにアクセスするための変数を定数バッファに登録
+    float3 eyePos;
 }
 ////////////////////////////////////////////////
 // 構造体
@@ -38,6 +41,7 @@ struct SPSIn{
 	float4 pos 			: SV_POSITION;	//スクリーン空間でのピクセルの座標。
 	float2 uv 			: TEXCOORD0;	//uv座標。
     float3 normal : NORMAL;
+    float3 worldPos : TEXCOORD1;
 };
 
 ////////////////////////////////////////////////
@@ -130,9 +134,31 @@ float4 PSMain( SPSIn psIn ) : SV_Target0
 	//ピクセルが受けている光を求める。
     float3 diffuseLig = ligColor * t;
 	
+	//反射ベクトルを求める。
+    float3 refVec = reflect(ligDirection, psIn.normal);
+	
+	//光が当たったサーフェースから視点に伸びるベクトルを求める。
+    float3 toEye = eyePos - psIn.worldPos;
+    toEye = normalize(toEye);
+	
+	//鏡面反射の強さを絞る。
+    t - pow(t, 5.0f);
+	
+	//鏡面反射光を求める。
+    float3 specularLig = ligColor * t;
+	
+	//拡散反射光と鏡面反射光を足し算して最終的な光を計算する。
+    float3 lig = diffuseLig + specularLig;
 	float4 albedoColor = g_albedo.Sample(g_sampler, psIn.uv);
 	
+	//ライトの効果を一律で上げる。
+    lig.x += 0.3f;
+    lig.y += 0.3f;
+    lig.z += 0.3f;
+	
 	//最終的な出力カラーに光を乗算する。
-    albedoColor.xyz *= diffuseLig;
+    albedoColor.xyz *= lig;
+	
+
 	return albedoColor;
 }

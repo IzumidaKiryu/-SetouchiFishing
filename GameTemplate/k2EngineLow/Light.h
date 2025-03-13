@@ -10,6 +10,7 @@ namespace nsK2EngineLow {
 			Vector3 d_direction;//ライトの方向。3要素のベクトルで表現。
 			float pad;
 			Vector3 d_color;//ライトのカラー。光の3原色で表現。
+			Vector3 eyePos;//視点の位置。
 		};
 
 		struct PointLight {
@@ -29,6 +30,7 @@ namespace nsK2EngineLow {
 		struct SceneLight
 		{
 			DirectionLight direction;
+			
 		};
 
 		Light();
