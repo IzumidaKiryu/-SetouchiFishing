@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include "sound/SoundSource.h"
 
 
@@ -7,27 +7,28 @@ class GameCamera;
 class BackGround;
 class GetRotation;
 class PositionSelection;
+class PlayFishing;
 
-//GameƒV[ƒ“‚ğŠÇ—‚·‚éƒNƒ‰ƒXB
+//Gameï¿½Vï¿½[ï¿½ï¿½ï¿½ï¿½Ç—ï¿½ï¿½ï¿½ï¿½ï¿½Nï¿½ï¿½ï¿½Xï¿½B
 class Game : public IGameObject
 {
 public:
 	Game();
 	~Game();
-	//XVˆ—B
+	//ï¿½Xï¿½Vï¿½ï¿½ï¿½ï¿½ï¿½B
 	void Update();
 	void Render(RenderContext& rc);
 
-	Vector3 rotationQuantity;
+	Vector3 m_rotationQuantity;
 	Vector3 m_InsideScale{ 1.02f,1.0f,1.0f };
 
 	SpriteRender hpBarInSide;
-	Player* player;			//ƒvƒŒƒCƒ„[B
-	GameCamera* gameCamera;			//ƒQ[ƒ€ƒJƒƒ‰B
+	Player* player;			//ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½B
+	GameCamera* gameCamera;			//ï¿½Qï¿½[ï¿½ï¿½ï¿½Jï¿½ï¿½ï¿½ï¿½ï¿½B
 	BackGround* backGround;
-	SoundSource* gameBGM;		//ƒQ[ƒ€’†‚ÌBGMB
-	GetRotation* getRotation;//‰ñ“]‚ğæ“¾B
+	SoundSource* gameBGM;		//ï¿½Qï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½BGMï¿½B
+	GetRotation* getRotation;//ï¿½ï¿½]ï¿½ï¿½æ“¾ï¿½B
 	FontRender m_fontRender;
-	PositionSelection* positionSelection;//êŠ‘I‘ğ–Ê
+	PositionSelection* positionSelection;//ï¿½êŠï¿½Iï¿½ï¿½ï¿½
+	PlayFishing* m_playFishing;
 };
-

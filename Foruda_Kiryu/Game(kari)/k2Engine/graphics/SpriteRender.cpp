@@ -1,16 +1,17 @@
-#include "k2EnginePreCompile.h"
+ï»¿#include "k2EnginePreCompile.h"
 #include "SpriteRender.h"
 
-void SpriteRender::Init(const char* filePath, const float w, const float h)
+void SpriteRender::Init(const char* filePath, const float w, const float h, AlphaBlendMode alphaBlendMode)
 {
 	SpriteInitData initData;
-	//DDSƒtƒ@ƒCƒ‹(‰æ‘œƒf[ƒ^)‚Ìƒtƒ@ƒCƒ‹ƒpƒX‚ğw’è‚·‚éB
+	//DDSï¿½tï¿½@ï¿½Cï¿½ï¿½(ï¿½æ‘œï¿½fï¿½[ï¿½^)ï¿½Ìƒtï¿½@ï¿½Cï¿½ï¿½ï¿½pï¿½Xï¿½ï¿½wï¿½è‚·ï¿½ï¿½B
 	initData.m_ddsFilePath[0] = filePath;
-	//Sprite•\¦—p‚ÌƒVƒF[ƒ_[‚Ìƒtƒ@ƒCƒ‹ƒpƒX‚ğw’è‚·‚éB
+	//Spriteï¿½\ï¿½ï¿½ï¿½pï¿½ÌƒVï¿½Fï¿½[ï¿½_ï¿½[ï¿½Ìƒtï¿½@ï¿½Cï¿½ï¿½ï¿½pï¿½Xï¿½ï¿½wï¿½è‚·ï¿½ï¿½B
 	initData.m_fxFilePath = "Assets/shader/sprite.fx";
-	//ƒXƒvƒ‰ƒCƒg‚Ì•‚Æ‚‚³‚ğw’è‚·‚éB
+	//ï¿½Xï¿½vï¿½ï¿½ï¿½Cï¿½gï¿½Ì•ï¿½ï¿½Æï¿½ï¿½ï¿½ï¿½ï¿½wï¿½è‚·ï¿½ï¿½B
 	initData.m_width = w;
 	initData.m_height = h;
-	//Sprite‰Šú‰»ƒIƒuƒWƒFƒNƒg‚ğg—p‚µ‚ÄASprite‚ğ‰Šú‰»‚·‚éB
+	initData.m_alphaBlendMode = alphaBlendMode;
+	//Spriteï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Iï¿½uï¿½Wï¿½Fï¿½Nï¿½gï¿½ï¿½gï¿½pï¿½ï¿½ï¿½ÄASpriteï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½B
 	m_sprite.Init(initData);
 }
