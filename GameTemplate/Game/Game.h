@@ -10,6 +10,9 @@ public:
 	void Update();
 	void Render(RenderContext& rc);
 	ModelRender m_modelRender;
+	SpriteRender m_spriteRender;
+	FontRender m_fontRender;
+	//Light m_light;
 	enum EnAnimationClip {		//アニメーション。
 		enAnimationClip_Idle,
 		enAnimationClip_Walk,
