@@ -2,15 +2,15 @@
 namespace nsK2EngineLow {
 
 
-	//ライトクラス。環境光はシェーダー側で設定してる。
+	//ライトクラス。環境光はシェーダー側で設定してる(各初期値0.3f)。
 	class Light :public IGameObject
 	{
 	public:
 		struct DirectionLight {
 			Vector3 d_direction;//ライトの方向。3要素のベクトルで表現。
-			float pad;
+			float pad0;
 			Vector3 d_color;//ライトのカラー。光の3原色で表現。
-			Vector3 eyePos;//視点の位置。
+			float pad1;
 		};
 
 		struct PointLight {
@@ -18,6 +18,7 @@ namespace nsK2EngineLow {
 			float pad2;//パティング。
 			Vector3 ptColor;//ライトのカラー。光の3原色で表現。
 			float ptInfuluenceRenge;//影響範囲。単位はメートル。
+		
 		};
 
 		struct SpotLight {
@@ -32,6 +33,10 @@ namespace nsK2EngineLow {
 		{
 			DirectionLight direction;
 			PointLight pointLig;
+			Vector3 eyePos;
+			float pad0;
+			Vector3 ambientLight;
+
 		};
 
 		Light();
