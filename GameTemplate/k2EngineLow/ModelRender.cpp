@@ -1,10 +1,11 @@
 #include "k2EngineLowPreCompile.h"
 #include "ModelRender.h"
-
+#include "Light.h"
 
 nsK2EngineLow::ModelRender::ModelRender()
 {
-	
+	m_light = NewGO<Light>(0, "light");
+	m_light->Init();
 }
 
 nsK2EngineLow::ModelRender::~ModelRender()
@@ -49,6 +50,10 @@ void nsK2EngineLow::ModelRender::InitModel(const char* filePath, EnModelUpAxis e
 	initData.m_tkmFilePath = filePath;
 	//シェーダーファイルのファイルパスを指定する。
 	initData.m_fxFilePath = "Assets/shader/model.fx";
+
+	initData.m_expandConstantBuffer = &m_light->GetLight();
+	initData.m_expandConstantBufferSize = sizeof(m_light->GetLight());
+
 	//ノンスキンメッシュ用の頂点シェーダーのエントリーポイントを指定する。
 	initData.m_vsEntryPointFunc = "VSMain";
 
@@ -76,6 +81,16 @@ void nsK2EngineLow::ModelRender::Update()
 	//アニメーションを進める。
 	m_animation.Progress(g_gameTime->GetFrameDeltaTime());
 
+
+	////コントローラーでポイントライトを動かす。（確認用の実装のため、コメントアウト）。
+	m_light->m_SceneLight.pointLig.ptPosition.x -= g_pad[0]->GetLStickXF();
+	if (g_pad[0]->IsPress(enButtonB)) {
+		m_light->m_SceneLight.pointLig.ptPosition.y += g_pad[0]->GetLStickYF();
+	}
+	else {
+		m_light->m_SceneLight.pointLig.ptPosition.z -= g_pad[0]->GetLStickYF();
+	}
+	
 }
 
 void nsK2EngineLow::ModelRender::Draw(RenderContext& rc)
