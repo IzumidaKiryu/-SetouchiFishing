@@ -66,7 +66,7 @@ void CastGauge::UpwardOperation()
 {
 	m_arrowPosition += m_gaugeSpead;
 	if (m_arrowPosition >= m_gaugeUpperLimit) {
-		m_arrowPosition =(-m_arrowPosition + m_gaugeUpperLimit)+ m_gaugeUpperLimit;//ãŒÀ‚ð’Ê‚è‰ß‚¬‚½‚ç‚»‚Ì•ª–ß‚éˆ—B
+		m_arrowPosition = (-m_arrowPosition + m_gaugeUpperLimit) + m_gaugeUpperLimit;//ãŒÀ‚ð’Ê‚è‰ß‚¬‚½‚ç‚»‚Ì•ª–ß‚éˆ—B
 		upState = false;
 	}
 }
@@ -94,9 +94,9 @@ void CastGauge::SetGaugeSpead()
 void CastGauge::HitTest()
 {
 	if (g_pad[0]->IsTrigger(enButtonA)) {
-		if (m_gaugeCastSuccessful->hitTest(m_arrowPosition)==true)
+		if (m_gaugeCastSuccessful->hitTest(m_arrowPosition) == true)
 		{
-			tensionGauge=NewGO<TensionGauge>(0, "tensionGauge");
+			tensionGauge = NewGO<TensionGauge>(0, "tensionGauge");
 			DeleteGO(this);
 		}
 	}

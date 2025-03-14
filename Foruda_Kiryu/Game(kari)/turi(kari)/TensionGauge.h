@@ -1,5 +1,5 @@
 #pragma once
-class TensionGauge :public IGameObject
+class TensionGauge:public IGameObject
 {
 public:
 
@@ -10,6 +10,5 @@ public:
 	SpriteRender m_tensionGaugeOutside;
 	SpriteRender m_tensionGaugeArrow;
 	void Render(RenderContext& rc);
-	
 };
 
