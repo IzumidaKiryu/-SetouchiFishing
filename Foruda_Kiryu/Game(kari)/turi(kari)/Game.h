@@ -18,7 +18,7 @@ public:
 	void Update();
 	void Render(RenderContext& rc);
 
-	Vector3 rotationQuantity;
+	Vector3 m_rotationQuantity;
 	Vector3 m_InsideScale{ 1.02f,1.0f,1.0f };
 
 	SpriteRender hpBarInSide;
