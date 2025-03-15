@@ -23,12 +23,11 @@ public:
 	Vector3 m_InsideScale{ 1.02f,1.0f,1.0f };
 
 	SpriteRender hpBarInSide;
-	Player* player;			//�v���C���[�B
-	GameCamera* gameCamera;			//�Q�[���J�����B
+	Player* player;			
+	GameCamera* gameCamera;			
 	BackGround* backGround;
-	SoundSource* gameBGM;		//�Q�[������BGM�B
-	GetRotation* getRotation;//��]��擾�B
+	SoundSource* gameBGM;		
 	FontRender m_fontRender;
-	PositionSelection* positionSelection;//�ꏊ�I���
+	PositionSelection* positionSelection;//場所を選ぶ画面のクラス。
 	PlayFishing* m_playFishing;
 };
