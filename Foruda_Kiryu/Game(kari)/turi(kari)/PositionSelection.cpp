@@ -69,7 +69,9 @@ void PositionSelection::SelectChangeFish(fishingPosition Position)
 void PositionSelection::SetUI()
 {
 	for (int i = 0; i < 6; i++) {
+
 		//魚を表示するディスプレイの内側
+
 		m_fishDisplayInside[i].Init("Assets/modelData/fish_display_ui_inside.DDS", 150, 150);
 		m_fishDisplayInside[i].SetPivot(Vector2(0.5f, 0.5f));
 		m_fishDisplayInside[i].SetPosition(m_fishDisplayPosition[i]);
@@ -77,6 +79,7 @@ void PositionSelection::SetUI()
 		m_fishDisplayInside[i].Update();
 
 		//魚を表示するディスプレイの外側
+
 		m_fishDisplayOutside[i].Init("Assets/modelData/fish_display_ui_outside.DDS", 150, 150);
 		m_fishDisplayOutside[i].SetPivot(Vector2(0.5f, 0.5f));
 		m_fishDisplayOutside[i].SetPosition(m_fishDisplayPosition[i]);

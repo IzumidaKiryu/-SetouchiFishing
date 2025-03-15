@@ -1,85 +1,85 @@
-#pragma once
+ï»¿#pragma once
 
 /// <summary>
-/// ƒXƒvƒ‰ƒCƒgƒŒƒ“ƒ‰[B
+/// ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆãƒ¬ãƒ³ãƒ©ãƒ¼ã€‚
 /// </summary>
 class SpriteRender
 {
 public:
 	/// <summary>
-	/// ‰Šú‰»B
-	/// ‰¡•‚Æc•‚ÍA‰æ‘œ‚ÌƒvƒƒpƒeƒB‚È‚Ç‚ÅŠm”F‚Å‚«‚éƒsƒNƒZƒ‹”‚ğ“ü‚ê‚Ä‚­‚¾‚³‚¢B
+	/// åˆæœŸåŒ–ã€‚
+	/// æ¨ªå¹…ã¨ç¸¦å¹…ã¯ã€ç”»åƒã®ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ãªã©ã§ç¢ºèªã§ãã‚‹ãƒ”ã‚¯ã‚»ãƒ«æ•°ã‚’å…¥ã‚Œã¦ãã ã•ã„ã€‚
 	/// </summary>
-	/// <param name="filePath">ƒtƒ@ƒCƒ‹ƒpƒXB</param>
-	/// <param name="w">‰æ‘œ‚Ì‰¡•B</param>
-	/// <param name="h">‰æ‘œ‚Ìc•B</param>
-	void Init(const char* filePath, const float w, const float h);
+	/// <param name="filePath">ãƒ•ã‚¡ã‚¤ãƒ«ãƒ‘ã‚¹ã€‚</param>
+	/// <param name="w">ç”»åƒã®æ¨ªå¹…ã€‚</param>
+	/// <param name="h">ç”»åƒã®ç¸¦å¹…ã€‚</param>
+	void Init(const char* filePath, const float w, const float h, AlphaBlendMode alphaBlendMode = AlphaBlendMode_Trans);
 	/// <summary>
-	/// À•W‚ğİ’èB
+	/// åº§æ¨™ã‚’è¨­å®šã€‚
 	/// </summary>
-	/// <param name="pos">À•WB</param>
+	/// <param name="pos">åº§æ¨™ã€‚</param>
 	void SetPosition(const Vector3& pos)
 	{
 		m_position = pos;
 	}
 	/// <summary>
-	/// À•W‚ğæ“¾B
+	/// åº§æ¨™ã‚’å–å¾—ã€‚
 	/// </summary>
-	/// <returns>À•WB</returns>
+	/// <returns>åº§æ¨™ã€‚</returns>
 	const Vector3& GetPosition() const
 	{
 		return m_position;
 	}
 	/// <summary>
-	/// ‘å‚«‚³‚ğİ’èB
+	/// å¤§ãã•ã‚’è¨­å®šã€‚
 	/// </summary>
-	/// <param name="scale">‘å‚«‚³B</param>
+	/// <param name="scale">å¤§ãã•ã€‚</param>
 	void SetScale(const Vector3& scale)
 	{
 		m_scale = scale;
 	}
 	/// <summary>
-	/// ‘å‚«‚³‚ğæ“¾B
+	/// å¤§ãã•ã‚’å–å¾—ã€‚
 	/// </summary>
-	/// <returns>‘å‚«‚³B</returns>
+	/// <returns>å¤§ãã•ã€‚</returns>
 	const Vector3& GetScale() const
 	{
 		return m_scale;
 	}
 	/// <summary>
-	/// ‰ñ“]‚ğİ’èB
+	/// å›è»¢ã‚’è¨­å®šã€‚
 	/// </summary>
-	/// <param name="rot">‰ñ“]B</param>
+	/// <param name="rot">å›è»¢ã€‚</param>
 	void SetRotation(const Quaternion& rot)
 	{
 		m_rotation = rot;
 	}
 	/// <summary>
-	/// ‰ñ“]‚ğæ“¾B
+	/// å›è»¢ã‚’å–å¾—ã€‚
 	/// </summary>
-	/// <returns>‰ñ“]B</returns>
+	/// <returns>å›è»¢ã€‚</returns>
 	const Quaternion& GetRotation() const
 	{
 		return m_rotation;
 	}
 	/// <summary>
-	/// ƒsƒ{ƒbƒg‚ğİ’èB
+	/// ãƒ”ãƒœãƒƒãƒˆã‚’è¨­å®šã€‚
 	/// </summary>
-	/// <param name="pivot">ƒsƒ{ƒbƒgB</param>
+	/// <param name="pivot">ãƒ”ãƒœãƒƒãƒˆã€‚</param>
 	void SetPivot(const Vector2& pivot)
 	{
 		m_pivot = pivot;
 	}
 	/// <summary>
-	/// ƒsƒ{ƒbƒg‚ğæ“¾B
+	/// ãƒ”ãƒœãƒƒãƒˆã‚’å–å¾—ã€‚
 	/// </summary>
-	/// <returns>ƒsƒ{ƒbƒgB</returns>
+	/// <returns>ãƒ”ãƒœãƒƒãƒˆã€‚</returns>
 	const Vector2& GetPivot() const
 	{
 		return m_pivot;
 	}
 	/// <summary>
-	/// XVˆ—B
+	/// æ›´æ–°å‡¦ç†ã€‚
 	/// </summary>
 	void Update()
 	{
@@ -89,19 +89,19 @@ public:
 			m_pivot);
 	}
 	/// <summary>
-	/// •`‰æˆ—B
+	/// æç”»å‡¦ç†ã€‚
 	/// </summary>
-	/// <param name="rc">ƒŒƒ“ƒ_[ƒRƒ“ƒeƒLƒXƒgB</param>
+	/// <param name="rc">ãƒ¬ãƒ³ãƒ€ãƒ¼ã‚³ãƒ³ãƒ†ã‚­ã‚¹ãƒˆã€‚</param>
 	void Draw(RenderContext& rc)
 	{
 		m_sprite.Draw(rc);
 	}
 private:
-	Sprite			m_sprite;								//ƒXƒvƒ‰ƒCƒgB
-	Vector3			m_position;								//À•WB
-	Quaternion		m_rotation = Quaternion::Identity;		//‰ñ“]B
-	Vector3			m_scale = Vector3::One;					//‘å‚«‚³B
-	Vector2			m_pivot = Sprite::DEFAULT_PIVOT;		//ƒsƒ{ƒbƒgB
+	Sprite			m_sprite;								//ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆã€‚
+	Vector3			m_position;								//åº§æ¨™ã€‚
+	Quaternion		m_rotation = Quaternion::Identity;		//å›è»¢ã€‚
+	Vector3			m_scale = Vector3::One;					//å¤§ãã•ã€‚
+	Vector2			m_pivot = Sprite::DEFAULT_PIVOT;		//ãƒ”ãƒœãƒƒãƒˆã€‚
 
 };
 

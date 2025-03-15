@@ -17,7 +17,7 @@ enum FishType {
 };
 struct fishingPosition {
 	FishType fish;
-	bool fishChangeFlag;//‹›‚ğ•Ï‚¦‚é‚©‚Ç‚¤‚©‚Ìƒtƒ‰ƒOB
+	bool fishChangeFlag;//é­šã‚’å¤‰ãˆã‚‹ã‹ã©ã†ã‹ã®ãƒ•ãƒ©ã‚°ã€‚
 };
 
 class PositionSelection : public IGameObject
@@ -29,21 +29,23 @@ public:
 	~PositionSelection();
 	void Update();
 	void Render(RenderContext& rc);
-	void SettingFishType(fishingPosition Position);//‹›‚Ìƒ^ƒCƒv‚ğİ’èB
-	void SelectChangeFish(fishingPosition Position);//‹›‚ğ•Ï‚¦‚é‚©‚Ç‚¤‚©‘I‚ÔB
+	void SettingFishType(fishingPosition Position);//é­šã®ã‚¿ã‚¤ãƒ—ã‚’è¨­å®šã€‚
+	void SelectChangeFish(fishingPosition Position);//é­šã‚’å¤‰ãˆã‚‹ã‹ã©ã†ã‹é¸ã¶ã€‚
 	void SetUI();
 	void SetFishDisplayPosition();
 
 	float setFish=0.0f;
 	Vector3 m_fishDisplayPosition[6];
-	float m_fishDisplayPositionXcriteria = -300;//‹›‚ğ•\¦‚·‚éƒfƒBƒXƒvƒŒƒC‚ÌêŠ‚ÌŠî€iX²j
-	float m_fishDisplayPositionXinterval = 300.0f;
+
+	float m_fishDisplayPositionXcriteria = -350;//é­šã‚’è¡¨ç¤ºã™ã‚‹ãƒ‡ã‚£ã‚¹ãƒ—ãƒ¬ã‚¤ã®å ´æ‰€ã®åŸºæº–ï¼ˆXè»¸ï¼‰
+	float m_fishDisplayPositionXinterval = 350.0f;
 
 
-	Player* player;			//ƒvƒŒƒCƒ„[B
-	GameCamera* gameCamera;			//ƒQ[ƒ€ƒJƒƒ‰B
+
+	Player* player;			//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã€‚
+	GameCamera* gameCamera;			//ã‚²ãƒ¼ãƒ ã‚«ãƒ¡ãƒ©ã€‚
 	BackGround* backGround;
-	SoundSource* gameBGM;		//ƒQ[ƒ€’†‚ÌBGMB
+	SoundSource* gameBGM;		//ã‚²ãƒ¼ãƒ ä¸­ã®BGMã€‚
 	FontRender m_fontRender;
 	SpriteRender m_fishDisplayInside[6];
 	SpriteRender m_fishDisplayOutside[6];
