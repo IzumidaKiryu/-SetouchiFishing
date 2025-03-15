@@ -9,46 +9,39 @@ PositionSelection::PositionSelection()
 {
 	srand(time(NULL));
 
-	//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ä½œã‚‹ã€‚
+	//ƒvƒŒƒCƒ„[‚ÌƒIƒuƒWƒFƒNƒg‚ðì‚éB
 	player = NewGO<Player>(0, "player");
 
-	//ã‚²ãƒ¼ãƒ ã‚«ãƒ¡ãƒ©ã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ä½œã‚‹ã€‚
+	//ƒQ[ƒ€ƒJƒƒ‰‚ÌƒIƒuƒWƒFƒNƒg‚ðì‚éB
 	gameCamera = NewGO<GameCamera>(0, "gamecamera");
 
-	//èƒŒæ™¯ã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ä½œã‚‹ã€‚
+	//”wŒi‚ÌƒIƒuƒWƒFƒNƒg‚ðì‚éB
 	backGround = NewGO<BackGround>(0);
-	//ã‚²ãƒ¼ãƒ ä¸­ã®BGMã‚’èª­ã¿è¾¼ã‚€ã€‚
+	//ƒQ[ƒ€’†‚ÌBGM‚ð“Ç‚Ýž‚ÞB
 	g_soundEngine->ResistWaveFileBank(1, "Assets/sound/gamebgm.wav");
-	//ã‚²ãƒ¼ãƒ ä¸­ã®BGMã‚’å†ç”Ÿã™ã‚‹ã€‚
+	//ƒQ[ƒ€’†‚ÌBGM‚ðÄ¶‚·‚éB
 	gameBGM = NewGO<SoundSource>(0);
 	/*gameBGM->Init(1);
 	gameBGM->Play(true);*/
 	gameCamera->m_toCameraPos.Set(0.0f, 1250.0f, -250.0f);
 
-
-	//UIï¿½ÌêŠï¿½ï¿½ï¿½ï¿½ï¿½ß‚ï¿½B
+	//UI‚ÌêŠ‚ðŒˆ‚ß‚éB
 	SetFishDisplayPosition();
 
-	//UIï¿½ï¿½Ý’è‚·ï¿½ï¿½B
-
-	//UIã®å ´æ‰€ã‚’æ±ºã‚ã‚‹ã€‚
-	SetFishDisplayPosition();
-
-	//UIã‚’è¨­å®šã™ã‚‹ã€‚
-
+	//UI‚ðÝ’è‚·‚éB
 	SetUI();
 
 }
 
 PositionSelection::~PositionSelection()
 {
-	//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚’å‰Šé™¤ã™ã‚‹ã€‚
+	//ƒvƒŒƒCƒ„[‚ðíœ‚·‚éB
 	DeleteGO(player);
-	//ã‚²ãƒ¼ãƒ ã‚«ãƒ¡ãƒ©ã‚’å‰Šé™¤ã™ã‚‹ã€‚
+	//ƒQ[ƒ€ƒJƒƒ‰‚ðíœ‚·‚éB
 	DeleteGO(gameCamera);
-	//ã‚²ãƒ¼ãƒ ä¸­ã®BGMã‚’å‰Šé™¤ã™ã‚‹ã€‚
+	//ƒQ[ƒ€’†‚ÌBGM‚ðíœ‚·‚éB
 	DeleteGO(gameCamera);
-	//èƒŒæ™¯ã‚’å‰Šé™¤ã™ã‚‹ã€‚
+	//”wŒi‚ðíœ‚·‚éB
 	DeleteGO(backGround);
 }
 
@@ -77,9 +70,7 @@ void PositionSelection::SetUI()
 {
 	for (int i = 0; i < 6; i++) {
 
-
-		//é­šã‚’è¡¨ç¤ºã™ã‚‹ãƒ‡ã‚£ã‚¹ãƒ—ãƒ¬ã‚¤ã®å†…å´
-
+		//‹›‚ð•\Ž¦‚·‚éƒfƒBƒXƒvƒŒƒC‚Ì“à‘¤
 
 		m_fishDisplayInside[i].Init("Assets/modelData/fish_display_ui_inside.DDS", 150, 150);
 		m_fishDisplayInside[i].SetPivot(Vector2(0.5f, 0.5f));
@@ -87,7 +78,7 @@ void PositionSelection::SetUI()
 		m_fishDisplayInside[i].SetScale(Vector3{ 1.0f, 1.0f, 1.0f });
 		m_fishDisplayInside[i].Update();
 
-		//é­šã‚’è¡¨ç¤ºã™ã‚‹ãƒ‡ã‚£ã‚¹ãƒ—ãƒ¬ã‚¤ã®å¤–å´
+		//‹›‚ð•\Ž¦‚·‚éƒfƒBƒXƒvƒŒƒC‚ÌŠO‘¤
 
 		m_fishDisplayOutside[i].Init("Assets/modelData/fish_display_ui_outside.DDS", 150, 150);
 		m_fishDisplayOutside[i].SetPivot(Vector2(0.5f, 0.5f));
