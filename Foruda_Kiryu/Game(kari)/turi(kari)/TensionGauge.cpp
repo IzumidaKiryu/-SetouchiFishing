@@ -39,7 +39,7 @@ void TensionGauge::RightAndLeftManagement()
 
 void TensionGauge::SetArrowPosition()
 {
-	m_arrowPosition = m_getRotation->rotationQuantity;
+	m_arrowPosition = m_getRotation->rotationQuantity*100;
 	m_tensionGaugeArrow.SetPosition(Vector3(m_arrowPosition, -200.0f, 0.0f));
 	m_tensionGaugeArrow.Update();
 }
