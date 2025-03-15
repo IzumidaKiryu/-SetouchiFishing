@@ -25,10 +25,17 @@ PositionSelection::PositionSelection()
 	gameBGM->Play(true);*/
 	gameCamera->m_toCameraPos.Set(0.0f, 1250.0f, -250.0f);
 
+
+	//UI�̏ꏊ�����߂�B
+	SetFishDisplayPosition();
+
+	//UI��ݒ肷��B
+
 	//UIの場所を決める。
 	SetFishDisplayPosition();
 
 	//UIを設定する。
+
 	SetUI();
 
 }
@@ -70,7 +77,9 @@ void PositionSelection::SetUI()
 {
 	for (int i = 0; i < 6; i++) {
 
+
 		//魚を表示するディスプレイの内側
+
 
 		m_fishDisplayInside[i].Init("Assets/modelData/fish_display_ui_inside.DDS", 150, 150);
 		m_fishDisplayInside[i].SetPivot(Vector2(0.5f, 0.5f));
@@ -100,7 +109,6 @@ void PositionSelection::SetFishDisplayPosition()
 		}
 	}
 }
-
 
 //void PositionSelection::fishingPositionA_SetFish()
 //{
