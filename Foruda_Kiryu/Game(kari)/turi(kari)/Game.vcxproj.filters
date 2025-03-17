@@ -26,10 +26,9 @@
     <ClCompile Include="TensionGauge.cpp" />
     <ClCompile Include="CastGauge.cpp" />
     <ClCompile Include="GaugeCastSuccessful.cpp" />
-
     <ClCompile Include="PlayFishingBackGround.cpp" />
-
     <ClCompile Include="FishingGauge.cpp" />
+    <ClCompile Include="Buri.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -53,5 +52,6 @@
     <ClInclude Include="GaugeCastSuccessful.h" />
     <ClInclude Include="PlayFishingBackGround.h" />
     <ClInclude Include="FishingGauge.h" />
+    <ClInclude Include="Buri.h" />
   </ItemGroup>
 </Project>
