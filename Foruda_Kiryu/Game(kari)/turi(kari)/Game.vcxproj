@@ -151,6 +151,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="BackGround.cpp" />
+    <ClCompile Include="Buri.cpp" />
     <ClCompile Include="CastGauge.cpp" />
     <ClCompile Include="CastUI.cpp" />
     <ClCompile Include="Fish.cpp" />
@@ -176,6 +177,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BackGround.h" />
+    <ClInclude Include="Buri.h" />
     <ClInclude Include="CastGauge.h" />
     <ClInclude Include="CastUI.h" />
     <ClInclude Include="Fish.h" />
