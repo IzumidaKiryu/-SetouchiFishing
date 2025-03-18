@@ -21,7 +21,7 @@ void Fish::Update()
 void Fish::SetIndividualValue(float baseIndividualValue)
 {
 
-	//魚の個体値は基準の個体値×（0.8から1.2までのランダムな数）で計算する。
+	//魚の個体値は基準の個体値×（0.8から1.2までのランダムな数）で計算をする。
 	float individualValueMagnification=0.4/(rand()%100)+1;//個体値の倍率
 	individualValueMagnification += 0.8;
 
