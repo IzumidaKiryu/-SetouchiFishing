@@ -30,6 +30,7 @@
     <ClCompile Include="FishingGauge.cpp" />
     <ClCompile Include="Buri.cpp" />
     <ClCompile Include="FishManager.cpp" />
+    <ClCompile Include="Tatiuo.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -55,5 +56,6 @@
     <ClInclude Include="FishingGauge.h" />
     <ClInclude Include="Buri.h" />
     <ClInclude Include="FishManager.h" />
+    <ClInclude Include="Tatiuo.h" />
   </ItemGroup>
 </Project>

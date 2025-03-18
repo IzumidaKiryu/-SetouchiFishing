@@ -173,6 +173,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="system\system.cpp" />
+    <ClCompile Include="Tatiuo.cpp" />
     <ClCompile Include="TensionGauge.cpp" />
     <ClCompile Include="Title.cpp" />
   </ItemGroup>
@@ -196,6 +197,7 @@
     <ClInclude Include="Star.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="system\system.h" />
+    <ClInclude Include="Tatiuo.h" />
     <ClInclude Include="TensionGauge.h" />
     <ClInclude Include="Title.h" />
   </ItemGroup>
