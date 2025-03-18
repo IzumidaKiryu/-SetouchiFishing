@@ -6,16 +6,14 @@ class Player;
 class GameCamera;
 class BackGround;
 class SoundSource;
-class Buri;
-class Fish;
 
 enum FishType {
 	TAI,
 	BURI,
-	Tatiuo,
-	Hirame,
-	Jakotenn,
-	Sinju,
+	TATIUO,
+	HIRAME,
+	JAKOTENN,
+	SINJU,
 };
 struct fishingPosition {
 	FishType fish;
@@ -57,7 +55,5 @@ public:
 	fishingPosition PositionD;
 	fishingPosition PositionE;
 	fishingPosition PositionF;
-	Buri buri;
-	Fish*fish;
 };
 
