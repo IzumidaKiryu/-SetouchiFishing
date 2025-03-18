@@ -3,7 +3,7 @@
 
 Fish::Fish()
 {
-
+	srand(time(NULL));
 }
 
 Fish::~Fish()
@@ -14,10 +14,18 @@ void Fish::Update()
 {
 }
 
-
-void Fish::SetIndividualValue(float individualValue)//個体値を設定する。
+/// <summary>
+/// 個体値を設定する。
+/// </summary>
+/// <param name="baseIndividualValue"></param>
+void Fish::SetIndividualValue(float baseIndividualValue)
 {
-	m_individualValue = individualValue;
+
+	//魚の個体値は基準の個体値×（0.8から1.2までのランダムな数）で計算する。
+	float individualValueMagnification=0.4/(rand()%100)+1;//個体値の倍率
+	individualValueMagnification += 0.8;
+
+	m_individualValue = baseIndividualValue* individualValueMagnification;
 }
 
 void Fish::SetTimeUntilEscape(float timeUntilEscape)//逃げるまでの時間を設定する。
