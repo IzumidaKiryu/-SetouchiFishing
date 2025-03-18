@@ -4,11 +4,12 @@
 #include "sound/SoundEngine.h"
 #include "GameCamera.h"
 #include "BackGround.h"
+#include "Buri.h"
+#include "Fish.h"
 
 PositionSelection::PositionSelection()
 {
 	srand(time(NULL));
-
 	//プレイヤーのオブジェクトを作る。
 	player = NewGO<Player>(0, "player");
 

@@ -29,6 +29,7 @@
     <ClCompile Include="PlayFishingBackGround.cpp" />
     <ClCompile Include="FishingGauge.cpp" />
     <ClCompile Include="Buri.cpp" />
+    <ClCompile Include="FishManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -53,5 +54,6 @@
     <ClInclude Include="PlayFishingBackGround.h" />
     <ClInclude Include="FishingGauge.h" />
     <ClInclude Include="Buri.h" />
+    <ClInclude Include="FishManager.h" />
   </ItemGroup>
 </Project>

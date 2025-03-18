@@ -156,6 +156,7 @@
     <ClCompile Include="CastUI.cpp" />
     <ClCompile Include="Fish.cpp" />
     <ClCompile Include="FishingGauge.cpp" />
+    <ClCompile Include="FishManager.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameCamera.cpp" />
     <ClCompile Include="GameCrear.cpp" />
@@ -182,6 +183,7 @@
     <ClInclude Include="CastUI.h" />
     <ClInclude Include="Fish.h" />
     <ClInclude Include="FishingGauge.h" />
+    <ClInclude Include="FishManager.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameCamera.h" />
     <ClInclude Include="GameCrear.h" />

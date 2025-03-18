@@ -1,15 +1,17 @@
 #pragma once
 #include "sound/SoundSource.h"
 
+
 class Player;
 class GameCamera;
 class BackGround;
 class SoundSource;
+class Buri;
+class Fish;
 
 enum FishType {
-	null,
-	Tai,
-	Buri,
+	TAI,
+	BURI,
 	Tatiuo,
 	Hirame,
 	Jakotenn,
@@ -55,6 +57,7 @@ public:
 	fishingPosition PositionD;
 	fishingPosition PositionE;
 	fishingPosition PositionF;
-
+	Buri buri;
+	Fish*fish;
 };
 
