@@ -4,8 +4,6 @@
 #include "sound/SoundEngine.h"
 #include "GameCamera.h"
 #include "BackGround.h"
-#include "Buri.h"
-#include "Fish.h"
 
 PositionSelection::PositionSelection()
 {
