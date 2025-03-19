@@ -11,16 +11,17 @@ public:
 	void DownwardOperation();
 	void SetBarSpead();
 	void HitTest();
-	float m_barPosition = 0.0f;//バーのポジション（初期設定は???）
+	float m_barPosition = -237.0f;//バーのポジション（初期設定は???）
 	bool upState = true;//上がっているかのステート
 	void Render(RenderContext& rc);
-	float m_barUpperLimit = 0.0f;//バーの上限
-	float m_barLowerLimit = 0.0f;//バーの下限
+	float m_barUpperLimit = 237.0f;//バーの上限
+	float m_barLowerLimit = -237.0f;//バーの下限
 	float m_barSpead;//バーのスピード
 
 	SpriteRender m_fishingGauge;
 	SpriteRender m_fishingGaugeFrame;
 	SpriteRender m_fishingGaugeBar;
+	
 };
 
 
