@@ -3,6 +3,8 @@ class CastGauge;
 class FishingGauge;
 class GameCamera;
 class PlayFishingBackGround;
+class PositionSelection;
+
 class PlayFishing :public IGameObject
 {
 public:
@@ -10,9 +12,9 @@ public:
 	~PlayFishing();
 	void Update();
 	void CallCastGauge();
-	void CallFishingGauge();
-	CastGauge* castGauge;
-	FishingGauge* fishingGauge;
+	void DeleteThisClass();
+	CastGauge* m_castGauge;
 	GameCamera* gameCamera;			//�Q�[���J�����B
 	PlayFishingBackGround* m_playFishingBackGround;
+	PositionSelection* m_positionSelection;
 };

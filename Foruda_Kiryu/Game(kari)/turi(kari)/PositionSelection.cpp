@@ -63,14 +63,6 @@ void PositionSelection::Render(RenderContext& rc)
 	}
 }
 
-void PositionSelection::SettingFishType(fishingPosition Position)
-{
-}
-
-void PositionSelection::SelectChangeFish(fishingPosition Position)
-{
-}
-
 
 void PositionSelection::SetUI()
 {
@@ -106,6 +98,37 @@ void PositionSelection::SetFishDisplayPosition()
 		}
 	}
 }
+
+void PositionSelection::SetisDisplayingTrue()
+{
+	m_is_displaying=true;
+}
+
+void PositionSelection::SetisDisplayingFalse()
+{
+	m_is_displaying = false;
+}
+
+void PositionSelection::ChangeSceneToPlayFishing()
+{
+	SetisDisplayingFalse();
+	m_playFishing = NewGO<PlayFishing>(0, "playFishing");
+
+	//プレイヤーを削除する。
+	DeleteGO(player);
+	//ゲームカメラを削除する。
+	DeleteGO(gameCamera);
+	//ゲーム中のBGMを削除する。
+	DeleteGO(gameCamera);
+	//背景を削除する。
+	DeleteGO(backGround);
+}
+
+bool PositionSelection::GetisDisplaying()
+{
+	return m_is_displaying;
+}
+
 
 //void PositionSelection::fishingPositionA_SetFish()
 //{
