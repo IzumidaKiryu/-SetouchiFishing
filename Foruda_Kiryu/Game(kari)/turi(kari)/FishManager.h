@@ -22,6 +22,9 @@ public:
 	void NewGOTatiuo();
 	void GetUI();
 	void FishNewGO();
+	void SetShouldFishChange();
+
+	bool m_shouldFishChange = false;
 	FishType m_fishType;
 	Buri* m_buri;
 	Tatiuo* m_tatiuo;
