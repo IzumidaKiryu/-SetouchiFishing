@@ -4,11 +4,12 @@
 #include "sound/SoundEngine.h"
 #include "GameCamera.h"
 #include "BackGround.h"
+#include "FishManager.h"
+#include "PlayFishing.h"
 
 PositionSelection::PositionSelection()
 {
 	srand(time(NULL));
-
 	//プレイヤーのオブジェクトを作る。
 	player = NewGO<Player>(0, "player");
 
@@ -31,6 +32,10 @@ PositionSelection::PositionSelection()
 	//UIを設定する。
 	SetUI();
 
+	for (int i = 0; i < 6; i++) {
+		m_fishManager[i] = NewGO<FishManager>(0,"fishManager");
+	}
+
 }
 
 PositionSelection::~PositionSelection()
@@ -47,6 +52,7 @@ PositionSelection::~PositionSelection()
 
 void PositionSelection::Update()
 {
+
 }
 
 void PositionSelection::Render(RenderContext& rc)
@@ -55,14 +61,6 @@ void PositionSelection::Render(RenderContext& rc)
 		m_fishDisplayInside[i].Draw(rc);
 		m_fishDisplayOutside[i].Draw(rc);
 	}
-}
-
-void PositionSelection::SettingFishType(fishingPosition Position)
-{
-}
-
-void PositionSelection::SelectChangeFish(fishingPosition Position)
-{
 }
 
 
@@ -100,6 +98,37 @@ void PositionSelection::SetFishDisplayPosition()
 		}
 	}
 }
+
+void PositionSelection::SetisDisplayingTrue()
+{
+	m_is_displaying=true;
+}
+
+void PositionSelection::SetisDisplayingFalse()
+{
+	m_is_displaying = false;
+}
+
+void PositionSelection::ChangeSceneToPlayFishing()
+{
+	SetisDisplayingFalse();
+	m_playFishing = NewGO<PlayFishing>(0, "playFishing");
+
+	//プレイヤーを削除する。
+	DeleteGO(player);
+	//ゲームカメラを削除する。
+	DeleteGO(gameCamera);
+	//ゲーム中のBGMを削除する。
+	DeleteGO(gameCamera);
+	//背景を削除する。
+	DeleteGO(backGround);
+}
+
+bool PositionSelection::GetisDisplaying()
+{
+	return m_is_displaying;
+}
+
 
 //void PositionSelection::fishingPositionA_SetFish()
 //{
