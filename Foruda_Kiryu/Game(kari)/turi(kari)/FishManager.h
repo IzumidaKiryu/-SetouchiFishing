@@ -10,7 +10,7 @@ enum FishType {
 
 class Buri;
 class Tatiuo;
-class FishManager :IGameObject
+class FishManager :public IGameObject
 {
 public:
 
