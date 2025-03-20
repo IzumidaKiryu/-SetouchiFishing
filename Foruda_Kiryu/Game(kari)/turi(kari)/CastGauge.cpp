@@ -2,6 +2,7 @@
 #include "CastGauge.h"
 #include "GaugeCastSuccessful.h"
 #include "TensionGauge.h"
+#include "FishingGauge.h"
 
 CastGauge::CastGauge()
 {
