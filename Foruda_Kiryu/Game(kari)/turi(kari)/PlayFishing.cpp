@@ -3,7 +3,6 @@
 #include"PlayFishingBackGround.h"
 #include "GameCamera.h"
 #include "CastGauge.h"
-#include"FishingGauge.h"
 #include "PositionSelection.h"
 
 
