@@ -13,6 +13,6 @@ public:
 	float m_individualValue;//�̒l
 	float m_timeUntilEscape;
 	float m_time = 0.0f;
-	SpriteRender* m_ui;
+	SpriteRender m_ui;
 };
 
