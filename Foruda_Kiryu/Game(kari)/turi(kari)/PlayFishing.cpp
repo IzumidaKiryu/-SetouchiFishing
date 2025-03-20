@@ -3,6 +3,8 @@
 #include"PlayFishingBackGround.h"
 #include "GameCamera.h"
 #include "CastGauge.h"
+#include "PositionSelection.h"
+
 
 PlayFishing::PlayFishing()
 {
@@ -13,6 +15,11 @@ PlayFishing::PlayFishing()
 
 PlayFishing::~PlayFishing()
 {
+	m_positionSelection = FindGO<PositionSelection>("positionSelection");
+	m_positionSelection->SetisDisplayingTrue();
+
+	DeleteGO(m_playFishingBackGround);
+	DeleteGO(m_castGauge);
 }
 
 void PlayFishing::Update()
