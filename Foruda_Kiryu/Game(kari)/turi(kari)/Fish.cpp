@@ -1,13 +1,16 @@
 #include "stdafx.h"
 #include "Fish.h"
+#include "PositionSelection.h"
 
 Fish::Fish()
 {
 	srand(time(NULL));
+	m_positionSelection = FindGO<PositionSelection>("positionSelection");
 }
 
 Fish::~Fish()
 {
+	
 }
 
 void Fish::Update()
@@ -39,6 +42,7 @@ bool Fish::TimeCount()
 		m_time++;
 		if (m_time >= m_timeUntilEscape)
 		{
+
 			return true;
 		}
 		else {
@@ -46,3 +50,33 @@ bool Fish::TimeCount()
 		}
 	}
 }
+
+void Fish::ShouldFishChange()
+{
+	//‚±‚Ì‹›‚ª‘I‘ğ’†‚Ì‚Í•Ê‚Ì‹›‚É•Ï‚¦‚È‚¢B
+	if (m_isSelected =! true)
+	{
+		ShouldFishChangeTrue();
+	}
+}
+
+void Fish::ShouldFishChangeTrue()
+{
+	m_shouldFishChange=true;
+}
+
+void Fish::ShouldFishChangeFalse()
+{
+	m_shouldFishChange = false;
+}
+
+void Fish::SetisSelectedTrue()
+{
+	m_isSelected = true;
+}
+
+void Fish::SetisSelectedFalse()
+{
+	m_isSelected = false;
+}
+
