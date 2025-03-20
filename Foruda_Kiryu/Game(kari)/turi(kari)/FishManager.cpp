@@ -22,10 +22,10 @@ void FishManager::Update()
 void FishManager::SelectFishType()
 {
 	int randum=rand()/100;
-	if (0 <= randum <= 49) {
+	if (0 <= randum&& randum <= 49) {
 		m_fishType = BURI;
 	}
-	if (50 <= randum <= 100) {
+	if (50 <= randum&& randum <= 100) {
 		m_fishType = TATIUO;
 	}
 }
