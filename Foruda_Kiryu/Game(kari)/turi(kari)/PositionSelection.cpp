@@ -4,6 +4,8 @@
 #include "sound/SoundEngine.h"
 #include "GameCamera.h"
 #include "BackGround.h"
+#include "FishManager.h"
+#include "PlayFishing.h"
 
 PositionSelection::PositionSelection()
 {
@@ -30,6 +32,10 @@ PositionSelection::PositionSelection()
 	//UIÇê›íËÇ∑ÇÈÅB
 	SetUI();
 
+	for (int i = 0; i < 6; i++) {
+		m_fishManager[i] = NewGO<FishManager>(0,"fishManager");
+	}
+
 }
 
 PositionSelection::~PositionSelection()
@@ -46,6 +52,7 @@ PositionSelection::~PositionSelection()
 
 void PositionSelection::Update()
 {
+
 }
 
 void PositionSelection::Render(RenderContext& rc)

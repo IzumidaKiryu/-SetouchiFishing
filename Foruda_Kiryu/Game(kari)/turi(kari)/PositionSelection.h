@@ -1,24 +1,22 @@
 #pragma once
 #include "sound/SoundSource.h"
 
+enum Position {
+	POSITION_A,
+	POSITION_B,
+	POSITION_C,
+	POSITION_D,
+	POSITION_E,
+	POSITION_F,
+};
 
 class Player;
 class GameCamera;
 class BackGround;
 class SoundSource;
+class FishManager;
+class PlayFishing;
 
-enum FishType {
-	TAI,
-	BURI,
-	TATIUO,
-	HIRAME,
-	JAKOTENN,
-	SINJU,
-};
-struct fishingPosition {
-	FishType fish;
-	bool fishChangeFlag;//魚を変えるかどうかのフラグ。
-};
 
 class PositionSelection : public IGameObject
 {
@@ -49,11 +47,7 @@ public:
 	FontRender m_fontRender;
 	SpriteRender m_fishDisplayInside[6];
 	SpriteRender m_fishDisplayOutside[6];
-	fishingPosition PositionA;
-	fishingPosition PositionB;
-	fishingPosition PositionC;
-	fishingPosition PositionD;
-	fishingPosition PositionE;
-	fishingPosition PositionF;
+	FishManager* m_fishManager[6];
+	PlayFishing* m_playFishing;
 };
 
