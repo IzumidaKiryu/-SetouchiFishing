@@ -18,5 +18,5 @@ PlayFishingBackGround::~PlayFishingBackGround()
 
 void PlayFishingBackGround::Render(RenderContext& rc)
 {
-	//modelRender.Draw(rc);
+	modelRender.Draw(rc);
 }
