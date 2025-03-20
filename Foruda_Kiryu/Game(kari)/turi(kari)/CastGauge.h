@@ -27,7 +27,7 @@ public:
 	SpriteRender m_castGaugeInside;
 	SpriteRender m_castGaugeArrow;
 	GaugeCastSuccessful* m_gaugeCastSuccessful=nullptr;
-	TensionGauge* tensionGauge=nullptr;
 	FishingGauge* m_fishingGauge;
+	TensionGauge* tensionGauge=nullptr;
 };
 

@@ -9,10 +9,8 @@
 
 PlayFishing::PlayFishing()
 {
-	m_playFishingBackGround = NewGO< PlayFishingBackGround>(1, "playFishingBackGround");
+	m_playFishingBackGround = NewGO< PlayFishingBackGround>(0, "playFishingBackGround");
 	CallCastGauge();
-	CallFishingGauge();
-
 }
 
 PlayFishing::~PlayFishing()
