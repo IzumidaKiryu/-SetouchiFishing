@@ -31,4 +31,8 @@ void PlayFishing::CallCastGauge()
 {
 	m_castGauge = NewGO< CastGauge>(0, "CastGauge");
 }
+
+void PlayFishing::DeleteThisClass()
+{
+	DeleteGO(this);
 }
