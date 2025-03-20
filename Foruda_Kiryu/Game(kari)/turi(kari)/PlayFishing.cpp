@@ -29,5 +29,6 @@ void PlayFishing::Update()
 
 void PlayFishing::CallCastGauge()
 {
-	castGauge = NewGO< CastGauge>(0, "CastGauge");
+	m_castGauge = NewGO< CastGauge>(0, "CastGauge");
+}
 }
