@@ -47,10 +47,10 @@ void FishManager::GetUI()
 	case TAI:
 		break;
 	case BURI:
-		m_ui = m_buri->m_ui;
+		m_ui = &(m_buri->m_ui);
 		break;
 	case TATIUO:
-		m_ui = m_tatiuo->m_ui;
+		m_ui = &(m_tatiuo->m_ui);
 		break;
 	case HIRAME:
 		break;
