@@ -85,3 +85,26 @@ void FishManager::FishNewGO()
 		break;
 	}
 }
+
+void FishManager::SetShouldFishChange()
+{
+	switch (m_fishType)
+	{
+	case TAI:
+		break;
+	case BURI:
+		m_shouldFishChange = m_buri->m_shouldFishChange;
+		break;
+	case TATIUO:
+		m_shouldFishChange = m_tatiuo->m_shouldFishChange;
+		break;
+	case HIRAME:
+		break;
+	case JAKOTENN:
+		break;
+	case SINJU:
+		break;
+	default:
+		break;
+	}
+}
