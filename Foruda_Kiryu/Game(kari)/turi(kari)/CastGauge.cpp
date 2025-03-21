@@ -3,6 +3,8 @@
 #include "GaugeCastSuccessful.h"
 #include "TensionGauge.h"
 #include "FishingGauge.h"
+#include "PositionSelection.h"
+#include "PlayFishing.h"
 
 CastGauge::CastGauge()
 {
@@ -24,6 +26,9 @@ CastGauge::CastGauge()
 
 	m_gaugeCastSuccessful = NewGO<GaugeCastSuccessful>(0, "gaugeCastSuccessful");
 	m_gaugeCastSuccessful->Init(10.0f, 10.0f);
+
+	m_positionSelection = FindGO<PositionSelection>("positionSelection");
+
 }
 
 CastGauge::~CastGauge()
@@ -92,14 +97,22 @@ void CastGauge::SetGaugeSpead()
 	m_gaugeSpead = /*(237.0f*2.0f)/10*/5;
 }
 
+/// <summary>
+/// “–‚½‚è”»’è‚ğŠm‚©‚ß‚é
+/// </summary>
 void CastGauge::HitTest()
 {
 	if (g_pad[0]->IsTrigger(enButtonA)) {
-		if (m_gaugeCastSuccessful->hitTest(m_arrowPosition) == true)
+		if (m_gaugeCastSuccessful->hitTest(m_arrowPosition) == true)//¬Œ÷‚µ‚½‚çB
 		{
 			m_fishingGauge=NewGO<FishingGauge>(0, "fishingGauge ");
 			/*tensionGauge = NewGO<TensionGauge>(0, "tensionGauge");*/
 			DeleteGO(this);
+		}
+		else if (m_gaugeCastSuccessful->hitTest(m_arrowPosition) == false) //¸”s‚µ‚½‚çB
+		{
+			m_playFishing = FindGO<PlayFishing>("playFishing");
+			m_playFishing->DeleteThisClass();
 		}
 	}
 }

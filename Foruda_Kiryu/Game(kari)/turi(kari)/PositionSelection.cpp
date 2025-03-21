@@ -52,9 +52,9 @@ PositionSelection::~PositionSelection()
 
 void PositionSelection::Update()
 {
-	if (m_shouldPartiallyDeactivate == false) {//ï¿½Aï¿½Nï¿½eï¿½Bï¿½uï¿½ï¿½ï¿½Ç‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½fï¿½ï¿½ï¿½ï¿½B
-		if (g_pad[0]->IsTrigger(enButtonA)) {//Aï¿½{ï¿½^ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ê‚½ï¿½ï¿½B
-			ChangeSceneToPlayFishing();//ï¿½vï¿½ï¿½ï¿½Cï¿½tï¿½Bï¿½bï¿½Vï¿½ï¿½ï¿½Oï¿½Vï¿½[ï¿½ï¿½ï¿½É•Ï‚ï¿½ï¿½ï¿½B
+	if (m_shouldPartiallyDeactivate == false) {//ƒAƒNƒeƒBƒu‚©‚Ç‚¤‚©”»’f‚·‚éB
+		if (g_pad[0]->IsTrigger(enButtonA)) {//Aƒ{ƒ^ƒ“‚ª‰Ÿ‚³‚ê‚½‚çB
+			ChangeSceneToPlayFishing();//ƒvƒŒƒCƒtƒBƒbƒVƒ“ƒOƒV[ƒ“‚É•Ï‚¦‚éB
 		}
 	}
 }
@@ -115,19 +115,16 @@ void PositionSelection::SetisDisplayingFalse()
 	m_is_displaying = false;
 }
 
+/// <summary>
+/// ƒV[ƒ“‚ğƒvƒŒƒCƒtƒBƒbƒVƒ“ƒO‚É•Ï‚¦‚éB
+/// </summary>
 void PositionSelection::ChangeSceneToPlayFishing()
 {
 	SetisDisplayingFalse();
+
 	m_playFishing = NewGO<PlayFishing>(0, "playFishing");
 
-	//ƒvƒŒƒCƒ„[‚ğíœ‚·‚éB
-	DeleteGO(player);
-	//ƒQ[ƒ€ƒJƒƒ‰‚ğíœ‚·‚éB
-	DeleteGO(gameCamera);
-	//ƒQ[ƒ€’†‚ÌBGM‚ğíœ‚·‚éB
-	DeleteGO(gameCamera);
-	//”wŒi‚ğíœ‚·‚éB
-	DeleteGO(backGround);
+	SetDeactivate();
 }
 
 bool PositionSelection::GetisDisplaying()
@@ -137,25 +134,25 @@ bool PositionSelection::GetisDisplaying()
 
 void PositionSelection::SetDeactivate()
 {
-	//ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½Aï¿½Nï¿½eï¿½Bï¿½uï¿½É‚ï¿½ï¿½ï¿½B
+	//ƒvƒŒƒCƒ„[‚ğ”ñƒAƒNƒeƒBƒu‚É‚·‚éB
 	player->Deactivate();
-	//ï¿½Qï¿½[ï¿½ï¿½ï¿½Jï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Aï¿½Nï¿½eï¿½Bï¿½uï¿½É‚ï¿½ï¿½ï¿½B
+	//ƒQ[ƒ€ƒJƒƒ‰‚ğ”ñƒAƒNƒeƒBƒu‚É‚·‚éB
 	gameCamera->Deactivate();
-	//ï¿½wï¿½iï¿½ï¿½ï¿½Aï¿½Nï¿½eï¿½Bï¿½uï¿½É‚ï¿½ï¿½ï¿½B
+	//”wŒi‚ğ”ñƒAƒNƒeƒBƒu‚É‚·‚éB
 	backGround->Deactivate();
-	//Uiï¿½ï¿½\ï¿½ï¿½ï¿½ï¿½ï¿½È‚ï¿½ï¿½B
+	//Ui‚ğ•\¦‚µ‚È‚¢B
 	m_shouldPartiallyDeactivate = true;
 }
 
 void PositionSelection::SetActivate()
 {
-	//ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½ï¿½Aï¿½Nï¿½eï¿½Bï¿½uï¿½É‚ï¿½ï¿½ï¿½B
+	//ƒvƒŒƒCƒ„[‚ğƒAƒNƒeƒBƒu‚É‚·‚éB
 	player->Activate();
-	//ï¿½Qï¿½[ï¿½ï¿½ï¿½Jï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Aï¿½Nï¿½eï¿½Bï¿½uï¿½É‚ï¿½ï¿½ï¿½B
+	//ƒQ[ƒ€ƒJƒƒ‰‚ğƒAƒNƒeƒBƒu‚É‚·‚éB
 	gameCamera->Activate();
-	//ï¿½wï¿½iï¿½ï¿½Aï¿½Nï¿½eï¿½Bï¿½uï¿½É‚ï¿½ï¿½ï¿½B
+	//”wŒi‚ğƒAƒNƒeƒBƒu‚É‚·‚éB
 	backGround->Activate();
-	//UIï¿½ï¿½\ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½B
+	//UI‚ğ•\¦‚·‚éB
 	m_shouldPartiallyDeactivate = false;
 }
 
