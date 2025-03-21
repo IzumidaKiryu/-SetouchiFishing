@@ -52,14 +52,20 @@ PositionSelection::~PositionSelection()
 
 void PositionSelection::Update()
 {
-
+	if (m_shouldPartiallyDeactivate == false) {//�A�N�e�B�u���ǂ������f����B
+		if (g_pad[0]->IsTrigger(enButtonA)) {//A�{�^���������ꂽ��B
+			ChangeSceneToPlayFishing();//�v���C�t�B�b�V���O�V�[���ɕς���B
+		}
+	}
 }
 
 void PositionSelection::Render(RenderContext& rc)
 {
-	for (int i = 0; i < 6; i++) {
-		m_fishDisplayInside[i].Draw(rc);
-		m_fishDisplayOutside[i].Draw(rc);
+	if (m_shouldPartiallyDeactivate==false) {
+		for (int i = 0; i < 6; i++) {
+			m_fishDisplayInside[i].Draw(rc);
+			m_fishDisplayOutside[i].Draw(rc);
+		}
 	}
 }
 
@@ -127,6 +133,30 @@ void PositionSelection::ChangeSceneToPlayFishing()
 bool PositionSelection::GetisDisplaying()
 {
 	return m_is_displaying;
+}
+
+void PositionSelection::SetDeactivate()
+{
+	//�v���C���[���A�N�e�B�u�ɂ���B
+	player->Deactivate();
+	//�Q�[���J�������A�N�e�B�u�ɂ���B
+	gameCamera->Deactivate();
+	//�w�i���A�N�e�B�u�ɂ���B
+	backGround->Deactivate();
+	//Ui��\�����Ȃ��B
+	m_shouldPartiallyDeactivate = true;
+}
+
+void PositionSelection::SetActivate()
+{
+	//�v���C���[��A�N�e�B�u�ɂ���B
+	player->Activate();
+	//�Q�[���J������A�N�e�B�u�ɂ���B
+	gameCamera->Activate();
+	//�w�i��A�N�e�B�u�ɂ���B
+	backGround->Activate();
+	//UI��\������B
+	m_shouldPartiallyDeactivate = false;
 }
 
 
