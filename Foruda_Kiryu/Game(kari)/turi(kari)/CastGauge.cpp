@@ -97,7 +97,8 @@ void CastGauge::HitTest()
 	if (g_pad[0]->IsTrigger(enButtonA)) {
 		if (m_gaugeCastSuccessful->hitTest(m_arrowPosition) == true)
 		{
-			tensionGauge = NewGO<TensionGauge>(0, "tensionGauge");
+			m_fishingGauge=NewGO<FishingGauge>(0, "fishingGauge ");
+			/*tensionGauge = NewGO<TensionGauge>(0, "tensionGauge");*/
 			DeleteGO(this);
 		}
 	}

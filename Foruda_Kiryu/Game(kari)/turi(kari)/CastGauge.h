@@ -1,6 +1,8 @@
 #pragma once
 class GaugeCastSuccessful;
 class TensionGauge;
+class FishingGauge;
+
 class CastGauge :public IGameObject
 {
 public:
@@ -25,6 +27,7 @@ public:
 	SpriteRender m_castGaugeInside;
 	SpriteRender m_castGaugeArrow;
 	GaugeCastSuccessful* m_gaugeCastSuccessful=nullptr;
+	FishingGauge* m_fishingGauge;
 	TensionGauge* tensionGauge=nullptr;
 };
 

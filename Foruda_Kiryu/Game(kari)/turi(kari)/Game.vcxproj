@@ -151,10 +151,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="BackGround.cpp" />
+    <ClCompile Include="Buri.cpp" />
     <ClCompile Include="CastGauge.cpp" />
     <ClCompile Include="CastUI.cpp" />
     <ClCompile Include="Fish.cpp" />
     <ClCompile Include="FishingGauge.cpp" />
+    <ClCompile Include="FishManager.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameCamera.cpp" />
     <ClCompile Include="GameCrear.cpp" />
@@ -171,15 +173,18 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="system\system.cpp" />
+    <ClCompile Include="Tatiuo.cpp" />
     <ClCompile Include="TensionGauge.cpp" />
     <ClCompile Include="Title.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BackGround.h" />
+    <ClInclude Include="Buri.h" />
     <ClInclude Include="CastGauge.h" />
     <ClInclude Include="CastUI.h" />
     <ClInclude Include="Fish.h" />
     <ClInclude Include="FishingGauge.h" />
+    <ClInclude Include="FishManager.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameCamera.h" />
     <ClInclude Include="GameCrear.h" />
@@ -192,6 +197,7 @@
     <ClInclude Include="Star.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="system\system.h" />
+    <ClInclude Include="Tatiuo.h" />
     <ClInclude Include="TensionGauge.h" />
     <ClInclude Include="Title.h" />
   </ItemGroup>
