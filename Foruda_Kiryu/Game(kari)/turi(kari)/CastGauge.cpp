@@ -94,7 +94,7 @@ void CastGauge::DownwardOperation()
 /// </summary>
 void CastGauge::SetGaugeSpead()
 {
-	m_gaugeSpead = /*(237.0f*2.0f)/10*/5;
+	m_gaugeSpead = /*(237.0f*2.0f)/10*/8;
 }
 
 /// <summary>

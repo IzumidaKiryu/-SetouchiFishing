@@ -36,6 +36,9 @@ PositionSelection::PositionSelection()
 		m_fishManager[i] = NewGO<FishManager>(0,"fishManager");
 	}
 
+	//ŽžŠÔ‚ð‚Í‚©‚éB
+	Timer();
+
 }
 
 PositionSelection::~PositionSelection()
@@ -154,6 +157,15 @@ void PositionSelection::SetActivate()
 	backGround->Activate();
 	//UI‚ð•\Ž¦‚·‚éB
 	m_shouldPartiallyDeactivate = false;
+}
+
+void PositionSelection::Timer()
+{
+	m_time++;
+	if (m_timelimit>=m_time)
+	{
+		m_is_time_up = true;
+	}
 }
 
 
