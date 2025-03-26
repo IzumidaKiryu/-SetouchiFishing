@@ -92,7 +92,9 @@ void FishingGauge::SetBarSpead()
 
 void FishingGauge::HitTest()
 {
-
+	if (g_pad[0]->IsTrigger(enButtonA)) {
+			DeleteGO(this);
+	}
 }
 
 void FishingGauge::Render(RenderContext& rc)
