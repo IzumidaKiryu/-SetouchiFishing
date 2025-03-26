@@ -13,6 +13,7 @@ cbuffer ModelCb : register(b0){
 	float4x4 mProj;
 };
 
+//ライトデータにアクセスするための定数バッファを用意する。
 cbuffer DirectionLightCb : register(b1)
 {
 	//ディレクションライト用変数
@@ -21,10 +22,17 @@ cbuffer DirectionLightCb : register(b1)
 	
 	
 	//ポイントライト用変数
-    float3 ptPosition; // ポイントライトの位置
-    float3 ptColor; // ポイントライトのカラー
-    float ptRange; // ポイントライトの影響範囲
+    float3 ptPosition; // ポイントライトの位置。
+    float3 ptColor; // ポイントライトのカラー。
+    float ptRange; // ポイントライトの影響範囲。
 	
+	//スポットライト用変数。
+    float3 spPosition; // スポットライトの位置。
+    float3 spColor; // スポットライトのカラー。
+    float spRange; // スポットライトの射出範囲。
+    float3 spDirection; // スポットライトの射出方向。
+    float spAngle; // スポットライトの射出角度。
+
 	
 	//視点のデータにアクセスするための変数を定数バッファに登録
     float3 eyePos;
@@ -65,7 +73,8 @@ sampler g_sampler : register(s0);	//サンプラステート。
 ////////////////////////////////////////////////
 float3 CalcLambertDiffuse(float3 lightDirection, float3 lightColor, float3 normal);
 float3 CalcPhongSpecular(float3 lightDirection, float3 lightColor, float3 worldPos, float3 normal);
-
+float3 CalcLigFromPointLight(SPSIn psIn);
+float3 CalcLigFromDirectionLight(SPSIn psIn);
 
 
 
@@ -132,30 +141,30 @@ SPSIn VSSkinMain( SVSIn vsIn )
 /// </summary>
 float4 PSMain( SPSIn psIn ) : SV_Target0
 {
-	//ディレクションライトによるランバートは拡散の計算。
-    float3 diffDirection = CalcLambertDiffuse(ligDirection, ligColor, psIn.normal);
-	//ディレクションライトによるPhong鏡面反射の計算。
-    float3 specDirection = CalcPhongSpecular(ligDirection, ligColor, psIn.worldPos,psIn.normal);
-	
-	
-	//ポイントライトによるランバート拡散反射光とPhong鏡面反射光の計算。
-	//サーフェースに入射するポイントライトの幹を計算。
-    float3 ligDir = psIn.worldPos - ptPosition;
+	 // ディレクションライトによるライティングを計算する
+    float3 directionLig = CalcLigFromDirectionLight(psIn);
+
+    // ポイントライトによるライティングを計算する
+    float3 pointLig = CalcLigFromPointLight(psIn);
+    
+	//スポットライトによるライティングを計算する。
+    //サーフェースに入射するスポットライトの幹を計算。
+    float3 ligDir = psIn.worldPos - spPosition;
 	
 	//正規化して大きさ１のベクトルにする。
     ligDir = normalize(ligDir);
 	
 	//減衰なしのLambert拡散反射光を計算。
-    float3 diffPoint = CalcLambertDiffuse(
+    float3 diffSpotLight = CalcLambertDiffuse(
 		ligDir,		//ライトの方向。
-		ptColor,	//ライトのカラー。
+		spColor,	//ライトのカラー。
 		psIn.normal	//サーフェースの法線。
 	);
 	
 	//減衰なしのPhong鏡面反射光を計算。
-    float3 specPoint = CalcPhongSpecular(
+    float3 specSpotLight = CalcPhongSpecular(
 		ligDir,			 //ライトの方向。
-		ptColor,		 //ライトのカラー。
+		spColor,		 //ライトのカラー。
 		psIn.worldPos,	 //サーフェースのワールド座標
 		psIn.normal		 //サーフェースの法線。
 	);
@@ -163,10 +172,10 @@ float4 PSMain( SPSIn psIn ) : SV_Target0
 	
 	//距離による影響率を計算する。
 	//ポイントライトの距離を計算する。
-    float distance = length(psIn.worldPos - ptPosition);
+    float distance = length(psIn.worldPos - spPosition);
 	
 	//影響率はひょりに比例して小さくなる。
-    float affect = 1.0f - 1.0f / ptRange * distance;
+    float affect = 1.0f - 1.0f /    spRange * distance;
 	
 	//影響力がマイナスにならないように補正をかける。
     if (affect < 0.0f)
@@ -178,19 +187,20 @@ float4 PSMain( SPSIn psIn ) : SV_Target0
     affect = pow(affect, 3.0f);
 	
 	//拡散反射光と鏡面反射光に影響力を乗算して影響を弱める。
-    diffPoint *= affect;
-    specPoint *= affect;
+    diffSpotLight *= affect;
+    specSpotLight *= affect;
 	
-	//2つの反射光を合算して最終的な反射光を求める。
-    float3 diffceLig = diffPoint + diffDirection;
-    float3 speclarLig = specPoint + specDirection;
+	//ディレクションライト＋ポイントライト＋環境光。
+    float3 finalLig = directionLig + pointLig + ambientLight;
 	
-	//拡散反射光と鏡面反射光を足し算して最終的な光を求める。
-    float3 lig = diffceLig + speclarLig + ambientLight;
+    //拡散反射光と鏡面反射光を足し算して最終的な光を求める。
+    finalLig += diffSpotLight + specSpotLight;
+	
+   
 	float4 albedoColor = g_albedo.Sample(g_sampler, psIn.uv);
 	
 	//最終的な出力カラーに光を乗算する。
-	albedoColor.xyz *= lig;
+	albedoColor.xyz *= finalLig;
 	
 
 	return albedoColor;
@@ -233,4 +243,64 @@ float3 CalcPhongSpecular(float3 lightDirection, float3 lightColor, float3 worldP
 
     // 鏡面反射光を求める
     return lightColor * t;
+}
+
+float3 CalcLigFromPointLight(SPSIn psIn)
+{
+    // このサーフェイスに入射しているポイントライトの光の向きを計算する
+    float3 ligDir = psIn.worldPos - ptPosition;
+
+    // 正規化して大きさ1のベクトルにする
+    ligDir = normalize(ligDir);
+
+    // 減衰なしのLambert拡散反射光を計算する
+    float3 diffPoint = CalcLambertDiffuse(
+        ligDir, // ライトの方向
+        ptColor, // ライトのカラー
+        psIn.normal // サーフェイスの法線
+    );
+
+    // 減衰なしのPhong鏡面反射光を計算する
+    float3 specPoint = CalcPhongSpecular(
+        ligDir, // ライトの方向
+        ptColor, // ライトのカラー
+        psIn.worldPos, // サーフェイズのワールド座標
+        psIn.normal     // サーフェイズの法線
+    );
+
+    // 距離による影響率を計算する
+    // ポイントライトとの距離を計算する
+    float3 distance = length(psIn.worldPos - ptPosition);
+
+    // 影響率は距離に比例して小さくなっていく
+    float affect = 1.0f - 1.0f / ptRange * distance;
+
+    // 影響力がマイナスにならないように補正をかける
+    if (affect < 0.0f)
+    {
+        affect = 0.0f;
+    }
+
+    // 影響の仕方を指数関数的にする。今回のサンプルでは3乗している
+    affect = pow(affect, 3.0f);
+
+    // 拡散反射光と鏡面反射光に減衰率を乗算して影響を弱める
+    diffPoint *= affect;
+    specPoint *= affect;
+
+    return diffPoint + specPoint;
+}
+
+/// <summary>
+/// ディレクションライトによる反射光を計算
+/// </summary
+/// <param name="psIn">ピクセルシェーダーからの入力。</param>
+float3 CalcLigFromDirectionLight(SPSIn psIn)
+{
+    // ディレクションライトによるLambert拡散反射光を計算する
+    float3 diffDirection = CalcLambertDiffuse(ligDirection, ligColor, psIn.normal);
+
+    // ディレクションライトによるPhong鏡面反射光を計算する
+    float3 specDirection = CalcPhongSpecular(ligDirection, ligColor, psIn.worldPos, psIn.normal);
+    return diffDirection + specDirection;
 }
