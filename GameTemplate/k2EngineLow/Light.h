@@ -22,17 +22,20 @@ namespace nsK2EngineLow {
 		};
 
 		struct SpotLight {
-			float s_position[3];//ライトの位置。3要素のベクトルで表現。
-			float s_color[3];//ライトのカラー。光の3原色で表現。
-			float s_direction[3];//放射方向。3要素のベクトルで表現。
+			Vector3 s_position;//ライトの位置。3要素のベクトルで表現。
+			float pad3;
+			Vector3 s_color;//ライトのカラー。光の3原色で表現。
+			float s_Range;//影響範囲。単位はメートル。
+			Vector3 s_direction;//放射方向。3要素のベクトルで表現。
 			float s_angle;//放射角度。
-			float s_infuluenceRenge;//影響範囲。単位はメートル。
+			
 		};
 
 		struct SceneLight
 		{
 			DirectionLight direction;
 			PointLight pointLig;
+			SpotLight spotLig;
 			Vector3 eyePos;
 			float pad0;
 			Vector3 ambientLight;
