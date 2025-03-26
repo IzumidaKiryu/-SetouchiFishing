@@ -3,16 +3,22 @@
 #include"PlayFishingBackGround.h"
 #include "GameCamera.h"
 #include "CastGauge.h"
+#include "PositionSelection.h"
+
 
 PlayFishing::PlayFishing()
 {
 	m_playFishingBackGround = NewGO< PlayFishingBackGround>(0, "playFishingBackGround");
 	CallCastGauge();
-
 }
 
 PlayFishing::~PlayFishing()
 {
+	m_positionSelection = FindGO<PositionSelection>("positionSelection");
+	m_positionSelection->SetisDisplayingTrue();
+
+	DeleteGO(m_playFishingBackGround);
+	DeleteGO(m_castGauge);
 }
 
 void PlayFishing::Update()
@@ -21,5 +27,10 @@ void PlayFishing::Update()
 
 void PlayFishing::CallCastGauge()
 {
-	castGauge = NewGO< CastGauge>(0, "CastGauge");
+	m_castGauge = NewGO< CastGauge>(0, "CastGauge");
+}
+
+void PlayFishing::DeleteThisClass()
+{
+	DeleteGO(this);
 }

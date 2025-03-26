@@ -1,24 +1,22 @@
 #pragma once
 #include "sound/SoundSource.h"
 
+enum Position {
+	POSITION_A,
+	POSITION_B,
+	POSITION_C,
+	POSITION_D,
+	POSITION_E,
+	POSITION_F,
+};
+
 class Player;
 class GameCamera;
 class BackGround;
 class SoundSource;
+class FishManager;
+class PlayFishing;
 
-enum FishType {
-	null,
-	Tai,
-	Buri,
-	Tatiuo,
-	Hirame,
-	Jakotenn,
-	Sinju,
-};
-struct fishingPosition {
-	FishType fish;
-	bool fishChangeFlag;//魚を変えるかどうかのフラグ。
-};
 
 class PositionSelection : public IGameObject
 {
@@ -29,17 +27,17 @@ public:
 	~PositionSelection();
 	void Update();
 	void Render(RenderContext& rc);
-	void SettingFishType(fishingPosition Position);//魚のタイプを設定。
-	void SelectChangeFish(fishingPosition Position);//魚を変えるかどうか選ぶ。
 	void SetUI();
 	void SetFishDisplayPosition();
-
+	void SetisDisplayingTrue();
+	void SetisDisplayingFalse();
+	void ChangeSceneToPlayFishing();
+	bool GetisDisplaying();
 	float setFish=0.0f;
 	Vector3 m_fishDisplayPosition[6];
-
 	float m_fishDisplayPositionXcriteria = -350;//魚を表示するディスプレイの場所の基準（X軸）
 	float m_fishDisplayPositionXinterval = 350.0f;
-
+	bool m_is_displaying;
 
 
 	Player* player;			//プレイヤー。
@@ -49,12 +47,7 @@ public:
 	FontRender m_fontRender;
 	SpriteRender m_fishDisplayInside[6];
 	SpriteRender m_fishDisplayOutside[6];
-	fishingPosition PositionA;
-	fishingPosition PositionB;
-	fishingPosition PositionC;
-	fishingPosition PositionD;
-	fishingPosition PositionE;
-	fishingPosition PositionF;
-
+	FishManager* m_fishManager[6];
+	PlayFishing* m_playFishing;
 };
 

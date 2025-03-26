@@ -10,7 +10,7 @@ public:
 
 	float m_position;
 	float m_scale;
-	float m_heightFirstGaugeCastSuccessful = 100.0f;
+	float m_heightFirstGaugeCastSuccessful = 10.0f;
 	float m_rangelower;
 	float m_rangeMax;
 
