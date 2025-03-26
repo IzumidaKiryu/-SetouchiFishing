@@ -36,6 +36,7 @@ void FishingGauge::Update()
 	SetBarPosition();//バーの場所を決める。
 	m_fishingGaugeBar.Update();//バーの描画を更新する。
 	HitTest();
+
 }
 
 /// <summary>
@@ -93,8 +94,10 @@ void FishingGauge::SetBarSpead()
 void FishingGauge::HitTest()
 {
 	if (g_pad[0]->IsTrigger(enButtonA)) {
-			DeleteGO(this);
+		Attack();
+		DeleteGO(this);
 	}
+
 }
 
 void FishingGauge::Render(RenderContext& rc)
@@ -103,4 +106,9 @@ void FishingGauge::Render(RenderContext& rc)
 	//m_gaugeCastSuccessful->m_gaugeCastSuccessfulSprite.Draw(rc);
 	m_fishingGaugeBar.Draw(rc);
 	m_fishingGaugeFrame.Draw(rc);
+}
+
+void FishingGauge::Attack()
+{
+	m_attack = 1-((m_barPosition+237.0f)/472.0f*0.5f);
 }
