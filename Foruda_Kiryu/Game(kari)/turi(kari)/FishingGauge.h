@@ -1,4 +1,5 @@
 #pragma once
+class TensionGauge;
 class FishingGauge : public IGameObject
 {
 public:
@@ -25,6 +26,8 @@ public:
 	SpriteRender m_fishingGauge;
 	SpriteRender m_fishingGaugeFrame;
 	SpriteRender m_fishingGaugeBar;
+	TensionGauge* m_tensionGauge;
+
 	
 };
 
