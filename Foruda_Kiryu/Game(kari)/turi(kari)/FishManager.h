@@ -25,6 +25,7 @@ public:
 	void SetShouldFishChange();
 
 	bool m_shouldFishChange = false;
+	int m_randum;
 	FishType m_fishType;
 	Buri* m_buri;
 	Tatiuo* m_tatiuo;

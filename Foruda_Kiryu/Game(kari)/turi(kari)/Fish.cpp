@@ -94,3 +94,8 @@ void Fish::SetisSelectedFalse()
 	m_isSelected = false;
 }
 
+SpriteRender& Fish::GetUI()
+{
+	return m_ui;
+}
+

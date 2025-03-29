@@ -1,13 +1,15 @@
 #include "stdafx.h"
+#include <Time.h>
 #include "FishManager.h"
 #include "Buri.h"
 #include "Tatiuo.h"
 
 FishManager::FishManager()
 {
-	srand(time(NULL));
+	srand(time(nullptr));
 	SelectFishType();
 	FishNewGO();
+	GetUI();
 }
 
 FishManager::~FishManager()
@@ -25,6 +27,7 @@ void FishManager::Update()
 void FishManager::SelectFishType()
 {
 	int randum=rand()%100;
+	m_randum = randum;
 	if (0 <= randum&& randum <= 49) {
 		m_fishType = BURI;
 	}
@@ -53,10 +56,10 @@ void FishManager::GetUI()
 	case TAI:
 		break;
 	case BURI:
-		m_ui = &(m_buri->m_ui);
+		m_ui = &(m_buri->GetUI());
 		break;
 	case TATIUO:
-		m_ui = &(m_tatiuo->m_ui);
+		m_ui = &(m_tatiuo->GetUI());
 		break;
 	case HIRAME:
 		break;

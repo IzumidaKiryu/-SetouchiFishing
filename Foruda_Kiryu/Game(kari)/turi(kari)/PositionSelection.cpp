@@ -56,9 +56,14 @@ PositionSelection::~PositionSelection()
 void PositionSelection::Update()
 {
 	if (m_shouldPartiallyDeactivate == false) {//アクティブかどうか判断する。
+		SetFishUI();
 		if (g_pad[0]->IsTrigger(enButtonA)) {//Aボタンが押されたら。
 			ChangeSceneToPlayFishing();//プレイフィッシングシーンに変える。
+	
 		}
+	}
+	for (int i = 0; i < 6; i++) {
+		m_timelimit=m_fishManager[i]->m_randum;
 	}
 }
 
@@ -66,8 +71,10 @@ void PositionSelection::Render(RenderContext& rc)
 {
 	if (m_shouldPartiallyDeactivate==false) {
 		for (int i = 0; i < 6; i++) {
+		
 			m_fishDisplayInside[i].Draw(rc);
 			m_fishDisplayOutside[i].Draw(rc);
+			m_fishUI[i]->Draw(rc);
 		}
 	}
 }
@@ -83,7 +90,6 @@ void PositionSelection::SetUI()
 		m_fishDisplayInside[i].SetPivot(Vector2(0.5f, 0.5f));
 		m_fishDisplayInside[i].SetPosition(m_fishDisplayPosition[i]);
 		m_fishDisplayInside[i].SetScale(Vector3{ 1.0f, 1.0f, 1.0f });
-		m_fishDisplayInside[i].Update();
 
 		//魚を表示するディスプレイの外側
 
@@ -91,7 +97,6 @@ void PositionSelection::SetUI()
 		m_fishDisplayOutside[i].SetPivot(Vector2(0.5f, 0.5f));
 		m_fishDisplayOutside[i].SetPosition(m_fishDisplayPosition[i]);
 		m_fishDisplayOutside[i].SetScale(Vector3{ 1.0f, 1.0f, 1.0f });
-		m_fishDisplayOutside[i].Update();
 
 	}
 }
@@ -165,6 +170,28 @@ void PositionSelection::Timer()
 	if (m_timelimit>=m_time)
 	{
 		m_is_time_up = true;
+	}
+}
+
+void PositionSelection::SetFishUI()
+{
+	for (int i = 0; i < 6; i++) {
+		m_fishUI[i] = m_fishManager[i]->m_ui;
+	}
+	SetFishUIPosition();
+}
+
+
+void PositionSelection::SetFishUIPosition()
+{
+	for (int i = 0; i < 6; i++) {
+		m_fishUI[i]->SetPivot(Vector2(0.5f, 0.5f));
+		m_fishUI[i]->SetPosition(m_fishDisplayPosition[i]);
+		m_fishUI[i]->SetScale(Vector3{ 1.0f, 1.0f, 1.0f });
+		m_fishUI[i]->Update();
+		//フィッシュディスプレイのUIはフィッシュディスプレイの下に表示したいのでここでアップデートする。
+		m_fishDisplayOutside[i].Update();
+		m_fishDisplayInside[i].Update();
 	}
 }
 

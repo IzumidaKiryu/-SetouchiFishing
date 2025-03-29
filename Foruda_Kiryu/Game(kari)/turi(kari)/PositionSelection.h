@@ -28,6 +28,7 @@ public:
 	void Update();
 	void Render(RenderContext& rc);
 	void SetUI();
+	void SetFishUI();
 	void SetFishDisplayPosition();
 	void SetisDisplayingTrue();
 	void SetisDisplayingFalse();
@@ -36,6 +37,7 @@ public:
 	void SetDeactivate();//非アクティブにする。
 	void SetActivate();
 	void Timer();
+	void SetFishUIPosition();
 	
 	float setFish=0.0f;
 	Vector3 m_fishDisplayPosition[6];
@@ -46,6 +48,7 @@ public:
 	float m_time=0.0f;//時間
 	float m_timelimit = 2000;//時間制限
 	bool m_is_time_up;//タイムアップしているかどうか。
+	
 
 	Player* player;			//プレイヤー。
 	GameCamera* gameCamera;			//ゲームカメラ。
@@ -56,5 +59,6 @@ public:
 	SpriteRender m_fishDisplayOutside[6];
 	FishManager* m_fishManager[6];
 	PlayFishing* m_playFishing;
+	SpriteRender* m_fishUI[6];
 };
 
