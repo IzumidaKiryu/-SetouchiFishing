@@ -171,11 +171,11 @@ float4 PSMain( SPSIn psIn ) : SV_Target0
    // ////最終的な反射光を求める（リム確認用）。
    //float limOnlyFinalLig = directionLig + ambientLight;
     
-   // //最終的な反射光を求める（全ライト）。
-    float allLightFinalLig = directionLig + pointLig + spotLig + ambientLight;
+    //最終的な反射光を求める（全ライト）。
+    float3 allLightFinalLig = directionLig + pointLig + spotLig + ambientLight;
     
-   // //最終的な反射光にリムライトの反射光を合成する。
-   // //リムライトのカラーを計算する。
+    //最終的な反射光にリムライトの反射光を合成する。
+    //リムライトのカラーを計算する。
     float3 limColor = limPower * ligColor;
     
    // //最終的な反射光にリムの反射光を合算する。
