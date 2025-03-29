@@ -27,6 +27,7 @@ bool Game::Start()
 
 void Game::Update()
 {
+	
 	//wchar_t ws[256];
 	//swprintf_s(ws, 256, L"�ߖ�");
 	m_fontRender.SetText(L"s");
