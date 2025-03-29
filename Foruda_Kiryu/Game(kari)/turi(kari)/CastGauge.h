@@ -2,8 +2,6 @@
 class GaugeCastSuccessful;
 class TensionGauge;
 class FishingGauge;
-class PositionSelection;
-class PlayFishing;
 
 class CastGauge :public IGameObject
 {
@@ -31,7 +29,5 @@ public:
 	GaugeCastSuccessful* m_gaugeCastSuccessful=nullptr;
 	FishingGauge* m_fishingGauge;
 	TensionGauge* tensionGauge=nullptr;
-	PositionSelection* m_positionSelection;
-	PlayFishing* m_playFishing;
 };
 

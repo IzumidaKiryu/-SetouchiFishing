@@ -22,6 +22,7 @@ bool Game::Start()
 
 	m_modelRender.Init("Assets/modelData/unityChan.tkm", m_animationClips, enAnimationClip_Num,enModelUpAxisY);
 	m_spriteRender.Init("Assets/sprite/Nozomi.DDS", 1920, 1080);
+	m_mol.Init("Assets/modelData/ground.tkm");
 	return true;
 }
 
@@ -39,6 +40,7 @@ void Game::Update()
 void Game::Render(RenderContext& rc)
 {
 	m_modelRender.Draw(rc);
+	m_mol.Draw(rc);
 	//m_spriteRender.Draw(rc);
 	m_fontRender.Draw(rc);
 }

@@ -9,8 +9,6 @@
 PlayFishing::PlayFishing()
 {
 	m_playFishingBackGround = NewGO< PlayFishingBackGround>(0, "playFishingBackGround");
-	//ゲームカメラのオブジェクトを作る。
-	gameCamera = NewGO<GameCamera>(0, "gamecamera");
 	CallCastGauge();
 }
 
@@ -21,10 +19,6 @@ PlayFishing::~PlayFishing()
 
 	DeleteGO(m_playFishingBackGround);
 	DeleteGO(m_castGauge);
-	DeleteGO(gameCamera);
-
-	//ポジションセレクトクラスのオブジェクトをアクティブにする
-	m_positionSelection->SetActivate();
 }
 
 void PlayFishing::Update()
