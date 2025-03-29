@@ -36,9 +36,6 @@ PositionSelection::PositionSelection()
 		m_fishManager[i] = NewGO<FishManager>(0,"fishManager");
 	}
 
-	//時間をはかる。
-	Timer();
-
 }
 
 PositionSelection::~PositionSelection()
@@ -55,20 +52,14 @@ PositionSelection::~PositionSelection()
 
 void PositionSelection::Update()
 {
-	if (m_shouldPartiallyDeactivate == false) {//アクティブかどうか判断する。
-		if (g_pad[0]->IsTrigger(enButtonA)) {//Aボタンが押されたら。
-			ChangeSceneToPlayFishing();//プレイフィッシングシーンに変える。
-		}
-	}
+
 }
 
 void PositionSelection::Render(RenderContext& rc)
 {
-	if (m_shouldPartiallyDeactivate==false) {
-		for (int i = 0; i < 6; i++) {
-			m_fishDisplayInside[i].Draw(rc);
-			m_fishDisplayOutside[i].Draw(rc);
-		}
+	for (int i = 0; i < 6; i++) {
+		m_fishDisplayInside[i].Draw(rc);
+		m_fishDisplayOutside[i].Draw(rc);
 	}
 }
 
@@ -118,54 +109,24 @@ void PositionSelection::SetisDisplayingFalse()
 	m_is_displaying = false;
 }
 
-/// <summary>
-/// シーンをプレイフィッシングに変える。
-/// </summary>
 void PositionSelection::ChangeSceneToPlayFishing()
 {
 	SetisDisplayingFalse();
-
 	m_playFishing = NewGO<PlayFishing>(0, "playFishing");
 
-	SetDeactivate();
+	//プレイヤーを削除する。
+	DeleteGO(player);
+	//ゲームカメラを削除する。
+	DeleteGO(gameCamera);
+	//ゲーム中のBGMを削除する。
+	DeleteGO(gameCamera);
+	//背景を削除する。
+	DeleteGO(backGround);
 }
 
 bool PositionSelection::GetisDisplaying()
 {
 	return m_is_displaying;
-}
-
-void PositionSelection::SetDeactivate()
-{
-	//プレイヤーを非アクティブにする。
-	player->Deactivate();
-	//ゲームカメラを非アクティブにする。
-	gameCamera->Deactivate();
-	//背景を非アクティブにする。
-	backGround->Deactivate();
-	//Uiを表示しない。
-	m_shouldPartiallyDeactivate = true;
-}
-
-void PositionSelection::SetActivate()
-{
-	//プレイヤーをアクティブにする。
-	player->Activate();
-	//ゲームカメラをアクティブにする。
-	gameCamera->Activate();
-	//背景をアクティブにする。
-	backGround->Activate();
-	//UIを表示する。
-	m_shouldPartiallyDeactivate = false;
-}
-
-void PositionSelection::Timer()
-{
-	m_time++;
-	if (m_timelimit>=m_time)
-	{
-		m_is_time_up = true;
-	}
 }
 
 

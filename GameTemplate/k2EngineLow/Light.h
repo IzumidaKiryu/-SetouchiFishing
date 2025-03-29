@@ -37,7 +37,7 @@ namespace nsK2EngineLow {
 			PointLight pointLig;
 			SpotLight spotLig;
 			Vector3 eyePos;
-			float pad0;
+			float pad4;
 			Vector3 ambientLight;
 
 		};
