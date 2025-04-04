@@ -1,9 +1,12 @@
 #include "stdafx.h"
 #include "TensionGauge.h"
 #include "GetRotation.h"
+#include <Time.h>
+
 
 TensionGauge::TensionGauge()
 {
+	srand(time(nullptr));
 	//m_tensionGaugeInside.Init("Assets/modelData/tensionGauge.DDS", 500, 100);
 	m_tensionGaugeInside.Init("Assets/modelData/castGauge_inside.DDS", 500, 100);
 	m_tensionGaugeInside.SetPivot(Vector2(0.5f, 0.5f));
@@ -29,6 +32,7 @@ TensionGauge::~TensionGauge()
 
 void TensionGauge::Update()
 {
+	SetFishEscapePower();
 	SetArrowPosition();
 }
 
@@ -39,9 +43,27 @@ void TensionGauge::RightAndLeftManagement()
 
 void TensionGauge::SetArrowPosition()
 {
-	m_arrowPosition = m_getRotation->rotationQuantity*100;
+	m_arrowPosition = m_getRotation->rotationQuantity*100+ m_fishEscapePower;
 	m_tensionGaugeArrow.SetPosition(Vector3(m_arrowPosition, -200.0f, 0.0f));
 	m_tensionGaugeArrow.Update();
+}
+
+void TensionGauge::SetFishEscapePower()
+{
+	//float randum = rand() % 10000;
+	//randum -= 5000.0f;
+	//randum /= 1000.0f;
+
+	//m_fishEscapePower+=randum;
+}
+
+void TensionGauge::m_isfishEscapePowerDirectionChange()
+{
+}
+
+void TensionGauge::m_fishEscapePowerDirectionChange()
+{
+	float randum = rand() % 100;
 }
 
 void TensionGauge::Render(RenderContext& rc)
