@@ -175,6 +175,7 @@
     <ClCompile Include="system\system.cpp" />
     <ClCompile Include="Tatiuo.cpp" />
     <ClCompile Include="TensionGauge.cpp" />
+    <ClCompile Include="TimeLimitUI.cpp" />
     <ClCompile Include="Title.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -199,6 +200,7 @@
     <ClInclude Include="system\system.h" />
     <ClInclude Include="Tatiuo.h" />
     <ClInclude Include="TensionGauge.h" />
+    <ClInclude Include="TimeLimitUI.h" />
     <ClInclude Include="Title.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -6,6 +6,9 @@
 #include "BackGround.h"
 #include "FishManager.h"
 #include "PlayFishing.h"
+#include "TimeLimitUI.h"
+#include <Time.h>
+#include <string>
 
 PositionSelection::PositionSelection()
 {
@@ -69,9 +72,12 @@ void PositionSelection::Update()
 
 void PositionSelection::Render(RenderContext& rc)
 {
+	m_timeLimitUI->GetClockUI().Draw(rc);
+	m_timeLimitUI->GetOnesPlacUI().Draw(rc);
+	m_timeLimitUI->GetTensPlacUI().Draw(rc);
+	m_timeLimitUI->GetHundredsPlacUI().Draw(rc);
 	if (m_shouldPartiallyDeactivate==false) {
 		for (int i = 0; i < 6; i++) {
-		
 			m_fishDisplayInside[i].Draw(rc);
 			m_fishDisplayOutside[i].Draw(rc);
 			m_fishUI[i]->Draw(rc);
@@ -164,12 +170,19 @@ void PositionSelection::SetActivate()
 	m_shouldPartiallyDeactivate = false;
 }
 
+/// <summary>
+/// �������Ԃ�͂���B
+/// </summary>
 void PositionSelection::Timer()
 {
-	m_time++;
-	if (m_timelimit>=m_time)
+	m_double_time= m_timelimit-m_stopwatch.GetElapsed();
+	m_stopwatch.Stop();
+	m_int_time = m_double_time;
+	if (m_double_time<=0)
 	{
 		m_is_time_up = true;
+		m_stopwatch.Stop();
+
 	}
 }
 
