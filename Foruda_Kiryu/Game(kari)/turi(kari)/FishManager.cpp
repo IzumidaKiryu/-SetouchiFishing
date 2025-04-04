@@ -1,12 +1,11 @@
 #include "stdafx.h"
-#include <Time.h>
 #include "FishManager.h"
 #include "Buri.h"
 #include "Tatiuo.h"
+#include <random>
 
 FishManager::FishManager()
 {
-	srand(time(nullptr));
 	SelectFishType();
 	FishNewGO();
 	GetUI();
@@ -26,7 +25,8 @@ void FishManager::Update()
 /// </summary>
 void FishManager::SelectFishType()
 {
-	int randum=rand()%100;
+	std::random_device rd;
+	int randum= rd() % 100;
 	m_randum = randum;
 	if (0 <= randum&& randum <= 49) {
 		m_fishType = BURI;
