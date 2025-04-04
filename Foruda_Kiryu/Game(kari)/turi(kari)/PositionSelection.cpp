@@ -195,6 +195,18 @@ void PositionSelection::SetFishUIPosition()
 	}
 }
 
+void PositionSelection::FishChange()
+{
+	for (int i = 0; i < 6; i++) {
+		if (m_fishManager[i]->GetShouldFishChange()) {
+			DeleteGO(m_fishManager[i]);
+
+			//�t�B�b�V���}�l�[�W���[�̐����B
+			m_fishManager[i] = NewGO<FishManager>(0, objectName[i]);
+		}
+
+	}
+}
 
 //void PositionSelection::fishingPositionA_SetFish()
 //{

@@ -108,10 +108,10 @@ void FishManager::SetShouldFishChange()
 	case TAI:
 		break;
 	case BURI:
-		m_shouldFishChange = m_buri->m_shouldFishChange;
+		m_shouldFishChange = m_buri->GetShouldFishChange();
 		break;
 	case TATIUO:
-		m_shouldFishChange = m_tatiuo->m_shouldFishChange;
+		m_shouldFishChange = m_tatiuo->GetShouldFishChange();
 		break;
 	case HIRAME:
 		break;
@@ -122,4 +122,9 @@ void FishManager::SetShouldFishChange()
 	default:
 		break;
 	}
+}
+
+bool FishManager::GetShouldFishChange()
+{
+	return m_shouldFishChange;
 }
