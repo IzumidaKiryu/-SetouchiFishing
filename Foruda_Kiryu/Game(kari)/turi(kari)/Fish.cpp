@@ -94,6 +94,11 @@ void Fish::SetisSelectedFalse()
 	m_isSelected = false;
 }
 
+bool Fish::GetShouldFishChange()
+{
+	return m_shouldFishChange;
+}
+
 SpriteRender& Fish::GetUI()
 {
 	return m_ui;
