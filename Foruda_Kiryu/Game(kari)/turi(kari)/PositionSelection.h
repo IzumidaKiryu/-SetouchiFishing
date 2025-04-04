@@ -1,5 +1,6 @@
 #pragma once
 #include "sound/SoundSource.h"
+#include <string>
 
 enum Position {
 	POSITION_A,
@@ -16,6 +17,7 @@ class BackGround;
 class SoundSource;
 class FishManager;
 class PlayFishing;
+class TimeLimitUI;
 
 
 class PositionSelection : public IGameObject
@@ -28,8 +30,8 @@ public:
 	void Update();
 	void Render(RenderContext& rc);
 	void SetUI();
-	void SetFishUI();
-	void SetFishDisplayPosition();
+	void SetFishUI();//魚のUIをセット。
+	void SetFishDisplayPosition();//ディスプレイUIの場所を設定。
 	void SetisDisplayingTrue();
 	void SetisDisplayingFalse();
 	void ChangeSceneToPlayFishing();
@@ -38,6 +40,13 @@ public:
 	void SetActivate();
 	void Timer();
 	void SetFishUIPosition();
+	void FishChange();//魚を変える。
+	void SelectPositionA();
+	void SelectPositionB();
+	void SelectPositionC();
+	void SelectPositionD();
+	void SelectPositionE();
+	void SelectPositionF();
 	
 	float setFish=0.0f;
 	Vector3 m_fishDisplayPosition[6];
@@ -45,10 +54,20 @@ public:
 	float m_fishDisplayPositionXinterval = 350.0f;
 	bool m_is_displaying;
 	bool m_shouldPartiallyDeactivate=false;//部分的に非アクティブにするべきか。
-	float m_time=0.0f;//時間
-	float m_timelimit = 2000;//時間制限
+	double m_double_time=0.0f;//時間
+	int m_int_time=0;
+	float m_timelimit = 240;//時間制限
 	bool m_is_time_up;//タイムアップしているかどうか。
-	
+	std::string fishManagerObjectName[6] = {
+		"positionA",
+		"positionB",
+		"positionC",
+		"positionD",
+		"positionE",
+		"positionF"
+	}
+	;
+	char* objectName[6]; 
 
 	Player* player;			//プレイヤー。
 	GameCamera* gameCamera;			//ゲームカメラ。
@@ -60,5 +79,8 @@ public:
 	FishManager* m_fishManager[6];
 	PlayFishing* m_playFishing;
 	SpriteRender* m_fishUI[6];
+	TimeLimitUI* m_timeLimitUI;
+
+	Stopwatch m_stopwatch;
 };
 

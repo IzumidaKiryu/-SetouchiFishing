@@ -4,10 +4,13 @@
 #include "GameCamera.h"
 #include "CastGauge.h"
 #include "PositionSelection.h"
+#include "FishManager.h"
 
 
 PlayFishing::PlayFishing()
 {
+	m_objectName= new char[6];// フィッシュマネージャーのオブジェクトネームのメモリ確保
+
 	m_playFishingBackGround = NewGO< PlayFishingBackGround>(0, "playFishingBackGround");
 	//ゲームカメラのオブジェクトを作る。
 	gameCamera = NewGO<GameCamera>(0, "gamecamera");
@@ -38,5 +41,16 @@ void PlayFishing::CallCastGauge()
 
 void PlayFishing::DeleteThisClass()
 {
-	DeleteGO(this);
+	DeleteGO(this); 
+}
+
+void PlayFishing::SetFishManagerObjectName(std::string string_objectName)
+{
+	//フィッシュマネージャーにつけるオブジェクトネームの設定。
+	std::char_traits<char>::copy(m_objectName, string_objectName.c_str(), string_objectName.size() + 1);
+}
+
+void PlayFishing::FindeFishManager()
+{
+	m_fishManager = FindGO<FishManager>(m_objectName);
 }

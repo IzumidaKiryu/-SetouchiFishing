@@ -13,6 +13,16 @@
 PositionSelection::PositionSelection()
 {
 	srand(time(NULL));
+
+	m_stopwatch.Start();
+
+	for (int i = 0; i < 6; i++)
+	{
+		objectName[i] = new char[fishManagerObjectName[i].size() + 1];
+	}
+	//§ŒÀŠÔ‚ÌUI‚ğì‚éB
+	m_timeLimitUI= NewGO<TimeLimitUI>(0, "timelimitUI");
+
 	//ƒvƒŒƒCƒ„[‚ÌƒIƒuƒWƒFƒNƒg‚ğì‚éB
 	player = NewGO<Player>(0, "player");
 
@@ -36,11 +46,13 @@ PositionSelection::PositionSelection()
 	SetUI();
 
 	for (int i = 0; i < 6; i++) {
-		m_fishManager[i] = NewGO<FishManager>(0,"fishManager");
-	}
 
-	//ŠÔ‚ğ‚Í‚©‚éB
-	Timer();
+		//ƒtƒBƒbƒVƒ…ƒ}ƒl[ƒWƒƒ[‚É‚Â‚¯‚éƒIƒuƒWƒFƒNƒgƒl[ƒ€‚Ìİ’èB
+			std::char_traits<char>::copy(objectName[i], fishManagerObjectName[i].c_str(), fishManagerObjectName[i].size() + 1);
+		
+			//ƒtƒBƒbƒVƒ…ƒ}ƒl[ƒWƒƒ[‚Ì¶¬B
+		m_fishManager[i] = NewGO<FishManager>(0, objectName[i]);
+	}
 
 }
 
@@ -58,16 +70,19 @@ PositionSelection::~PositionSelection()
 
 void PositionSelection::Update()
 {
+	//ŠÔ‚ğ‚Í‚©‚éB
+	Timer();
+	m_timeLimitUI->DisplayTimeLimitUI(m_int_time);//ƒ^ƒCƒ€ƒŠƒ~ƒbƒg‚ğ•\¦‚·‚éB
+
 	if (m_shouldPartiallyDeactivate == false) {//ƒAƒNƒeƒBƒu‚©‚Ç‚¤‚©”»’f‚·‚éB
 		SetFishUI();
 		if (g_pad[0]->IsTrigger(enButtonA)) {//Aƒ{ƒ^ƒ“‚ª‰Ÿ‚³‚ê‚½‚çB
 			ChangeSceneToPlayFishing();//ƒvƒŒƒCƒtƒBƒbƒVƒ“ƒOƒV[ƒ“‚É•Ï‚¦‚éB
-	
 		}
 	}
-	for (int i = 0; i < 6; i++) {
+	/*for (int i = 0; i < 6; i++) {
 		m_timelimit=m_fishManager[i]->m_randum;
-	}
+	}*/
 }
 
 void PositionSelection::Render(RenderContext& rc)
@@ -138,6 +153,8 @@ void PositionSelection::ChangeSceneToPlayFishing()
 
 	m_playFishing = NewGO<PlayFishing>(0, "playFishing");
 
+	SelectPositionA();
+
 	SetDeactivate();
 }
 
@@ -171,7 +188,7 @@ void PositionSelection::SetActivate()
 }
 
 /// <summary>
-/// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô‚ï¿½Í‚ï¿½ï¿½ï¿½B
+/// §ŒÀŠÔ‚ğ‚Í‚©‚éB
 /// </summary>
 void PositionSelection::Timer()
 {
@@ -192,6 +209,7 @@ void PositionSelection::SetFishUI()
 		m_fishUI[i] = m_fishManager[i]->m_ui;
 	}
 	SetFishUIPosition();
+
 }
 
 
@@ -214,12 +232,45 @@ void PositionSelection::FishChange()
 		if (m_fishManager[i]->GetShouldFishChange()) {
 			DeleteGO(m_fishManager[i]);
 
-			//ï¿½tï¿½Bï¿½bï¿½Vï¿½ï¿½ï¿½}ï¿½lï¿½[ï¿½Wï¿½ï¿½ï¿½[ï¿½Ìï¿½ï¿½ï¿½ï¿½B
+			//ƒtƒBƒbƒVƒ…ƒ}ƒl[ƒWƒƒ[‚Ì¶¬B
 			m_fishManager[i] = NewGO<FishManager>(0, objectName[i]);
 		}
 
 	}
 }
+
+void PositionSelection::SelectPositionA()
+{
+	m_playFishing->SetFishManagerObjectName("positionA");
+}
+
+void PositionSelection::SelectPositionB()
+{
+	m_playFishing->SetFishManagerObjectName("positionB");
+}
+
+void PositionSelection::SelectPositionC()
+{
+	m_playFishing->SetFishManagerObjectName("positionC");
+}
+
+void PositionSelection::SelectPositionD()
+{
+	m_playFishing->SetFishManagerObjectName("positionD");
+}
+
+void PositionSelection::SelectPositionE()
+{
+	m_playFishing->SetFishManagerObjectName("positionE");
+}
+
+void PositionSelection::SelectPositionF()
+{
+	m_playFishing->SetFishManagerObjectName("positionF");
+}
+
+
+
 
 //void PositionSelection::fishingPositionA_SetFish()
 //{
