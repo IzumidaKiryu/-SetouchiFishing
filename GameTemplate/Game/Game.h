@@ -10,6 +10,7 @@ public:
 	void Update();
 	void Render(RenderContext& rc);
 	ModelRender m_modelRender;
+	ModelRender m_mol;
 	SpriteRender m_spriteRender;
 	FontRender m_fontRender;
 	//Light m_light;
