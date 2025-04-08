@@ -239,6 +239,14 @@ void PositionSelection::FishChange()
 	}
 }
 
+void PositionSelection::SelectPosition()
+{
+	if (true)
+	{
+
+	}
+}
+
 void PositionSelection::SelectPositionA()
 {
 	m_playFishing->SetFishManagerObjectName("positionA");

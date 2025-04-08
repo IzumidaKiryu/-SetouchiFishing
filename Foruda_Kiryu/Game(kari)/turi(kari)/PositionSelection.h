@@ -41,6 +41,7 @@ public:
 	void Timer();
 	void SetFishUIPosition();
 	void FishChange();//魚を変える。
+	void SelectPosition();
 	void SelectPositionA();
 	void SelectPositionB();
 	void SelectPositionC();
@@ -67,6 +68,7 @@ public:
 		"positionF"
 	}
 	;
+	std::string select_by_with_position;
 	char* objectName[6]; 
 
 	Player* player;			//プレイヤー。
