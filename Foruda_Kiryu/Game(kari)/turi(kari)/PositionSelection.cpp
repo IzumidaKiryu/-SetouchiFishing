@@ -37,7 +37,7 @@ PositionSelection::PositionSelection()
 	gameBGM = NewGO<SoundSource>(0);
 	/*gameBGM->Init(1);
 	gameBGM->Play(true);*/
-	gameCamera->m_toCameraPos.Set(0.0f, 1250.0f, -250.0f);
+	gameCamera->m_toCameraPos.Set(0.0f, 750.0f, -250.0f);
 
 	//UI‚ÌêŠ‚ğŒˆ‚ß‚éB
 	SetFishDisplayPosition();
