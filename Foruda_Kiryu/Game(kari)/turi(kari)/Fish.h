@@ -1,4 +1,9 @@
 #pragma once
+
+struct FishData
+{
+	float arrowSpeed;
+};
 class PositionSelection;
 class Fish : public IGameObject
 {
@@ -17,6 +22,7 @@ public:
 	void SetisSelectedTrue();
 	void SetisSelectedFalse();
 	bool GetShouldFishChange();
+
 	SpriteRender& GetUI();
 	bool m_shouldFishChange = false;//魚を変えるべきか？
 	bool m_isSelected=false;//選ばれているかどうか。（つられている最中かどうか）
