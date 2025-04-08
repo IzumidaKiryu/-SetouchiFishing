@@ -128,3 +128,4 @@ bool FishManager::GetShouldFishChange()
 {
 	return m_shouldFishChange;
 }
+

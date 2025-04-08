@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "FishingGauge.h"
 #include "TensionGauge.h"
+#include"Playfishing.h"
 
 
 FishingGauge::FishingGauge()
@@ -28,7 +29,7 @@ FishingGauge::FishingGauge()
 
 FishingGauge::~FishingGauge()
 {
-	m_tensionGauge = NewGO<TensionGauge>(0, "tensionGauge");
+
 }
 
 void FishingGauge::Update()
@@ -100,6 +101,9 @@ void FishingGauge::HitTest()
 {
 	if (g_pad[0]->IsTrigger(enButtonA)) {
 		Attack();
+		m_playFishing = FindGO<PlayFishing>("playFishing");
+		m_playFishing->m_playFishingStatus = tensionGauge;
+		m_playFishing->StatusManager();
 		DeleteGO(this);
 	}
 

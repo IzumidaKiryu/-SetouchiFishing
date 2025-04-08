@@ -33,7 +33,7 @@ CastGauge::CastGauge()
 
 CastGauge::~CastGauge()
 {
-
+	DeleteGO(m_gaugeCastSuccessful);
 }
 
 void CastGauge::Update()
@@ -105,16 +105,28 @@ void CastGauge::HitTest()
 	if (g_pad[0]->IsTrigger(enButtonA)) {
 		if (m_gaugeCastSuccessful->hitTest(m_arrowPosition) == true)//ê¨å˜ÇµÇΩÇÁÅB
 		{
-			m_fishingGauge=NewGO<FishingGauge>(0, "fishingGauge ");
+			/*m_fishingGauge=NewGO<FishingGauge>(0, "fishingGauge ");*/
 			/*tensionGauge = NewGO<TensionGauge>(0, "tensionGauge");*/
-			DeleteGO(this);
+			Success();
 		}
 		else if (m_gaugeCastSuccessful->hitTest(m_arrowPosition) == false) //é∏îsÇµÇΩÇÁÅB
 		{
-			m_playFishing = FindGO<PlayFishing>("playFishing");
-			m_playFishing->DeleteThisClass();
+			Failure();
 		}
+		is_ended = true;
 	}
+}
+
+void CastGauge::Failure()
+{
+	m_playFishing = FindGO<PlayFishing>("playFishing");
+	m_playFishing->SetFailure();
+}
+
+void CastGauge::Success()
+{
+	m_playFishing = FindGO<PlayFishing>("playFishing");
+	m_playFishing->SetSuccess();
 }
 
 void CastGauge::Render(RenderContext& rc)
