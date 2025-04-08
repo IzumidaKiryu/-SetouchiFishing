@@ -13,6 +13,7 @@ public:
 	Vector3 nowVector;//今のフレームで取得したベクトル。
 	Vector3 befreVector={0.0f,0.0f,0.0f};//前のフレームで取得したベクトル。
 	float rotationQuantity=0.0f;//回転量
+	float nowFrameRotationQuantity = 0.0f;//今のフレームでの回転量。（回転量がマイナスの時は0）
 
 	enum RotationDirection {
 		Nonturn,

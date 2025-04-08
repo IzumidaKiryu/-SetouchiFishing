@@ -13,7 +13,9 @@ GetRotation::~GetRotation()
 
 void GetRotation::Update()
 {
-	SetVectorA();
+	nowFrameRotationQuantity = 0.0f;
+
+	SetVectorA(); 
 	if (befreVector.x != 0 || befreVector.y != 0 || befreVector.z != 0) {//入力があったら。
 		CalculatingRotationQuantity();//回転の計算をする。
 	}
@@ -47,6 +49,7 @@ float GetRotation::CalculatingRotationQuantity()
 		t = max(-1.0f, t);
 		if (rotationDirection == RightTurn) {//右回転の時は回転量にプラスする。
 			rotationQuantity += acos(t) / 20;//なぜか内積が1以上-1以下になるから÷2をした。
+			nowFrameRotationQuantity= acos(t) / 20;
 		}
 		if (rotationDirection == LeftTurn) {//左回転ならマイナスする。
 			rotationQuantity -= acos(t) / 20;
