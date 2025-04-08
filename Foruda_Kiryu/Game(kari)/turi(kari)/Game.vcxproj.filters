@@ -32,6 +32,7 @@
     <ClCompile Include="FishManager.cpp" />
     <ClCompile Include="Tatiuo.cpp" />
     <ClCompile Include="TimeLimitUI.cpp" />
+    <ClCompile Include="FishingRodHP.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -59,5 +60,6 @@
     <ClInclude Include="FishManager.h" />
     <ClInclude Include="Tatiuo.h" />
     <ClInclude Include="TimeLimitUI.h" />
+    <ClInclude Include="FishingRodHP.h" />
   </ItemGroup>
 </Project>
