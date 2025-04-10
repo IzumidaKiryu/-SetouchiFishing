@@ -23,8 +23,10 @@ public:
 	void GetUI();
 	void FishNewGO();
 	void SetShouldFishChange();
+	bool GetShouldFishChange();
 
-	bool m_shouldFishChange = false;
+	bool m_shouldFishChange = false;//‹›‚ğ•Ï‚¦‚é‚×‚«‚©‚Ç‚¤‚©B
+	int m_randum;
 	FishType m_fishType;
 	Buri* m_buri;
 	Tatiuo* m_tatiuo;

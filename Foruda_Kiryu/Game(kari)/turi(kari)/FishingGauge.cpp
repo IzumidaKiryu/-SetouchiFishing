@@ -1,6 +1,12 @@
 #include "stdafx.h"
 #include "FishingGauge.h"
 
+#include "TensionGauge.h"
+#include"Playfishing.h"
+
+
+
+
 FishingGauge::FishingGauge()
 {
 
@@ -32,14 +38,14 @@ FishingGauge::~FishingGauge()
 void FishingGauge::Update()
 {
 	SetBarSpead();
-	UpAndDownManagement();//ƒo[‚Ì“®‚­Œü‚«‚ğŒˆ‚ß‚éB
-	SetBarPosition();//ƒo[‚ÌêŠ‚ğŒˆ‚ß‚éB
-	m_fishingGaugeBar.Update();//ƒo[‚Ì•`‰æ‚ğXV‚·‚éB
+	UpAndDownManagement();//ãƒãƒ¼ã®å‹•ãå‘ãã‚’æ±ºã‚ã‚‹ã€‚
+	SetBarPosition();//ãƒãƒ¼ã®å ´æ‰€ã‚’æ±ºã‚ã‚‹ã€‚
+	m_fishingGaugeBar.Update();//ãƒãƒ¼ã®æç”»ã‚’æ›´æ–°ã™ã‚‹ã€‚
 	HitTest();
 }
 
 /// <summary>
-/// –îˆó‚ÌêŠ‚ğİ’è
+/// çŸ¢å°ã®å ´æ‰€ã‚’è¨­å®š
 /// </summary>
 void FishingGauge::SetBarPosition()
 {
@@ -47,7 +53,7 @@ void FishingGauge::SetBarPosition()
 }
 
 /// <summary>
-/// –îˆó‚ğã‚É“®‚©‚·‚©‰º‚É“®‚©‚·‚©Œˆ‚ß‚éB
+/// çŸ¢å°ã‚’ä¸Šã«å‹•ã‹ã™ã‹ä¸‹ã«å‹•ã‹ã™ã‹æ±ºã‚ã‚‹ã€‚
 /// </summary>
 void FishingGauge::UpAndDownManagement()
 {
@@ -59,31 +65,31 @@ void FishingGauge::UpAndDownManagement()
 	}
 }
 /// <summary>
-/// –îˆó‚ğã‚ÉˆÚ“®B
+/// çŸ¢å°ã‚’ä¸Šã«ç§»å‹•ã€‚
 /// </summary>
 void FishingGauge::UpwardOperation()
 {
 	m_barPosition += m_barSpead;
 	if (m_barPosition >= m_barUpperLimit) {
-		m_barPosition = (-m_barPosition + m_barUpperLimit) + m_barUpperLimit;//ãŒÀ‚ğ’Ê‚è‰ß‚¬‚½‚ç‚»‚Ì•ª–ß‚éˆ—B
+		m_barPosition = (-m_barPosition + m_barUpperLimit) + m_barUpperLimit;//ä¸Šé™ã‚’é€šã‚ŠéããŸã‚‰ãã®åˆ†æˆ»ã‚‹å‡¦ç†ã€‚
 		upState = false;
 	}
 }
 
 /// <summary>
-/// –îˆó‚ğ‰º‚ÉˆÚ“®
+/// çŸ¢å°ã‚’ä¸‹ã«ç§»å‹•
 /// </summary>
 void FishingGauge::DownwardOperation()
 {
 	m_barPosition -= m_barSpead;
 	if (m_barPosition <= m_barLowerLimit) {
-		m_barPosition = (-m_barPosition + m_barLowerLimit) + m_barLowerLimit;//‰ºŒÀ‚ğ’Ê‚è‰ß‚¬‚½‚ç‚»‚Ì•ª–ß‚éˆ—B
+		m_barPosition = (-m_barPosition + m_barLowerLimit) + m_barLowerLimit;//ä¸‹é™ã‚’é€šã‚ŠéããŸã‚‰ãã®åˆ†æˆ»ã‚‹å‡¦ç†ã€‚
 		upState = true;
 	}
 }
 
 /// <summary>
-/// –îˆó‚ÌƒXƒs[ƒh‚ğİ’è
+/// çŸ¢å°ã®ã‚¹ãƒ”ãƒ¼ãƒ‰ã‚’è¨­å®š
 /// </summary>
 void FishingGauge::SetBarSpead()
 {
@@ -93,7 +99,13 @@ void FishingGauge::SetBarSpead()
 void FishingGauge::HitTest()
 {
 	if (g_pad[0]->IsTrigger(enButtonA)) {
-			DeleteGO(this);
+
+		Attack();
+		m_playFishing = FindGO<PlayFishing>("playFishing");
+		m_playFishing->m_playFishingStatus = tensionGauge;
+		m_playFishing->StatusManager();
+		DeleteGO(this);
+
 	}
 }
 
