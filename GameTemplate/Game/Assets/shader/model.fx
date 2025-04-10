@@ -37,7 +37,13 @@ cbuffer DirectionLightCb : register(b1)
 	//視点のデータにアクセスするための変数を定数バッファに登録
     float3 eyePos;
     float3 ambientLight; //環境光
-}
+    
+    //半球ライトノデータにアクセスするための変数。
+    float3 groundColor; //照り返しのライト。
+    float3 skyColor; //天球ライト。
+    float3 groundNomal; //地面の法線。
+};
+
 ////////////////////////////////////////////////
 // 構造体
 ////////////////////////////////////////////////
@@ -78,6 +84,7 @@ float3 CalcPhongSpecular(float3 lightDirection, float3 lightColor, float3 worldP
 float3 CalcLigFromPointLight(SPSIn psIn);//ポイントライトの計算。
 float3 CalcLigFromDirectionLight(SPSIn psIn);
 float3 CalcLigFromSpotLight(SPSIn psIn);//スポットライトによるライティングの計算。
+float3 CalcLigFormLimLight(SPSIn psIn);//リムライト
 
 
 /// <summary>
@@ -155,40 +162,40 @@ float4 PSMain( SPSIn psIn ) : SV_Target0
     //スポットライトによるライティングの計算。
     float3 spotLig = CalcLigFromSpotLight(psIn);
    
-   // //リムライトの強さを求める。
-   // //サーフェースの法線と光の入射方向に依存するリムの強さを求める。
-    float power1 = 1.0f - max(0.0f, dot(ligDirection, psIn.normal));
+   //リムライトの強さを求める。
+    float3 limPow = CalcLigFormLimLight(psIn);
     
-   // //サーフェースの法線と視線の方向に依存するリムの強さを求める。
-    float power2 = 1.0f - max(0.0f, psIn.normalInView.z * -1.0f);
+    //半球ライトの計算。
+    //サーフェースの法線と地面の法線との内積を計算する。
+    float t = dot(psIn.normal, groundNomal);
     
-   // //最終的なリムの強さを求める。
-    float limPower = power1 * power2;
+    //内積の結果を0～1の範囲に変換する。
+    t = (t + 1.0f) / 2.0f;
     
-   // //pow()を使用して強さの変化を指数関数的にする。
-    limPower = pow(limPower, 1.3f);
-    
-   // ////最終的な反射光を求める（リム確認用）。
-   //float limOnlyFinalLig = directionLig + ambientLight;
+    //地面色と天球色を補完率ｔで線形補完する。
+    float3 hemiLight = lerp(groundColor, skyColor, t);
+   
+   // ////最終的な反射光を求める（リム,半球ｒ確認用）。
+   float limOnlyFinalLig = directionLig + ambientLight;
     
     //最終的な反射光を求める（全ライト）。
-    float3 allLightFinalLig = directionLig + pointLig + spotLig + ambientLight;
+   // float3 allLightFinalLig = directionLig + pointLig + spotLig + ambientLight;
     
     //最終的な反射光にリムライトの反射光を合成する。
     //リムライトのカラーを計算する。
-    float3 limColor = limPower * ligColor;
+    float3 limColor = limPow * ligColor;
     
    // //最終的な反射光にリムの反射光を合算する。
     //(リムのみ)
-   //limOnlyFinalLig += limColor;
+   limOnlyFinalLig += limColor;
     //（すべてのライト）
-    allLightFinalLig += limColor;
-    
+    //allLightFinalLig += limColor;
+   limOnlyFinalLig += hemiLight;
 	float4 albedoColor = g_albedo.Sample(g_sampler, psIn.uv);
 	
 	//最終的な出力カラーに光を乗算する。
-	//albedoColor.xyz *= limOnlyFinalLig;
-    albedoColor.xyz *= allLightFinalLig;
+	albedoColor.xyz *= limOnlyFinalLig;
+    //albedoColor.xyz *= allLightFinalLig;
  
 	return albedoColor;
 }
@@ -363,4 +370,21 @@ float3 CalcLigFromSpotLight(SPSIn psIn)
     specSpotLight *= affect;
     return diffSpotLight + specSpotLight;
 	
+}
+
+float3 CalcLigFormLimLight(SPSIn psIn)
+{
+    /// //サーフェースの法線と光の入射方向に依存するリムの強さを求める。
+    float power1 = 1.0f - max(0.0f, dot(ligDirection, psIn.normal));
+    
+   // //サーフェースの法線と視線の方向に依存するリムの強さを求める。
+    float power2 = 1.0f - max(0.0f, psIn.normalInView.z * -1.0f);
+    
+   // //最終的なリムの強さを求める。
+    float limPower = power1 * power2;
+    
+   // //pow()を使用して強さの変化を指数関数的にする。
+    limPower = pow(limPower, 1.3f);
+    
+    return limPower;
 }
