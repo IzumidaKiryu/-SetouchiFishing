@@ -41,7 +41,7 @@ void nsK2EngineLow::Light::Init()
 	//ポイントライトの影響範囲の設定。
 	m_SceneLight.pointLig.ptInfuluenceRenge = 100.0f;
 
-	
+
 	//スポットライトノデータを初期化する。
 	//座標。
 	m_SceneLight.spotLig.s_position.x = 0.0f;
@@ -71,9 +71,19 @@ void nsK2EngineLow::Light::Init()
 	m_SceneLight.ambientLight.z = 0.3f;
 
 
-	
-}
+	//地面色。、天球色、地面の法線を追加する。
+	m_SceneLight.groundColor.x = 0.7f;
+	m_SceneLight.groundColor.y = 0.5f;
+	m_SceneLight.groundColor.z = 0.3f;
 
+	m_SceneLight.skyColor.x = 0.15f;
+	m_SceneLight.skyColor.y = 0.7f;
+	m_SceneLight.skyColor.z = 0.95f;
+
+	m_SceneLight.groundNormal.x = 0.0f;
+	m_SceneLight.groundNormal.y = 1.0f;
+	m_SceneLight.groundNormal.z = 0.0f;
+}
 void nsK2EngineLow::Light::Update()
 {
 }

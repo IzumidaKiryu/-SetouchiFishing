@@ -39,7 +39,12 @@ namespace nsK2EngineLow {
 			Vector3 eyePos;
 			float pad4;
 			Vector3 ambientLight;
-
+			float pad5;
+			Vector3 groundColor;
+			float pad6;
+			Vector3 skyColor;
+			float pad7;
+			Vector3 groundNormal;
 		};
 
 		Light();
