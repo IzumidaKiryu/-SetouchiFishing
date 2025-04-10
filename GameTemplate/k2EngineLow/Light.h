@@ -37,9 +37,14 @@ namespace nsK2EngineLow {
 			PointLight pointLig;
 			SpotLight spotLig;
 			Vector3 eyePos;
-			float pad0;
+			float pad4;
 			Vector3 ambientLight;
-
+			float pad5;
+			Vector3 groundColor;
+			float pad6;
+			Vector3 skyColor;
+			float pad7;
+			Vector3 groundNormal;
 		};
 
 		Light();

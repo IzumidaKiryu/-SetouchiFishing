@@ -20,37 +20,38 @@ PositionSelection::PositionSelection()
 	{
 		objectName[i] = new char[fishManagerObjectName[i].size() + 1];
 	}
-	//§ŒÀŠÔ‚ÌUI‚ğì‚éB
+	//åˆ¶é™æ™‚é–“ã®UIã‚’ä½œã‚‹ã€‚
 	m_timeLimitUI= NewGO<TimeLimitUI>(0, "timelimitUI");
 
-	//ƒvƒŒƒCƒ„[‚ÌƒIƒuƒWƒFƒNƒg‚ğì‚éB
+	//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ä½œã‚‹ã€‚
 	player = NewGO<Player>(0, "player");
 
-	//ƒQ[ƒ€ƒJƒƒ‰‚ÌƒIƒuƒWƒFƒNƒg‚ğì‚éB
+	//ã‚²ãƒ¼ãƒ ã‚«ãƒ¡ãƒ©ã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ä½œã‚‹ã€‚
 	gameCamera = NewGO<GameCamera>(0, "gamecamera");
 
-	//”wŒi‚ÌƒIƒuƒWƒFƒNƒg‚ğì‚éB
+	//èƒŒæ™¯ã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ä½œã‚‹ã€‚
 	backGround = NewGO<BackGround>(0);
-	//ƒQ[ƒ€’†‚ÌBGM‚ğ“Ç‚İ‚ŞB
+	//ã‚²ãƒ¼ãƒ ä¸­ã®BGMã‚’èª­ã¿è¾¼ã‚€ã€‚
 	g_soundEngine->ResistWaveFileBank(1, "Assets/sound/gamebgm.wav");
-	//ƒQ[ƒ€’†‚ÌBGM‚ğÄ¶‚·‚éB
+	//ã‚²ãƒ¼ãƒ ä¸­ã®BGMã‚’å†ç”Ÿã™ã‚‹ã€‚
 	gameBGM = NewGO<SoundSource>(0);
 	/*gameBGM->Init(1);
 	gameBGM->Play(true);*/
 	gameCamera->m_toCameraPos.Set(0.0f, 750.0f, -250.0f);
 
-	//UI‚ÌêŠ‚ğŒˆ‚ß‚éB
+	//UIã®å ´æ‰€ã‚’æ±ºã‚ã‚‹ã€‚
 	SetFishDisplayPosition();
 
-	//UI‚ğİ’è‚·‚éB
+	//UIã‚’è¨­å®šã™ã‚‹ã€‚
 	SetUI();
 
 	for (int i = 0; i < 6; i++) {
 
-		//ƒtƒBƒbƒVƒ…ƒ}ƒl[ƒWƒƒ[‚É‚Â‚¯‚éƒIƒuƒWƒFƒNƒgƒl[ƒ€‚Ìİ’èB
+
+		//ãƒ•ã‚£ãƒƒã‚·ãƒ¥ãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼ã«ã¤ã‘ã‚‹ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãƒãƒ¼ãƒ ã®è¨­å®šã€‚
 			std::char_traits<char>::copy(objectName[i], fishManagerObjectName[i].c_str(), fishManagerObjectName[i].size() + 1);
 		
-			//ƒtƒBƒbƒVƒ…ƒ}ƒl[ƒWƒƒ[‚Ì¶¬B
+			//ãƒ•ã‚£ãƒƒã‚·ãƒ¥ãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼ã®ç”Ÿæˆã€‚
 		m_fishManager[i] = NewGO<FishManager>(0, objectName[i]);
 	}
 
@@ -58,35 +59,38 @@ PositionSelection::PositionSelection()
 
 PositionSelection::~PositionSelection()
 {
-	//ƒvƒŒƒCƒ„[‚ğíœ‚·‚éB
+	//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚’å‰Šé™¤ã™ã‚‹ã€‚
 	DeleteGO(player);
-	//ƒQ[ƒ€ƒJƒƒ‰‚ğíœ‚·‚éB
+	//ã‚²ãƒ¼ãƒ ã‚«ãƒ¡ãƒ©ã‚’å‰Šé™¤ã™ã‚‹ã€‚
 	DeleteGO(gameCamera);
-	//ƒQ[ƒ€’†‚ÌBGM‚ğíœ‚·‚éB
+	//ã‚²ãƒ¼ãƒ ä¸­ã®BGMã‚’å‰Šé™¤ã™ã‚‹ã€‚
 	DeleteGO(gameCamera);
-	//”wŒi‚ğíœ‚·‚éB
+	//èƒŒæ™¯ã‚’å‰Šé™¤ã™ã‚‹ã€‚
 	DeleteGO(backGround);
 }
 
 void PositionSelection::Update()
 {
-	//ŠÔ‚ğ‚Í‚©‚éB
-	Timer();
-	m_timeLimitUI->DisplayTimeLimitUI(m_int_time);//ƒ^ƒCƒ€ƒŠƒ~ƒbƒg‚ğ•\¦‚·‚éB
 
-	if (m_shouldPartiallyDeactivate == false) {//ƒAƒNƒeƒBƒu‚©‚Ç‚¤‚©”»’f‚·‚éB
+	//æ™‚é–“ã‚’ã¯ã‹ã‚‹ã€‚
+	Timer();
+	m_timeLimitUI->DisplayTimeLimitUI(m_int_time);//ã‚¿ã‚¤ãƒ ãƒªãƒŸãƒƒãƒˆã‚’è¡¨ç¤ºã™ã‚‹ã€‚
+
+	if (m_shouldPartiallyDeactivate == false) {//ã‚¢ã‚¯ãƒ†ã‚£ãƒ–ã‹ã©ã†ã‹åˆ¤æ–­ã™ã‚‹ã€‚
 		SetFishUI();
-		if (g_pad[0]->IsTrigger(enButtonA)) {//Aƒ{ƒ^ƒ“‚ª‰Ÿ‚³‚ê‚½‚çB
-			ChangeSceneToPlayFishing();//ƒvƒŒƒCƒtƒBƒbƒVƒ“ƒOƒV[ƒ“‚É•Ï‚¦‚éB
+		if (g_pad[0]->IsTrigger(enButtonA)) {//Aãƒœã‚¿ãƒ³ãŒæŠ¼ã•ã‚ŒãŸã‚‰ã€‚
+			ChangeSceneToPlayFishing();//ãƒ—ãƒ¬ã‚¤ãƒ•ã‚£ãƒƒã‚·ãƒ³ã‚°ã‚·ãƒ¼ãƒ³ã«å¤‰ãˆã‚‹ã€‚
 		}
 	}
 	/*for (int i = 0; i < 6; i++) {
 		m_timelimit=m_fishManager[i]->m_randum;
 	}*/
+
 }
 
 void PositionSelection::Render(RenderContext& rc)
 {
+
 	m_timeLimitUI->GetClockUI().Draw(rc);
 	m_timeLimitUI->GetOnesPlacUI().Draw(rc);
 	m_timeLimitUI->GetTensPlacUI().Draw(rc);
@@ -97,6 +101,7 @@ void PositionSelection::Render(RenderContext& rc)
 			m_fishDisplayOutside[i].Draw(rc);
 			m_fishUI[i]->Draw(rc);
 		}
+
 	}
 }
 
@@ -105,14 +110,14 @@ void PositionSelection::SetUI()
 {
 	for (int i = 0; i < 6; i++) {
 
-		//‹›‚ğ•\¦‚·‚éƒfƒBƒXƒvƒŒƒC‚Ì“à‘¤
+		//é­šã‚’è¡¨ç¤ºã™ã‚‹ãƒ‡ã‚£ã‚¹ãƒ—ãƒ¬ã‚¤ã®å†…å´
 
 		m_fishDisplayInside[i].Init("Assets/modelData/fish_display_ui_inside.DDS", 150, 150);
 		m_fishDisplayInside[i].SetPivot(Vector2(0.5f, 0.5f));
 		m_fishDisplayInside[i].SetPosition(m_fishDisplayPosition[i]);
 		m_fishDisplayInside[i].SetScale(Vector3{ 1.0f, 1.0f, 1.0f });
 
-		//‹›‚ğ•\¦‚·‚éƒfƒBƒXƒvƒŒƒC‚ÌŠO‘¤
+		//é­šã‚’è¡¨ç¤ºã™ã‚‹ãƒ‡ã‚£ã‚¹ãƒ—ãƒ¬ã‚¤ã®å¤–å´
 
 		m_fishDisplayOutside[i].Init("Assets/modelData/fish_display_ui_outside.DDS", 150, 150);
 		m_fishDisplayOutside[i].SetPivot(Vector2(0.5f, 0.5f));
@@ -144,18 +149,16 @@ void PositionSelection::SetisDisplayingFalse()
 	m_is_displaying = false;
 }
 
-/// <summary>
-/// ƒV[ƒ“‚ğƒvƒŒƒCƒtƒBƒbƒVƒ“ƒO‚É•Ï‚¦‚éB
-/// </summary>
 void PositionSelection::ChangeSceneToPlayFishing()
 {
 	SetisDisplayingFalse();
-
 	m_playFishing = NewGO<PlayFishing>(0, "playFishing");
+
 
 	SelectPositionA();
 
 	SetDeactivate();
+
 }
 
 bool PositionSelection::GetisDisplaying()
@@ -163,32 +166,33 @@ bool PositionSelection::GetisDisplaying()
 	return m_is_displaying;
 }
 
+
 void PositionSelection::SetDeactivate()
 {
-	//ƒvƒŒƒCƒ„[‚ğ”ñƒAƒNƒeƒBƒu‚É‚·‚éB
+	//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚’éã‚¢ã‚¯ãƒ†ã‚£ãƒ–ã«ã™ã‚‹ã€‚
 	player->Deactivate();
-	//ƒQ[ƒ€ƒJƒƒ‰‚ğ”ñƒAƒNƒeƒBƒu‚É‚·‚éB
+	//ã‚²ãƒ¼ãƒ ã‚«ãƒ¡ãƒ©ã‚’éã‚¢ã‚¯ãƒ†ã‚£ãƒ–ã«ã™ã‚‹ã€‚
 	gameCamera->Deactivate();
-	//”wŒi‚ğ”ñƒAƒNƒeƒBƒu‚É‚·‚éB
+	//èƒŒæ™¯ã‚’éã‚¢ã‚¯ãƒ†ã‚£ãƒ–ã«ã™ã‚‹ã€‚
 	backGround->Deactivate();
-	//Ui‚ğ•\¦‚µ‚È‚¢B
+	//Uiã‚’è¡¨ç¤ºã—ãªã„ã€‚
 	m_shouldPartiallyDeactivate = true;
 }
 
 void PositionSelection::SetActivate()
 {
-	//ƒvƒŒƒCƒ„[‚ğƒAƒNƒeƒBƒu‚É‚·‚éB
+	//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚’ã‚¢ã‚¯ãƒ†ã‚£ãƒ–ã«ã™ã‚‹ã€‚
 	player->Activate();
-	//ƒQ[ƒ€ƒJƒƒ‰‚ğƒAƒNƒeƒBƒu‚É‚·‚éB
+	//ã‚²ãƒ¼ãƒ ã‚«ãƒ¡ãƒ©ã‚’ã‚¢ã‚¯ãƒ†ã‚£ãƒ–ã«ã™ã‚‹ã€‚
 	gameCamera->Activate();
-	//”wŒi‚ğƒAƒNƒeƒBƒu‚É‚·‚éB
+	//èƒŒæ™¯ã‚’ã‚¢ã‚¯ãƒ†ã‚£ãƒ–ã«ã™ã‚‹ã€‚
 	backGround->Activate();
-	//UI‚ğ•\¦‚·‚éB
+	//UIã‚’è¡¨ç¤ºã™ã‚‹ã€‚
 	m_shouldPartiallyDeactivate = false;
 }
 
 /// <summary>
-/// §ŒÀŠÔ‚ğ‚Í‚©‚éB
+/// åˆ¶é™æ™‚é–“ã‚’ã¯ã‹ã‚‹ã€‚
 /// </summary>
 void PositionSelection::Timer()
 {
@@ -220,7 +224,7 @@ void PositionSelection::SetFishUIPosition()
 		m_fishUI[i]->SetPosition(m_fishDisplayPosition[i]);
 		m_fishUI[i]->SetScale(Vector3{ 1.0f, 1.0f, 1.0f });
 		m_fishUI[i]->Update();
-		//ƒtƒBƒbƒVƒ…ƒfƒBƒXƒvƒŒƒC‚ÌUI‚ÍƒtƒBƒbƒVƒ…ƒfƒBƒXƒvƒŒƒC‚Ì‰º‚É•\¦‚µ‚½‚¢‚Ì‚Å‚±‚±‚ÅƒAƒbƒvƒf[ƒg‚·‚éB
+		//ãƒ•ã‚£ãƒƒã‚·ãƒ¥ãƒ‡ã‚£ã‚¹ãƒ—ãƒ¬ã‚¤ã®UIã¯ãƒ•ã‚£ãƒƒã‚·ãƒ¥ãƒ‡ã‚£ã‚¹ãƒ—ãƒ¬ã‚¤ã®ä¸‹ã«è¡¨ç¤ºã—ãŸã„ã®ã§ã“ã“ã§ã‚¢ãƒƒãƒ—ãƒ‡ãƒ¼ãƒˆã™ã‚‹ã€‚
 		m_fishDisplayOutside[i].Update();
 		m_fishDisplayInside[i].Update();
 	}
@@ -232,7 +236,7 @@ void PositionSelection::FishChange()
 		if (m_fishManager[i]->GetShouldFishChange()) {
 			DeleteGO(m_fishManager[i]);
 
-			//ƒtƒBƒbƒVƒ…ƒ}ƒl[ƒWƒƒ[‚Ì¶¬B
+			//ãƒ•ã‚£ãƒƒã‚·ãƒ¥ãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼ã®ç”Ÿæˆã€‚
 			m_fishManager[i] = NewGO<FishManager>(0, objectName[i]);
 		}
 

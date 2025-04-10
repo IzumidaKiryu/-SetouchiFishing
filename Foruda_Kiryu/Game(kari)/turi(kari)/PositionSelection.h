@@ -36,6 +36,7 @@ public:
 	void SetisDisplayingFalse();
 	void ChangeSceneToPlayFishing();
 	bool GetisDisplaying();
+
 	void SetDeactivate();//非アクティブにする。
 	void SetActivate();
 	void Timer();
@@ -49,11 +50,13 @@ public:
 	void SelectPositionE();
 	void SelectPositionF();
 	
+
 	float setFish=0.0f;
 	Vector3 m_fishDisplayPosition[6];
 	float m_fishDisplayPositionXcriteria = -350;//魚を表示するディスプレイの場所の基準（X軸）
 	float m_fishDisplayPositionXinterval = 350.0f;
 	bool m_is_displaying;
+
 	bool m_shouldPartiallyDeactivate=false;//部分的に非アクティブにするべきか。
 	double m_double_time=0.0f;//時間
 	int m_int_time=0;
@@ -70,6 +73,7 @@ public:
 	;
 	std::string select_by_with_position;
 	char* objectName[6]; 
+
 
 	Player* player;			//プレイヤー。
 	GameCamera* gameCamera;			//ゲームカメラ。

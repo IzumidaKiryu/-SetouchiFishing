@@ -12,13 +12,15 @@
 
 PlayFishing::PlayFishing()
 {
-	m_objectName= new char[6];// ƒtƒBƒbƒVƒ…ƒ}ƒl[ƒWƒƒ[‚ÌƒIƒuƒWƒFƒNƒgƒl[ƒ€‚Ìƒƒ‚ƒŠŠm•Û
+	m_objectName= new char[6];// ï¿½tï¿½Bï¿½bï¿½Vï¿½ï¿½ï¿½}ï¿½lï¿½[ï¿½Wï¿½ï¿½ï¿½[ï¿½ÌƒIï¿½uï¿½Wï¿½Fï¿½Nï¿½gï¿½lï¿½[ï¿½ï¿½ï¿½Ìƒï¿½ï¿½ï¿½ï¿½ï¿½ï¿½mï¿½ï¿½
 
 	m_playFishingBackGround = NewGO< PlayFishingBackGround>(0, "playFishingBackGround");
-	//ƒQ[ƒ€ƒJƒƒ‰‚ÌƒIƒuƒWƒFƒNƒg‚ğì‚éB
+
+	//ï¿½Qï¿½[ï¿½ï¿½ï¿½Jï¿½ï¿½ï¿½ï¿½ï¿½ÌƒIï¿½uï¿½Wï¿½Fï¿½Nï¿½gï¿½ï¿½ï¿½ï¿½ï¿½B
 	gameCamera = NewGO<GameCamera>(0, "gamecamera");
 
 	StatusManager();
+
 }
 
 PlayFishing::~PlayFishing()
@@ -27,11 +29,13 @@ PlayFishing::~PlayFishing()
 	m_positionSelection->SetisDisplayingTrue();
 
 	DeleteGO(m_playFishingBackGround);
+
 	DeleteGO(gameCamera);
 	DeleteGO(m_fishManager);
 
-	//ƒ|ƒWƒVƒ‡ƒ“ƒZƒŒƒNƒgƒNƒ‰ƒX‚ÌƒIƒuƒWƒFƒNƒg‚ğƒAƒNƒeƒBƒu‚É‚·‚é
+	//ï¿½|ï¿½Wï¿½Vï¿½ï¿½ï¿½ï¿½ï¿½Zï¿½ï¿½ï¿½Nï¿½gï¿½Nï¿½ï¿½ï¿½Xï¿½ÌƒIï¿½uï¿½Wï¿½Fï¿½Nï¿½gï¿½ï¿½ï¿½Aï¿½Nï¿½eï¿½Bï¿½uï¿½É‚ï¿½ï¿½ï¿½
 	m_positionSelection->SetActivate();
+
 }
 
 void PlayFishing::Update()
@@ -62,7 +66,7 @@ void PlayFishing::DeleteThisClass()
 
 void PlayFishing::SetFishManagerObjectName(std::string string_objectName)
 {
-	//ƒtƒBƒbƒVƒ…ƒ}ƒl[ƒWƒƒ[‚É‚Â‚¯‚éƒIƒuƒWƒFƒNƒgƒl[ƒ€‚Ìİ’èB
+	//ï¿½tï¿½Bï¿½bï¿½Vï¿½ï¿½ï¿½}ï¿½lï¿½[ï¿½Wï¿½ï¿½ï¿½[ï¿½É‚Â‚ï¿½ï¿½ï¿½Iï¿½uï¿½Wï¿½Fï¿½Nï¿½gï¿½lï¿½[ï¿½ï¿½ï¿½Ìİ’ï¿½B
 	std::char_traits<char>::copy(m_objectName, string_objectName.c_str(), string_objectName.size() + 1);
 }
 
@@ -124,13 +128,13 @@ void PlayFishing::Success()
 		{
 		case chastGauge:
 			m_playFishingStatus = fishingGsauge;
-			SetSuccessful_or_Failure_unfixed();//¬Œ÷‚©¸”s‚©‚Ç‚¤‚©‚ğ–¢Šm’è‚É‚·‚éB
-			StatusManager();//ƒXƒe[ƒ^ƒXƒ}ƒl[ƒWƒƒ[‚ğ“®‚©‚·B
+			SetSuccessful_or_Failure_unfixed();//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½sï¿½ï¿½ï¿½Ç‚ï¿½ï¿½ï¿½ï¿½ğ–¢Šmï¿½ï¿½É‚ï¿½ï¿½ï¿½B
+			StatusManager();//ï¿½Xï¿½eï¿½[ï¿½^ï¿½Xï¿½}ï¿½lï¿½[ï¿½Wï¿½ï¿½ï¿½[ï¿½ğ“®‚ï¿½ï¿½ï¿½ï¿½B
 			break;
 		case fishingGsauge:
 			m_playFishingStatus = tensionGauge;
-			SetSuccessful_or_Failure_unfixed();//¬Œ÷‚©¸”s‚©‚Ç‚¤‚©‚ğ–¢Šm’è‚É‚·‚éB;
-			StatusManager();//ƒXƒe[ƒ^ƒXƒ}ƒl[ƒWƒƒ[‚ğ“®‚©‚·B
+			SetSuccessful_or_Failure_unfixed();//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½sï¿½ï¿½ï¿½Ç‚ï¿½ï¿½ï¿½ï¿½ğ–¢Šmï¿½ï¿½É‚ï¿½ï¿½ï¿½B;
+			StatusManager();//ï¿½Xï¿½eï¿½[ï¿½^ï¿½Xï¿½}ï¿½lï¿½[ï¿½Wï¿½ï¿½ï¿½[ï¿½ğ“®‚ï¿½ï¿½ï¿½ï¿½B
 			break;
 		case tensionGauge:
 			DeleteGO(this);
