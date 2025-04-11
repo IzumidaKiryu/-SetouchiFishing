@@ -12,6 +12,8 @@
 
 PositionSelection::PositionSelection()
 {
+
+
 	srand(time(NULL));
 
 	m_stopwatch.Start();
@@ -193,15 +195,19 @@ void PositionSelection::SetActivate()
 /// </summary>
 void PositionSelection::Timer()
 {
-	m_double_time= m_timelimit-m_stopwatch.GetElapsed();
+	m_int_time= m_timelimit-m_stopwatch.GetElapsed();
 	m_stopwatch.Stop();
-	m_int_time = m_double_time;
-	if (m_double_time<=0)
+	if (m_int_time<=0)
 	{
 		m_is_time_up = true;
 		m_stopwatch.Stop();
 
 	}
+}
+
+int PositionSelection::GetTime()
+{
+	return m_int_time;
 }
 
 void PositionSelection::SetFishUI()
@@ -280,7 +286,7 @@ void PositionSelection::SelectPositionF()
 
 void PositionSelection::SetTotalValue(float individualValue)
 {
-	m_totalValue += individualValue;
+	m_totalScore += individualValue;
 }
 
 void PositionSelection::FindFishHighScore()

@@ -19,6 +19,7 @@ FishManager::~FishManager()
 
 void FishManager::Update()
 {
+	Timer();
 }
 
 /// <summary>
@@ -161,5 +162,28 @@ FishData& FishManager::GetFishData()
 float FishManager::GetScore()
 {
 	return m_fishData.score;
+}
+
+void FishManager::Timer()
+{
+	switch (m_fishType)
+	{
+	case TAI:
+		break;
+	case BURI:
+		m_buri->TimeCount();
+		break;
+	case TATIUO:
+		m_tatiuo->TimeCount();
+		break;
+	case HIRAME:
+		break;
+	case JAKOTENN:
+		break;
+	case SINJU:
+		break;
+	default:
+		break;
+	}
 }
 

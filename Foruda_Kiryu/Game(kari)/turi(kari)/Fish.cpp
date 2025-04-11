@@ -1,11 +1,12 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 #include "Fish.h"
 #include "PositionSelection.h"
 
 Fish::Fish()
 {
-	srand(time(NULL));
 	m_positionSelection = FindGO<PositionSelection>("positionSelection");
+	//m_initialTime= m_positionSelection->GetTime();
+	srand(time(NULL));
 }
 
 Fish::~Fish()
@@ -19,36 +20,38 @@ void Fish::Update()
 }
 
 /// <summary>
-/// ŒÂ‘Ì’l‚ğİ’è‚·‚éB
+/// ï¿½Â‘Ì’lï¿½ï¿½İ’è‚·ï¿½ï¿½B
 /// </summary>
 /// <param name="baseIndividualValue"></param>
 void Fish::SetScore()
 {
-	//‹›‚ÌƒXƒRƒA‚ÉŒÂ‘Ì·‚ğo‚·B
-	//‹›‚ÌƒXƒRƒA‚ÍŠî€‚ÌƒXƒRƒA~i0.8‚©‚ç1.2‚Ü‚Å‚Ìƒ‰ƒ“ƒ_ƒ€‚È”j‚ÅŒvZ‚ğ‚·‚éB
-	float individualValueMagnification =( 0.4f / 100 )* (rand() % 100 + 1);//ŒÂ‘Ì·‚Ì”{—¦
+	//ï¿½ï¿½ï¿½ÌƒXï¿½Rï¿½Aï¿½ÉŒÂ‘Ìï¿½ï¿½ï¿½oï¿½ï¿½ï¿½B
+	//ï¿½ï¿½ï¿½ÌƒXï¿½Rï¿½Aï¿½ÍŠî€ï¿½ÌƒXï¿½Rï¿½Aï¿½~ï¿½i0.8ï¿½ï¿½ï¿½ï¿½1.2ï¿½Ü‚Å‚Ìƒï¿½ï¿½ï¿½ï¿½_ï¿½ï¿½ï¿½Èï¿½ï¿½jï¿½ÅŒvï¿½Zï¿½ï¿½ï¿½ï¿½ï¿½B
+	float individualValueMagnification =( 0.4f / 100 )* (rand() % 100 + 1);//ï¿½Â‘Ìï¿½ï¿½Ì”{ï¿½ï¿½
 	individualValueMagnification += 0.8;
 
-	m_fishData.score = m_baseScore * individualValueMagnification;//Šî€‚ÌƒXƒRƒA~ŒÂ‘Ì·‚Ì”{—¦B
+	m_fishData.score = m_baseScore * individualValueMagnification;//ï¿½î€ï¿½ÌƒXï¿½Rï¿½Aï¿½~ï¿½Â‘Ìï¿½ï¿½Ì”{ï¿½ï¿½ï¿½B
 }
 
 /// <summary>
-/// “¦‚°‚é‚Ü‚Å‚ÌŠÔ‚ğİ’è‚·‚éB
+/// é€ƒã’ã‚‹ã¾ã§ã®æ™‚é–“ã‚’è¨­å®šã™ã‚‹ã€‚
 /// </summary>
 /// <param name="timeUntilEscape"></param>
 void Fish::SetTimeUntilEscape(float timeUntilEscape)
 {
-	m_timeUntilEscape = timeUntilEscape;
+	m_fishData.timeUntilEscape = timeUntilEscape;
 }
 
 /// <summary>
-/// ŠÔ‚ğ‚Í‚©‚éB
+/// æ™‚é–“ã‚’ã¯ã‹ã‚‹ã€‚
 /// </summary>
 /// <returns></returns>
 bool Fish::TimeCount()
 {
-		m_time++;
-		if (m_time >= m_timeUntilEscape)
+	m_positionSelection = FindGO<PositionSelection>("positionSelection");
+	m_nowTime=m_positionSelection->GetTime();
+
+		if (m_initialTime -m_nowTime >= m_fishData.timeUntilEscape)
 		{
 			ShouldFishChangeTrue();
 			return true;
@@ -59,11 +62,11 @@ bool Fish::TimeCount()
 }
 
 /// <summary>
-/// ‹›‚ğ•Ê‚Ì‹›‚É•Ï‚¦‚Ä‚¢‚¢‚©”»’f‚·‚éŠÖ”
+/// é­šã‚’åˆ¥ã®é­šã«å¤‰ãˆã¦ã„ã„ã‹åˆ¤æ–­ã™ã‚‹é–¢æ•°
 /// </summary>
 //void Fish::ShouldFishChange()
 //{
-//	//‚±‚Ì‹›‚ª‘I‘ğ’†‚Ì‚Í•Ê‚Ì‹›‚É•Ï‚¦‚È‚¢B
+//	//ã“ã®é­šãŒé¸æŠä¸­ã®æ™‚ã¯åˆ¥ã®é­šã«å¤‰ãˆãªã„ã€‚
 //	if (m_isSelected =! true)
 //	{
 //		ShouldFishChangeTrue();
@@ -72,7 +75,7 @@ bool Fish::TimeCount()
 
 void Fish::ShouldFishChangeTrue()
 {
-	//‚±‚Ì‹›‚ª‘I‘ğ’†‚Ì‚Í•Ê‚Ì‹›‚É•Ï‚¦‚È‚¢B
+	//ï¿½ï¿½ï¿½Ì‹ï¿½ï¿½ï¿½ï¿½Iï¿½ğ’†‚Ìï¿½ï¿½Í•Ê‚Ì‹ï¿½ï¿½É•Ï‚ï¿½ï¿½È‚ï¿½ï¿½B
 	if (m_isSelected = !true)
 	{
 		m_shouldFishChange = true;
