@@ -47,6 +47,10 @@ public:
 	PlayFishingStatus m_playFishingStatus= chastGauge;
 	Successful_or_Failure m_successful_or_failure= unfixed;
 
+	FishData m_fishData;//魚のデータ。
+	FishData* p_fishData = &m_fishData;//フィッシュデータのポインタ
+
+
 	CastGauge* m_castGauge;
 	GameCamera* gameCamera;			//�Q�[���J�����B
 	PlayFishingBackGround* m_playFishingBackGround;

@@ -169,3 +169,19 @@ void PlayFishing::SetPlayFishingStatus_FishingGsauge()
 {
 	m_playFishingStatus = fishingGsauge;
 }
+
+void PlayFishing::SetFishData()
+{
+	p_fishData=&(m_fishManager->GetFishData()); 
+	m_fishData = *p_fishData;
+}
+
+FishData& PlayFishing::GetFishData()
+{
+	return m_fishData;
+}
+
+float PlayFishing::GetFIshScore()
+{
+	return m_fishData.score;
+}
