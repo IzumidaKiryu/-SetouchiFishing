@@ -1,4 +1,6 @@
 #pragma once
+#include "Fish.h"
+
 enum FishType {
 	TAI,
 	BURI,
@@ -24,9 +26,16 @@ public:
 	void FishNewGO();
 	void SetShouldFishChange();
 	bool GetShouldFishChange();
+	void SetFishData();//フィッシュデータを設定する。
+	FishData& GetFishData();//フィッシュデータを得るための関数。
+	float GetScore();
 
 	bool m_shouldFishChange = false;//魚を変えるべきかどうか。
 	int m_randum;
+
+	FishData* p_fishData=&m_fishData;//フィッシュデータのポインタ
+	FishData m_fishData;//魚のデータ。
+
 	FishType m_fishType;
 	Buri* m_buri;
 	Tatiuo* m_tatiuo;

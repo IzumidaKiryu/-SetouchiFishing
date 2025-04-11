@@ -8,6 +8,7 @@ FishManager::FishManager()
 {
 	SelectFishType();
 	FishNewGO();
+	SetFishData();
 	GetUI();
 }
 
@@ -119,5 +120,38 @@ void FishManager::SetShouldFishChange()
 bool FishManager::GetShouldFishChange()
 {
 	return m_shouldFishChange;
+}
+
+void FishManager::SetFishData()
+{
+	switch (m_fishType)
+	{
+	case TAI:
+		break;
+	case BURI:
+		p_fishData = &(m_buri->GetFishData());
+		break;
+	case TATIUO:
+		p_fishData = &(m_tatiuo->GetFishData());
+		break;
+	case HIRAME:
+		break;
+	case JAKOTENN:
+		break;
+	case SINJU:
+		break;
+	default:
+		break;
+	}
+}
+
+FishData& FishManager::GetFishData()
+{
+	return *p_fishData;
+}
+
+float FishManager::GetScore()
+{
+	return m_fishData.score;
 }
 

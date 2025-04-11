@@ -35,7 +35,7 @@ void FishingRodHP::SetFishingRodHP()
 	if (m_tensionGauge->m_isFishDirectionisLeft==true) {
 		//魚の向きが左なら。
 		//コントローラーを回した分だけ竿のHPが減る。
-		m_Hp -= m_tensionGauge->GetRotationPower() * 150.0f;
+		m_Hp -= m_tensionGauge->GetRotationPower() * 100.0f;
 	}
 
 
@@ -55,7 +55,7 @@ void FishingRodHP::SetFishingRodHP()
 void FishingRodHP::SetUI()
 {
 	m_RodHPGaugeInside.Init("Assets/modelData/castGauge_inside.DDS", 500, 100);
-	m_RodHPGaugeInside.SetPivot(Vector2(0.5f, 0.5f));
+	m_RodHPGaugeInside.SetPivot(Vector2(0.0f, 0.5f));
 	m_RodHPGaugeInside.SetPosition(Vector3(-300.0f, -300.0f, 0.0f));
 	m_RodHPGaugeInside.SetScale(Vector3{ 2.0f, 1.0f, 1.0f });
 	m_RodHPGaugeInside.Update();

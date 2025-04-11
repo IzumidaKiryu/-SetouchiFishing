@@ -4,7 +4,8 @@
 Tatiuo::Tatiuo()
 {
 	SetUI();
-	SetIndividualValue(m_individualValue);
+	SetBaseScore(120.0f);
+	SetScore();
 	SetTimeUntilEscape(10.0f);
 }
 

@@ -18,20 +18,22 @@ void Fish::Update()
 }
 
 /// <summary>
-/// �̒l��ݒ肷��B
+/// 個体値を設定する。
 /// </summary>
 /// <param name="baseIndividualValue"></param>
-void Fish::SetIndividualValue(float baseIndividualValue)
+void Fish::SetScore()
 {
 
-	//���̌̒l�͊�̌̒l�~�i0.8����1.2�܂ł̃����_���Ȑ��j�Ōv�Z������B
-	float individualValueMagnification=0.4/(rand()%100)+1;//�̒l�̔{��
+	//魚のスコアに個体差を出す。
+	//魚のスコアは基準のスコア×（0.8から1.2までのランダムな数）で計算をする。
+	float individualValueMagnification =( 0.4f / 100 )* (rand() % 100 + 1);//個体差の倍率
+
 	individualValueMagnification += 0.8;
 
-	m_individualValue = baseIndividualValue* individualValueMagnification;
+	m_fishData.score = m_baseScore * individualValueMagnification;//基準のスコア×個体差の倍率。
 }
 
-void Fish::SetTimeUntilEscape(float timeUntilEscape)//������܂ł̎��Ԃ�ݒ肷��B
+void Fish::SetTimeUntilEscape(float timeUntilEscape)//逃げるまでの時間を設定する。
 {
 	m_timeUntilEscape = timeUntilEscape;
 }
@@ -53,7 +55,7 @@ bool Fish::TimeCount()
 
 void Fish::ShouldFishChange()
 {
-	//���̋����I�𒆂̎��͕ʂ̋��ɕς��Ȃ��B
+	//この魚が選択中の時は別の魚に変えない。
 	if (m_isSelected =! true)
 	{
 		ShouldFishChangeTrue();
@@ -83,6 +85,17 @@ void Fish::SetisSelectedFalse()
 bool Fish::GetShouldFishChange()
 {
 	return m_shouldFishChange;
+}
+
+
+void Fish::SetBaseScore(float individualScore)
+{
+	m_baseScore = individualScore;
+}
+
+FishData& Fish::GetFishData()
+{
+	return m_fishData;
 }
 
 SpriteRender& Fish::GetUI()

@@ -102,9 +102,12 @@ void FishingGauge::HitTest()
 
 		Attack();
 		m_playFishing = FindGO<PlayFishing>("playFishing");
-		m_playFishing->m_playFishingStatus = tensionGauge;
-		m_playFishing->StatusManager();
-		DeleteGO(this);
+
+		m_playFishing->SetSuccess();
+		/*m_playFishing->StatusManager();*/
+	/*	DeleteGO(this);*/
+	}
+
 
 	}
 }

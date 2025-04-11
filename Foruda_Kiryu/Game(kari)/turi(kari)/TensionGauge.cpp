@@ -35,9 +35,10 @@ void TensionGauge::Update()
 {
 	FishDirectionChange();
 	SetFishEscapePower();
-	SetArrowPosition();  
+	SetSigns_of_Fish_Position();  
 	Set_signs_of_Fish_UI();
 	failure();//成功した稼働か
+	success();//失敗したかどうか。
 }
 
 void TensionGauge::RightAndLeftManagement()
@@ -45,12 +46,18 @@ void TensionGauge::RightAndLeftManagement()
 
 }
 
-void TensionGauge::SetArrowPosition()
+void TensionGauge::SetSigns_of_Fish_Position()
 {
 	//SetFishEscapePower();
+	if (m_isFishDirectionisLeft == true) {//魚が左を向いているときはまく力を強くする。(左を向いているときにも少しは右に引っ張れるようにするため)。
+		m_forcePullFish += m_getRotation->nowFrameRotationQuantity * 200*1.3;
+	}
+	else {
+		m_forcePullFish += m_getRotation->nowFrameRotationQuantity* 200;
+	}
 
-	m_m_signs_of_Fish_Position = m_getRotation->rotationQuantity*200+ m_fishEscapePower;
-	m_signs_of_Fish.SetPosition(Vector3(m_m_signs_of_Fish_Position, -200.0f, 0.0f));
+		m_signs_of_Fish_Position = m_forcePullFish + m_fishEscapePower;
+	m_signs_of_Fish.SetPosition(Vector3(m_signs_of_Fish_Position, -200.0f, 0.0f));
 	m_signs_of_Fish.Update();
 }
 
@@ -100,7 +107,7 @@ void TensionGauge::FishDirectionChange()
 /// </summary>
 void TensionGauge::failure()
 {
-	if (m_m_signs_of_Fish_Position <= m_gaugeLeftmost) {
+	if (m_signs_of_Fish_Position <= m_gaugeLeftmost) {
 		m_playFishing = FindGO<PlayFishing>("playFishing");
 		m_playFishing->SetFailure();
 	}
@@ -108,7 +115,7 @@ void TensionGauge::failure()
 
 void TensionGauge::success()
 {
-	if (m_m_signs_of_Fish_Position <= m_gaugeRightmost) {
+	if (m_signs_of_Fish_Position >= m_gaugeRightmost) {
 		m_playFishing = FindGO<PlayFishing>("playFishing");
 		m_playFishing->SetSuccess();
 	}

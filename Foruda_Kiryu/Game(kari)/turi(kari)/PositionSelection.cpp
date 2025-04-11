@@ -18,7 +18,7 @@ PositionSelection::PositionSelection()
 
 	for (int i = 0; i < 6; i++)
 	{
-		objectName[i] = new char[fishManagerObjectName[i].size() + 1];
+		objectName[i] = new char[PositionName[i].size() + 1];
 	}
 	//制限時間のUIを作る。
 	m_timeLimitUI= NewGO<TimeLimitUI>(0, "timelimitUI");
@@ -48,8 +48,9 @@ PositionSelection::PositionSelection()
 	for (int i = 0; i < 6; i++) {
 
 
-		//フィッシュマネージャーにつけるオブジェクトネームの設定。
-			std::char_traits<char>::copy(objectName[i], fishManagerObjectName[i].c_str(), fishManagerObjectName[i].size() + 1);
+		//�t�B�b�V���}�l�[�W���[�ɂ���I�u�W�F�N�g�l�[���̐ݒ�B
+			std::char_traits<char>::copy(objectName[i], PositionName[i].c_str(), PositionName[i].size() + 1);
+
 		
 			//フィッシュマネージャーの生成。
 		m_fishManager[i] = NewGO<FishManager>(0, objectName[i]);
@@ -152,10 +153,13 @@ void PositionSelection::SetisDisplayingFalse()
 void PositionSelection::ChangeSceneToPlayFishing()
 {
 	SetisDisplayingFalse();
+
+	
+	// �C���X�^���X�������|�W�V�����ݒ聨�����ݒ�(�����Ń|�W�V�����ݒ�̏����g���Ă���)
 	m_playFishing = NewGO<PlayFishing>(0, "playFishing");
 
-
 	SelectPositionA();
+	m_playFishing->Init();
 
 	SetDeactivate();
 
@@ -279,6 +283,25 @@ void PositionSelection::SelectPositionE()
 void PositionSelection::SelectPositionF()
 {
 	m_playFishing->SetFishManagerObjectName("positionF");
+}
+
+void PositionSelection::SetTotalValue(float individualValue)
+{
+	m_totalValue += individualValue;
+}
+
+void PositionSelection::FindFishHighScore()
+{
+	//��ԃX�R�A��������������ꏊ��T���A���S���Y���B
+	for (int i = 0; i < 5; i++) {
+		if (m_fishManager[i]->GetScore() >= m_fishManager[i + 1]->GetScore()) {
+			fishHighScorePosition=PositionName[i];
+		}
+		else {
+			fishHighScorePosition = PositionName[i+1];
+		}
+	}
+
 }
 
 
