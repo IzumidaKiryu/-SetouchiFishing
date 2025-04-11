@@ -49,6 +49,7 @@ public:
 	void SelectPositionE();
 	void SelectPositionF();
 	void SetTotalValue(float score);
+	void FindFishHighScore();//スコアが高い魚を探す。
 	
 	float setFish=0.0f;
 	Vector3 m_fishDisplayPosition[6];
@@ -61,7 +62,8 @@ public:
 	float m_timelimit = 240;//時間制限
 	float m_totalValue=0.0f;
 	bool m_is_time_up;//タイムアップしているかどうか。
-	std::string fishManagerObjectName[6] = {
+	std::string fishHighScorePosition;//出ている魚の中で一番スコアが高い魚がいるポジション。
+	std::string PositionName[6] = {
 		"positionA",
 		"positionB",
 		"positionC",
@@ -71,7 +73,8 @@ public:
 	}
 	;
 	std::string select_by_with_position;
-	char* objectName[6]; 
+	char* objectName[6];
+
 
 	Player* player;			//プレイヤー。
 	GameCamera* gameCamera;			//ゲームカメラ。

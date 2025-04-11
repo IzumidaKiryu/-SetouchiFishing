@@ -18,7 +18,7 @@ PositionSelection::PositionSelection()
 
 	for (int i = 0; i < 6; i++)
 	{
-		objectName[i] = new char[fishManagerObjectName[i].size() + 1];
+		objectName[i] = new char[PositionName[i].size() + 1];
 	}
 	//§ŒÀŠÔ‚ÌUI‚ğì‚éB
 	m_timeLimitUI= NewGO<TimeLimitUI>(0, "timelimitUI");
@@ -48,7 +48,7 @@ PositionSelection::PositionSelection()
 	for (int i = 0; i < 6; i++) {
 
 		//ƒtƒBƒbƒVƒ…ƒ}ƒl[ƒWƒƒ[‚É‚Â‚¯‚éƒIƒuƒWƒFƒNƒgƒl[ƒ€‚Ìİ’èB
-			std::char_traits<char>::copy(objectName[i], fishManagerObjectName[i].c_str(), fishManagerObjectName[i].size() + 1);
+			std::char_traits<char>::copy(objectName[i], PositionName[i].c_str(), PositionName[i].size() + 1);
 		
 			//ƒtƒBƒbƒVƒ…ƒ}ƒl[ƒWƒƒ[‚Ì¶¬B
 		m_fishManager[i] = NewGO<FishManager>(0, objectName[i]);
@@ -151,7 +151,7 @@ void PositionSelection::ChangeSceneToPlayFishing()
 {
 	SetisDisplayingFalse();
 	
-	// ï¿½Cï¿½ï¿½ï¿½Xï¿½^ï¿½ï¿½ï¿½Xï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½|ï¿½Wï¿½Vï¿½ï¿½ï¿½ï¿½ï¿½İ’è¨ï¿½ï¿½ï¿½ï¿½ï¿½İ’ï¿½(ï¿½ï¿½ï¿½ï¿½Åƒ|ï¿½Wï¿½Vï¿½ï¿½ï¿½ï¿½ï¿½İ’ï¿½Ìï¿½ï¿½ï¿½gï¿½ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½)
+	// ƒCƒ“ƒXƒ^ƒ“ƒX¶¬¨ƒ|ƒWƒVƒ‡ƒ“İ’è¨‰Šúİ’è(“à•”‚Åƒ|ƒWƒVƒ‡ƒ“İ’è‚Ìî•ñ‚ğg‚Á‚Ä‚¢‚é)
 	m_playFishing = NewGO<PlayFishing>(0, "playFishing");
 	SelectPositionA();
 	m_playFishing->Init();
@@ -282,6 +282,21 @@ void PositionSelection::SetTotalValue(float individualValue)
 {
 	m_totalValue += individualValue;
 }
+
+void PositionSelection::FindFishHighScore()
+{
+	//ˆê”ÔƒXƒRƒA‚ª‚‚¢‹›‚ª‚¢‚éêŠ‚ğ’T‚·ƒAƒ‹ƒSƒŠƒYƒ€B
+	for (int i = 0; i < 5; i++) {
+		if (m_fishManager[i]->GetScore() >= m_fishManager[i + 1]->GetScore()) {
+			fishHighScorePosition=PositionName[i];
+		}
+		else {
+			fishHighScorePosition = PositionName[i+1];
+		}
+	}
+
+}
+
 
 
 
