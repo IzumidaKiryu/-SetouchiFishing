@@ -168,6 +168,7 @@
     <ClCompile Include="PlayFishing.cpp" />
     <ClCompile Include="PlayFishingBackGround.cpp" />
     <ClCompile Include="PositionSelection.cpp" />
+    <ClCompile Include="ScoreDisplay.cpp" />
     <ClCompile Include="Star.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
@@ -197,6 +198,7 @@
     <ClInclude Include="PlayFishing.h" />
     <ClInclude Include="PlayFishingBackGround.h" />
     <ClInclude Include="PositionSelection.h" />
+    <ClInclude Include="ScoreDisplay.h" />
     <ClInclude Include="Star.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="system\system.h" />
