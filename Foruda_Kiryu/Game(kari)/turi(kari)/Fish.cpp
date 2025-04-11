@@ -15,68 +15,56 @@ Fish::~Fish()
 
 void Fish::Update()
 {
-	TimeCount();
 }
 
 /// <summary>
-/// ŒÂ‘Ì’l‚ğİ’è‚·‚éB
+/// å€‹ä½“å€¤ã‚’è¨­å®šã™ã‚‹ã€‚
 /// </summary>
 /// <param name="baseIndividualValue"></param>
 void Fish::SetScore()
 {
-	//‹›‚ÌƒXƒRƒA‚ÉŒÂ‘Ì·‚ğo‚·B
-	//‹›‚ÌƒXƒRƒA‚ÍŠî€‚ÌƒXƒRƒA~i0.8‚©‚ç1.2‚Ü‚Å‚Ìƒ‰ƒ“ƒ_ƒ€‚È”j‚ÅŒvZ‚ğ‚·‚éB
-	float individualValueMagnification =( 0.4f / 100 )* (rand() % 100 + 1);//ŒÂ‘Ì·‚Ì”{—¦
+
+	//é­šã®ã‚¹ã‚³ã‚¢ã«å€‹ä½“å·®ã‚’å‡ºã™ã€‚
+	//é­šã®ã‚¹ã‚³ã‚¢ã¯åŸºæº–ã®ã‚¹ã‚³ã‚¢Ã—ï¼ˆ0.8ã‹ã‚‰1.2ã¾ã§ã®ãƒ©ãƒ³ãƒ€ãƒ ãªæ•°ï¼‰ã§è¨ˆç®—ã‚’ã™ã‚‹ã€‚
+	float individualValueMagnification =( 0.4f / 100 )* (rand() % 100 + 1);//å€‹ä½“å·®ã®å€ç‡
+
 	individualValueMagnification += 0.8;
 
-	m_fishData.score = m_baseScore * individualValueMagnification;//Šî€‚ÌƒXƒRƒA~ŒÂ‘Ì·‚Ì”{—¦B
+	m_fishData.score = m_baseScore * individualValueMagnification;//åŸºæº–ã®ã‚¹ã‚³ã‚¢Ã—å€‹ä½“å·®ã®å€ç‡ã€‚
 }
 
-/// <summary>
-/// “¦‚°‚é‚Ü‚Å‚ÌŠÔ‚ğİ’è‚·‚éB
-/// </summary>
-/// <param name="timeUntilEscape"></param>
-void Fish::SetTimeUntilEscape(float timeUntilEscape)
+void Fish::SetTimeUntilEscape(float timeUntilEscape)//é€ƒã’ã‚‹ã¾ã§ã®æ™‚é–“ã‚’è¨­å®šã™ã‚‹ã€‚
 {
 	m_timeUntilEscape = timeUntilEscape;
 }
 
-/// <summary>
-/// ŠÔ‚ğ‚Í‚©‚éB
-/// </summary>
-/// <returns></returns>
 bool Fish::TimeCount()
 {
+	if (m_time < m_timeUntilEscape) {
 		m_time++;
 		if (m_time >= m_timeUntilEscape)
 		{
-			ShouldFishChangeTrue();
+
 			return true;
 		}
 		else {
 			return false;
 		}
+	}
 }
 
-/// <summary>
-/// ‹›‚ğ•Ê‚Ì‹›‚É•Ï‚¦‚Ä‚¢‚¢‚©”»’f‚·‚éŠÖ”
-/// </summary>
-//void Fish::ShouldFishChange()
-//{
-//	//‚±‚Ì‹›‚ª‘I‘ğ’†‚Ì‚Í•Ê‚Ì‹›‚É•Ï‚¦‚È‚¢B
-//	if (m_isSelected =! true)
-//	{
-//		ShouldFishChangeTrue();
-//	}
-//}
+void Fish::ShouldFishChange()
+{
+	//ã“ã®é­šãŒé¸æŠä¸­ã®æ™‚ã¯åˆ¥ã®é­šã«å¤‰ãˆãªã„ã€‚
+	if (m_isSelected =! true)
+	{
+		ShouldFishChangeTrue();
+	}
+}
 
 void Fish::ShouldFishChangeTrue()
 {
-	//‚±‚Ì‹›‚ª‘I‘ğ’†‚Ì‚Í•Ê‚Ì‹›‚É•Ï‚¦‚È‚¢B
-	if (m_isSelected = !true)
-	{
-		m_shouldFishChange = true;
-	}
+	m_shouldFishChange=true;
 }
 
 void Fish::ShouldFishChangeFalse()

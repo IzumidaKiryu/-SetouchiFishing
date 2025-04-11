@@ -17,7 +17,7 @@ public:
 	void SetTimeUntilEscape(float timeUntilEscape);//逃げでの時間の設定。
 	bool TimeCount();
 	//void SetIndividualValue();//個体値を設定
-	//void ShouldFishChange();//魚を変えるかどうか。
+	void ShouldFishChange();//魚を変えるかどうか。
 	void ShouldFishChangeTrue();
 	void ShouldFishChangeFalse();
 	void SetisSelectedTrue();

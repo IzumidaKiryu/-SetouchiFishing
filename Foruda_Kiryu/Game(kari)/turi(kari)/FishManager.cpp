@@ -21,14 +21,15 @@ void FishManager::Update()
 {
 }
 
-/// <summary>
-/// ¶¬‚·‚é‹›‚Ìí—Ş‚ğŒˆ‚ß‚é
-/// </summary>
 void FishManager::SelectFishType()
 {
+
 	std::random_device rd;
 	int randum= rd() % 100;
 	m_randum = randum;
+
+	
+
 	if (0 <= randum&& randum <= 49) {
 		m_fishType = BURI;
 	}
@@ -47,9 +48,6 @@ void FishManager::NewGOTatiuo()
 	m_tatiuo = NewGO<Tatiuo>(0, "tatiuo");
 }
 
-/// <summary>
-/// UI‚ğæ“¾‚·‚éB
-/// </summary>
 void FishManager::GetUI()
 {
 	switch (m_fishType)
@@ -73,9 +71,6 @@ void FishManager::GetUI()
 	}
 }
 
-/// <summary>
-/// ‹›‚ğ¶¬‚·‚é
-/// </summary>
 void FishManager::FishNewGO()
 {
 	switch (m_fishType)
@@ -99,9 +94,6 @@ void FishManager::FishNewGO()
 	}
 }
 
-/// <summary>
-/// ‹›‚ğ•Ï‚¦‚é‚©‚Ç‚¤‚©”»’f‚·‚é•Ï”‚ğİ’è‚·‚éB
-/// </summary>
 void FishManager::SetShouldFishChange()
 {
 	switch (m_fishType)
