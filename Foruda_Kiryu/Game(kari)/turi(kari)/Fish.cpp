@@ -22,14 +22,14 @@ void Fish::Update()
 /// 個体値を設定する。
 /// </summary>
 /// <param name="baseIndividualValue"></param>
-void Fish::SetIndividualValue(float baseIndividualValue)
+void Fish::SetScore()
 {
-
-	//魚の個体値は基準の個体値×（0.8から1.2までのランダムな数）で計算をする。
-	float individualValueMagnification =( 0.4f / 100 )* (rand() % 100 + 1);//個体値の倍率
+	//魚のスコアに個体差を出す。
+	//魚のスコアは基準のスコア×（0.8から1.2までのランダムな数）で計算をする。
+	float individualValueMagnification =( 0.4f / 100 )* (rand() % 100 + 1);//個体差の倍率
 	individualValueMagnification += 0.8;
 
-	m_individualValue = baseIndividualValue* individualValueMagnification;
+	m_fishData.score = m_baseScore * individualValueMagnification;//基準のスコア×個体差の倍率。
 }
 
 /// <summary>
@@ -97,6 +97,17 @@ void Fish::SetisSelectedFalse()
 bool Fish::GetShouldFishChange()
 {
 	return m_shouldFishChange;
+}
+
+
+void Fish::SetBaseScore(float individualScore)
+{
+	m_baseScore = individualScore;
+}
+
+FishData& Fish::GetFishData()
+{
+	return m_fishData;
 }
 
 SpriteRender& Fish::GetUI()

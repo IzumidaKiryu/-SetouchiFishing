@@ -8,6 +8,6 @@ public:
 	Buri();
 	~Buri();
 	void SetUI();
-	const float m_individualValue=100.0f;
+	
 };
 
