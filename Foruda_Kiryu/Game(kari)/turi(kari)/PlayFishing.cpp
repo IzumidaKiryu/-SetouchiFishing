@@ -23,19 +23,28 @@ PlayFishing::PlayFishing()
 
 PlayFishing::~PlayFishing()
 {
-	m_positionSelection = FindGO<PositionSelection>("positionSelection");
-	m_positionSelection->SetisDisplayingTrue();
+
 
 	DeleteGO(m_playFishingBackGround);
 	DeleteGO(gameCamera);
-	DeleteGO(m_fishManager);
+	//DeleteGO(m_fishManager);
 
+	m_positionSelection = FindGO<PositionSelection>("positionSelection");
+	m_positionSelection->SetisDisplayingTrue();
 	//ポジションセレクトクラスのオブジェクトをアクティブにする
 	m_positionSelection->SetActivate();
 }
 
-void PlayFishing::Update()
+void PlayFishing::Init()
 {
+	//フィッシュマネージャーを探す。
+	FindeFishManager();
+
+	SetFishData();
+}
+
+void PlayFishing::Update()
+{	
 
 }
 
@@ -79,7 +88,7 @@ void PlayFishing::StatusManager()
 		NewGOCastGauge();
 		break;
 	case fishingGsauge:
-		DeleteGO(m_castGauge);
+		/*DeleteGO(m_castGauge);*/
 		NewGOFishingGauge();
 		break;
 	case tensionGauge:
@@ -100,22 +109,30 @@ void PlayFishing::NewGOFishingRodHP()
 	canNewGOFishingRodHP = false;
 }
 
+/// <summary>
+/// 成功したらこの関数を呼ぶ。
+/// </summary>
 void PlayFishing::SetSuccess()
 {
 	m_successful_or_failure = success;
 	Success();
 }
 
+/// <summary>
+/// 失敗したらこの関数を呼ぶ。
+/// </summary>
 void PlayFishing::SetFailure()
 {
 	m_successful_or_failure = failure;
 	Failure();
 }
 
-void PlayFishing::SetSuccessful_or_Failure_unfixed()
+void PlayFishing::Unfixed()
 {
 	m_successful_or_failure = unfixed;
 }
+
+
 
 void PlayFishing::Success()
 {
@@ -123,16 +140,22 @@ void PlayFishing::Success()
 		switch (m_playFishingStatus)
 		{
 		case chastGauge:
+			DeleteGO(m_castGauge);
 			m_playFishingStatus = fishingGsauge;
-			SetSuccessful_or_Failure_unfixed();//成功か失敗かどうかを未確定にする。
+			Unfixed();//成功か失敗かどうかを未確定にする。
 			StatusManager();//ステータスマネージャーを動かす。
 			break;
 		case fishingGsauge:
+			DeleteGO(m_fishingGauge);
 			m_playFishingStatus = tensionGauge;
-			SetSuccessful_or_Failure_unfixed();//成功か失敗かどうかを未確定にする。;
+			Unfixed();//成功か失敗かどうかを未確定にする。;
 			StatusManager();//ステータスマネージャーを動かす。
 			break;
 		case tensionGauge:
+			DeleteGO(m_tensionGauge);
+			DeleteGO(m_fishingRodHP);
+			m_positionSelection = FindGO<PositionSelection>("positionSelection");
+			m_positionSelection->SetTotalValue(m_fishData.score);
 			DeleteGO(this);
 			break;
 		default:

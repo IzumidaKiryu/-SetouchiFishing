@@ -1,4 +1,6 @@
 ﻿#pragma once
+#include "Fish.h"
+
 enum PlayFishingStatus {
 	chastGauge,
 	fishingGsauge,
@@ -26,6 +28,7 @@ class PlayFishing :public IGameObject
 public:
 	PlayFishing();
 	~PlayFishing();
+	void Init();
 	void Update();
 	void NewGOCastGauge();
 	void NewGOFishingGauge();
@@ -39,10 +42,15 @@ public:
 	bool canNewGOFishingRodHP=true;//釣り竿のHPクラスをNewGO可能か。
 	void SetSuccess();
 	void SetFailure();
-	void SetSuccessful_or_Failure_unfixed();//Successful_or_Failureを未確定にする。
+	void Unfixed();//Successful_or_Failureを未確定にする。
 	void Success();
 	void Failure();
 	void SetPlayFishingStatus_FishingGsauge();//プレイフィッシングステートをフィッシングゲージにする。
+	void SetFishData();
+	FishData& GetFishData();
+	float GetFIshScore();//スコアディスプレイクラスにスコアを渡す関数。
+
+
 
 	PlayFishingStatus m_playFishingStatus= chastGauge;
 	Successful_or_Failure m_successful_or_failure= unfixed;

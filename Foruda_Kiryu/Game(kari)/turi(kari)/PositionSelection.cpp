@@ -150,10 +150,11 @@ void PositionSelection::SetisDisplayingFalse()
 void PositionSelection::ChangeSceneToPlayFishing()
 {
 	SetisDisplayingFalse();
-
+	
+	// �C���X�^���X�������|�W�V�����ݒ聨�����ݒ�(����Ń|�W�V�����ݒ�̏���g���Ă���)
 	m_playFishing = NewGO<PlayFishing>(0, "playFishing");
-
 	SelectPositionA();
+	m_playFishing->Init();
 
 	SetDeactivate();
 }
