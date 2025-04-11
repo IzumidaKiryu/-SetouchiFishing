@@ -156,6 +156,7 @@
     <ClCompile Include="CastUI.cpp" />
     <ClCompile Include="Fish.cpp" />
     <ClCompile Include="FishingGauge.cpp" />
+    <ClCompile Include="FishingRodHP.cpp" />
     <ClCompile Include="FishManager.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameCamera.cpp" />
@@ -167,6 +168,7 @@
     <ClCompile Include="PlayFishing.cpp" />
     <ClCompile Include="PlayFishingBackGround.cpp" />
     <ClCompile Include="PositionSelection.cpp" />
+    <ClCompile Include="ScoreDisplay.cpp" />
     <ClCompile Include="Star.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
@@ -175,6 +177,7 @@
     <ClCompile Include="system\system.cpp" />
     <ClCompile Include="Tatiuo.cpp" />
     <ClCompile Include="TensionGauge.cpp" />
+    <ClCompile Include="TimeLimitUI.cpp" />
     <ClCompile Include="Title.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -184,6 +187,7 @@
     <ClInclude Include="CastUI.h" />
     <ClInclude Include="Fish.h" />
     <ClInclude Include="FishingGauge.h" />
+    <ClInclude Include="FishingRodHP.h" />
     <ClInclude Include="FishManager.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameCamera.h" />
@@ -194,11 +198,13 @@
     <ClInclude Include="PlayFishing.h" />
     <ClInclude Include="PlayFishingBackGround.h" />
     <ClInclude Include="PositionSelection.h" />
+    <ClInclude Include="ScoreDisplay.h" />
     <ClInclude Include="Star.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="system\system.h" />
     <ClInclude Include="Tatiuo.h" />
     <ClInclude Include="TensionGauge.h" />
+    <ClInclude Include="TimeLimitUI.h" />
     <ClInclude Include="Title.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

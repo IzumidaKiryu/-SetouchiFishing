@@ -1,5 +1,8 @@
 #include "stdafx.h"
 #include "FishingGauge.h"
+#include "TensionGauge.h"
+#include"Playfishing.h"
+
 
 FishingGauge::FishingGauge()
 {
@@ -36,6 +39,7 @@ void FishingGauge::Update()
 	SetBarPosition();//バーの場所を決める。
 	m_fishingGaugeBar.Update();//バーの描画を更新する。
 	HitTest();
+
 }
 
 /// <summary>
@@ -51,12 +55,12 @@ void FishingGauge::SetBarPosition()
 /// </summary>
 void FishingGauge::UpAndDownManagement()
 {
-	if (upState == false) {
+	/*if (upState == false) {*/
 		DownwardOperation();
-	}
-	if (upState == true) {
-		UpwardOperation();
-	}
+	//}
+	//if (upState == true) {
+	//	UpwardOperation();
+	//}
 }
 /// <summary>
 /// 矢印を上に移動。
@@ -65,7 +69,7 @@ void FishingGauge::UpwardOperation()
 {
 	m_barPosition += m_barSpead;
 	if (m_barPosition >= m_barUpperLimit) {
-		m_barPosition = (-m_barPosition + m_barUpperLimit) + m_barUpperLimit;//上限を通り過ぎたらその分戻る処理。
+		m_barPosition = (m_barPosition - m_barUpperLimit) + m_barLowerLimit;//上限を通り過ぎたらその分戻る処理。
 		upState = false;
 	}
 }
@@ -77,7 +81,7 @@ void FishingGauge::DownwardOperation()
 {
 	m_barPosition -= m_barSpead;
 	if (m_barPosition <= m_barLowerLimit) {
-		m_barPosition = (-m_barPosition + m_barLowerLimit) + m_barLowerLimit;//下限を通り過ぎたらその分戻る処理。
+		m_barPosition = (m_barPosition - m_barLowerLimit) + m_barUpperLimit;//下限を通り過ぎたらその分戻る処理。
 		upState = true;
 	}
 }
@@ -87,14 +91,22 @@ void FishingGauge::DownwardOperation()
 /// </summary>
 void FishingGauge::SetBarSpead()
 {
-	m_barSpead = /*(237.0f*2.0f)/10*/5;
+	m_barSpead = /*(237.0f*2.0f)/10*/9;
 }
 
+/// <summary>
+/// ボタンを押したときの処理。
+/// </summary>
 void FishingGauge::HitTest()
 {
 	if (g_pad[0]->IsTrigger(enButtonA)) {
-			DeleteGO(this);
+		Attack();
+		m_playFishing = FindGO<PlayFishing>("playFishing");
+		m_playFishing->SetSuccess();
+		/*m_playFishing->StatusManager();*/
+	/*	DeleteGO(this);*/
 	}
+
 }
 
 void FishingGauge::Render(RenderContext& rc)
@@ -103,4 +115,9 @@ void FishingGauge::Render(RenderContext& rc)
 	//m_gaugeCastSuccessful->m_gaugeCastSuccessfulSprite.Draw(rc);
 	m_fishingGaugeBar.Draw(rc);
 	m_fishingGaugeFrame.Draw(rc);
+}
+
+void FishingGauge::Attack()
+{
+	m_attack = 1-((-m_barPosition+237.0f)/474.0f*0.5f);
 }

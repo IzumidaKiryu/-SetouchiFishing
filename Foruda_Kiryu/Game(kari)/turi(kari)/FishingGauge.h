@@ -1,4 +1,6 @@
 #pragma once
+class TensionGauge;
+class PlayFishing;
 class FishingGauge : public IGameObject
 {
 public:
@@ -17,10 +19,17 @@ public:
 	float m_barUpperLimit = 237.0f;//バーの上限
 	float m_barLowerLimit = -237.0f;//バーの下限
 	float m_barSpead;//バーのスピード
+	void Attack();
+	float m_attack = 1;
+	float m_hpMinimumDecreaseLimit = 1.0f;
+	float m_hpMaxDecreseLimit =0.5f;
 
 	SpriteRender m_fishingGauge;
 	SpriteRender m_fishingGaugeFrame;
 	SpriteRender m_fishingGaugeBar;
+	TensionGauge* m_tensionGauge;
+	PlayFishing* m_playFishing;
+
 	
 };
 
