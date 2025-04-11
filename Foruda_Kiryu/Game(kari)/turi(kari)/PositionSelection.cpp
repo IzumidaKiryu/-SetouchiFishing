@@ -278,6 +278,10 @@ void PositionSelection::SelectPositionF()
 	m_playFishing->SetFishManagerObjectName("positionF");
 }
 
+void PositionSelection::SetTotalValue(float individualValue)
+{
+	m_totalValue += individualValue;
+}
 
 
 

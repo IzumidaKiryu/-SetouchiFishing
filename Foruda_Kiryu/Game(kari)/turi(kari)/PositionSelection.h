@@ -48,6 +48,7 @@ public:
 	void SelectPositionD();
 	void SelectPositionE();
 	void SelectPositionF();
+	void SetTotalValue(float score);
 	
 	float setFish=0.0f;
 	Vector3 m_fishDisplayPosition[6];
@@ -58,6 +59,7 @@ public:
 	double m_double_time=0.0f;//時間
 	int m_int_time=0;
 	float m_timelimit = 240;//時間制限
+	float m_totalValue=0.0f;
 	bool m_is_time_up;//タイムアップしているかどうか。
 	std::string fishManagerObjectName[6] = {
 		"positionA",
