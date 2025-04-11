@@ -29,6 +29,7 @@ public:
 	void SetFishData();//フィッシュデータを設定する。
 	FishData& GetFishData();//フィッシュデータを得るための関数。
 	float GetScore();
+	void Timer();
 
 	bool m_shouldFishChange = false;//魚を変えるべきかどうか。
 	int m_randum;

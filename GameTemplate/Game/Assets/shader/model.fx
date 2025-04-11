@@ -37,13 +37,7 @@ cbuffer DirectionLightCb : register(b1)
 	//視点のデータにアクセスするための変数を定数バッファに登録
     float3 eyePos;
     float3 ambientLight; //環境光
-    
-    //半球ライトノデータにアクセスするための変数。
-    float3 groundColor; //照り返しのライト。
-    float3 skyColor; //天球ライト。
-    float3 groundNomal; //地面の法線。
-};
-
+}
 ////////////////////////////////////////////////
 // 構造体
 ////////////////////////////////////////////////
@@ -65,8 +59,6 @@ struct SPSIn{
 	float2 uv 			: TEXCOORD0;	//uv座標。
     float3 normal : NORMAL;
     float3 worldPos : TEXCOORD1;
-    //カメラ空間の法線の追加。
-    float3 normalInView : TEXCOORD2;//カメラ空間の法線。
 };
 
 ////////////////////////////////////////////////
@@ -81,10 +73,9 @@ sampler g_sampler : register(s0);	//サンプラステート。
 ////////////////////////////////////////////////
 float3 CalcLambertDiffuse(float3 lightDirection, float3 lightColor, float3 normal);
 float3 CalcPhongSpecular(float3 lightDirection, float3 lightColor, float3 worldPos, float3 normal);
-float3 CalcLigFromPointLight(SPSIn psIn);//ポイントライトの計算。
+float3 CalcLigFromPointLight(SPSIn psIn);
 float3 CalcLigFromDirectionLight(SPSIn psIn);
-float3 CalcLigFromSpotLight(SPSIn psIn);//スポットライトによるライティングの計算。
-float3 CalcLigFormLimLight(SPSIn psIn);//リムライト
+
 
 
 /// <summary>
@@ -124,12 +115,9 @@ SPSIn VSMainCore(SVSIn vsIn, uniform bool hasSkin)
 	psIn.pos = mul(mProj, psIn.pos);
 
 	//頂点法線をピクセルシェーダに渡す。
-    psIn.normal = mul(m, vsIn.normal);
+    psIn.normal = mul(mWorld, vsIn.normal);
 	
 	psIn.uv = vsIn.uv;
-    
-    //カメラ空間の法線を求める。
-    psIn.normalInView = mul(mView, psIn.normal);//カメラ空間の法線の計算。
 
 	return psIn;
 }
@@ -159,44 +147,62 @@ float4 PSMain( SPSIn psIn ) : SV_Target0
     // ポイントライトによるライティングを計算する
     float3 pointLig = CalcLigFromPointLight(psIn);
     
-    //スポットライトによるライティングの計算。
-    float3 spotLig = CalcLigFromSpotLight(psIn);
+	//スポットライトによるライティングを計算する。
+    //サーフェースに入射するスポットライトの幹を計算。
+    float3 ligDir = psIn.worldPos - spPosition;
+	
+	//正規化して大きさ１のベクトルにする。
+    ligDir = normalize(ligDir);
+	
+	//減衰なしのLambert拡散反射光を計算。
+    float3 diffSpotLight = CalcLambertDiffuse(
+		ligDir,		//ライトの方向。
+		spColor,	//ライトのカラー。
+		psIn.normal	//サーフェースの法線。
+	);
+	
+	//減衰なしのPhong鏡面反射光を計算。
+    float3 specSpotLight = CalcPhongSpecular(
+		ligDir,			 //ライトの方向。
+		spColor,		 //ライトのカラー。
+		psIn.worldPos,	 //サーフェースのワールド座標
+		psIn.normal		 //サーフェースの法線。
+	);
+	
+	
+	//距離による影響率を計算する。
+	//ポイントライトの距離を計算する。
+    float distance = length(psIn.worldPos - spPosition);
+	
+	//影響率はひょりに比例して小さくなる。
+    float affect = 1.0f - 1.0f /    spRange * distance;
+	
+	//影響力がマイナスにならないように補正をかける。
+    if (affect < 0.0f)
+    {
+        affect = 0.0f;
+    }
+	
+	//影響力を指数関数にする。3乗にしてる。
+    affect = pow(affect, 3.0f);
+	
+	//拡散反射光と鏡面反射光に影響力を乗算して影響を弱める。
+    diffSpotLight *= affect;
+    specSpotLight *= affect;
+	
+	//ディレクションライト＋ポイントライト＋環境光。
+    float3 finalLig = directionLig + pointLig + ambientLight;
+	
+    //拡散反射光と鏡面反射光を足し算して最終的な光を求める。
+    finalLig += diffSpotLight + specSpotLight;
+	
    
-   //リムライトの強さを求める。
-    float3 limPow = CalcLigFormLimLight(psIn);
-    
-    //半球ライトの計算。
-    //サーフェースの法線と地面の法線との内積を計算する。
-    float t = dot(psIn.normal, groundNomal);
-    
-    //内積の結果を0～1の範囲に変換する。
-    t = (t + 1.0f) / 2.0f;
-    
-    //地面色と天球色を補完率ｔで線形補完する。
-    float3 hemiLight = lerp(groundColor, skyColor, t);
-   
-   // ////最終的な反射光を求める（リム,半球ｒ確認用）。
-   float limOnlyFinalLig = directionLig + ambientLight;
-    
-    //最終的な反射光を求める（全ライト）。
-   // float3 allLightFinalLig = directionLig + pointLig + spotLig + ambientLight;
-    
-    //最終的な反射光にリムライトの反射光を合成する。
-    //リムライトのカラーを計算する。
-    float3 limColor = limPow * ligColor;
-    
-   // //最終的な反射光にリムの反射光を合算する。
-    //(リムのみ)
-   limOnlyFinalLig += limColor;
-    //（すべてのライト）
-    //allLightFinalLig += limColor;
-   limOnlyFinalLig += hemiLight;
 	float4 albedoColor = g_albedo.Sample(g_sampler, psIn.uv);
 	
 	//最終的な出力カラーに光を乗算する。
-	albedoColor.xyz *= limOnlyFinalLig;
-    //albedoColor.xyz *= allLightFinalLig;
- 
+	albedoColor.xyz *= finalLig;
+	
+
 	return albedoColor;
 }
 /// <summary>
@@ -239,7 +245,6 @@ float3 CalcPhongSpecular(float3 lightDirection, float3 lightColor, float3 worldP
     return lightColor * t;
 }
 
-//ポイントライトによる反射光の計算。
 float3 CalcLigFromPointLight(SPSIn psIn)
 {
     // このサーフェイスに入射しているポイントライトの光の向きを計算する
@@ -298,93 +303,4 @@ float3 CalcLigFromDirectionLight(SPSIn psIn)
     // ディレクションライトによるPhong鏡面反射光を計算する
     float3 specDirection = CalcPhongSpecular(ligDirection, ligColor, psIn.worldPos, psIn.normal);
     return diffDirection + specDirection;
-}
-
-
-float3 CalcLigFromSpotLight(SPSIn psIn)
-{
-     //スポットライトによるライティングを計算する。
-    //サーフェースに入射するスポットライトの幹を計算。
-    float3 ligDir = psIn.worldPos - spPosition;
-	
-	//正規化して大きさ１のベクトルにする。
-    ligDir = normalize(ligDir);
-	
-	//減衰なしのLambert拡散反射光を計算。
-    float3 diffSpotLight = CalcLambertDiffuse(
-		ligDir, //ライトの方向。
-		spColor, //ライトのカラー。
-		psIn.normal	//サーフェースの法線。
-	);
-	
-	//減衰なしのPhong鏡面反射光を計算。
-    float3 specSpotLight = CalcPhongSpecular(
-		ligDir, //ライトの方向。
-		spColor, //ライトのカラー。
-		psIn.worldPos, //サーフェースのワールド座標
-		psIn.normal		 //サーフェースの法線。
-	);
-	
-	
-	//距離による影響率を計算する。
-	//ポイントライトの距離を計算する。
-    float distance = length(psIn.worldPos - spPosition);
-	
-	//影響率はひょりに比例して小さくなる。
-    float affect = 1.0f - 1.0f / spRange * distance;
-	
-	//影響力がマイナスにならないように補正をかける。
-    if (affect < 0.0f)
-    {
-        affect = 0.0f;
-    }
-	
-	//影響力を指数関数にする。3乗にしてる。
-    affect = pow(affect, 3.0f);
-	
-	//拡散反射光と鏡面反射光に影響力を乗算して影響を弱める。
-    diffSpotLight *= affect;
-    specSpotLight *= affect;
-	//入射光と射出方向の角度を求める
-    // dot()を利用して内積を求める
-    float angle = dot(ligDir, spDirection);
-
-    // dot()で求めた値をacos()に渡して角度を求める
-    angle = abs(acos(angle));
-
-    //角度による影響率を求める
-    // 角度に比例して小さくなっていく影響率を計算する
-    affect = 1.0f - 1.0f / spAngle * angle;
-
-    // 影響率がマイナスにならないように補正をかける
-    if (affect < 0.0f)
-    {
-        affect = 0.0f;
-    }
-
-    //影響の仕方を指数関数的にする。今回のサンプルでは0.5乗している
-    affect = pow(affect, 3.0f);
-
-    //角度による影響率を反射光に乗算して、影響を弱める
-    diffSpotLight *= affect;
-    specSpotLight *= affect;
-    return diffSpotLight + specSpotLight;
-	
-}
-
-float3 CalcLigFormLimLight(SPSIn psIn)
-{
-    /// //サーフェースの法線と光の入射方向に依存するリムの強さを求める。
-    float power1 = 1.0f - max(0.0f, dot(ligDirection, psIn.normal));
-    
-   // //サーフェースの法線と視線の方向に依存するリムの強さを求める。
-    float power2 = 1.0f - max(0.0f, psIn.normalInView.z * -1.0f);
-    
-   // //最終的なリムの強さを求める。
-    float limPower = power1 * power2;
-    
-   // //pow()を使用して強さの変化を指数関数的にする。
-    limPower = pow(limPower, 1.3f);
-    
-    return limPower;
 }

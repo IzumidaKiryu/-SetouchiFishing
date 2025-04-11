@@ -1,11 +1,12 @@
-#include "stdafx.h"
+﻿#include "stdafx.h"
 #include "Fish.h"
 #include "PositionSelection.h"
 
 Fish::Fish()
 {
-	srand(time(NULL));
 	m_positionSelection = FindGO<PositionSelection>("positionSelection");
+	//m_initialTime= m_positionSelection->GetTime();
+	srand(time(NULL));
 }
 
 Fish::~Fish()
@@ -15,56 +16,70 @@ Fish::~Fish()
 
 void Fish::Update()
 {
+	TimeCount();
 }
 
 /// <summary>
-/// 個体値を設定する。
+/// �̒l��ݒ肷��B
 /// </summary>
 /// <param name="baseIndividualValue"></param>
 void Fish::SetScore()
 {
-
-	//魚のスコアに個体差を出す。
-	//魚のスコアは基準のスコア×（0.8から1.2までのランダムな数）で計算をする。
-	float individualValueMagnification =( 0.4f / 100 )* (rand() % 100 + 1);//個体差の倍率
-
+	//���̃X�R�A�Ɍ̍���o���B
+	//���̃X�R�A�͊�̃X�R�A�~�i0.8����1.2�܂ł̃����_���Ȑ��j�Ōv�Z�����B
+	float individualValueMagnification =( 0.4f / 100 )* (rand() % 100 + 1);//�̍��̔{��
 	individualValueMagnification += 0.8;
 
-	m_fishData.score = m_baseScore * individualValueMagnification;//基準のスコア×個体差の倍率。
+	m_fishData.score = m_baseScore * individualValueMagnification;//��̃X�R�A�~�̍��̔{���B
 }
 
-void Fish::SetTimeUntilEscape(float timeUntilEscape)//逃げるまでの時間を設定する。
+/// <summary>
+/// 逃げるまでの時間を設定する。
+/// </summary>
+/// <param name="timeUntilEscape"></param>
+void Fish::SetTimeUntilEscape(float timeUntilEscape)
 {
-	m_timeUntilEscape = timeUntilEscape;
+	m_fishData.timeUntilEscape = timeUntilEscape;
 }
 
+/// <summary>
+/// 時間をはかる。
+/// </summary>
+/// <returns></returns>
 bool Fish::TimeCount()
 {
-	if (m_time < m_timeUntilEscape) {
-		m_time++;
-		if (m_time >= m_timeUntilEscape)
-		{
+	m_positionSelection = FindGO<PositionSelection>("positionSelection");
+	m_nowTime=m_positionSelection->GetTime();
 
+		if (m_initialTime -m_nowTime >= m_fishData.timeUntilEscape)
+		{
+			ShouldFishChangeTrue();
 			return true;
 		}
 		else {
 			return false;
 		}
-	}
 }
 
-void Fish::ShouldFishChange()
-{
-	//この魚が選択中の時は別の魚に変えない。
-	if (m_isSelected =! true)
-	{
-		ShouldFishChangeTrue();
-	}
-}
+/// <summary>
+/// 魚を別の魚に変えていいか判断する関数
+/// </summary>
+//void Fish::ShouldFishChange()
+//{
+//	//この魚が選択中の時は別の魚に変えない。
+//	if (m_isSelected =! true)
+//	{
+//		ShouldFishChangeTrue();
+//	}
+//}
 
 void Fish::ShouldFishChangeTrue()
 {
-	m_shouldFishChange=true;
+	//���̋����I�𒆂̎��͕ʂ̋��ɕς��Ȃ��B
+	if (m_isSelected = !true)
+	{
+		m_shouldFishChange = true;
+	}
 }
 
 void Fish::ShouldFishChangeFalse()

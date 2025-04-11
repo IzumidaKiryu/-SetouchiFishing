@@ -3,6 +3,8 @@
 #include "GaugeCastSuccessful.h"
 #include "TensionGauge.h"
 #include "FishingGauge.h"
+#include "PositionSelection.h"
+#include "PlayFishing.h"
 
 CastGauge::CastGauge()
 {
@@ -24,6 +26,9 @@ CastGauge::CastGauge()
 
 	m_gaugeCastSuccessful = NewGO<GaugeCastSuccessful>(0, "gaugeCastSuccessful");
 	m_gaugeCastSuccessful->Init(10.0f, 10.0f);
+
+	m_positionSelection = FindGO<PositionSelection>("positionSelection");
+
 }
 
 CastGauge::~CastGauge()
@@ -34,14 +39,14 @@ CastGauge::~CastGauge()
 void CastGauge::Update()
 {
 	SetGaugeSpead();
-	UpAndDownManagement();//çŸ¢å°ã®å‹•ãå‘ãã‚’æ±ºã‚ã‚‹ã€‚
-	SetArrowPosition();//çŸ¢å°ã®å ´æ‰€ã‚’æ±ºã‚ã‚‹ã€‚
-	m_castGaugeArrow.Update();//çŸ¢å°ã®æç”»ã‚’æ›´æ–°ã™ã‚‹ã€‚
+	UpAndDownManagement();//–îˆó‚Ì“®‚­Œü‚«‚ğŒˆ‚ß‚éB
+	SetArrowPosition();//–îˆó‚ÌêŠ‚ğŒˆ‚ß‚éB
+	m_castGaugeArrow.Update();//–îˆó‚Ì•`‰æ‚ğXV‚·‚éB
 	HitTest();
 }
 
 /// <summary>
-/// çŸ¢å°ã®å ´æ‰€ã‚’è¨­å®š
+/// –îˆó‚ÌêŠ‚ğİ’è
 /// </summary>
 void CastGauge::SetArrowPosition()
 {
@@ -49,7 +54,7 @@ void CastGauge::SetArrowPosition()
 }
 
 /// <summary>
-/// çŸ¢å°ã‚’ä¸Šã«å‹•ã‹ã™ã‹ä¸‹ã«å‹•ã‹ã™ã‹æ±ºã‚ã‚‹ã€‚
+/// –îˆó‚ğã‚É“®‚©‚·‚©‰º‚É“®‚©‚·‚©Œˆ‚ß‚éB
 /// </summary>
 void CastGauge::UpAndDownManagement()
 {
@@ -61,54 +66,54 @@ void CastGauge::UpAndDownManagement()
 	}
 }
 /// <summary>
-/// çŸ¢å°ã‚’ä¸Šã«ç§»å‹•ã€‚
+/// –îˆó‚ğã‚ÉˆÚ“®B
 /// </summary>
 void CastGauge::UpwardOperation()
 {
 	m_arrowPosition += m_gaugeSpead;
 	if (m_arrowPosition >= m_gaugeUpperLimit) {
-		m_arrowPosition = (-m_arrowPosition + m_gaugeUpperLimit) + m_gaugeUpperLimit;//ä¸Šé™ã‚’é€šã‚ŠéããŸã‚‰ãã®åˆ†æˆ»ã‚‹å‡¦ç†ã€‚
+		m_arrowPosition = (-m_arrowPosition + m_gaugeUpperLimit) + m_gaugeUpperLimit;//ãŒÀ‚ğ’Ê‚è‰ß‚¬‚½‚ç‚»‚Ì•ª–ß‚éˆ—B
 		upState = false;
 	}
 }
 
 /// <summary>
-/// çŸ¢å°ã‚’ä¸‹ã«ç§»å‹•
+/// –îˆó‚ğ‰º‚ÉˆÚ“®
 /// </summary>
 void CastGauge::DownwardOperation()
 {
 	m_arrowPosition -= m_gaugeSpead;
 	if (m_arrowPosition <= m_gaugeLowerLimit) {
-		m_arrowPosition = (-m_arrowPosition + m_gaugeLowerLimit) + m_gaugeLowerLimit;//ä¸‹é™ã‚’é€šã‚ŠéããŸã‚‰ãã®åˆ†æˆ»ã‚‹å‡¦ç†ã€‚
+		m_arrowPosition = (-m_arrowPosition + m_gaugeLowerLimit) + m_gaugeLowerLimit;//‰ºŒÀ‚ğ’Ê‚è‰ß‚¬‚½‚ç‚»‚Ì•ª–ß‚éˆ—B
 		upState = true;
 	}
 }
 
 /// <summary>
-/// çŸ¢å°ã®ã‚¹ãƒ”ãƒ¼ãƒ‰ã‚’è¨­å®š
+/// –îˆó‚ÌƒXƒs[ƒh‚ğİ’è
 /// </summary>
 void CastGauge::SetGaugeSpead()
 {
-	m_gaugeSpead = /*(237.0f*2.0f)/10*/5;
+	m_gaugeSpead = /*(237.0f*2.0f)/10*/8;
 }
 
+/// <summary>
+/// “–‚½‚è”»’è‚ğŠm‚©‚ß‚é
+/// </summary>
 void CastGauge::HitTest()
 {
 	if (g_pad[0]->IsTrigger(enButtonA)) {
-		if (m_gaugeCastSuccessful->hitTest(m_arrowPosition) == true)
+		if (m_gaugeCastSuccessful->hitTest(m_arrowPosition) == true)//¬Œ÷‚µ‚½‚çB
 		{
 			/*m_fishingGauge=NewGO<FishingGauge>(0, "fishingGauge ");*/
 			/*tensionGauge = NewGO<TensionGauge>(0, "tensionGauge");*/
 			Success();
 		}
-
-		else if (m_gaugeCastSuccessful->hitTest(m_arrowPosition) == false) //å¤±æ•—ã—ãŸã‚‰ã€‚
+		else if (m_gaugeCastSuccessful->hitTest(m_arrowPosition) == false) //¸”s‚µ‚½‚çB
 		{
 			Failure();
 		}
 		is_ended = true;
-
-
 	}
 }
 

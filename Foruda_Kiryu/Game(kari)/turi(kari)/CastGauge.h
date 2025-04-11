@@ -2,6 +2,8 @@
 class GaugeCastSuccessful;
 class TensionGauge;
 class FishingGauge;
+class PositionSelection;
+class PlayFishing;
 
 class CastGauge :public IGameObject
 {
@@ -25,6 +27,7 @@ public:
 	float m_gaugeUpperLimit = 237.0f;//ゲージの上限
 	float m_gaugeLowerLimit = -237.0f;//ゲージの下限
 	float m_gaugeSpead;
+
 	float m_heightFirstGaugeCastSuccessful = 10.0f;//成功ゲージの最初の横幅。
 	bool is_ended=false;
 
@@ -34,5 +37,7 @@ public:
 	GaugeCastSuccessful* m_gaugeCastSuccessful=nullptr;
 	FishingGauge* m_fishingGauge;
 	TensionGauge* tensionGauge=nullptr;
+	PositionSelection* m_positionSelection;
+	PlayFishing* m_playFishing;
 };
 
