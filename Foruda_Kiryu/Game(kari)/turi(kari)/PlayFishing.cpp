@@ -12,15 +12,13 @@
 
 PlayFishing::PlayFishing()
 {
-	m_objectName= new char[6];// ï¿½tï¿½Bï¿½bï¿½Vï¿½ï¿½ï¿½}ï¿½lï¿½[ï¿½Wï¿½ï¿½ï¿½[ï¿½ÌƒIï¿½uï¿½Wï¿½Fï¿½Nï¿½gï¿½lï¿½[ï¿½ï¿½ï¿½Ìƒï¿½ï¿½ï¿½ï¿½ï¿½ï¿½mï¿½ï¿½
+	m_objectName= new char[6];// ƒtƒBƒbƒVƒ…ƒ}ƒl[ƒWƒƒ[‚ÌƒIƒuƒWƒFƒNƒgƒl[ƒ€‚Ìƒƒ‚ƒŠŠm•Û
 
 	m_playFishingBackGround = NewGO< PlayFishingBackGround>(0, "playFishingBackGround");
-
-	//ï¿½Qï¿½[ï¿½ï¿½ï¿½Jï¿½ï¿½ï¿½ï¿½ï¿½ÌƒIï¿½uï¿½Wï¿½Fï¿½Nï¿½gï¿½ï¿½ï¿½ï¿½ï¿½B
+	//ƒQ[ƒ€ƒJƒƒ‰‚ÌƒIƒuƒWƒFƒNƒg‚ğì‚éB
 	gameCamera = NewGO<GameCamera>(0, "gamecamera");
 
 	StatusManager();
-
 }
 
 PlayFishing::~PlayFishing()
@@ -28,22 +26,18 @@ PlayFishing::~PlayFishing()
 
 
 	DeleteGO(m_playFishingBackGround);
-
 	DeleteGO(gameCamera);
 	//DeleteGO(m_fishManager);
 
 	m_positionSelection = FindGO<PositionSelection>("positionSelection");
 	m_positionSelection->SetisDisplayingTrue();
-	//ï¿½|ï¿½Wï¿½Vï¿½ï¿½ï¿½ï¿½ï¿½Zï¿½ï¿½ï¿½Nï¿½gï¿½Nï¿½ï¿½ï¿½Xï¿½ÌƒIï¿½uï¿½Wï¿½Fï¿½Nï¿½gï¿½ï¿½ï¿½Aï¿½Nï¿½eï¿½Bï¿½uï¿½É‚ï¿½ï¿½ï¿½
-=======
-
+	//ƒ|ƒWƒVƒ‡ƒ“ƒZƒŒƒNƒgƒNƒ‰ƒX‚ÌƒIƒuƒWƒFƒNƒg‚ğƒAƒNƒeƒBƒu‚É‚·‚é
 	m_positionSelection->SetActivate();
-
 }
 
 void PlayFishing::Init()
 {
-	//ï¿½tï¿½Bï¿½bï¿½Vï¿½ï¿½ï¿½}ï¿½lï¿½[ï¿½Wï¿½ï¿½ï¿½[ï¿½ï¿½Tï¿½ï¿½ï¿½B
+	//ƒtƒBƒbƒVƒ…ƒ}ƒl[ƒWƒƒ[‚ğ’T‚·B
 	FindeFishManager();
 
 	SetFishData();
@@ -77,7 +71,7 @@ void PlayFishing::DeleteThisClass()
 
 void PlayFishing::SetFishManagerObjectName(std::string string_objectName)
 {
-	//ï¿½tï¿½Bï¿½bï¿½Vï¿½ï¿½ï¿½}ï¿½lï¿½[ï¿½Wï¿½ï¿½ï¿½[ï¿½É‚Â‚ï¿½ï¿½ï¿½Iï¿½uï¿½Wï¿½Fï¿½Nï¿½gï¿½lï¿½[ï¿½ï¿½ï¿½Ìİ’ï¿½B
+	//ƒtƒBƒbƒVƒ…ƒ}ƒl[ƒWƒƒ[‚É‚Â‚¯‚éƒIƒuƒWƒFƒNƒgƒl[ƒ€‚Ìİ’èB
 	std::char_traits<char>::copy(m_objectName, string_objectName.c_str(), string_objectName.size() + 1);
 }
 
@@ -116,7 +110,7 @@ void PlayFishing::NewGOFishingRodHP()
 }
 
 /// <summary>
-/// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ç‚±ï¿½ÌŠÖï¿½ï¿½ï¿½ï¿½Ä‚ÔB
+/// ¬Œ÷‚µ‚½‚ç‚±‚ÌŠÖ”‚ğŒÄ‚ÔB
 /// </summary>
 void PlayFishing::SetSuccess()
 {
@@ -125,7 +119,7 @@ void PlayFishing::SetSuccess()
 }
 
 /// <summary>
-/// ï¿½ï¿½ï¿½sï¿½ï¿½ï¿½ï¿½ï¿½ç‚±ï¿½ÌŠÖï¿½ï¿½ï¿½ï¿½Ä‚ÔB
+/// ¸”s‚µ‚½‚ç‚±‚ÌŠÖ”‚ğŒÄ‚ÔB
 /// </summary>
 void PlayFishing::SetFailure()
 {
@@ -148,18 +142,14 @@ void PlayFishing::Success()
 		case chastGauge:
 			DeleteGO(m_castGauge);
 			m_playFishingStatus = fishingGsauge;
-
-			Unfixed();//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½sï¿½ï¿½ï¿½Ç‚ï¿½ï¿½ï¿½ï¿½ğ–¢Šmï¿½ï¿½É‚ï¿½ï¿½ï¿½B
-			StatusManager();//ï¿½Xï¿½eï¿½[ï¿½^ï¿½Xï¿½}ï¿½lï¿½[ï¿½Wï¿½ï¿½ï¿½[ï¿½ğ“®‚ï¿½ï¿½ï¿½ï¿½B
-
+			Unfixed();//¬Œ÷‚©¸”s‚©‚Ç‚¤‚©‚ğ–¢Šm’è‚É‚·‚éB
+			StatusManager();//ƒXƒe[ƒ^ƒXƒ}ƒl[ƒWƒƒ[‚ğ“®‚©‚·B
 			break;
 		case fishingGsauge:
 			DeleteGO(m_fishingGauge);
 			m_playFishingStatus = tensionGauge;
-
-			Unfixed();//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½sï¿½ï¿½ï¿½Ç‚ï¿½ï¿½ï¿½ï¿½ğ–¢Šmï¿½ï¿½É‚ï¿½ï¿½ï¿½B;
-			StatusManager();//ï¿½Xï¿½eï¿½[ï¿½^ï¿½Xï¿½}ï¿½lï¿½[ï¿½Wï¿½ï¿½ï¿½[ï¿½ğ“®‚ï¿½ï¿½ï¿½ï¿½B
-
+			Unfixed();//¬Œ÷‚©¸”s‚©‚Ç‚¤‚©‚ğ–¢Šm’è‚É‚·‚éB;
+			StatusManager();//ƒXƒe[ƒ^ƒXƒ}ƒl[ƒWƒƒ[‚ğ“®‚©‚·B
 			break;
 		case tensionGauge:
 			DeleteGO(m_tensionGauge);

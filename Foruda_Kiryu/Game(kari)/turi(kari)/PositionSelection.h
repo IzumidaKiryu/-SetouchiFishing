@@ -36,10 +36,10 @@ public:
 	void SetisDisplayingFalse();
 	void ChangeSceneToPlayFishing();
 	bool GetisDisplaying();
-
 	void SetDeactivate();//非アクティブにする。
 	void SetActivate();
 	void Timer();
+	int GetTime();
 	void SetFishUIPosition();
 	void FishChange();//魚を変える。
 	void SelectPosition();
@@ -52,18 +52,16 @@ public:
 	void SetTotalValue(float score);
 	void FindFishHighScore();//スコアが高い魚を探す。
 	
-
 	float setFish=0.0f;
-	Vector3 m_fishDisplayPosition[6];
+	Vector3 m_fishDisplayPosition[6];//ディスプレイUIのポジション
 	float m_fishDisplayPositionXcriteria = -350;//魚を表示するディスプレイの場所の基準（X軸）
 	float m_fishDisplayPositionXinterval = 350.0f;
-	bool m_is_displaying;
-
+	bool m_is_displaying;//表示するかどうか。
 	bool m_shouldPartiallyDeactivate=false;//部分的に非アクティブにするべきか。
-	double m_double_time=0.0f;//時間
-	int m_int_time=0;
+	//double m_double_time=0.0f;//時間(double型)
+	int m_int_time= m_timelimit;//時間(Int型)
 	float m_timelimit = 240;//時間制限
-	float m_totalValue=0.0f;
+	float m_totalScore=0.0f;//スコアの合計。
 	bool m_is_time_up;//タイムアップしているかどうか。
 	std::string fishHighScorePosition;//出ている魚の中で一番スコアが高い魚がいるポジション。
 	std::string PositionName[6] = {
@@ -77,7 +75,6 @@ public:
 	;
 	std::string select_by_with_position;
 	char* objectName[6];
-
 
 
 	Player* player;			//プレイヤー。
