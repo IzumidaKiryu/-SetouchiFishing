@@ -14,6 +14,7 @@ public:
 	~Fish();
 	//更新処理。
 	void Update();
+	bool Start();
 	void SetScore();//フィッシュデータのスコアを設定する。
 	void SetTimeUntilEscape(float timeUntilEscape);//逃げでの時間の設定。
 	bool TimeCount();

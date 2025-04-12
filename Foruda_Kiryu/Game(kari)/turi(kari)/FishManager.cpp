@@ -2,6 +2,7 @@
 #include "FishManager.h"
 #include "Buri.h"
 #include "Tatiuo.h"
+#include "PositionSelection.h"
 #include <random>
 
 FishManager::FishManager()
@@ -14,7 +15,6 @@ FishManager::FishManager()
 
 FishManager::~FishManager()
 {
-
 }
 
 void FishManager::Update()
@@ -156,6 +156,7 @@ void FishManager::SetFishData()
 
 FishData& FishManager::GetFishData()
 {
+	/*FishData &a=*p_fishData;*/
 	return *p_fishData;
 }
 

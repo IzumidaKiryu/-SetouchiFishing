@@ -1,6 +1,6 @@
 #pragma once
 #include "Fish.h"
-
+class PositionSelection;
 enum FishType {
 	TAI,
 	BURI,
@@ -36,7 +36,7 @@ public:
 
 	FishData* p_fishData=&m_fishData;//フィッシュデータのポインタ
 	FishData m_fishData;//魚のデータ。
-
+	
 	FishType m_fishType;
 	Buri* m_buri;
 	Tatiuo* m_tatiuo;
