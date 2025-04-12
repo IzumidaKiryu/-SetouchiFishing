@@ -50,7 +50,7 @@ void PlayFishing::Update()
 
 void PlayFishing::NewGOCastGauge()
 {
-	m_castGauge = NewGO< CastGauge>(0, "CastGauge");
+	m_castGauge = NewGO<CastGauge>(0, "CastGauge");
 }
 
 void PlayFishing::NewGOFishingGauge()
