@@ -1,5 +1,5 @@
 #pragma once
-
+class BackGround;
 class Game:public IGameObject
 {
 public:
@@ -12,6 +12,7 @@ public:
 	ModelRender m_modelRender;
 	SpriteRender m_spriteRender;
 	FontRender m_fontRender;
+	BackGround* m_backGrund=nullptr;
 	//Light m_light;
 	enum EnAnimationClip {		//アニメーション。
 		enAnimationClip_Idle,
