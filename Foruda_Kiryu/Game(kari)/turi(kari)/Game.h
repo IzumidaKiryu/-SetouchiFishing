@@ -9,6 +9,8 @@ class GetRotation;
 class PositionSelection;
 class PlayFishing;
 
+class GameResult;
+
 //Game�V�[����Ǘ�����N���X�B
 class Game : public IGameObject
 {
@@ -30,4 +32,5 @@ public:
 	FontRender m_fontRender;
 	PositionSelection* positionSelection;//場所を選ぶ画面のクラス。
 	PlayFishing* m_playFishing;
+	GameResult* m_rul;
 };

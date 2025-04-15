@@ -1,5 +1,5 @@
 #pragma once
-class GameResult:public IGameObject
+class GameResult :public IGameObject
 {
 public:
 	enum fishName {
@@ -14,15 +14,16 @@ public:
 	~GameResult();
 	bool start();
 	void Update();
-	void Render(RenderContext&rc);
-	void Eaging(fishName name,Vector3 fastPos,Vector3 endPos);
-	
-	Vector3 fastPos;//イージング前の座標。
-	Vector3 endPos;//イージング後の座標。
+	void Render(RenderContext& rc);
+	void Eaging(fishName name, Vector3 fastPos, Vector3 endPos);
+
+	Vector3 fastPos = { -350.0f,0.0f,0.0f };;//イージング前の座標。
+	Vector3 endPos={ -600.0f,0.0f,0.0f };//イージング後の座標。
 	Vector3 m_vec = Vector3::Zero;
-	int m_t = 0.0f;//補完率。
+	float m_t = 0.0f;//補完率。
+
+	
 
 	SpriteRender m_fishUI[6];//収集した魚の表示用スプライトレンダー。
 	SpriteRender m_back;
 };
-
