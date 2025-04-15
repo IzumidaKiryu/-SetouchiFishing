@@ -7,39 +7,48 @@ namespace nsK2EngineLow {
 	{
 	public:
 		struct DirectionLight {
-			Vector3 d_direction;//ライトの方向。3要素のベクトルで表現。
+			Vector3 m_direction;//ライトの方向。3要素のベクトルで表現。
 			float pad0;
-			Vector3 d_color;//ライトのカラー。光の3原色で表現。
+			Vector3 m_color;//ライトのカラー。光の3原色で表現。
 			float pad1;
 		};
 
 		struct PointLight {
-			Vector3 ptPosition;//ライトの位置。3要素のベクトルで表現。
+			Vector3 m_position;//ライトの位置。3要素のベクトルで表現。
 			float pad2;//パティング。
-			Vector3 ptColor;//ライトのカラー。光の3原色で表現。
-			float ptInfuluenceRenge;//影響範囲。単位はメートル。
+			Vector3 m_color;//ライトのカラー。光の3原色で表現。
+			float m_renge;//影響範囲。単位はメートル。
 		
 		};
 
 		struct SpotLight {
-			Vector3 s_position;//ライトの位置。3要素のベクトルで表現。
+			Vector3 m_position;//ライトの位置。3要素のベクトルで表現。
 			float pad3;
-			Vector3 s_color;//ライトのカラー。光の3原色で表現。
-			float s_Range;//影響範囲。単位はメートル。
-			Vector3 s_direction;//放射方向。3要素のベクトルで表現。
-			float s_angle;//放射角度。
-			
+			Vector3 m_color;//ライトのカラー。光の3原色で表現。
+			float m_range;//影響範囲。単位はメートル。
+			Vector3 m_direction;//放射方向。3要素のベクトルで表現。
+			float m_angle;//放射角度。
+		};
+
+		struct HemisphereLight {
+			Vector3 m_groundColor;
+			float pad6;
+			Vector3 m_skyColor;
+			float pad7;
+			Vector3 m_groundNormal;
+			float pad8;
 		};
 
 		struct SceneLight
 		{
-			DirectionLight direction;
+			DirectionLight directionLig;
 			PointLight pointLig;
 			SpotLight spotLig;
 			Vector3 eyePos;
 			float pad0;
 			Vector3 ambientLight;
-
+			float pad5;
+			HemisphereLight m_hemiLig;
 		};
 
 		Light();
