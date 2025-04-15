@@ -26,7 +26,7 @@ PositionSelection::PositionSelection()
 	m_timeLimitUI= NewGO<TimeLimitUI>(0, "timelimitUI");
 
 	//プレイヤーのオブジェクトを作る。
-	player = NewGO<Player>(0, "player");
+	m_player = NewGO<Player>(0, "player");
 
 	//ゲームカメラのオブジェクトを作る。
 	gameCamera = NewGO<GameCamera>(0, "gamecamera");
@@ -61,7 +61,7 @@ PositionSelection::PositionSelection()
 PositionSelection::~PositionSelection()
 {
 	//プレイヤーを削除する。
-	DeleteGO(player);
+	DeleteGO(m_player);
 	//ゲームカメラを削除する。
 	DeleteGO(gameCamera);
 	//ゲーム中のBGMを削除する。
@@ -75,11 +75,12 @@ void PositionSelection::Update()
 	//時間をはかる。
 	Timer();
 	m_timeLimitUI->DisplayTimeLimitUI(m_int_time);//タイムリミットを表示する。
+	IsWith_any_Position();//今どこのポジションにいるか判定する。
 
 	if (m_shouldPartiallyDeactivate == false) {//アクティブかどうか判断する。
 		SetFishUI();
-		if (g_pad[0]->IsTrigger(enButtonA)) {//Aボタンが押されたら。
-			ChangeSceneToPlayFishing();//プレイフィッシングシーンに変える。
+		if (g_pad[0]->IsTrigger(enButtonA)) {
+			ChangeSceneToPlayFishing();
 		}
 	}
 	/*for (int i = 0; i < 6; i++) {
@@ -155,7 +156,7 @@ void PositionSelection::ChangeSceneToPlayFishing()
 	
 	// インスタンス生成→ポジション設定→初期設定(内部でポジション設定の情報を使っている)
 	m_playFishing = NewGO<PlayFishing>(0, "playFishing");
-	SelectPositionA();
+	SelectPosition();
 	m_playFishing->Init();
 
 	SetDeactivate();
@@ -169,7 +170,7 @@ bool PositionSelection::GetisDisplaying()
 void PositionSelection::SetDeactivate()
 {
 	//プレイヤーを非アクティブにする。
-	player->Deactivate();
+	m_player->Deactivate();
 	//ゲームカメラを非アクティブにする。
 	gameCamera->Deactivate();
 	//背景を非アクティブにする。
@@ -181,7 +182,7 @@ void PositionSelection::SetDeactivate()
 void PositionSelection::SetActivate()
 {
 	//プレイヤーをアクティブにする。
-	player->Activate();
+	m_player->Activate();
 	//ゲームカメラをアクティブにする。
 	gameCamera->Activate();
 	//背景をアクティブにする。
@@ -248,14 +249,34 @@ void PositionSelection::FishChange()
 
 void PositionSelection::SelectPosition()
 {
-	if (true)
-	{
-
-	}
+		switch (position_with_now)
+		{
+		case POSITION_A:
+			SelectPositionA();
+			break;
+		case POSITION_B:
+			SelectPositionB();
+			break;
+		case POSITION_C:
+			SelectPositionC();
+			break;
+		case POSITION_D:
+			SelectPositionD();
+			break;
+		case POSITION_E:
+			SelectPositionE();
+			break;
+		case POSITION_F:
+			SelectPositionF();
+			break;
+		default:
+			break;
+		}
 }
 
 void PositionSelection::SelectPositionA()
 {
+
 	m_playFishing->SetFishManagerObjectName("positionA");
 }
 
@@ -300,6 +321,51 @@ void PositionSelection::FindFishHighScore()
 			fishHighScorePosition = PositionName[i+1];
 		}
 	}
+
+}
+
+void PositionSelection::IsWith_any_Position()
+{
+	if (m_player->position.x <= float{ 254.0f })
+	{
+		if (m_player->position.z > 12.0f)
+		{
+			position_with_now = POSITION_B;
+			SetFishDisplayOutside_to_Green(position_with_now);
+		}
+		if (m_player->position.z < 12.0f)
+		{
+			position_with_now = POSITION_E;
+			SetFishDisplayOutside_to_Green(position_with_now);
+		}
+	}
+
+	if (m_player->position.x >= float{ 254.0f })
+	{
+		if (m_player->position.z > 12.0f)
+		{
+			position_with_now= POSITION_C;
+			SetFishDisplayOutside_to_Green(position_with_now);
+		}
+		if (m_player->position.z< 12.0f)
+		{
+			position_with_now = POSITION_F;
+			SetFishDisplayOutside_to_Green(position_with_now);
+		}
+	}
+}
+
+void PositionSelection::SetFishDisplayOutside_to_Green(Position position)
+{
+	m_currentFramePosition = position;
+	if (m_currentFramePosition != m_previousFrame&& m_previousFrame!=INITIALSTATE) //前のフレームとポジションがかぶってないときかつ、一番最初の処理じゃなければ。
+	{
+		m_fishDisplayOutside[m_previousFrame].Init("Assets/modelData/fish_display_ui_outside.DDS", 150, 150);
+	}
+	if (m_currentFramePosition!=m_previousFrame) {
+		m_fishDisplayOutside[position].Init("Assets/modelData/fish_display_ui_outside_selection.DDS", 150, 150);
+	}
+	m_previousFrame= position;
 
 }
 

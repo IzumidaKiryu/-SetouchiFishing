@@ -4,8 +4,6 @@
 
 Fish::Fish()
 {
-	m_positionSelection = FindGO<PositionSelection>("positionSelection");
-	//m_initialTime= m_positionSelection->GetTime();
 	srand(time(NULL));
 }
 
@@ -17,6 +15,13 @@ Fish::~Fish()
 void Fish::Update()
 {
 	TimeCount();
+}
+
+bool Fish::Start()
+{
+	m_positionSelection = FindGO<PositionSelection>("positionSelection");
+	m_initialTime = m_positionSelection->GetTime();
+	return false;
 }
 
 /// <summary>

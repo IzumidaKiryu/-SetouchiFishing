@@ -9,6 +9,7 @@ enum Position {
 	POSITION_D,
 	POSITION_E,
 	POSITION_F,
+	INITIALSTATE,//初期状態
 };
 
 class Player;
@@ -51,6 +52,8 @@ public:
 	void SelectPositionF();
 	void SetTotalValue(float score);
 	void FindFishHighScore();//スコアが高い魚を探す。
+	void IsWith_any_Position();
+	void SetFishDisplayOutside_to_Green(Position positon);
 	
 	float setFish=0.0f;
 	Vector3 m_fishDisplayPosition[6];//ディスプレイUIのポジション
@@ -63,6 +66,11 @@ public:
 	float m_timelimit = 240;//時間制限
 	float m_totalScore=0.0f;//スコアの合計。
 	bool m_is_time_up;//タイムアップしているかどうか。
+	//int m_isSetFishDisplayOutside_to_Green=0;//フレームのUIを緑色にするか。
+	Position m_currentFramePosition;//今のフレームのポジション
+	Position m_previousFrame= INITIALSTATE;
+	
+
 	std::string fishHighScorePosition;//出ている魚の中で一番スコアが高い魚がいるポジション。
 	std::string PositionName[6] = {
 		"positionA",
@@ -75,9 +83,9 @@ public:
 	;
 	std::string select_by_with_position;
 	char* objectName[6];
+	Position position_with_now;
 
-
-	Player* player;			//プレイヤー。
+	Player* m_player;			//プレイヤー。
 	GameCamera* gameCamera;			//ゲームカメラ。
 	BackGround* backGround;
 	SoundSource* gameBGM;		//ゲーム中のBGM。
