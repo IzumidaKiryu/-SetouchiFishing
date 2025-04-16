@@ -8,6 +8,11 @@
 
 CastGauge::CastGauge()
 {
+	//PhysicsWorld::GetInstance()->EnableDrawDebugWireFrame();
+	/*m_rodFloatModel.SetPosition(Vector3{ -400.0f,0.0f,0.0f });
+	m_rodFloatModel.Init("Assets/modelData/test.tkm");
+	m_rodFloatModel.Update();*/
+
 	m_castGaugeOutside.Init("Assets/modelData/castGauge_Outside.DDS", 100, 500);
 	m_castGaugeOutside.SetPivot(Vector2(0.0f, 0.5f));
 	m_castGaugeOutside.SetPosition(Vector3(500.0f, 0.0f, 0.0f));
