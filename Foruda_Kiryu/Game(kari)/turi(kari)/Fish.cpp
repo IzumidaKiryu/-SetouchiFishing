@@ -1,6 +1,8 @@
 ﻿#include "stdafx.h"
 #include "Fish.h"
 #include "PositionSelection.h"
+#include <random>
+
 
 Fish::Fish()
 {
@@ -14,14 +16,14 @@ Fish::~Fish()
 
 void Fish::Update()
 {
-	TimeCount();
+	/*TimeCount();*/
 }
 
 bool Fish::Start()
 {
 	m_positionSelection = FindGO<PositionSelection>("positionSelection");
 	m_initialTime = m_positionSelection->GetTime();
-	return false;
+	return true;
 }
 
 /// <summary>
@@ -30,9 +32,10 @@ bool Fish::Start()
 /// <param name="baseIndividualValue"></param>
 void Fish::SetScore()
 {
+	std::random_device rd;
 	//���̃X�R�A�Ɍ̍���o���B
 	//���̃X�R�A�͊�̃X�R�A�~�i0.8����1.2�܂ł̃����_���Ȑ��j�Ōv�Z�����B
-	float individualValueMagnification =( 0.4f / 100 )* (rand() % 100 + 1);//�̍��̔{��
+	float individualValueMagnification =( 0.4f / 100 )* (rd() % 100 + 1);//�̍��̔{��
 	individualValueMagnification += 0.8;
 
 	m_fishData.score = m_baseScore * individualValueMagnification;//��̃X�R�A�~�̍��̔{���B
@@ -56,12 +59,12 @@ bool Fish::TimeCount()
 	m_positionSelection = FindGO<PositionSelection>("positionSelection");
 	m_nowTime=m_positionSelection->GetTime();
 
-		if (m_initialTime -m_nowTime >= m_fishData.timeUntilEscape)
+		if (m_initialTime -m_nowTime <= m_fishData.timeUntilEscape)
 		{
-			ShouldFishChangeTrue();
 			return true;
 		}
 		else {
+			ShouldFishChangeTrue();
 			return false;
 		}
 }
@@ -80,8 +83,8 @@ bool Fish::TimeCount()
 
 void Fish::ShouldFishChangeTrue()
 {
-	//���̋����I�𒆂̎��͕ʂ̋��ɕς��Ȃ��B
-	if (m_isSelected = !true)
+	//この魚が選択中の時は別の魚に変えない。
+	if (m_isSelected !=true)
 	{
 		m_shouldFishChange = true;
 	}

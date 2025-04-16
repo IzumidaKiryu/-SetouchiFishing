@@ -154,6 +154,8 @@
     <ClCompile Include="Buri.cpp" />
     <ClCompile Include="CastGauge.cpp" />
     <ClCompile Include="CastUI.cpp" />
+    <ClCompile Include="Character.cpp" />
+    <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Fish.cpp" />
     <ClCompile Include="FishingGauge.cpp" />
     <ClCompile Include="FishingRodHP.cpp" />
@@ -186,6 +188,8 @@
     <ClInclude Include="Buri.h" />
     <ClInclude Include="CastGauge.h" />
     <ClInclude Include="CastUI.h" />
+    <ClInclude Include="Character.h" />
+    <ClInclude Include="Enemy.h" />
     <ClInclude Include="Fish.h" />
     <ClInclude Include="FishingGauge.h" />
     <ClInclude Include="FishingRodHP.h" />

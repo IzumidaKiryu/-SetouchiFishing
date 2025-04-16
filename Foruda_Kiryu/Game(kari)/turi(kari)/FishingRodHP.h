@@ -1,6 +1,7 @@
 #pragma once
 class TensionGauge;
 class PlayFishing;
+class PositionSelection;
 
 class FishingRodHP:public IGameObject
 {
@@ -15,11 +16,14 @@ public:
 	void SetUI();
 	void Render(RenderContext& rc);
 	void failure();//失敗。
+	void SetIs_playFishingFinishedTrue();
+	void AddStealPositionPoint();
 
 	float m_MaxHp = 200.0f;//HPの上限。
 	float m_Hp = m_MaxHp;//釣り竿のHP。
 	float m_previousFrameHP = 0.0f;//前のフレームでのHP。
 	float test;
+	bool m_is_playFishingFinished=false;
 
 	SpriteRender m_RodHPGaugeInside;
 	SpriteRender m_RodHPGaugeOutside;
@@ -27,5 +31,6 @@ public:
 
 	PlayFishing* m_playFishing;
 	TensionGauge* m_tensionGauge;
+	PositionSelection* m_positionSelection;
 };
 

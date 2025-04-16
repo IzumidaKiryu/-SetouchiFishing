@@ -8,6 +8,8 @@
 #include "FishingGauge.h"
 #include "TensionGauge.h"
 #include "FishingRodHP.h"
+#include "ScoreDisplay.h"
+
 
 
 PlayFishing::PlayFishing()
@@ -30,9 +32,7 @@ PlayFishing::~PlayFishing()
 	//DeleteGO(m_fishManager);
 
 	m_positionSelection = FindGO<PositionSelection>("positionSelection");
-	m_positionSelection->SetisDisplayingTrue();
-	//ポジションセレクトクラスのオブジェクトをアクティブにする
-	m_positionSelection->SetActivate();
+
 }
 
 void PlayFishing::Init()
@@ -156,6 +156,8 @@ void PlayFishing::Success()
 			DeleteGO(m_fishingRodHP);
 			m_positionSelection = FindGO<PositionSelection>("positionSelection");
 			m_positionSelection->SetTotalValue(m_fishData.score);
+			//スコアディスプレイに移動する。
+			m_scoreDisplay = NewGO<ScoreDisplay>(0, "scoreDisplay");
 			DeleteGO(this);
 			break;
 		default:
@@ -170,21 +172,24 @@ void PlayFishing::Failure()
 		switch (m_playFishingStatus)
 		{
 		case chastGauge:
-			DeleteThisClass();
 			DeleteGO(m_castGauge);
 			break;
 		case fishingGsauge:
-			DeleteThisClass();
 			DeleteGO(m_fishingGauge);
 			break;
 		case tensionGauge:
-			DeleteThisClass();
 			DeleteGO(m_tensionGauge);
 			DeleteGO(m_fishingRodHP);
 			break;
 		default:
 			break;
 		}
+		m_positionSelection = FindGO<PositionSelection>("positionSelection");
+		m_positionSelection->SetisDisplayingTrue();
+		//ポジションセレクトクラスのオブジェクトをアクティブにする
+		m_positionSelection->SetActivate();
+		DeleteThisClass();
+
 	}
 }
 
