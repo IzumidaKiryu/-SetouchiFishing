@@ -3,13 +3,13 @@
 
 GameResult::GameResult()
 {
-	m_fishUI[Buri].Init("Assets/modelData/score/hamachiPoint.DDS", 550, 85);
-	/*m_fishUI[Tachiuo].Init("Assets/modelData/tatiuoUI.DDS", 150, 150);
-	m_fishUI[Tai].Init("Assets/modelData/taiUI.DDS", 150, 150);
-	m_fishUI[Hirame].Init("Assets/modelData/hirameUI.DDS", 150, 150);
-	m_fishUI[Sinzyu].Init("Assets/modelData/sinnjuUI.DDS", 150, 150);
-	m_fishUI[Zyako].Init("Assets/modelData/jakotenUI.DDS", 150, 150);*/
-	m_back.Init("Assets/resultSprite/yattabe2.DDS", 1920, 1080);
+	m_fishUI[Buri].Init("Assets/modelData/score/hamachiPoint.DDS", 530, 80);
+	/*m_fishUI[Tachiuo].Init("Assets/modelData/score/tachiuoPoint.DDS", 550, 100);
+	m_fishUI[Tai].Init("Assets/modelData/score/taiPoint.DDS", 550, 100);
+	m_fishUI[Hirame].Init("Assets/modelData/score/hiramePoint.DDS", 550, 100);
+	m_fishUI[Sinzyu].Init("Assets/modelData/score/pearlPoint.DDS", 550, 100);
+	m_fishUI[Zyako].Init("Assets/modelData/score/jakotenPoint.DDS", 550, 100);*/
+	m_back.Init("Assets/modelData/score/fishResult.DDS", 1320, 780);
 }
 
 GameResult::~GameResult()
