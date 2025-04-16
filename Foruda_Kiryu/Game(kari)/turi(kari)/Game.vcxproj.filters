@@ -36,6 +36,7 @@
     <ClCompile Include="ScoreDisplay.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Character.cpp" />
+    <ClCompile Include="GameResult.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -67,5 +68,6 @@
     <ClInclude Include="ScoreDisplay.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Character.h" />
+    <ClInclude Include="GameResult.h" />
   </ItemGroup>
 </Project>

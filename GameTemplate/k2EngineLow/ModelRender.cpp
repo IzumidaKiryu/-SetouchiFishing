@@ -93,12 +93,12 @@ void nsK2EngineLow::ModelRender::Update()
 	
 
 	////コントローラーでスポットライトライトを動かす。（確認用の実装のため、コメントアウト）。
-	m_light->m_SceneLight.spotLig.s_position.x -= g_pad[0]->GetLStickXF();
+	m_light->m_SceneLight.spotLig.m_position.x -= g_pad[0]->GetLStickXF();
 	if (g_pad[0]->IsPress(enButtonB)) {
-		m_light->m_SceneLight.spotLig.s_position.y += g_pad[0]->GetLStickYF();
+		m_light->m_SceneLight.spotLig.m_position.y += g_pad[0]->GetLStickYF();
 	}
 	else {
-		m_light->m_SceneLight.spotLig.s_position.z -= g_pad[0]->GetLStickYF();
+		m_light->m_SceneLight.spotLig.m_position.z -= g_pad[0]->GetLStickYF();
 	}
 
 
@@ -108,16 +108,16 @@ void nsK2EngineLow::ModelRender::Update()
 	qRotY.SetRotationY(g_pad[0]->GetRStickXF() * 0.01f);
 
 	//計算したクオータニオンでライトのほうこうをまわす。
-	qRotY.Apply(m_light->m_SceneLight.spotLig.s_direction);
+	qRotY.Apply(m_light->m_SceneLight.spotLig.m_direction);
 
 	//X軸周りのクオータニオンを計算する。
 	Vector3 rotAxis;
-	rotAxis.Cross(g_vec3AxisY, m_light->m_SceneLight.spotLig.s_direction);
+	rotAxis.Cross(g_vec3AxisY, m_light->m_SceneLight.spotLig.m_direction);
 	Quaternion qRotX;
 	qRotX.SetRotation(rotAxis, g_pad[0]->GetRStickYF() * 0.01f);
 
 	//計算したクオータニオンでライトの方向を回す。
-	qRotX.Apply(m_light->m_SceneLight.spotLig.s_direction);
+	qRotX.Apply(m_light->m_SceneLight.spotLig.m_direction);
 
 	
 }
