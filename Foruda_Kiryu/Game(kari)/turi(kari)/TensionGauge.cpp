@@ -45,6 +45,7 @@ void TensionGauge::Update()
 	Set_signs_of_Fish_UI();
 	failure();//¬Œ÷‚µ‚½‚©‚Ç‚¤‚©.
 	success();//Ž¸”s‚µ‚½‚©‚Ç‚¤‚©B
+	//m_playFishing->SetFailure();
 }
 
 void TensionGauge::RightAndLeftManagement()
