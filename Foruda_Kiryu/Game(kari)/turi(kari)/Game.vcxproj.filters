@@ -34,6 +34,8 @@
     <ClCompile Include="TimeLimitUI.cpp" />
     <ClCompile Include="FishingRodHP.cpp" />
     <ClCompile Include="ScoreDisplay.cpp" />
+    <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="Character.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -63,5 +65,7 @@
     <ClInclude Include="TimeLimitUI.h" />
     <ClInclude Include="FishingRodHP.h" />
     <ClInclude Include="ScoreDisplay.h" />
+    <ClInclude Include="Enemy.h" />
+    <ClInclude Include="Character.h" />
   </ItemGroup>
 </Project>

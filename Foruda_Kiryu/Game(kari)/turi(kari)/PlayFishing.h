@@ -22,6 +22,7 @@ class FishManager;
 class FishingGauge;
 class TensionGauge;
 class FishingRodHP;
+class ScoreDisplay;
 
 class PlayFishing :public IGameObject
 {
@@ -67,4 +68,5 @@ public:
 	FishingGauge* m_fishingGauge;
 	TensionGauge* m_tensionGauge;
 	FishingRodHP* m_fishingRodHP;
+	ScoreDisplay* m_scoreDisplay;
 };
