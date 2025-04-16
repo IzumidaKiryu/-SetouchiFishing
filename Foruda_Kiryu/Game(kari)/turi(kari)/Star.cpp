@@ -26,16 +26,7 @@ void Star::Update()
 	//絵描きさんの更新処理。
 	modelRender.Update();
 
-	//プレイヤーから☆に向かうベクトルを計算。
-	Vector3 diff = player->position - position;
-	//ベクトルの長さが120.0fより小さかったら。
-	if (diff.Length() <= 120.0f)
-	{
-		player->starCount += 1;
 
-		//自身を削除する。
-		DeleteGO(this);
-	}
 }
 
 void Star::Move()
