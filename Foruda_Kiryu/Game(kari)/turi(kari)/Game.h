@@ -8,6 +8,7 @@ class BackGround;
 class GetRotation;
 class PositionSelection;
 class PlayFishing;
+class ScoreDisplay;
 
 class GameResult;
 
@@ -33,4 +34,5 @@ public:
 	PositionSelection* positionSelection;//場所を選ぶ画面のクラス。
 	PlayFishing* m_playFishing;
 	GameResult* m_rul;
+	ScoreDisplay* m_scoreDisplay;
 };
