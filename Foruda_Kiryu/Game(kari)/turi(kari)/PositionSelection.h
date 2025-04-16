@@ -10,6 +10,7 @@ enum Position {
 	POSITION_E,
 	POSITION_F,
 	INITIALSTATE,//初期状態
+	ENEMY_SAME_POSITION,//エネミーと同じ場所。
 };
 
 class Player;
@@ -19,7 +20,7 @@ class SoundSource;
 class FishManager;
 class PlayFishing;
 class TimeLimitUI;
-
+class Enemy;
 
 class PositionSelection : public IGameObject
 {
@@ -30,7 +31,8 @@ public:
 	~PositionSelection();
 	void Update();
 	void Render(RenderContext& rc);
-	void SetUI();
+	void SetDisplayiUI();
+	void SetStealPositionBarUI();
 	void SetFishUI();//魚のUIをセット。
 	void SetFishDisplayPosition();//ディスプレイUIの場所を設定。
 	void SetisDisplayingTrue();
@@ -44,12 +46,6 @@ public:
 	void SetFishUIPosition();
 	void FishChange();//魚を変える。
 	void SelectPosition();
-	void SelectPositionA();
-	void SelectPositionB();
-	void SelectPositionC();
-	void SelectPositionD();
-	void SelectPositionE();
-	void SelectPositionF();
 	void SetTotalValue(float score);
 	void FindFishHighScore();//スコアが高い魚を探す。
 	void IsWith_any_Position();
@@ -62,15 +58,24 @@ public:
 	bool m_is_displaying;//表示するかどうか。
 	bool m_shouldPartiallyDeactivate=false;//部分的に非アクティブにするべきか。
 	//double m_double_time=0.0f;//時間(double型)
-	int m_int_time= m_timelimit;//時間(Int型)
 	float m_timelimit = 240;//時間制限
+	int m_int_time = m_timelimit;//時間(Int型)
 	float m_totalScore=0.0f;//スコアの合計。
 	bool m_is_time_up;//タイムアップしているかどうか。
-	//int m_isSetFishDisplayOutside_to_Green=0;//フレームのUIを緑色にするか。
-	Position m_currentFramePosition;//今のフレームのポジション
-	Position m_previousFrame= INITIALSTATE;
-	
+	float m_stealPositionPoint=0.0f;//敵からからポジションを奪うためのポイント。
 
+	//int m_isSetFishDisplayOutside_to_Green=0;//フレームのUIを緑色にするか。
+	Position m_currentFramePlayerPositionState;//今のフレームのポジション
+	Position m_previousFramePlayerPositionState= INITIALSTATE;
+	Position m_positionStateArray[6]{
+	POSITION_A,
+	POSITION_B,
+	POSITION_C,
+	POSITION_D,
+	POSITION_E,
+	POSITION_F,
+	};
+	int a=0;
 	std::string fishHighScorePosition;//出ている魚の中で一番スコアが高い魚がいるポジション。
 	std::string PositionName[6] = {
 		"positionA",
@@ -84,7 +89,7 @@ public:
 	std::string select_by_with_position;
 	char* objectName[6];
 	Position position_with_now;
-
+	Position enemy_position = INITIALSTATE;//初期状態;
 	Player* m_player;			//プレイヤー。
 	GameCamera* gameCamera;			//ゲームカメラ。
 	BackGround* backGround;
@@ -95,8 +100,13 @@ public:
 	FishManager* m_fishManager[6];
 	PlayFishing* m_playFishing;
 	SpriteRender* m_fishUI[6];
+	SpriteRender m_stealPositionBarInsideUI;
+	SpriteRender m_stealPositionBarOutsideUI;
+	SpriteRender m_stealPositionGaugeUI;
 	TimeLimitUI* m_timeLimitUI;
 
 	Stopwatch m_stopwatch;
+	Enemy* m_enemy;
+
 };
 

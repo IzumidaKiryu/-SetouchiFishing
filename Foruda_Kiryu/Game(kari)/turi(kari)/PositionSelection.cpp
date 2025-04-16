@@ -9,6 +9,9 @@
 #include "TimeLimitUI.h"
 #include <Time.h>
 #include <string>
+#include "stdafx.h"
+#include "Enemy.h"
+
 
 PositionSelection::PositionSelection()
 {
@@ -28,6 +31,9 @@ PositionSelection::PositionSelection()
 	//プレイヤーのオブジェクトを作る。
 	m_player = NewGO<Player>(0, "player");
 
+	//エネミーのオブジェクトを作る。
+	m_enemy = NewGO<Enemy>(0, "enemy");
+
 	//ゲームカメラのオブジェクトを作る。
 	gameCamera = NewGO<GameCamera>(0, "gamecamera");
 
@@ -45,7 +51,8 @@ PositionSelection::PositionSelection()
 	SetFishDisplayPosition();
 
 	//UIを設定する。
-	SetUI();
+	SetDisplayiUI();
+	SetStealPositionBarUI();
 
 	for (int i = 0; i < 6; i++) {
 
@@ -83,6 +90,17 @@ void PositionSelection::Update()
 			ChangeSceneToPlayFishing();
 		}
 	}
+	for (int i = 0; i < 6; i++) {
+		//フィッシュマネージャーの生成。
+		m_fishManager[i] = FindGO<FishManager>(objectName[i]);
+		if (m_fishManager[i]->GetShouldFishChange() == true) {
+			DeleteGO(m_fishManager[i]);
+			m_fishManager[i] = NewGO<FishManager>(0, objectName[i]);
+		}
+
+	}
+
+FindFishHighScore();
 	/*for (int i = 0; i < 6; i++) {
 		m_timelimit=m_fishManager[i]->m_randum;
 	}*/
@@ -94,30 +112,33 @@ void PositionSelection::Render(RenderContext& rc)
 	m_timeLimitUI->GetOnesPlacUI().Draw(rc);
 	m_timeLimitUI->GetTensPlacUI().Draw(rc);
 	m_timeLimitUI->GetHundredsPlacUI().Draw(rc);
+
 	if (m_shouldPartiallyDeactivate==false) {
 		for (int i = 0; i < 6; i++) {
 			m_fishDisplayInside[i].Draw(rc);
 			m_fishDisplayOutside[i].Draw(rc);
 			m_fishUI[i]->Draw(rc);
 		}
+		m_stealPositionBarOutsideUI.Draw(rc);
+		m_stealPositionBarInsideUI.Draw(rc);
 	}
 }
 
 
-void PositionSelection::SetUI()
+void PositionSelection::SetDisplayiUI()
 {
 	for (int i = 0; i < 6; i++) {
 
 		//魚を表示するディスプレイの内側
 
-		m_fishDisplayInside[i].Init("Assets/modelData/fish_display_ui_inside.DDS", 150, 150);
+		m_fishDisplayInside[i].Init("Assets/modelData/fish_display_ui_inside.DDS", 130, 130);
 		m_fishDisplayInside[i].SetPivot(Vector2(0.5f, 0.5f));
 		m_fishDisplayInside[i].SetPosition(m_fishDisplayPosition[i]);
 		m_fishDisplayInside[i].SetScale(Vector3{ 1.0f, 1.0f, 1.0f });
 
 		//魚を表示するディスプレイの外側
 
-		m_fishDisplayOutside[i].Init("Assets/modelData/fish_display_ui_outside.DDS", 150, 150);
+		m_fishDisplayOutside[i].Init("Assets/modelData/fish_display_ui_outside.DDS", 130, 130);
 		m_fishDisplayOutside[i].SetPivot(Vector2(0.5f, 0.5f));
 		m_fishDisplayOutside[i].SetPosition(m_fishDisplayPosition[i]);
 		m_fishDisplayOutside[i].SetScale(Vector3{ 1.0f, 1.0f, 1.0f });
@@ -125,14 +146,30 @@ void PositionSelection::SetUI()
 	}
 }
 
+void PositionSelection::SetStealPositionBarUI()
+{
+	m_stealPositionBarOutsideUI.Init("Assets/modelData/landscape_gauge_inside.DDS", 500, 100);
+	m_stealPositionBarOutsideUI.SetPivot(Vector2(0.5f, 0.5f));
+	m_stealPositionBarOutsideUI.SetPosition(Vector3{ 370.0f, 300.0f, 0.0f });
+	m_stealPositionBarOutsideUI.SetScale(Vector3{ 1.0f, 1.0f, 1.0f });
+	m_stealPositionBarOutsideUI.Update();
+
+	m_stealPositionBarInsideUI.Init("Assets/modelData/landscape_gauge_outer.DDS", 500, 100);
+	m_stealPositionBarInsideUI.SetPivot(Vector2(0.5f, 0.5f));
+	m_stealPositionBarInsideUI.SetPosition(Vector3{ 370.0f, 300.0f, 0.0f });
+	m_stealPositionBarInsideUI.SetScale(Vector3{ 1.0f, 1.0f, 1.0f });
+	m_stealPositionBarInsideUI.Update();
+
+}
+
 void PositionSelection::SetFishDisplayPosition()
 {
 	for (int i = 0; i < 6; i++) {
 		if (i < 3) {
-			m_fishDisplayPosition[i] = { m_fishDisplayPositionXcriteria+m_fishDisplayPositionXinterval*(i), 200.0f, 0.0f };
+			m_fishDisplayPosition[i] = { m_fishDisplayPositionXcriteria+m_fishDisplayPositionXinterval*(i), 180.0f, 0.0f };
 		}
 		if (2 < i) {
-			m_fishDisplayPosition[i] = { m_fishDisplayPositionXcriteria + m_fishDisplayPositionXinterval * (i-3), -200.0f, 0.0f };
+			m_fishDisplayPosition[i] = { m_fishDisplayPositionXcriteria + m_fishDisplayPositionXinterval * (i-3), -250.0f, 0.0f };
 		}
 	}
 }
@@ -204,6 +241,9 @@ void PositionSelection::Timer()
 		m_stopwatch.Stop();
 
 	}
+	/*char text[256];
+	sprintf_s(text, "m_int_time = %d, com = %d\n", m_int_time);
+	OutputDebugStringA(text);*/
 }
 
 int PositionSelection::GetTime()
@@ -249,60 +289,8 @@ void PositionSelection::FishChange()
 
 void PositionSelection::SelectPosition()
 {
-		switch (position_with_now)
-		{
-		case POSITION_A:
-			SelectPositionA();
-			break;
-		case POSITION_B:
-			SelectPositionB();
-			break;
-		case POSITION_C:
-			SelectPositionC();
-			break;
-		case POSITION_D:
-			SelectPositionD();
-			break;
-		case POSITION_E:
-			SelectPositionE();
-			break;
-		case POSITION_F:
-			SelectPositionF();
-			break;
-		default:
-			break;
-		}
-}
 
-void PositionSelection::SelectPositionA()
-{
-
-	m_playFishing->SetFishManagerObjectName("positionA");
-}
-
-void PositionSelection::SelectPositionB()
-{
-	m_playFishing->SetFishManagerObjectName("positionB");
-}
-
-void PositionSelection::SelectPositionC()
-{
-	m_playFishing->SetFishManagerObjectName("positionC");
-}
-
-void PositionSelection::SelectPositionD()
-{
-	m_playFishing->SetFishManagerObjectName("positionD");
-}
-
-void PositionSelection::SelectPositionE()
-{
-	m_playFishing->SetFishManagerObjectName("positionE");
-}
-
-void PositionSelection::SelectPositionF()
-{
-	m_playFishing->SetFishManagerObjectName("positionF");
+	m_playFishing->SetFishManagerObjectName(PositionName[position_with_now]);
 }
 
 void PositionSelection::SetTotalValue(float individualValue)
@@ -313,30 +301,73 @@ void PositionSelection::SetTotalValue(float individualValue)
 void PositionSelection::FindFishHighScore()
 {
 	//一番スコアが高い魚がいる場所を探すアルゴリズム。
-	for (int i = 0; i < 5; i++) {
-		if (m_fishManager[i]->GetScore() >= m_fishManager[i + 1]->GetScore()) {
-			fishHighScorePosition=PositionName[i];
+	Position compare;//比べる。
+	enemy_position = POSITION_A;
+		for (int i = 0; i < 4; i++) {
+			if (m_fishManager[i]->GetScore() >= m_fishManager[i + 1]->GetScore()) {
+				compare = m_positionStateArray[i];
+			}
+			else {
+				compare = m_positionStateArray[i + 1];
+			}
+			if (m_fishManager[enemy_position]->GetScore() <= m_fishManager[compare]->GetScore()) {
+				enemy_position = compare;
+			}
+
 		}
-		else {
-			fishHighScorePosition = PositionName[i+1];
-		}
-	}
 
 }
 
 void PositionSelection::IsWith_any_Position()
 {
-	if (m_player->position.x <= float{ 254.0f })
+	if (m_player->position.z >= 12.0f)
+	{
+
+		if (m_player->position.x < float{ -254.0f })
+		{
+			position_with_now = POSITION_A;
+		}
+
+		if (m_player->position.x >= float{ -254.0f } && m_player->position.x <= float{ 254.0f })
+		{
+			position_with_now = POSITION_B;
+		}
+
+		if (m_player->position.x > float{ 254.0f })
+		{
+			position_with_now = POSITION_C;
+		}
+	}
+
+	if (m_player->position.z < 12.0f)
+	{
+		if (m_player->position.x < float{ -254.0f })
+		{
+			position_with_now = POSITION_D;
+		}
+		if (m_player->position.x >= float{ -254.0f } && m_player->position.x <= float{ 254.0f })
+		{
+			position_with_now = POSITION_E;
+		}
+		if (m_player->position.x > float{ 254.0f })
+		{
+			position_with_now = POSITION_F;
+		}
+	}
+	if (position_with_now==enemy_position) {
+		position_with_now = ENEMY_SAME_POSITION;
+	}
+
+	/*if (m_player->position.x <= float{ 254.0f })
 	{
 		if (m_player->position.z > 12.0f)
 		{
 			position_with_now = POSITION_B;
-			SetFishDisplayOutside_to_Green(position_with_now);
 		}
+
 		if (m_player->position.z < 12.0f)
 		{
 			position_with_now = POSITION_E;
-			SetFishDisplayOutside_to_Green(position_with_now);
 		}
 	}
 
@@ -345,27 +376,31 @@ void PositionSelection::IsWith_any_Position()
 		if (m_player->position.z > 12.0f)
 		{
 			position_with_now= POSITION_C;
-			SetFishDisplayOutside_to_Green(position_with_now);
 		}
 		if (m_player->position.z< 12.0f)
 		{
 			position_with_now = POSITION_F;
-			SetFishDisplayOutside_to_Green(position_with_now);
 		}
-	}
+	}*/
+	SetFishDisplayOutside_to_Green(position_with_now);
 }
 
 void PositionSelection::SetFishDisplayOutside_to_Green(Position position)
 {
-	m_currentFramePosition = position;
-	if (m_currentFramePosition != m_previousFrame&& m_previousFrame!=INITIALSTATE) //前のフレームとポジションがかぶってないときかつ、一番最初の処理じゃなければ。
-	{
-		m_fishDisplayOutside[m_previousFrame].Init("Assets/modelData/fish_display_ui_outside.DDS", 150, 150);
+	m_currentFramePlayerPositionState = position;
+	if (m_currentFramePlayerPositionState != ENEMY_SAME_POSITION) {//エネミーとポジションが違う時。
+		if (m_currentFramePlayerPositionState != m_previousFramePlayerPositionState)
+		{
+			m_fishDisplayOutside[m_currentFramePlayerPositionState].Init("Assets/modelData/fish_display_ui_outside_selection.DDS", 130, 130);
+		}
 	}
-	if (m_currentFramePosition!=m_previousFrame) {
-		m_fishDisplayOutside[position].Init("Assets/modelData/fish_display_ui_outside_selection.DDS", 150, 150);
-	}
-	m_previousFrame= position;
+		if (m_currentFramePlayerPositionState != m_previousFramePlayerPositionState && m_previousFramePlayerPositionState != INITIALSTATE) { //前のフレームと別のポジションのときかつ、一番最初の処理じゃなければ。緑から普通の色に戻す。
+			if (ENEMY_SAME_POSITION != m_previousFramePlayerPositionState)//戻すポジションに敵がいなければ。
+			{
+				m_fishDisplayOutside[m_previousFramePlayerPositionState].Init("Assets/modelData/fish_display_ui_outside.DDS", 130, 130);
+			}
+		}
+	m_previousFramePlayerPositionState= position;
 
 }
 
