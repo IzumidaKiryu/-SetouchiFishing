@@ -30,6 +30,9 @@ TensionGauge::TensionGauge()
 
 TensionGauge::~TensionGauge()
 {
+	m_fishingRodHP = FindGO<FishingRodHP>("fishingRodHP");
+	m_fishingRodHP->SetIs_playFishingFinishedTrue();
+
 }
 
 void TensionGauge::Update()
@@ -40,7 +43,7 @@ void TensionGauge::Update()
 	SetFishEscapePower();
 	SetSigns_of_Fish_Position();  
 	Set_signs_of_Fish_UI();
-	failure();//成功した稼働か
+	failure();//成功したかどうか.
 	success();//失敗したかどうか。
 }
 
@@ -232,6 +235,7 @@ void TensionGauge::When_State_Angry_or_exhausted_Shoul()
 {
 	std::random_device rd;
 
+	m_when_State_Angry_or_exhausted_Should = 0;
 	m_when_State_Angry_or_exhausted_Should += 5;
 	m_when_State_Angry_or_exhausted_Should += (rd() % 6);
 	m_when_State_Angry_or_exhausted_Should += m_fishChange_in_DirectionTimes;//今まで方向転換した数を数える。
@@ -267,7 +271,10 @@ void TensionGauge::AngerState()
 
 		if (m_reduce_Hp_when_angry == true) {//連続で二度以上処理されないようにする。
 			m_fishingRodHP= FindGO<FishingRodHP>("fishingRodHP");
-			m_fishingRodHP->m_Hp -= 5.0f;
+			m_fishingRodHP->m_Hp -= 100.0f;
+			if (m_fishingRodHP->m_Hp<=30) {
+				m_fishingRodHP->m_Hp = 30;
+			}
 			m_reduce_Hp_when_angry = false;
 		}
 	}
@@ -275,7 +282,7 @@ void TensionGauge::AngerState()
 	if (m_angerState_frame_count > 100)//100フレーム超えたら
 	{
 		m_angerState_frame_count = 0;
-		m_fishState=normal;
+		m_fishState= setWhen_State_Announce_Should;
 	}
 }
 

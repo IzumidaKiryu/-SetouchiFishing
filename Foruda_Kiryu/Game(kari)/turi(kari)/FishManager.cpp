@@ -19,6 +19,7 @@ FishManager::~FishManager()
 
 void FishManager::Update()
 {
+	SetShouldFishChange();
 	Timer();
 }
 
@@ -152,6 +153,7 @@ void FishManager::SetFishData()
 	default:
 		break;
 	}
+	m_fishData = *p_fishData;
 }
 
 FishData& FishManager::GetFishData()

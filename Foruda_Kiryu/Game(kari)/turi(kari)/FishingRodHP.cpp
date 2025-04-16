@@ -2,6 +2,7 @@
 #include "FishingRodHP.h"
 #include "TensionGauge.h"
 #include"PlayFishing.h"
+#include"PositionSelection.h"
 
 
 FishingRodHP::FishingRodHP()
@@ -36,6 +37,11 @@ void FishingRodHP::SetFishingRodHP()
 		//魚の向きが左なら。
 		//コントローラーを回した分だけ竿のHPが減る。
 		m_Hp -= m_tensionGauge->GetRotationPower() * 100.0f;
+	}
+	if (m_tensionGauge->m_isFishDirectionisLeft == false) {
+		//魚の向きが左なら。
+		//コントローラーを回した分だけ竿のHPが減る。
+		m_Hp +=0.1 ;
 	}
 
 
@@ -86,4 +92,15 @@ void FishingRodHP::failure()
 		m_playFishing = FindGO<PlayFishing>("playFishing");
 		m_playFishing->SetFailure();
 	}
+}
+
+void FishingRodHP::SetIs_playFishingFinishedTrue()
+{
+	m_is_playFishingFinished = true;
+}
+
+void FishingRodHP::AddStealPositionPoint()
+{
+	m_positionSelection = NewGO<PositionSelection>(0, "m_PositionSelection");
+	m_positionSelection->m_stealPositionPoint += m_Hp;
 }
