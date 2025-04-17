@@ -74,6 +74,15 @@ namespace nsK2EngineLow {
 		}
 
 		/// <summary>
+	/// モデルを取得。
+	/// </summary>
+	/// <returns>モデル</returns>
+		Model& GetModel()
+		{
+			return m_model;
+		}
+
+		/// <summary>
 		/// スケルトンの初期化。
 		/// </summary>
 		/// <param name="filePath">ファイルパス。</param>

@@ -1,45 +1,60 @@
 ﻿#include "stdafx.h"
 #include "Game.h"
-#include"BackGround.h"
+#include "Player.h"
+#include "GameCamera.h"
+#include "BackGround.h"
+#include "Star.h"
+#include "sound/SoundEngine.h"
+#include "GetRotation.h"
+#include "PositionSelection.h"
+#include "PlayFishing.h"
+#include "ScoreDisplay.h"
+#include "GameResult.h"
 
 Game::Game()
 {
+	//m_rul = NewGO<GameResult>(0, "rusut");
+	positionSelection = NewGO<PositionSelection>(0, "positionSelection");
+	//m_scoreDisplay = NewGO<ScoreDisplay>(0, "scoreDisplay");
+	//m_playFishing = NewGO<PlayFishing>(0, "playFishing");
+	//////HP�o�[�i����j
+	//hpBarInSide.Init("Assets/modelData/HPbar.DDS", 1024, 128);
+	//hpBarInSide.SetPivot(Vector2(0.0f, 0.5f));
+	//hpBarInSide.SetPosition(Vector3(-850.0f, 450.0f, 0.0f));
+	//hpBarInSide.SetScale(Vector3{ 0.35f, 0.5f, 1.0f });
+	//
+	//getRotation= NewGO<GetRotation>(0, "getRotation");
+	////�v���C���[�̃I�u�W�F�N�g����B
+	//player = NewGO<Player>(0, "player");
+
+	////�Q�[���J�����̃I�u�W�F�N�g����B
+	//gameCamera = NewGO<GameCamera>(0, "gamecamera");
+
+	////�w�i�̃I�u�W�F�N�g����B
+	//backGround = NewGO<BackGround>(0);
 }
 
 Game::~Game()
 {
-	
+	DeleteGO(positionSelection);
+	DeleteGO(player);
+	DeleteGO(gameCamera);
+	DeleteGO(gameCamera);
+	DeleteGO(backGround);
 }
 
-bool Game::Start()
-{
-	//アニメーションクリップをロードする。
-	m_animationClips[enAnimationClip_Idle].Load("Assets/animData/idle.tka");
-	m_animationClips[enAnimationClip_Idle].SetLoopFlag(true);
-	m_animationClips[enAnimationClip_Walk].Load("Assets/animData/walk.tka");
-	m_animationClips[enAnimationClip_Walk].SetLoopFlag(true);
-	m_animationClips[enAnimationClip_Jump].Load("Assets/animData/jump.tka");
-	m_animationClips[enAnimationClip_Jump].SetLoopFlag(false);
-
-	m_modelRender.Init("Assets/modelData/unityChan.tkm", m_animationClips, enAnimationClip_Num,enModelUpAxisY);
-	m_spriteRender.Init("Assets/sprite/Nozomi.DDS", 1920, 1080);
-	m_backGrund = NewGO<BackGround>(0, "ground");
-	return true;
-}
 
 void Game::Update()
 {
-	//wchar_t ws[256];
-	//swprintf_s(ws, 256, L"�ߖ�");
-	m_fontRender.SetText(L"s");
-	m_modelRender.PlayAnimation(enAnimationClip_Idle);
-	m_modelRender.Update();
-	//m_spriteRender.Update();
-}
+	//rotationQuantity = { getRotation->rotationQuantity*0.15f/*5.0f*/,2.0f,0.0f};
 
+
+	/*hpBarInSide.SetScale(m_rotationQuantity);
+
+	hpBarInSide.Update();*/
+}
 void Game::Render(RenderContext& rc)
 {
-	m_modelRender.Draw(rc);
-	//m_spriteRender.Draw(rc);
-	m_fontRender.Draw(rc);
+	////m_fontRender.Draw(rc);
+	//hpBarInSide.Draw(rc);
 }

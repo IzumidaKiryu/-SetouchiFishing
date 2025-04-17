@@ -141,7 +141,7 @@ void PlayFishing::Success()
 		{
 		case chastGauge:
 			DeleteGO(m_castGauge);
-			m_playFishingStatus = fishingGsauge;
+			m_playFishingStatus = /*fishingGsauge*/tensionGauge;
 			Unfixed();//成功か失敗かどうかを未確定にする。
 			StatusManager();//ステータスマネージャーを動かす。
 			break;

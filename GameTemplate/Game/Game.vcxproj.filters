@@ -14,6 +14,27 @@
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="BackGround.cpp" />
+    <ClCompile Include="Buri.cpp" />
+    <ClCompile Include="CastGauge.cpp" />
+    <ClCompile Include="Character.cpp" />
+    <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="Fish.cpp" />
+    <ClCompile Include="FishingGauge.cpp" />
+    <ClCompile Include="FishingRodHP.cpp" />
+    <ClCompile Include="FishManager.cpp" />
+    <ClCompile Include="GameCamera.cpp" />
+    <ClCompile Include="GameResult.cpp" />
+    <ClCompile Include="GaugeCastSuccessful.cpp" />
+    <ClCompile Include="GetRotation.cpp" />
+    <ClCompile Include="PlayFishing.cpp" />
+    <ClCompile Include="PlayFishingBackGround.cpp" />
+    <ClCompile Include="PositionSelection.cpp" />
+    <ClCompile Include="ScoreDisplay.cpp" />
+    <ClCompile Include="Star.cpp" />
+    <ClCompile Include="Tatiuo.cpp" />
+    <ClCompile Include="TensionGauge.cpp" />
+    <ClCompile Include="TimeLimitUI.cpp" />
+    <ClCompile Include="Title.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -23,5 +44,26 @@
     <ClInclude Include="Game.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="BackGround.h" />
+    <ClInclude Include="Buri.h" />
+    <ClInclude Include="CastGauge.h" />
+    <ClInclude Include="Character.h" />
+    <ClInclude Include="Enemy.h" />
+    <ClInclude Include="Fish.h" />
+    <ClInclude Include="FishingGauge.h" />
+    <ClInclude Include="FishingRodHP.h" />
+    <ClInclude Include="FishManager.h" />
+    <ClInclude Include="GameCamera.h" />
+    <ClInclude Include="GameResult.h" />
+    <ClInclude Include="GaugeCastSuccessful.h" />
+    <ClInclude Include="GetRotation.h" />
+    <ClInclude Include="PlayFishing.h" />
+    <ClInclude Include="PlayFishingBackGround.h" />
+    <ClInclude Include="PositionSelection.h" />
+    <ClInclude Include="ScoreDisplay.h" />
+    <ClInclude Include="Star.h" />
+    <ClInclude Include="Tatiuo.h" />
+    <ClInclude Include="TensionGauge.h" />
+    <ClInclude Include="TimeLimitUI.h" />
+    <ClInclude Include="Title.h" />
   </ItemGroup>
 </Project>
