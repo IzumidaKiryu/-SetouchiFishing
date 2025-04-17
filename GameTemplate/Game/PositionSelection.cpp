@@ -26,7 +26,7 @@ PositionSelection::PositionSelection()
 		objectName[i] = new char[PositionName[i].size() + 1];
 	}
 	//制限時間のUIを作る。
-	m_timeLimitUI = NewGO<TimeLimitUI>(0, "timelimitUI");
+	//m_timeLimitUI = NewGO<TimeLimitUI>(0, "timelimitUI");　//エラーが出るのでいったんコメントアウト。！！！！！！！！！！！
 
 	//プレイヤーのオブジェクトを作る。
 	m_player = NewGO<Player>(0, "player");
@@ -81,7 +81,7 @@ void PositionSelection::Update()
 {
 	//時間をはかる。
 	Timer();
-	m_timeLimitUI->DisplayTimeLimitUI(m_int_time);//タイムリミットを表示する。
+	//m_timeLimitUI->DisplayTimeLimitUI(m_int_time);//タイムリミットを表示する。エラーが出るのでコメントアウト！！！！！！！
 	IsWith_any_Position();//今どこのポジションにいるか判定する。
 
 	if (m_shouldPartiallyDeactivate == false) {//アクティブかどうか判断する。
@@ -387,20 +387,22 @@ void PositionSelection::IsWith_any_Position()
 
 void PositionSelection::SetFishDisplayOutside_to_Green(Position position)
 {
-	m_currentFramePlayerPositionState = position;
-	if (m_currentFramePlayerPositionState != ENEMY_SAME_POSITION) {//エネミーとポジションが違う時。
-		if (m_currentFramePlayerPositionState != m_previousFramePlayerPositionState)
-		{
-			m_fishDisplayOutside[m_currentFramePlayerPositionState].Init("Assets/modelData/fish_display_ui_outside_selection.DDS", 130, 130);
-		}
-	}
-	if (m_currentFramePlayerPositionState != m_previousFramePlayerPositionState && m_previousFramePlayerPositionState != INITIALSTATE) { //前のフレームと別のポジションのときかつ、一番最初の処理じゃなければ。緑から普通の色に戻す。
-		if (ENEMY_SAME_POSITION != m_previousFramePlayerPositionState)//戻すポジションに敵がいなければ。
-		{
-			m_fishDisplayOutside[m_previousFramePlayerPositionState].Init("Assets/modelData/fish_display_ui_outside.DDS", 130, 130);
-		}
-	}
-	m_previousFramePlayerPositionState = position;
+	//エラーが出る。
+
+	//m_currentFramePlayerPositionState = position;
+	//if (m_currentFramePlayerPositionState != ENEMY_SAME_POSITION) {//エネミーとポジションが違う時。
+	//	if (m_currentFramePlayerPositionState != m_previousFramePlayerPositionState)
+	//	{
+	//		m_fishDisplayOutside[m_currentFramePlayerPositionState].Init("Assets/modelData/fish_display_ui_outside_selection.DDS", 130, 130);
+	//	}
+	//}
+	//if (m_currentFramePlayerPositionState != m_previousFramePlayerPositionState && m_previousFramePlayerPositionState != INITIALSTATE) { //前のフレームと別のポジションのときかつ、一番最初の処理じゃなければ。緑から普通の色に戻す。
+	//	if (ENEMY_SAME_POSITION != m_previousFramePlayerPositionState)//戻すポジションに敵がいなければ。
+	//	{
+	//		m_fishDisplayOutside[m_previousFramePlayerPositionState].Init("Assets/modelData/fish_display_ui_outside.DDS", 130, 130);
+	//	}
+	//}
+	//m_previousFramePlayerPositionState = position;
 
 }
 
