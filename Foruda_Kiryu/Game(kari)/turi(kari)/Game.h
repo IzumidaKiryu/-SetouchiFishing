@@ -32,5 +32,5 @@ public:
 	FontRender m_fontRender;
 	PositionSelection* positionSelection;//場所を選ぶ画面のクラス。
 	PlayFishing* m_playFishing;
-	GameResult* m_rul;
+	GameResult* m_result;
 };

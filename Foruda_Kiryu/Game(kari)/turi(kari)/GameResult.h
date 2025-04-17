@@ -2,25 +2,44 @@
 class GameResult :public IGameObject
 {
 public:
-	enum fishName {
-		Buri,
+	enum FishName {
+		Hamachi,
 		Tachiuo,
 		Tai,
 		Hirame,
-		Sinzyu,
-		Zyako,
+		Pearl,
+		Jakoten,
+		num
 	};
 	GameResult();
 	~GameResult();
-	bool start();
+	bool Start();
 	void Update();
 	void Render(RenderContext& rc);
-	void Eaging(fishName name, Vector3 fastPos, Vector3 endPos);
+	void Easing(FishName name, Vector3 fastPos, Vector3 endPos);
 
-	Vector3 fastPos = { -350.0f,0.0f,0.0f };;//イージング前の座標。
-	Vector3 endPos={ -600.0f,0.0f,0.0f };//イージング後の座標。
-	Vector3 m_vec = Vector3::Zero;
-	float m_t = 0.0f;//補完率。
+	//Vector3 m_fastPos = { -350.0f,200.0f,0.0f };//イージング前の座標。
+	//Vector3 m_endPos={ -600.0f,200.0f,0.0f };//イージング後の座標。
+	Vector3 m_fastPos = { -350.0f,220.0f,0.0f };//イージング前の座標。
+	Vector3 m_endPos = { -600.0f,220.0f,0.0f };//イージング後の座標。
+
+	Vector3 m_fastPos2 = { -350.0f,130.0f,0.0f };//イージング前の座標。
+	Vector3 m_endPos2 = { -600.0f,130.0f,0.0f };//イージング後の座標。
+
+	Vector3 m_fastPos3 = { -350.0f,40.0f,0.0f };//イージング前の座標。
+	Vector3 m_endPos3 = { -600.0f,40.0f,0.0f };//イージング後の座標。
+
+	Vector3 m_fastPos4 = { -350.0f,-50.0f,0.0f };//イージング前の座標。
+	Vector3 m_endPos4 = { -600.0f,-50.0f,0.0f };//イージング後の座標。
+
+	Vector3 m_fastPos5 = { -350.0f,-140.0f,0.0f };//イージング前の座標。
+	Vector3 m_endPos5 = { -600.0f,-140.0f,0.0f };//イージング後の座標。
+
+	Vector3 m_fastPos6 = { -350.0f,-230.0f,0.0f };//イージング前の座標。
+	Vector3 m_endPos6 = { -600.0f,-230.0f,0.0f };//イージング後の座標。
+
+	Vector3 m_vec[num];
+	float m_t[num];			//補完率。
 
 	
 
