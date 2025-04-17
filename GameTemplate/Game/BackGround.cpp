@@ -3,25 +3,20 @@
 
 BackGround::BackGround()
 {
+	//コメントアウトする。
+	//PhysicsWorld::GetInstance()->EnableDrawDebugWireFrame();
+	modelRender.SetPosition(Vector3{ -400.0f,0.0f,0.0f });
+	modelRender.Init("Assets/modelData/stage/stage.tkm");
+	modelRender.Update();
+	physicsStaticObject.CreateFromModel(modelRender.GetModel(), modelRender.GetModel().GetWorldMatrix());
 }
 
 BackGround::~BackGround()
 {
-	DeleteGO(this);
-}
 
-bool BackGround::Start()
-{
-	m_modelRender.Init("Assets/material/stera.tkm");
-	return true;
-}
-
-void BackGround::Update()
-{
-	m_modelRender.Update();
 }
 
 void BackGround::Render(RenderContext& rc)
 {
-	m_modelRender.Draw(rc);
+	modelRender.Draw(rc);
 }
