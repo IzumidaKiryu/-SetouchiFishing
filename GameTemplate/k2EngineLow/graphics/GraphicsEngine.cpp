@@ -376,6 +376,7 @@ namespace nsK2EngineLow {
 				// ŠJ•ú
 				if (releaseReqIt->d3dObject) {
 					releaseReqIt->d3dObject->Release();
+					releaseReqIt->d3dObject=nullptr;
 				}
 				releaseReqIt = m_reqDelayRelease3d12ObjectList.erase(releaseReqIt);
 			}
