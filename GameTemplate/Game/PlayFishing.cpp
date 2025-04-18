@@ -9,6 +9,7 @@
 #include "TensionGauge.h"
 #include "FishingRodHP.h"
 #include "ScoreDisplay.h"
+#include"Player.h"
 
 
 
@@ -18,8 +19,7 @@ PlayFishing::PlayFishing()
 
 	m_playFishingBackGround = NewGO< PlayFishingBackGround>(0, "playFishingBackGround");
 	//ゲームカメラのオブジェクトを作る。
-	gameCamera = NewGO<GameCamera>(0, "gamecamera");
-
+	gameCamera = NewGO<GameCamera>(0, "PlayFishing_GameCamera");
 	StatusManager();
 }
 
@@ -45,7 +45,6 @@ void PlayFishing::Init()
 
 void PlayFishing::Update()
 {
-
 }
 
 void PlayFishing::NewGOCastGauge()
@@ -203,7 +202,6 @@ void PlayFishing::SetFishData()
 	p_fishData = &(m_fishManager->GetFishData());
 	m_fishData = *p_fishData;
 }
-
 FishData& PlayFishing::GetFishData()
 {
 	return m_fishData;
