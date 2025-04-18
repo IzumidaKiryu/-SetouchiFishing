@@ -70,10 +70,3 @@ void GameCamera::Update()
 	//カメラの更新。
 	g_camera3D->Update();
 }
-
-void GameCamera::SetTarget(Vector3 targetPos)
-{
-	g_camera3D->SetTarget(targetPos);
-	//Vector3 pos{ 1000.0f,0.0f,100.0f };
-	//g_camera3D->SetPosition(pos);
-}

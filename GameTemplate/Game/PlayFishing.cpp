@@ -45,6 +45,7 @@ void PlayFishing::Init()
 
 void PlayFishing::Update()
 {
+
 }
 
 void PlayFishing::NewGOCastGauge()

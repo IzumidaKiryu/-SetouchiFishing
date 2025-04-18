@@ -104,7 +104,6 @@ public:
 	SpriteRender m_stealPositionBarOutsideUI;
 	SpriteRender m_stealPositionGaugeUI;
 	TimeLimitUI* m_timeLimitUI;
-	//ModelRender m_rodFloatModel;
 
 	Stopwatch m_stopwatch;
 	Enemy* m_enemy;

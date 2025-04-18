@@ -5,13 +5,13 @@
 #include "FishingGauge.h"
 #include "PositionSelection.h"
 #include "PlayFishing.h"
-#include"GameCamera.h"
-#include"RodFloatMove.h"
-
 
 CastGauge::CastGauge()
 {
-	
+	//PhysicsWorld::GetInstance()->EnableDrawDebugWireFrame();
+	/*m_rodFloatModel.SetPosition(Vector3{ -400.0f,0.0f,0.0f });
+	m_rodFloatModel.Init("Assets/modelData/test.tkm");
+	m_rodFloatModel.Update();*/
 
 	m_castGaugeOutside.Init("Assets/modelData/castGauge_Outside.DDS", 100, 500);
 	m_castGaugeOutside.SetPivot(Vector2(0.0f, 0.5f));
@@ -33,8 +33,6 @@ CastGauge::CastGauge()
 	m_gaugeCastSuccessful->Init(10.0f, 10.0f);
 
 	m_positionSelection = FindGO<PositionSelection>("positionSelection");
-
-	m_rodFloatMove= NewGO<RodFloatMove>(0, "rodFloatMove");
 
 }
 
@@ -136,15 +134,8 @@ void CastGauge::Success()
 	m_playFishing->SetSuccess();
 }
 
-//void CastGauge::SetRodFloatPositon()
-//{
-//	t += 0.1;
-//	m_rodFloatPosition=(InitPos+first_velocity_vector*30 * t) + g * t * t * 1 / 2;
-//}
-
 void CastGauge::Render(RenderContext& rc)
 {
-
 	m_castGaugeInside.Draw(rc);
 	m_gaugeCastSuccessful->m_gaugeCastSuccessfulSprite.Draw(rc);
 	m_castGaugeArrow.Draw(rc);
