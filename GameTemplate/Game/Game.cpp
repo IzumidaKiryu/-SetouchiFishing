@@ -13,8 +13,8 @@
 
 Game::Game()
 {
-	//m_rul = NewGO<GameResult>(0, "rusut");
-	positionSelection = NewGO<PositionSelection>(0, "positionSelection");
+	m_rul = NewGO<GameResult>(0, "rusut");
+	//positionSelection = NewGO<PositionSelection>(0, "positionSelection");
 	//m_scoreDisplay = NewGO<ScoreDisplay>(0, "scoreDisplay");
 	//m_playFishing = NewGO<PlayFishing>(0, "playFishing");
 	//////HP�o�[�i����j
@@ -39,7 +39,7 @@ Game::~Game()
 	DeleteGO(positionSelection);
 	DeleteGO(player);
 	DeleteGO(gameCamera);
-	DeleteGO(gameCamera);
+	
 	DeleteGO(backGround);
 }
 
