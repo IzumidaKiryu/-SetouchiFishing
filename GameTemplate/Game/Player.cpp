@@ -6,11 +6,11 @@
 
 Player::Player()
 {
-	SetAnimationClipsLoad("Assets/animData/idle.tka",
-		"Assets/animData/walk.tka"
+	SetAnimationClipsLoad("Assets/animData/Player/Idle.tka",
+		"Assets/animData/Player/Walking.tka"
 	);
 
-	SetModel("Assets/modelData/unityChan.tkm", animationClips, enAnimationClip_Num, enModelUpAxisY);
+	SetModel("Assets/modelData/Player/Player.tkm", animationClips, enAnimationClip_Num, enModelUpAxisY);
 
 }
 
