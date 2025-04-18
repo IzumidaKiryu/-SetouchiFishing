@@ -11,14 +11,14 @@ TensionGauge::TensionGauge()
 	srand(time(nullptr));
 	//m_tensionGaugeInside.Init("Assets/modelData/tensionGauge.DDS", 500, 100);
 	m_tensionGaugeInside.Init("Assets/modelData/Sea.DDS", 500, 100);
-	m_tensionGaugeInside.SetPivot(Vector2(0.5f, 0.5f));
-	m_tensionGaugeInside.SetPosition(Vector3(0.0f, -200.0f, 0.0f));
+	m_tensionGaugeInside.SetPivot(Vector2(0.0f, 0.5f));
+	m_tensionGaugeInside.SetPosition(Vector3(-500.0f, -200.0f, 0.0f));
 	m_tensionGaugeInside.SetScale(Vector3{ 2.0f, 1.0f, 1.0f });
 	m_tensionGaugeInside.Update();
 
 	m_tensionGaugeOutside.Init("Assets/modelData/tensionGaugeFrame.DDS", 500, 100);
-	m_tensionGaugeOutside.SetPivot(Vector2(0.5f, 0.5f));
-	m_tensionGaugeOutside.SetPosition(Vector3(0.0f, -200.0f, 0.0f));
+	m_tensionGaugeOutside.SetPivot(Vector2(0.0f, 0.5f));
+	m_tensionGaugeOutside.SetPosition(Vector3(-700.0f, -200.0f, 0.0f));
 	m_tensionGaugeOutside.SetScale(Vector3{ 2.0f, 1.0f, 1.0f });
 	m_tensionGaugeOutside.Update();
 
@@ -45,6 +45,7 @@ void TensionGauge::Update()
 	Set_signs_of_Fish_UI();
 	failure();//成功したかどうか.
 	success();//失敗したかどうか。
+	//m_playFishing->SetFailure();
 }
 
 void TensionGauge::RightAndLeftManagement()
@@ -288,6 +289,11 @@ void TensionGauge::AngerState()
 
 void TensionGauge::ExhaustedState()
 {
+	m_angerState_frame_count++;
+	if (m_reduce_Hp_when_angry == true) {//連続で二度以上処理されないようにする。
+		m_forcePullFish += m_getRotation->nowFrameRotationQuantity * 200 * 1.3*20;
+		m_reduce_Hp_when_angry = false;
+	}
 }
 
 /// <summary>

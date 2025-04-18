@@ -14,7 +14,7 @@ namespace nsK2EngineLow {
 		/// <param name="filePath">画像のファイルパス</param>
 		/// <param name="w">画像の横幅</param>
 		/// <param name="h">画像の縦幅</param>
-		void Init(const char* filePath, const float w, const float h);
+		void Init(const char* filePath, const float w, const float h, AlphaBlendMode alphaBlendMode = AlphaBlendMode_Trans);
 		/// <summary>
 		/// 座標の設定。
 		/// </summary>
@@ -48,6 +48,15 @@ namespace nsK2EngineLow {
 			return m_scale;
 		}
 		
+
+		void SetMulColor(const Vector4& mulColor)
+
+		{
+
+			m_sprite.SetMulColor(mulColor);
+
+		}
+
 		void SetRotation(const Quaternion& rot)
 		{
 			m_rotation = rot;

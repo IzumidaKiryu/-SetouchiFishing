@@ -39,5 +39,7 @@ public:
 	TensionGauge* tensionGauge=nullptr;
 	PositionSelection* m_positionSelection;
 	PlayFishing* m_playFishing;
+	ModelRender m_rodFloatModel;
+
 };
 

@@ -1,8 +1,9 @@
 #include "k2EngineLowPreCompile.h"
 #include "SpriteRender.h"
+#include"RenderingEngine.h"
 using namespace nsK2EngineLow;
 
-void nsK2EngineLow::SpriteRender::Init(const char* filePath, const float w, const float h)
+void nsK2EngineLow::SpriteRender::Init(const char* filePath, const float w, const float h, AlphaBlendMode alphaBlendMode)
 {
 	SpriteInitData initData;
 	//DDSファイルパスを格納する変数の設定。
@@ -12,6 +13,8 @@ void nsK2EngineLow::SpriteRender::Init(const char* filePath, const float w, cons
 	//スプライトの縦横幅を設定。
 	initData.m_width = w;
 	initData.m_height = h;
+	initData.m_alphaBlendMode = alphaBlendMode;
 	//SpriteRenderノ初期データを使用してSpritereaderを初期化。
 	m_sprite.Init(initData);
 }
+
