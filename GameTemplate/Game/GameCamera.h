@@ -9,6 +9,7 @@ public:
 	~GameCamera();
 	bool Start();
 	void Update();
+	void SetTarget(Vector3 targetPos);
 	/////////////////////////////////////
 	//ƒƒ“ƒo•Ï”
 	/////////////////////////////////////

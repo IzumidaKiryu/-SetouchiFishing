@@ -35,6 +35,7 @@
     <ClCompile Include="TensionGauge.cpp" />
     <ClCompile Include="TimeLimitUI.cpp" />
     <ClCompile Include="Title.cpp" />
+    <ClCompile Include="RodFloatMove.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -65,5 +66,6 @@
     <ClInclude Include="TensionGauge.h" />
     <ClInclude Include="TimeLimitUI.h" />
     <ClInclude Include="Title.h" />
+    <ClInclude Include="RodFloatMove.h" />
   </ItemGroup>
 </Project>
