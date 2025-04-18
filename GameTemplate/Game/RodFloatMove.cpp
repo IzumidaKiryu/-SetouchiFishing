@@ -20,8 +20,6 @@ void RodFloatMove::Update()
 {
 	RodFloatStateManagement();
 	ModelUpdate();
-	m_gameCamera = FindGO<GameCamera>("gamecamera");
-	m_gameCamera->SetTarget(m_rodFloatPosition);
 }
 
 void RodFloatMove::ModelUpdate()
@@ -30,33 +28,33 @@ void RodFloatMove::ModelUpdate()
 	m_rodFloatModel.Update();
 }
 
-void RodFloatMove::Buoyancy()
-{
-	switch (m_buoyancyState)
-	{
-	case Down:
-		t -= 0.01;
-		m_buoyancy.y = m_buoyancy.y+t;
-		m_rodFloatPosition = m_rodFloatPosition+m_buoyancy;
-		if (m_rodFloatPosition.y <= water_surface_position_y-30.0f) {
-			m_buoyancyState = Up;
-			t = 0;
-		}
-		break;
-	case Up:
-		t+=0.01;
-		m_buoyancy.y = m_buoyancy.y + t;
-		m_rodFloatPosition = m_rodFloatPosition + m_buoyancy;
-		if (m_rodFloatPosition.y >= water_surface_position_y+5) {
-			m_rodFloatPosition .y= water_surface_position_y;
-			m_floatState = floating;
-			t = 0;
-		}
-		break;
-	default:
-		break;
-	}
-}
+//void RodFloatMove::Buoyancy()
+//{
+//	switch (m_buoyancyState)
+//	{
+//	case Down:
+//		t -= 0.01;
+//		m_floating.y = m_floating.y+t;
+//		m_rodFloatPosition = m_rodFloatPosition+m_floating;
+//		if (m_rodFloatPosition.y <= water_surface_position_y-30.0f) {
+//			m_buoyancyState = Up;
+//			t = 0;
+//		}
+//		break;
+//	case Up:
+//		t+=0.01;
+//		m_floating.y = m_floating.y + t;
+//		m_rodFloatPosition = m_rodFloatPosition + m_floating;
+//		if (m_rodFloatPosition.y >= water_surface_position_y+5) {
+//			m_rodFloatPosition .y= water_surface_position_y;
+//			m_floatState = floating;
+//			t = 0;
+//		}
+//		break;
+//	default:
+//		break;
+//	}
+//}
 
 void RodFloatMove::Cast()
 {
@@ -71,9 +69,9 @@ void RodFloatMove::Cast()
 void RodFloatMove::Float()
 {
 	t += 0.05;
-	m_buoyancy.y = (cos(t))*0.5;//è„â∫Ç…ìÆÇ©Ç∑
-	m_buoyancy.z = (cos(t * 0.7/*é¸ä˙ÇÇ∏ÇÁÇ∑*/) * 0.5);//ç∂âEÇ…ìÆÇ©Ç∑
-	m_rodFloatPosition = m_rodFloatPosition + m_buoyancy;
+	m_floating.y = (cos(t))*0.5;//è„â∫Ç…ìÆÇ©Ç∑
+	m_floating.z = (cos(t * 0.7/*é¸ä˙ÇÇ∏ÇÁÇ∑*/) * 0.5);//ç∂âEÇ…ìÆÇ©Ç∑
+	m_rodFloatPosition = m_rodFloatPosition + m_floating;
 }
 
 void RodFloatMove::RodFloatStateManagement()
@@ -95,29 +93,7 @@ void RodFloatMove::RodFloatStateManagement()
 	}
 }
 
-//void RodFloatMove::Buoyancy_Move_B()
-//{
-//	Buoyancy_t += 0.1;
-//	//if (m_cos <= 0) {
-//	//	m_cos = sin(Buoyancy_t)-1;
-//	//}
-//
-//	m_buoyancy.y = (cos(Buoyancy_t)) * (1 + (1 / Buoyancy_t * 0.01)) * 0.8;
-//	m_buoyancy.z = water_surface_position_y + (cos(Buoyancy_t * 0.7) * 0.7/**1/t*/);
-//	m_rodFloatPosition = m_rodFloatPosition + m_buoyancy;
-//}
-
 void RodFloatMove::Render(RenderContext& rc)
 {
 	m_rodFloatModel.Draw(rc);
-}
-
-void RodFloatMove::SetRodFloatPositon()
-{
-	
-	//if (m_rodFloatPosition.y <= water_surface_position_y) {
-	//	landing_position = m_rodFloatPosition;
-
-	//	Buoyancy();
-	//}
 }

@@ -23,10 +23,12 @@ class FishingGauge;
 class TensionGauge;
 class FishingRodHP;
 class ScoreDisplay;
+class Player;
 
 class PlayFishing :public IGameObject
 {
 public:
+
 	PlayFishing();
 	~PlayFishing();
 	void Init();
@@ -50,6 +52,9 @@ public:
 	void SetFishData();
 	FishData& GetFishData();
 	float GetFIshScore();//スコアディスプレイクラスにスコアを渡す関数。
+	float t;
+	Vector3 m_floating;
+	Vector3 m_gameCameraTarget;
 
 
 
@@ -69,4 +74,5 @@ public:
 	TensionGauge* m_tensionGauge;
 	FishingRodHP* m_fishingRodHP;
 	ScoreDisplay* m_scoreDisplay;
+	Player* m_player;
 };

@@ -36,7 +36,7 @@ void Player::SetMoveSpeed()
 
 	//移動速度にスティックの入力量を加算する。
 	moveSpeed += right + forward;
-	position;
+	m_position;
 }
 
 

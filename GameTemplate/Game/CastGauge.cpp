@@ -7,11 +7,12 @@
 #include "PlayFishing.h"
 #include"GameCamera.h"
 #include"RodFloatMove.h"
+#include"Player.h"
+
 
 
 CastGauge::CastGauge()
 {
-	
 
 	m_castGaugeOutside.Init("Assets/modelData/castGauge_Outside.DDS", 100, 500);
 	m_castGaugeOutside.SetPivot(Vector2(0.0f, 0.5f));
@@ -34,7 +35,7 @@ CastGauge::CastGauge()
 
 	m_positionSelection = FindGO<PositionSelection>("positionSelection");
 
-	m_rodFloatMove= NewGO<RodFloatMove>(0, "rodFloatMove");
+	
 
 }
 
@@ -45,11 +46,8 @@ CastGauge::~CastGauge()
 
 void CastGauge::Update()
 {
-	SetGaugeSpead();
-	UpAndDownManagement();//矢印の動く向きを決める。
-	SetArrowPosition();//矢印の場所を決める。
-	m_castGaugeArrow.Update();//矢印の描画を更新する。
-	HitTest();
+	SetCamera();
+	ChastStaeManager();
 }
 
 /// <summary>
@@ -133,7 +131,80 @@ void CastGauge::Failure()
 void CastGauge::Success()
 {
 	m_playFishing = FindGO<PlayFishing>("playFishing");
-	m_playFishing->SetSuccess();
+	m_chastState= RodFloatMoveNewGO;
+}
+
+void CastGauge::Chast()
+{
+	
+}
+
+void CastGauge::ChastStaeManager()
+{
+	switch (m_chastState)
+	{
+	case playing:
+		SetGaugeSpead();
+		UpAndDownManagement();//矢印の動く向きを決める。
+		SetArrowPosition();//矢印の場所を決める。
+		m_castGaugeArrow.Update();//矢印の描画を更新する。
+		HitTest();
+		break;
+	case character_animation:
+
+		break;
+	case RodFloatMoveNewGO:
+		m_rodFloatMove = NewGO<RodFloatMove>(0, "rodFloatMove");
+		m_chastState = chast;
+	case chast:
+		break;
+	default:
+		break;
+	}
+}
+
+void CastGauge::SetCameraPlayingSgtate()
+{
+	m_player = FindGO<Player>("player");
+	WaveMotion();
+	m_gameCameraTarget = m_player->m_position + Vector3{ 1000.0f,30.0f,0.0f };
+	m_gameCameraTarget += m_waveMotion;
+	m_gameCameraPos = m_player->m_position + Vector3{ 0.0f,200.0f,-100.0f };
+}
+
+void CastGauge::SetCameraChast()
+{
+	m_gameCameraTarget=m_rodFloatMove->m_rodFloatPosition;
+}
+
+void CastGauge::SetCamera()
+{
+	m_gameCamera=FindGO<GameCamera>("PlayFishing_GameCamera");
+	switch (m_chastState)
+	{
+	case playing:
+		SetCameraPlayingSgtate();
+		break;
+	case character_animation:
+		SetCameraChast();
+		break;
+	case chast:
+		SetCameraChast();
+		break;
+	default:
+		break;
+	}
+	m_gameCamera->SetTarget(m_gameCameraTarget);
+	m_gameCamera->SetPosition(m_gameCameraPos);
+}
+/// <summary>
+/// 波の動きを表現。
+/// </summary>
+void CastGauge::WaveMotion()
+{
+	t += 0.05;
+	m_waveMotion.y = (cos(t));//上下に動かす
+	m_waveMotion.z = (cos(t * 0.7/*周期をずらす*/) * 0.5);//左右に動かす
 }
 
 //void CastGauge::SetRodFloatPositon()
@@ -144,9 +215,10 @@ void CastGauge::Success()
 
 void CastGauge::Render(RenderContext& rc)
 {
-
-	m_castGaugeInside.Draw(rc);
-	m_gaugeCastSuccessful->m_gaugeCastSuccessfulSprite.Draw(rc);
-	m_castGaugeArrow.Draw(rc);
-	m_castGaugeOutside.Draw(rc);
+	if (m_chastState== playing) {
+		m_castGaugeInside.Draw(rc);
+		m_gaugeCastSuccessful->m_gaugeCastSuccessfulSprite.Draw(rc);
+		m_castGaugeArrow.Draw(rc);
+		m_castGaugeOutside.Draw(rc);
+	}
 }

@@ -10,6 +10,7 @@ public:
 	bool Start();
 	void Update();
 	void SetTarget(Vector3 targetPos);
+	void SetPosition(Vector3 pos);
 	/////////////////////////////////////
 	//ƒƒ“ƒo•Ï”
 	/////////////////////////////////////

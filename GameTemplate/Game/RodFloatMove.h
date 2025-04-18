@@ -33,12 +33,12 @@ public:
 	Vector3 InitPos{ 100.0f,500.0f,10.0f };
 	Vector3 m_rodFloatPosition= InitPos;
 	ModelRender m_rodFloatModel;
-	void SetRodFloatPositon();
+	//void SetRodFloatPositon();
 	GameCamera* m_gameCamera;
 	RodFloatState m_floatState;
 	float m_float_t;
 	float water_surface_position_y;
-	Vector3 m_buoyancy;
+	Vector3 m_floating;
 	float m_cos=0.0f;
 	Vector3 landing_position;
 

@@ -31,8 +31,8 @@ void Enemy::SetMoveSpeed()
 	//forward *= stickL.y * 120.0f;
 	m_positionSelection = FindGO<PositionSelection>("positionSelection");
 	m_positionSelection->FindFishHighScore();
-	if (position.x <= enemyFishingPosition[m_positionSelection->enemy_position].x - 10.0f || position.y <= enemyFishingPosition[m_positionSelection->enemy_position].y) {
-		moveSpeed += (enemyFishingPosition[m_positionSelection->enemy_position] - position);
+	if (m_position.x <= enemyFishingPosition[m_positionSelection->enemy_position].x - 10.0f || m_position.y <= enemyFishingPosition[m_positionSelection->enemy_position].y) {
+		moveSpeed += (enemyFishingPosition[m_positionSelection->enemy_position] - m_position);
 		moveSpeed.Normalize();
 		moveSpeed *= 700.0f;
 	}

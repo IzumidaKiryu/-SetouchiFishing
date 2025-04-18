@@ -29,7 +29,7 @@ public:
 
 	//メンバ変数。
 	ModelRender modelRender;	//モデルレンダ―。
-	Vector3 position;			//座標。
+	Vector3 m_position;			//座標。
 	enum EnAnimationClip {		//アニメーション。
 		enAnimationClip_Idle,
 		enAnimationClip_Walk,

@@ -86,11 +86,16 @@ void PositionSelection::Update()
 	//m_timeLimitUI->DisplayTimeLimitUI(m_int_time);//タイムリミットを表示する。エラーが出るのでコメントアウト！！！！！！！
 	IsWith_any_Position();//今どこのポジションにいるか判定する。
 
+	
 	if (m_shouldPartiallyDeactivate == false) {//アクティブかどうか判断する。
 		SetFishUI();
 		if (g_pad[0]->IsTrigger(enButtonA)) {
 			ChangeSceneToPlayFishing();
+			gameCamera->Activate();
 		}
+	}
+	else {
+		gameCamera->Deactivate();
 	}
 	for (int i = 0; i < 6; i++) {
 		//フィッシュマネージャーの生成。
@@ -322,36 +327,36 @@ void PositionSelection::FindFishHighScore()
 
 void PositionSelection::IsWith_any_Position()
 {
-	if (m_player->position.z >= 12.0f)
+	if (m_player->m_position.z >= 12.0f)
 	{
 
-		if (m_player->position.x < float{ -254.0f })
+		if (m_player->m_position.x < float{ -254.0f })
 		{
 			position_with_now = POSITION_A;
 		}
 
-		if (m_player->position.x >= float{ -254.0f } && m_player->position.x <= float{ 254.0f })
+		if (m_player->m_position.x >= float{ -254.0f } && m_player->m_position.x <= float{ 254.0f })
 		{
 			position_with_now = POSITION_B;
 		}
 
-		if (m_player->position.x > float{ 254.0f })
+		if (m_player->m_position.x > float{ 254.0f })
 		{
 			position_with_now = POSITION_C;
 		}
 	}
 
-	if (m_player->position.z < 12.0f)
+	if (m_player->m_position.z < 12.0f)
 	{
-		if (m_player->position.x < float{ -254.0f })
+		if (m_player->m_position.x < float{ -254.0f })
 		{
 			position_with_now = POSITION_D;
 		}
-		if (m_player->position.x >= float{ -254.0f } && m_player->position.x <= float{ 254.0f })
+		if (m_player->m_position.x >= float{ -254.0f } && m_player->m_position.x <= float{ 254.0f })
 		{
 			position_with_now = POSITION_E;
 		}
-		if (m_player->position.x > float{ 254.0f })
+		if (m_player->m_position.x > float{ 254.0f })
 		{
 			position_with_now = POSITION_F;
 		}
