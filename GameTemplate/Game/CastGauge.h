@@ -4,6 +4,8 @@ class TensionGauge;
 class FishingGauge;
 class PositionSelection;
 class PlayFishing;
+class GameCamera;
+class RodFloatMove;
 
 class CastGauge :public IGameObject
 {
@@ -19,6 +21,7 @@ public:
 	void HitTest();
 	void Failure();//失敗。
 	void Success();//成功。
+	//void SetRodFloatPositon();//
 
 
 	float m_arrowPosition = -237.0f;//矢印のポジション（初期設定は-237）
@@ -41,5 +44,13 @@ public:
 	PlayFishing* m_playFishing;
 	ModelRender m_rodFloatModel;
 
+	Vector3 first_velocity_vector{ 1.0f,0.0f,0.0f };
+	float t=0;
+	Vector3 g{ 0.0f,-30.0f,0.0f };
+	Vector3 m_rodFloatPosition{ 0.0f,500.0f,0.0f };
+	Vector3 InitPos{0.0f,500.0f,0.0f};
+
+	GameCamera* m_gameCamera;
+	RodFloatMove* m_rodFloatMove;
 };
 

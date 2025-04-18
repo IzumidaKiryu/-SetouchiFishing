@@ -16,7 +16,6 @@
 PositionSelection::PositionSelection()
 {
 
-
 	srand(time(NULL));
 
 	m_stopwatch.Start();
@@ -41,6 +40,9 @@ PositionSelection::PositionSelection()
 	backGround = NewGO<BackGround>(0);
 	//ゲーム中のBGMを読み込む。
 	g_soundEngine->ResistWaveFileBank(1, "Assets/sound/gamebgm.wav");
+
+
+
 	//ゲーム中のBGMを再生する。
 	//gameBGM = NewGO<SoundSource>(0);
 	/*gameBGM->Init(1);
