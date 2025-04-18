@@ -4,11 +4,11 @@
 
 Enemy::Enemy()
 {
-	SetAnimationClipsLoad("Assets/animData/idle.tka",
-		"Assets/animData/walk.tka"
+	SetAnimationClipsLoad("Assets/animData/Enemy/EnamyIdle.tka",
+		"Assets/animData/Enemy/EnamyWalking.tka"
 	);
 	//ユニティちゃんのモデルを読み込む。
-	SetModel("Assets/modelData/unityChan.tkm", animationClips, enAnimationClip_Num, enModelUpAxisY);
+	SetModel("Assets/modelData/Enemy/Enemy.tkm", animationClips, enAnimationClip_Num, enModelUpAxisY);
 }
 
 Enemy::~Enemy()
