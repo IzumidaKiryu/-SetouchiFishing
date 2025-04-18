@@ -2,28 +2,46 @@
 class GameResult :public IGameObject
 {
 public:
-	enum fishName {
-		Buri,
+	enum FishName {
+		Hamachi,
 		Tachiuo,
 		Tai,
 		Hirame,
-		Sinzyu,
-		Zyako,
+		Pearl,
+		Jakoten,
+		num
 	};
 	GameResult();
 	~GameResult();
-	bool start();
+	bool Start();
 	void Update();
+	void SetFastPos();//各配列の初期化
 	void Render(RenderContext& rc);
-	void Eaging(fishName name, Vector3 fastPos, Vector3 endPos);
+	void Easing(FishName name, Vector3 fastPos, Vector3 endPos);
 
-	Vector3 fastPos = { -350.0f,0.0f,0.0f };;//イージング前の座標。
-	Vector3 endPos = { -600.0f,0.0f,0.0f };//イージング後の座標。
-	Vector3 m_vec = Vector3::Zero;
-	float m_t = 0.0f;//補完率。
+	Vector3 m_fastPos[num] = {//イージング前の座標。
+		{ -350.0f,220.0f,0.0f } ,
+		{ -350.0f,130.0f,0.0f },
+		{ -350.0f,40.0f,0.0f },
+		{ -350.0f,-50.0f,0.0f },
+		{ -350.0f,-140.0f,0.0f },
+		{ -350.0f,-230.0f,0.0f }
+	};
 
+	Vector3 m_endPos[num]{//イージング後の座標。
+		{ -600.0f,220.0f,0.0f },
+		{ -600.0f,130.0f,0.0f },
+		{ -600.0f,40.0f,0.0f },
+		{ -600.0f,-50.0f,0.0f },
+		{ -600.0f,-140.0f,0.0f },
+		{ -600.0f,-230.0f,0.0f }
+	};
 
+	Vector3 m_vec[num];//各UIのポジション。
+	float m_t[num];			//補完率。
 
 	SpriteRender m_fishUI[6];//収集した魚の表示用スプライトレンダー。
-	SpriteRender m_back;
+	SpriteRender m_back;//リザルト画面の背景用スプライトレンダー。
+
+	int nowFishName = FishName::Hamachi;//イージングさせる魚のUI(初期設定はハマチ)。
 };
