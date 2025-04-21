@@ -37,7 +37,7 @@ cbuffer DirectionLightCb : register(b1)
     float3 eyePos;
     float3 ambientLight; //環境光
 
-     // step-3 半球ライトのデータにアクセスするための変数を追加
+     //半球ライトのデータにアクセスするための変数を追加
     float3 groundColor; // 照り返しのライト
     float3 skyColor; // 天球ライト
     float3 groundNormal; // 地面の法線
@@ -78,6 +78,7 @@ struct SPSIn{
 Texture2D<float4> g_albedo : register(t0); //アルベドマップ。
 Texture2D<float4> g_normalMap : register(t1);//法線マップにアクセスするための変数。
 Texture2D<float4> g_specularMap : register(t2);//スペキュラマップにアクセスするための変数。
+Texture2D<float4> g_aoMap:register(t10);//AOマップ参照用
 StructuredBuffer<float4x4> g_boneMatrix : register(t3);	//ボーン行列。
 
 sampler g_sampler : register(s0);	//サンプラステート。
@@ -95,7 +96,7 @@ float3 CalcLigFromHemiSphereLight(SPSIn psIn);//半球ライト。
 float3 CalcNormal(float3 normal, float3 tangent, float3 biNormal, float2 uv);//法線の計算。
 float3 CalcNormalMap(SPSIn psIn);//法線マップの計算。
 float3 CalcSpeculerMap(SPSIn psIn);//スペキュラマップの計算。
-
+float3 CalcAnbientPower(SPSIn psIn);//AOマップから環境光の強さを計算。
 
 /// <summary>
 //スキン行列を計算する。
@@ -186,6 +187,9 @@ float4 PSMain( SPSIn psIn ) : SV_Target0
   
     //スペキュラマップの計算。
     float3 speculerMap = CalcSpeculerMap(psIn);
+    
+    //AOマップによる環境光の強さを計算。
+    float3 aoMap = CalcAnbientPower(psIn);
     
     //ディレクション、ポイント、スポット、環境光、半球、法線マップ、スペキュラマップ
     //を合算して最終的な反射光を求める。
@@ -470,4 +474,13 @@ float3 CalcSpeculerMap(SPSIn psIn)
     specLig * specPower * 50.0f; //倍率変えると光り方が変わる。
    
     return specLig;
+}
+
+float3 CalcAnbientPower(SPSIn psIn)
+{
+    float3 ambient = ambientLight;
+    float ambientPower = g_aoMap.Sample(g_sampler, psIn.uv);
+    ambient *= ambientPower;
+    
+    return ambient;
 }
