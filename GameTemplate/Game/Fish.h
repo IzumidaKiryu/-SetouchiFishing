@@ -5,6 +5,7 @@ struct FishData
 	float timeUntilEscape;//魚が逃げるまでの時間
 	float arrowSpeed = 0.0f;
 	float score = 0.0f;//個体値
+	float initPos=1;
 };
 class PositionSelection;
 class Fish : public IGameObject
@@ -17,6 +18,7 @@ public:
 	bool Start();
 	void SetScore();//フィッシュデータのスコアを設定する。
 	void SetTimeUntilEscape(float timeUntilEscape);//逃げでの時間の設定。
+	void SetInitPos(float initpos);
 	bool TimeCount();
 	//void SetIndividualValue();//個体値を設定
 	//void ShouldFishChange();//魚を変えるかどうか。
