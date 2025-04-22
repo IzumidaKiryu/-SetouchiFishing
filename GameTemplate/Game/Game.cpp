@@ -10,6 +10,7 @@
 #include "PlayFishing.h"
 #include "ScoreDisplay.h"
 #include "GameResult.h"
+#include "SkyCube.h"
 
 Game::Game()
 {
@@ -32,6 +33,10 @@ Game::Game()
 
 	////�w�i�̃I�u�W�F�N�g����B
 	//backGround = NewGO<BackGround>(0);
+	m_skyCube = NewGO<SkyCube>(0, "skyCube");
+	m_skyCube->SetLuminance(1.0f);
+	m_skyCube->SetScale(400.0f);//4000倍にすると描画がなくなるかも。
+
 }
 
 Game::~Game()
