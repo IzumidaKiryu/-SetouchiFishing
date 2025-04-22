@@ -13,6 +13,8 @@ namespace nsK2EngineLow {
 			int numAnimationCrips = 0,
 			EnModelUpAxis enModelUpAxis = enModelUpAxisZ);
 
+		void InitSkyCubeModel(ModelInitData& initData);
+
 		void InitModel(const char* filePath, EnModelUpAxis enModelUpAxis);
 
 		void Update();
@@ -102,6 +104,15 @@ namespace nsK2EngineLow {
 			AnimationClip* animationClips = nullptr,
 			int numAnimationClips = 0,
 			EnModelUpAxis enModelUpAxis = enModelUpAxisZ);
+
+		//座標拡大回転全てを設定
+		void SetTRS(const Vector3& pos, const Quaternion& rotation, const Vector3& scale)
+		{
+			SetPosition(pos);
+			SetRotation(rotation);
+			SetScale(scale);
+		}
+
 
 		AnimationClip* m_animationClips = nullptr;			// アニメーションクリップ。
 		int							m_numAnimationClips = 0;			// アニメーションクリップの数。

@@ -22,6 +22,11 @@ void nsK2EngineLow::ModelRender::Init(const char* filePath, AnimationClip* anima
 
 }
 
+void nsK2EngineLow::ModelRender::InitSkyCubeModel(ModelInitData& initData)
+{
+	m_model.Init(initData);
+}
+
 void nsK2EngineLow::ModelRender::InitSkeleton(const char* filePath)
 {
 

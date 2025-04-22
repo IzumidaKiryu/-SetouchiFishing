@@ -35,4 +35,5 @@ public:
 	PlayFishing* m_playFishing;
 	GameResult* m_rul;
 	/*ScoreDisplay* m_scoreDisplay;*/
+	SkyCube* m_skyCube = nullptr;
 };
