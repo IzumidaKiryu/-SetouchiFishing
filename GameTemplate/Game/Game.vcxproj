@@ -232,6 +232,7 @@
     <ClCompile Include="FishingGauge.cpp" />
     <ClCompile Include="FishingRodHP.cpp" />
     <ClCompile Include="FishManager.cpp" />
+    <ClCompile Include="FishModel.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameCamera.cpp" />
     <ClCompile Include="GameResult.cpp" />
@@ -243,6 +244,7 @@
     <ClCompile Include="PlayFishingBackGround.cpp" />
     <ClCompile Include="PositionSelection.cpp" />
     <ClCompile Include="RodFloatMove.cpp" />
+    <ClCompile Include="SceneFightFish.cpp" />
     <ClCompile Include="ScoreDisplay.cpp" />
     <ClCompile Include="Star.cpp" />
     <ClCompile Include="stdafx.cpp">
@@ -266,6 +268,7 @@
     <ClInclude Include="FishingGauge.h" />
     <ClInclude Include="FishingRodHP.h" />
     <ClInclude Include="FishManager.h" />
+    <ClInclude Include="FishModel.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameCamera.h" />
     <ClInclude Include="GameResult.h" />
@@ -276,6 +279,7 @@
     <ClInclude Include="PlayFishingBackGround.h" />
     <ClInclude Include="PositionSelection.h" />
     <ClInclude Include="RodFloatMove.h" />
+    <ClInclude Include="SceneFightFish.h" />
     <ClInclude Include="ScoreDisplay.h" />
     <ClInclude Include="Star.h" />
     <ClInclude Include="stdafx.h" />

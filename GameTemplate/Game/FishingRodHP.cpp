@@ -3,6 +3,7 @@
 #include "TensionGauge.h"
 #include"PlayFishing.h"
 #include"PositionSelection.h"
+#include"SceneFightFish.h"
 
 
 FishingRodHP::FishingRodHP()
@@ -18,37 +19,36 @@ void FishingRodHP::Update()
 {
 	SetFishingRodHP();
 	/*if (m_previousFrameHP != m_Hp) {*/
-	float a = m_tensionGauge->GetRotationPower();
+	float m_rotationPower = m_sceneFightFish->GetRotationPower();
 	m_RodHPBar.SetScale(Vector3{ m_Hp * 2 / m_MaxHp, 1.0f, 1.0f });
 	m_RodHPBar.Update();
 	/*}*/
 
 	failure();//失敗したかどうか。
-
 	m_previousFrameHP = m_Hp;
 }
 
 void FishingRodHP::SetFishingRodHP()
 {
-	m_tensionGauge = FindGO<TensionGauge>("tensionGauge");
+	m_sceneFightFish = FindGO<SceneFightFish>("sceneFightFish");
 
 
-	if (m_tensionGauge->m_isFishDirectionisLeft == true) {
+	if (m_sceneFightFish->is_fish_suited_for_upper_side == true) {
 		//魚の向きが左なら。
 		//コントローラーを回した分だけ竿のHPが減る。
-		m_Hp -= m_tensionGauge->GetRotationPower() * 100.0f;
+		m_Hp -= m_sceneFightFish->GetRotationPower() * 50.0f;
 	}
-	if (m_tensionGauge->m_isFishDirectionisLeft == false) {
+	if (m_sceneFightFish->is_fish_suited_for_upper_side == false) {
 		//魚の向きが左なら。
 		//コントローラーを回した分だけ竿のHPが減る。
 		m_Hp += 0.1;
 	}
 
 
-	float a = m_tensionGauge->GetRotationPower();
+	float m_rotationPower = m_sceneFightFish->GetRotationPower();
 	//コントローラーが回ってないときはHPを回復する。
-	if (a <= 0.0000f) {
-		m_Hp += 0.5;
+	if (m_rotationPower <= 0.0000f) {
+		m_Hp += 1;
 	}
 
 
@@ -81,7 +81,7 @@ void FishingRodHP::SetUI()
 
 void FishingRodHP::Render(RenderContext& rc)
 {
-	m_RodHPGaugeInside.Draw(rc);
+	m_RodHPGaugeInside.Draw(rc);   
 	m_RodHPGaugeOutside.Draw(rc);
 	m_RodHPBar.Draw(rc);
 }

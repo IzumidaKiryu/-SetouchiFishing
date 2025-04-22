@@ -8,11 +8,14 @@
 #include"GameCamera.h"
 #include"RodFloatMove.h"
 #include"Player.h"
+#include"RodFloatMove.h"
+#include"SceneFightFish.h"
 
 
 
 CastGauge::CastGauge()
 {
+
 
 	m_castGaugeOutside.Init("Assets/modelData/castGauge_Outside.DDS", 100, 500);
 	m_castGaugeOutside.SetPivot(Vector2(0.0f, 0.5f));
@@ -35,9 +38,9 @@ CastGauge::CastGauge()
 
 	m_positionSelection = FindGO<PositionSelection>("positionSelection");
 
-	
 
 }
+
 
 CastGauge::~CastGauge()
 {
@@ -108,16 +111,33 @@ void CastGauge::SetGaugeSpead()
 void CastGauge::HitTest()
 {
 	if (g_pad[0]->IsTrigger(enButtonA)) {
-		if (m_gaugeCastSuccessful->hitTest(m_arrowPosition) == true)//成功したら。
-		{
-			/*m_fishingGauge=NewGO<FishingGauge>(0, "fishingGauge ");*/
-			/*tensionGauge = NewGO<TensionGauge>(0, "tensionGauge");*/
-			Success();
-		}
-		else if (m_gaugeCastSuccessful->hitTest(m_arrowPosition) == false) //失敗したら。
-		{
-			Failure();
-		}
+		//if (m_gaugeCastSuccessful->hitTest(m_arrowPosition) == true)//成功したら。
+		//{
+		//	/*m_fishingGauge=NewGO<FishingGauge>(0, "fishingGauge ");*/
+		//	/*tensionGauge = NewGO<TensionGauge>(0, "tensionGauge");*/
+		//	Success();
+		//}
+		//else if (m_gaugeCastSuccessful->hitTest(m_arrowPosition) == false) //失敗したら。
+		//{
+		//	Failure();
+		//}
+
+		//ウキの距離を計算。
+		m_float_range_max_range_rate = (m_arrowPosition - m_gaugeLowerLimit) / m_gauge_length;
+
+		m_rodFloatMove = FindGO<RodFloatMove>("rodFloatMove");
+
+
+		m_playFishing = FindGO<PlayFishing>("playFishing");
+
+		//プレイフィッシングクラスにウキの距離の割合を渡す
+		m_playFishing->SetScalar_multiply_in_first_velocity_vector(m_float_range_max_range_rate);
+
+		m_playFishing->SetSuccess();//プレイフィッシングクラスのステートを進める。
+		//
+		m_chastState = chast;
+
+
 		is_ended = true;
 	}
 }
@@ -131,7 +151,8 @@ void CastGauge::Failure()
 void CastGauge::Success()
 {
 	m_playFishing = FindGO<PlayFishing>("playFishing");
-	m_chastState= RodFloatMoveNewGO;
+	//m_chastState= character_animation;
+	m_chastState = chast;
 }
 
 void CastGauge::Chast()
@@ -153,10 +174,9 @@ void CastGauge::ChastStaeManager()
 	case character_animation:
 
 		break;
-	case RodFloatMoveNewGO:
-		m_rodFloatMove = NewGO<RodFloatMove>(0, "rodFloatMove");
-		m_chastState = chast;
-	case chast:
+	case  chast:
+		m_rodFloatMove = FindGO<RodFloatMove>("rodFloatMove");
+		IsCastEnd();
 		break;
 	default:
 		break;
@@ -205,6 +225,15 @@ void CastGauge::WaveMotion()
 	t += 0.05;
 	m_waveMotion.y = (cos(t));//上下に動かす
 	m_waveMotion.z = (cos(t * 0.7/*周期をずらす*/) * 0.5);//左右に動かす
+}
+
+void CastGauge::IsCastEnd()
+{
+	m_rodFloatMove = FindGO<RodFloatMove>("rodFloatMove");
+	/*if (m_rodFloatMove->IsCastEnd() == true) {
+		m_playFishing = FindGO<PlayFishing>("playFishing");
+		m_playFishing->SetSuccess();
+	}*/
 }
 
 //void CastGauge::SetRodFloatPositon()

@@ -50,6 +50,11 @@ void Fish::SetTimeUntilEscape(float timeUntilEscape)
 	m_fishData.timeUntilEscape = timeUntilEscape;
 }
 
+void Fish::SetInitPos(float initpos)
+{
+	m_fishData.initPos = initpos;
+}
+
 /// <summary>
 /// ŠÔ‚ğ‚Í‚©‚éB
 /// </summary>
