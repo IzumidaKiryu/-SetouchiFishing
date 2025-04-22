@@ -10,10 +10,10 @@ class RodFloatMove;
 enum ChasutState {
 	playing,
 	character_animation,
-	RodFloatMoveNewGO,
 	chast,
 };
 class Player;
+class SceneFightFish;
 class CastGauge :public IGameObject
 {
 public:
@@ -38,6 +38,8 @@ public:
 	void SetCameraChast();
 	void SetCamera();
 	void WaveMotion();//波の動きを疑似的に表現
+	void IsCastEnd();
+	
 
 
 	//void SetRodFloatPositon();//
@@ -48,11 +50,14 @@ public:
 	void Render(RenderContext& rc);
 	float m_gaugeUpperLimit = 237.0f;//ゲージの上限
 	float m_gaugeLowerLimit = -237.0f;//ゲージの下限
+	float  m_gauge_length= std::abs(m_gaugeUpperLimit)+ std::abs(m_gaugeLowerLimit);//absは絶対値を求める関数。
 	float m_gaugeSpead;
 
 	float m_heightFirstGaugeCastSuccessful = 10.0f;//成功ゲージの最初の横幅。
 	bool is_ended = false;
 	float t = 0.0f;
+
+	float m_float_range_max_range_rate=0.0f;//今のウキの限界のウキの距離の割合。
 	Vector3 m_gameCameraTarget;
 	Vector3 m_gameCameraPos;
 
@@ -77,5 +82,6 @@ public:
 	ChasutState m_chastState= playing;
 
 	Player* m_player;
+	SceneFightFish* m_sceneFightFish;
 };
 
