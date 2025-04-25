@@ -58,7 +58,7 @@ void TensionGauge::SetFishUI_Position(float position)
 
 void TensionGauge::Set_signs_of_Fish_UI()
 {
-	if (m_sceneFightFish->m_previous_is_fish_suited_for_upper_side != m_sceneFightFish->is_fish_suited_for_upper_side) {//前のフレームと状態が違う時だけ。
+	if (m_sceneFightFish->m_previous_is_fish_suited_for_upper_side != m_sceneFightFish->is_fish_suited_for_upper_side) {//蜑阪�ｮ繝輔Ξ繝ｼ繝縺ｨ迥ｶ諷九′驕輔≧譎ゅ□縺代�
 		switch (m_sceneFightFish->m_fishState)
 		{
 		case normal:

@@ -4,8 +4,8 @@
 Buri::Buri()
 {
 	SetUI();
-	SetBaseScore(100.0f);//Šî€‚É‚È‚éƒXƒRƒAB
-	SetScore();//‚±‚Ì‹›‚ÌƒXƒRƒA‚ğİ’èB
+	SetBaseScore(100.0f);//åŸºæº–ã«ãªã‚‹ã‚¹ã‚³ã‚¢ã€‚
+	SetScore();//ã“ã®é­šã®ã‚¹ã‚³ã‚¢ã‚’è¨­å®šã€‚
 	SetTimeUntilEscape(10.0f);
 }
 
@@ -15,7 +15,7 @@ Buri::~Buri()
 }
 
 /// <summary>
-/// UI‚Ìİ’è
+/// UIã®è¨­å®š
 /// </summary>
 void Buri::SetUI()
 {

@@ -3,7 +3,7 @@
 
 BackGround::BackGround()
 {
-	//コメントアウトする。
+	//繧ｳ繝｡繝ｳ繝医い繧ｦ繝医☆繧九�
 	//PhysicsWorld::GetInstance()->EnableDrawDebugWireFrame();
 	modelRender.SetPosition(Vector3{ -400.0f,0.0f,0.0f });
 	//modelRender.Init("Assets/modelData/stage/stage.tkm");
