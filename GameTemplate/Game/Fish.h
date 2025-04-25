@@ -2,9 +2,9 @@
 
 struct FishData
 {
-	float timeUntilEscape;//‹›‚ª“¦‚°‚é‚Ü‚Å‚ÌŠÔ
+	float timeUntilEscape;//é­šãŒé€ƒã’ã‚‹ã¾ã§ã®æ™‚é–“
 	float arrowSpeed = 0.0f;
-	float score = 0.0f;//ŒÂ‘Ì’l
+	float score = 0.0f;//å€‹ä½“å€¤
 	float initPos=1;
 };
 class PositionSelection;
@@ -13,29 +13,29 @@ class Fish : public IGameObject
 public:
 	Fish();
 	~Fish();
-	//XVˆ—B
+	//æ›´æ–°å‡¦ç†ã€‚
 	void Update();
 	bool Start();
-	void SetScore();//ƒtƒBƒbƒVƒ…ƒf[ƒ^‚ÌƒXƒRƒA‚ğİ’è‚·‚éB
-	void SetTimeUntilEscape(float timeUntilEscape);//“¦‚°‚Å‚ÌŠÔ‚Ìİ’èB
+	void SetScore();//ãƒ•ã‚£ãƒƒã‚·ãƒ¥ãƒ‡ãƒ¼ã‚¿ã®ã‚¹ã‚³ã‚¢ã‚’è¨­å®šã™ã‚‹ã€‚
+	void SetTimeUntilEscape(float timeUntilEscape);//é€ƒã’ã§ã®æ™‚é–“ã®è¨­å®šã€‚
 	void SetInitPos(float initpos);
 	bool TimeCount();
-	//void SetIndividualValue();//ŒÂ‘Ì’l‚ğİ’è
-	//void ShouldFishChange();//‹›‚ğ•Ï‚¦‚é‚©‚Ç‚¤‚©B
+	//void SetIndividualValue();//å€‹ä½“å€¤ã‚’è¨­å®š
+	//void ShouldFishChange();//é­šã‚’å¤‰ãˆã‚‹ã‹ã©ã†ã‹ã€‚
 	void ShouldFishChangeTrue();
 	void ShouldFishChangeFalse();
 	void SetisSelectedTrue();
 	void SetisSelectedFalse();
 	bool GetShouldFishChange();
-	void SetBaseScore(float baseScore);//Šî€‚É‚È‚éƒXƒRƒAB
+	void SetBaseScore(float baseScore);//åŸºæº–ã«ãªã‚‹ã‚¹ã‚³ã‚¢ã€‚
 	FishData& GetFishData();
 
 	SpriteRender& GetUI();
-	bool m_shouldFishChange = false;//‹›‚ğ•Ï‚¦‚é‚×‚«‚©H
-	bool m_isSelected = false;//‘I‚Î‚ê‚Ä‚¢‚é‚©‚Ç‚¤‚©Bi‚Â‚ç‚ê‚Ä‚¢‚éÅ’†‚©‚Ç‚¤‚©j
-	float m_baseScore;//Šî€‚É‚È‚éƒXƒRƒAB
+	bool m_shouldFishChange = false;//é­šã‚’å¤‰ãˆã‚‹ã¹ãã‹ï¼Ÿ
+	bool m_isSelected = false;//é¸ã°ã‚Œã¦ã„ã‚‹ã‹ã©ã†ã‹ã€‚ï¼ˆã¤ã‚‰ã‚Œã¦ã„ã‚‹æœ€ä¸­ã‹ã©ã†ã‹ï¼‰
+	float m_baseScore;//åŸºæº–ã«ãªã‚‹ã‚¹ã‚³ã‚¢ã€‚
 	//float m_time = 0.0f;
-	float m_initialTime = 0.0f;//‚±‚ÌƒNƒ‰ƒX‚ªì‚ç‚ê‚½‚Æ‚«‚ÌŠÔB
+	float m_initialTime = 0.0f;//ã“ã®ã‚¯ãƒ©ã‚¹ãŒä½œã‚‰ã‚ŒãŸã¨ãã®æ™‚é–“ã€‚
 	float m_nowTime;
 	SpriteRender m_ui;
 	PositionSelection* m_positionSelection;

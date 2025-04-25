@@ -1,7 +1,7 @@
 #pragma once
 
 class Player;
-//ƒQ[ƒ€’†‚ÌƒJƒƒ‰‚ğ§Œä‚·‚éB
+//ã‚²ãƒ¼ãƒ ä¸­ã®ã‚«ãƒ¡ãƒ©ã‚’åˆ¶å¾¡ã™ã‚‹ã€‚
 class GameCamera : public IGameObject
 {
 public:
@@ -12,10 +12,10 @@ public:
 	void SetTarget(Vector3 targetPos);
 	void SetPosition(Vector3 pos);
 	/////////////////////////////////////
-	//ƒƒ“ƒo•Ï”
+	//ãƒ¡ãƒ³ãƒå¤‰æ•°
 	/////////////////////////////////////
-	Player* m_player;	//ƒvƒŒƒCƒ„[B
-	Vector3 m_toCameraPos = { 0.0f, 125.0f, -250.0f };	//’‹“_‚©‚ç‹“_‚ÉŒü‚©‚¤ƒxƒNƒgƒ‹B
+	Player* m_player;	//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã€‚
+	Vector3 m_toCameraPos = { 0.0f, 125.0f, -250.0f };	//æ³¨è¦–ç‚¹ã‹ã‚‰è¦–ç‚¹ã«å‘ã‹ã†ãƒ™ã‚¯ãƒˆãƒ«ã€‚
 	Vector3 m_fixedPos{ 1.0f,1000.0f,1.0f };
 	Vector3 m_targetPos{ 0.0f,0.0f,0.0f };
 };

@@ -9,8 +9,8 @@ enum Position {
 	POSITION_D,
 	POSITION_E,
 	POSITION_F,
-	INITIALSTATE,//‰Šúó‘Ô
-	ENEMY_SAME_POSITION,//ƒGƒlƒ~[‚Æ“¯‚¶êŠB
+	INITIALSTATE,//åˆæœŸçŠ¶æ…‹
+	ENEMY_SAME_POSITION,//ã‚¨ãƒãƒŸãƒ¼ã¨åŒã˜å ´æ‰€ã€‚
 };
 
 class Player;
@@ -33,39 +33,39 @@ public:
 	void Render(RenderContext& rc);
 	void SetDisplayiUI();
 	void SetStealPositionBarUI();
-	void SetFishUI();//‹›‚ÌUI‚ğƒZƒbƒgB
-	void SetFishDisplayPosition();//ƒfƒBƒXƒvƒŒƒCUI‚ÌêŠ‚ğİ’èB
+	void SetFishUI();//é­šã®UIã‚’ã‚»ãƒƒãƒˆã€‚
+	void SetFishDisplayPosition();//ãƒ‡ã‚£ã‚¹ãƒ—ãƒ¬ã‚¤UIã®å ´æ‰€ã‚’è¨­å®šã€‚
 	void SetisDisplayingTrue();
 	void SetisDisplayingFalse();
 	void ChangeSceneToPlayFishing();
 	bool GetisDisplaying();
-	void SetDeactivate();//”ñƒAƒNƒeƒBƒu‚É‚·‚éB
+	void SetDeactivate();//éã‚¢ã‚¯ãƒ†ã‚£ãƒ–ã«ã™ã‚‹ã€‚
 	void SetActivate();
 	void Timer();
 	int GetTime();
 	void SetFishUIPosition();
-	void FishChange();//‹›‚ğ•Ï‚¦‚éB
+	void FishChange();//é­šã‚’å¤‰ãˆã‚‹ã€‚
 	void SelectPosition();
 	void SetTotalValue(float score);
-	void FindFishHighScore();//ƒXƒRƒA‚ª‚‚¢‹›‚ğ’T‚·B
+	void FindFishHighScore();//ã‚¹ã‚³ã‚¢ãŒé«˜ã„é­šã‚’æ¢ã™ã€‚
 	void IsWith_any_Position();
 	void SetFishDisplayOutside_to_Green(Position positon);
 
 	float setFish = 0.0f;
-	Vector3 m_fishDisplayPosition[6];//ƒfƒBƒXƒvƒŒƒCUI‚Ìƒ|ƒWƒVƒ‡ƒ“
-	float m_fishDisplayPositionXcriteria = -350;//‹›‚ğ•\¦‚·‚éƒfƒBƒXƒvƒŒƒC‚ÌêŠ‚ÌŠî€iX²j
+	Vector3 m_fishDisplayPosition[6];//ãƒ‡ã‚£ã‚¹ãƒ—ãƒ¬ã‚¤UIã®ãƒã‚¸ã‚·ãƒ§ãƒ³
+	float m_fishDisplayPositionXcriteria = -350;//é­šã‚’è¡¨ç¤ºã™ã‚‹ãƒ‡ã‚£ã‚¹ãƒ—ãƒ¬ã‚¤ã®å ´æ‰€ã®åŸºæº–ï¼ˆXè»¸ï¼‰
 	float m_fishDisplayPositionXinterval = 350.0f;
-	bool m_is_displaying;//•\¦‚·‚é‚©‚Ç‚¤‚©B
-	bool m_shouldPartiallyDeactivate = false;//•”•ª“I‚É”ñƒAƒNƒeƒBƒu‚É‚·‚é‚×‚«‚©B
-	//double m_double_time=0.0f;//ŠÔ(doubleŒ^)
-	float m_timelimit = 240;//ŠÔ§ŒÀ
-	int m_int_time = m_timelimit;//ŠÔ(IntŒ^)
-	float m_totalScore = 0.0f;//ƒXƒRƒA‚Ì‡ŒvB
-	bool m_is_time_up;//ƒ^ƒCƒ€ƒAƒbƒv‚µ‚Ä‚¢‚é‚©‚Ç‚¤‚©B
-	float m_stealPositionPoint = 0.0f;//“G‚©‚ç‚©‚çƒ|ƒWƒVƒ‡ƒ“‚ğ’D‚¤‚½‚ß‚Ìƒ|ƒCƒ“ƒgB
+	bool m_is_displaying;//è¡¨ç¤ºã™ã‚‹ã‹ã©ã†ã‹ã€‚
+	bool m_shouldPartiallyDeactivate = false;//éƒ¨åˆ†çš„ã«éã‚¢ã‚¯ãƒ†ã‚£ãƒ–ã«ã™ã‚‹ã¹ãã‹ã€‚
+	//double m_double_time=0.0f;//æ™‚é–“(doubleå‹)
+	float m_timelimit = 240;//æ™‚é–“åˆ¶é™
+	int m_int_time = m_timelimit;//æ™‚é–“(Intå‹)
+	float m_totalScore = 0.0f;//ã‚¹ã‚³ã‚¢ã®åˆè¨ˆã€‚
+	bool m_is_time_up;//ã‚¿ã‚¤ãƒ ã‚¢ãƒƒãƒ—ã—ã¦ã„ã‚‹ã‹ã©ã†ã‹ã€‚
+	float m_stealPositionPoint = 0.0f;//æ•µã‹ã‚‰ã‹ã‚‰ãƒã‚¸ã‚·ãƒ§ãƒ³ã‚’å¥ªã†ãŸã‚ã®ãƒã‚¤ãƒ³ãƒˆã€‚
 
-	//int m_isSetFishDisplayOutside_to_Green=0;//ƒtƒŒ[ƒ€‚ÌUI‚ğ—ÎF‚É‚·‚é‚©B
-	Position m_currentFramePlayerPositionState;//¡‚ÌƒtƒŒ[ƒ€‚Ìƒ|ƒWƒVƒ‡ƒ“
+	//int m_isSetFishDisplayOutside_to_Green=0;//ãƒ•ãƒ¬ãƒ¼ãƒ ã®UIã‚’ç·‘è‰²ã«ã™ã‚‹ã‹ã€‚
+	Position m_currentFramePlayerPositionState;//ä»Šã®ãƒ•ãƒ¬ãƒ¼ãƒ ã®ãƒã‚¸ã‚·ãƒ§ãƒ³
 	Position m_previousFramePlayerPositionState = INITIALSTATE;
 	Position m_positionStateArray[6]{
 	POSITION_A,
@@ -76,7 +76,7 @@ public:
 	POSITION_F,
 	};
 	int a = 0;
-	std::string fishHighScorePosition;//o‚Ä‚¢‚é‹›‚Ì’†‚Åˆê”ÔƒXƒRƒA‚ª‚‚¢‹›‚ª‚¢‚éƒ|ƒWƒVƒ‡ƒ“B
+	std::string fishHighScorePosition;//å‡ºã¦ã„ã‚‹é­šã®ä¸­ã§ä¸€ç•ªã‚¹ã‚³ã‚¢ãŒé«˜ã„é­šãŒã„ã‚‹ãƒã‚¸ã‚·ãƒ§ãƒ³ã€‚
 	std::string PositionName[6] = {
 		"positionA",
 		"positionB",
@@ -89,11 +89,11 @@ public:
 	std::string select_by_with_position;
 	char* objectName[6];
 	Position position_with_now;
-	Position enemy_position = INITIALSTATE;//‰Šúó‘Ô;
-	Player* m_player;			//ƒvƒŒƒCƒ„[B
-	GameCamera* gameCamera;			//ƒQ[ƒ€ƒJƒƒ‰B
+	Position enemy_position = INITIALSTATE;//åˆæœŸçŠ¶æ…‹;
+	Player* m_player;			//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã€‚
+	GameCamera* gameCamera;			//ã‚²ãƒ¼ãƒ ã‚«ãƒ¡ãƒ©ã€‚
 	BackGround* backGround;
-	//SoundSource* gameBGM;		//ƒQ[ƒ€’†‚ÌBGMB
+	//SoundSource* gameBGM;		//ã‚²ãƒ¼ãƒ ä¸­ã®BGMã€‚
 	FontRender m_fontRender;
 	SpriteRender m_fishDisplayInside[6];
 	SpriteRender m_fishDisplayOutside[6];

@@ -21,15 +21,15 @@ public:
 	~CastGauge();
 	void Update();
 
-	//UI‚Ìˆ—B
-	void SetArrowPosition();//–îˆó‚ÌêŠ‚ğŒˆ‚ß‚é
-	void UpAndDownManagement();//ƒLƒƒƒXƒgƒQ[ƒW‚Ìã‰º“®ì‚ÌŠÇ—B
+	//UIã®å‡¦ç†ã€‚
+	void SetArrowPosition();//çŸ¢å°ã®å ´æ‰€ã‚’æ±ºã‚ã‚‹
+	void UpAndDownManagement();//ã‚­ãƒ£ã‚¹ãƒˆã‚²ãƒ¼ã‚¸ã®ä¸Šä¸‹å‹•ä½œã®ç®¡ç†ã€‚
 	void UpwardOperation();
 	void DownwardOperation();
 	void SetGaugeSpead();
 	void HitTest();
-	void Failure();//¸”sB
-	void Success();//¬Œ÷B
+	void Failure();//å¤±æ•—ã€‚
+	void Success();//æˆåŠŸã€‚
 
 
 	void Chast();
@@ -37,7 +37,7 @@ public:
 	void SetCameraPlayingSgtate();
 	void SetCameraChast();
 	void SetCamera();
-	void WaveMotion();//”g‚Ì“®‚«‚ğ‹^—“I‚É•\Œ»
+	void WaveMotion();//æ³¢ã®å‹•ãã‚’ç–‘ä¼¼çš„ã«è¡¨ç¾
 	void IsCastEnd();
 	
 
@@ -45,19 +45,19 @@ public:
 	//void SetRodFloatPositon();//
 
 
-	float m_arrowPosition = -237.0f;//–îˆó‚Ìƒ|ƒWƒVƒ‡ƒ“i‰Šúİ’è‚Í-237j
-	bool upState = true;//ã‚ª‚Á‚Ä‚¢‚é‚©‚ÌƒXƒe[ƒg
+	float m_arrowPosition = -237.0f;//çŸ¢å°ã®ãƒã‚¸ã‚·ãƒ§ãƒ³ï¼ˆåˆæœŸè¨­å®šã¯-237ï¼‰
+	bool upState = true;//ä¸ŠãŒã£ã¦ã„ã‚‹ã‹ã®ã‚¹ãƒ†ãƒ¼ãƒˆ
 	void Render(RenderContext& rc);
-	float m_gaugeUpperLimit = 237.0f;//ƒQ[ƒW‚ÌãŒÀ
-	float m_gaugeLowerLimit = -237.0f;//ƒQ[ƒW‚Ì‰ºŒÀ
-	float  m_gauge_length= std::abs(m_gaugeUpperLimit)+ std::abs(m_gaugeLowerLimit);//abs‚Íâ‘Î’l‚ğ‹‚ß‚éŠÖ”B
+	float m_gaugeUpperLimit = 237.0f;//ã‚²ãƒ¼ã‚¸ã®ä¸Šé™
+	float m_gaugeLowerLimit = -237.0f;//ã‚²ãƒ¼ã‚¸ã®ä¸‹é™
+	float  m_gauge_length= std::abs(m_gaugeUpperLimit)+ std::abs(m_gaugeLowerLimit);//absã¯çµ¶å¯¾å€¤ã‚’æ±‚ã‚ã‚‹é–¢æ•°ã€‚
 	float m_gaugeSpead;
 
-	float m_heightFirstGaugeCastSuccessful = 10.0f;//¬Œ÷ƒQ[ƒW‚ÌÅ‰‚Ì‰¡•B
+	float m_heightFirstGaugeCastSuccessful = 10.0f;//æˆåŠŸã‚²ãƒ¼ã‚¸ã®æœ€åˆã®æ¨ªå¹…ã€‚
 	bool is_ended = false;
 	float t = 0.0f;
 
-	float m_float_range_max_range_rate=0.0f;//¡‚ÌƒEƒL‚ÌŒÀŠE‚ÌƒEƒL‚Ì‹——£‚ÌŠ„‡B
+	float m_float_range_max_range_rate=0.0f;//ä»Šã®ã‚¦ã‚­ã®é™ç•Œã®ã‚¦ã‚­ã®è·é›¢ã®å‰²åˆã€‚
 	Vector3 m_gameCameraTarget;
 	Vector3 m_gameCameraPos;
 
@@ -72,7 +72,7 @@ public:
 	ModelRender m_rodFloatModel;
 
 	Vector3 first_velocity_vector{ 1.0f,0.0f,0.0f };
-	Vector3 m_waveMotion;//”g‚Ì“®‚«
+	Vector3 m_waveMotion;//æ³¢ã®å‹•ã
 	Vector3 g{ 0.0f,-30.0f,0.0f };
 	Vector3 m_rodFloatPosition{ 0.0f,500.0f,0.0f };
 	Vector3 InitPos{0.0f,500.0f,0.0f};

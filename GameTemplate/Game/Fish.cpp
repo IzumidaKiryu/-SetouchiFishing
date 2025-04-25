@@ -34,15 +34,15 @@ void Fish::SetScore()
 {
 	std::random_device rd;
 	//????X?R?A???????o???B
-	//????X?R?A??õT??X?R?A?~?i0.8????1.2????????_??????j??v?Z?????B
+	//????X?R?A??î€??X?R?A?~?i0.8????1.2????????_??????j??v?Z?????B
 	float individualValueMagnification = (0.4f / 100) * (rd() % 100 + 1);//??????{??
 	individualValueMagnification += 0.8;
 
-	m_fishData.score = m_baseScore * individualValueMagnification;//?õT??X?R?A?~??????{???B
+	m_fishData.score = m_baseScore * individualValueMagnification;//?î€??X?R?A?~??????{???B
 }
 
 /// <summary>
-/// “¦‚°‚é‚Ü‚Å‚ÌŠÔ‚ğİ’è‚·‚éB
+/// é€ƒã’ã‚‹ã¾ã§ã®æ™‚é–“ã‚’è¨­å®šã™ã‚‹ã€‚
 /// </summary>
 /// <param name="timeUntilEscape"></param>
 void Fish::SetTimeUntilEscape(float timeUntilEscape)
@@ -56,7 +56,7 @@ void Fish::SetInitPos(float initpos)
 }
 
 /// <summary>
-/// ŠÔ‚ğ‚Í‚©‚éB
+/// æ™‚é–“ã‚’ã¯ã‹ã‚‹ã€‚
 /// </summary>
 /// <returns></returns>
 bool Fish::TimeCount()
@@ -75,11 +75,11 @@ bool Fish::TimeCount()
 }
 
 /// <summary>
-/// ‹›‚ğ•Ê‚Ì‹›‚É•Ï‚¦‚Ä‚¢‚¢‚©”»’f‚·‚éŠÖ”
+/// é­šã‚’åˆ¥ã®é­šã«å¤‰ãˆã¦ã„ã„ã‹åˆ¤æ–­ã™ã‚‹é–¢æ•°
 /// </summary>
 //void Fish::ShouldFishChange()
 //{
-//	//‚±‚Ì‹›‚ª‘I‘ğ’†‚Ì‚Í•Ê‚Ì‹›‚É•Ï‚¦‚È‚¢B
+//	//ã“ã®é­šãŒé¸æŠä¸­ã®æ™‚ã¯åˆ¥ã®é­šã«å¤‰ãˆãªã„ã€‚
 //	if (m_isSelected =! true)
 //	{
 //		ShouldFishChangeTrue();
@@ -88,7 +88,7 @@ bool Fish::TimeCount()
 
 void Fish::ShouldFishChangeTrue()
 {
-	//‚±‚Ì‹›‚ª‘I‘ğ’†‚Ì‚Í•Ê‚Ì‹›‚É•Ï‚¦‚È‚¢B
+	//ã“ã®é­šãŒé¸æŠä¸­ã®æ™‚ã¯åˆ¥ã®é­šã«å¤‰ãˆãªã„ã€‚
 	if (m_isSelected != true)
 	{
 		m_shouldFishChange = true;
