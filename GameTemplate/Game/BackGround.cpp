@@ -3,7 +3,7 @@
 
 BackGround::BackGround()
 {
-	//ƒRƒƒ“ƒgƒAƒEƒg‚·‚éB
+	//ã‚³ãƒ¡ãƒ³ãƒˆã‚¢ã‚¦ãƒˆã™ã‚‹ã€‚
 	//PhysicsWorld::GetInstance()->EnableDrawDebugWireFrame();
 	modelRender.SetPosition(m_positio);
 	modelRender.SetScale(Vector3{ 1.0f,1.0f,1.0f }*1.8);
@@ -28,8 +28,8 @@ void BackGround::Update()
 void BackGround::Float()
 {
 	t += 0.05;
-	m_floating.y = (cos(t)) * 5;//ã‰º‚É“®‚©‚·
-	m_floating.x = (cos(t * 0.7/*üŠú‚ğ‚¸‚ç‚·*/) * 10);//¶‰E‚É“®‚©‚·
+	m_floating.y = (cos(t)) * 5;//ä¸Šä¸‹ã«å‹•ã‹ã™
+	m_floating.x = (cos(t * 0.7/*å‘¨æœŸã‚’ãšã‚‰ã™*/) * 10);//å·¦å³ã«å‹•ã‹ã™
 }
 
 void BackGround::Render(RenderContext& rc)

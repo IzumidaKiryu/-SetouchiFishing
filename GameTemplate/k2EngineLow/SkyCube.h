@@ -1,27 +1,27 @@
 #pragma once
 
-//ƒXƒJƒCƒLƒ…[ƒuƒNƒ‰ƒXB
-//SetTypeŠÖ”‚ğŒÄ‚ñ‚Åg‚¢‚½‚¢”wŒi‚Éİ’è‚µ‚Ä‚ËB
+//ã‚¹ã‚«ã‚¤ã‚­ãƒ¥ãƒ¼ãƒ–ã‚¯ãƒ©ã‚¹ã€‚
+//SetTypeé–¢æ•°ã‚’å‘¼ã‚“ã§ä½¿ã„ãŸã„èƒŒæ™¯ã«è¨­å®šã—ã¦ã­ã€‚
 namespace nsK2EngineLow {
 	enum EnSkyCubeType {
-		enSkyCubeType_Day,		// ’‹ŠÔ
-		enSkyCubeType_Night,	// –éŠÔ
-		enSkyCubeType_Snow,		// áR
-		enSkyCubeType_Snow_2,	// áR_2
-		enSkyCubeType_Wild,		// r–ì
-		enSkyCubeType_Wild_2,	// r–ì‚Q
-		enSkyCubeType_Wild_Night,	// r–ì(–éŠÔ)
-		enSkyCubeType_Grass,	// Å¶
-		enSkyCubeType_Euro,		// ‰¢B
-		enSkyCubeType_DayToon,	// ’‹ŠÔ(ƒgƒD[ƒ“’²)
-		enSkyCubeType_DayToon_2,// ’‹ŠÔ(ƒgƒD[ƒ“’²)‚Q
-		enSkyCubeType_DayToon_3,// ’‹ŠÔ(ƒgƒD[ƒ“’²)‚R
-		enSkyCubeType_DayToon_4,// ’‹ŠÔ(ƒgƒD[ƒ“’²)‚S
-		enSkyCubeType_NightToon, // –éŠÔ(ƒgƒD[ƒ“’²)
-		enSkyCubeType_NightToon_2, // –éŠÔ(ƒgƒD[ƒ“’²)‚Q
-		enSkyCubeType_SunriseToon,	// –¾‚¯•û(ƒgƒD[ƒ“’²)
-		//enSkyCubeType_SpaceToon,	// ‘å‹CŒ—(ƒgƒD[ƒ“’²)
-		enSkyCubeType_SpaceToon_2,	// ‘å‹CŒ—(ƒgƒD[ƒ“’²)‚Q
+		enSkyCubeType_Day,		// æ˜¼é–“
+		enSkyCubeType_Night,	// å¤œé–“
+		enSkyCubeType_Snow,		// é›ªå±±
+		enSkyCubeType_Snow_2,	// é›ªå±±_2
+		enSkyCubeType_Wild,		// è’é‡
+		enSkyCubeType_Wild_2,	// è’é‡ï¼’
+		enSkyCubeType_Wild_Night,	// è’é‡(å¤œé–“)
+		enSkyCubeType_Grass,	// èŠç”Ÿ
+		enSkyCubeType_Euro,		// æ¬§å·
+		enSkyCubeType_DayToon,	// æ˜¼é–“(ãƒˆã‚¥ãƒ¼ãƒ³èª¿)
+		enSkyCubeType_DayToon_2,// æ˜¼é–“(ãƒˆã‚¥ãƒ¼ãƒ³èª¿)ï¼’
+		enSkyCubeType_DayToon_3,// æ˜¼é–“(ãƒˆã‚¥ãƒ¼ãƒ³èª¿)ï¼“
+		enSkyCubeType_DayToon_4,// æ˜¼é–“(ãƒˆã‚¥ãƒ¼ãƒ³èª¿)ï¼”
+		enSkyCubeType_NightToon, // å¤œé–“(ãƒˆã‚¥ãƒ¼ãƒ³èª¿)
+		enSkyCubeType_NightToon_2, // å¤œé–“(ãƒˆã‚¥ãƒ¼ãƒ³èª¿)ï¼’
+		enSkyCubeType_SunriseToon,	// æ˜ã‘æ–¹(ãƒˆã‚¥ãƒ¼ãƒ³èª¿)
+		//enSkyCubeType_SpaceToon,	// å¤§æ°—åœ(ãƒˆã‚¥ãƒ¼ãƒ³èª¿)
+		enSkyCubeType_SpaceToon_2,	// å¤§æ°—åœ(ãƒˆã‚¥ãƒ¼ãƒ³èª¿)ï¼’
 		enSkyCubeType_Num,
 	};
 	class SkyCube:public IGameObject
@@ -50,17 +50,17 @@ namespace nsK2EngineLow {
 			m_scale.Scale(scale);
 			m_isDirty = true;
 		}
-		//‚Ç‚ÌƒXƒJƒCƒLƒ…[ƒu‚ÌƒeƒNƒXƒ`ƒƒ‚ğg‚¤‚©B
+		//ã©ã®ã‚¹ã‚«ã‚¤ã‚­ãƒ¥ãƒ¼ãƒ–ã®ãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚’ä½¿ã†ã‹ã€‚
 		void SetType(EnSkyCubeType type)
 		{
 			m_type = type;
 		}
-		//–¾‚é‚³‚ğİ’èB
+		//æ˜ã‚‹ã•ã‚’è¨­å®šã€‚
 		void SetLuminance(float lum)
 		{
 			m_luminance = lum;
 		}
-		//Œ»İg—p’†‚Ìƒtƒ@ƒCƒ‹ƒpƒX‚ÌŠm”F—pB
+		//ç¾åœ¨ä½¿ç”¨ä¸­ã®ãƒ•ã‚¡ã‚¤ãƒ«ãƒ‘ã‚¹ã®ç¢ºèªç”¨ã€‚
 		const wchar_t* GetTextureFilePath()
 		{
 			return m_textureFilePaths[m_type];
@@ -74,7 +74,7 @@ namespace nsK2EngineLow {
 		Vector3 m_position = g_vec3Zero;
 		Vector3 m_scale = g_vec3One * 50.0f;
 		float m_luminance = 1.0f;
-		bool m_isDirty = false;//•ÏX‚³‚ê‚½‚çtrue‚É‚È‚éBDirty‚ÌˆÓ–¡‚ÍDirty Copy‚Á‚Ä‚à‚Ì‚Åg‚¢ŒÃ‚³‚ê‚½‚à‚Ì‚¾‚¯‚Ç‚Ü‚¾g‚¦‚é‚à‚Ì‚ç‚µ‚¢B
+		bool m_isDirty = false;//å¤‰æ›´ã•ã‚ŒãŸã‚‰trueã«ãªã‚‹ã€‚Dirtyã®æ„å‘³ã¯Dirty Copyã£ã¦ã‚‚ã®ã§ä½¿ã„å¤ã•ã‚ŒãŸã‚‚ã®ã ã‘ã©ã¾ã ä½¿ãˆã‚‹ã‚‚ã®ã‚‰ã—ã„ã€‚
 		EnSkyCubeType m_type = enSkyCubeType_Day;
 		Quaternion m_rot = { 0.0f,0.0f,0.0f,1.0f };
 	};

@@ -16,7 +16,7 @@ Hirame::~Hirame()
 }
 
 /// <summary>
-/// UI�̐ݒ�
+/// UIの設定
 /// </summary>
 void Hirame::SetUI()
 {

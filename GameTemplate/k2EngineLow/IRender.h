@@ -2,16 +2,16 @@
 
 namespace nsK2EngineLow {
 	/// <summary>
-	/// ƒŒƒ“ƒ_[ƒ‰[‚ÌŠî’êƒNƒ‰ƒXB
+	/// ãƒ¬ãƒ³ãƒ€ãƒ¼ãƒ©ãƒ¼ã®åŸºåº•ã‚¯ãƒ©ã‚¹ã€‚
 	/// </summary>
 	class IRender : public Noncopyable {
 	public:
 		/// <summary>
-		/// ƒVƒƒƒhƒEƒ}ƒbƒv‚Ö‚Ì•`‰æƒpƒX‚©‚çŒÄ‚Î‚ê‚éˆ—B
+		/// ã‚·ãƒ£ãƒ‰ã‚¦ãƒãƒƒãƒ—ã¸ã®æç”»ãƒ‘ã‚¹ã‹ã‚‰å‘¼ã°ã‚Œã‚‹å‡¦ç†ã€‚
 		/// </summary>
-		/// <param name="rc">ƒŒƒ“ƒ_ƒŠƒ“ƒOƒRƒ“ƒeƒLƒXƒg</param>
-		/// <param name="ligNo">ƒ‰ƒCƒg”Ô†</param>
-		/// <param name="lvpMatrix">ƒ‰ƒCƒgƒrƒ…[ƒvƒƒWƒFƒNƒVƒ‡ƒ“s—ñ</param>
+		/// <param name="rc">ãƒ¬ãƒ³ãƒ€ãƒªãƒ³ã‚°ã‚³ãƒ³ãƒ†ã‚­ã‚¹ãƒˆ</param>
+		/// <param name="ligNo">ãƒ©ã‚¤ãƒˆç•ªå·</param>
+		/// <param name="lvpMatrix">ãƒ©ã‚¤ãƒˆãƒ“ãƒ¥ãƒ¼ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ã‚·ãƒ§ãƒ³è¡Œåˆ—</param>
 		virtual void OnRenderShadowMap(
 			RenderContext& rc,
 			int ligNo,
@@ -22,14 +22,14 @@ namespace nsK2EngineLow {
 
 		}
 		/// <summary>
-		/// ’¸“_ŒvZƒpƒX‚©‚çŒÄ‚Î‚ê‚éˆ—B
+		/// é ‚ç‚¹è¨ˆç®—ãƒ‘ã‚¹ã‹ã‚‰å‘¼ã°ã‚Œã‚‹å‡¦ç†ã€‚
 		/// </summary>
 		/// <param name="rc"></param>
 		virtual void OnComputeVertex(RenderContext& rc)
 		{
 		}
 		/// <summary>
-		/// ZPrepass‚©‚çŒÄ‚Î‚ê‚éˆ—B
+		/// ZPrepassã‹ã‚‰å‘¼ã°ã‚Œã‚‹å‡¦ç†ã€‚
 		/// </summary>
 		/// <param name="rc"></param>
 		virtual void OnZPrepass(RenderContext& rc)
@@ -37,21 +37,21 @@ namespace nsK2EngineLow {
 
 		}
 		/// <summary>
-		/// G-Buffer•`‰æƒpƒX‚©‚çŒÄ‚Î‚ê‚éˆ—B
+		/// G-Bufferæç”»ãƒ‘ã‚¹ã‹ã‚‰å‘¼ã°ã‚Œã‚‹å‡¦ç†ã€‚
 		/// </summary>
 		virtual void OnRenderToGBuffer(RenderContext& rc)
 		{
 
 		}
 		/// <summary>
-		/// ƒtƒHƒ[ƒhƒŒƒ“ƒ_[ƒpƒX‚©‚çŒÄ‚Î‚ê‚éˆ—B
+		/// ãƒ•ã‚©ãƒ¯ãƒ¼ãƒ‰ãƒ¬ãƒ³ãƒ€ãƒ¼ãƒ‘ã‚¹ã‹ã‚‰å‘¼ã°ã‚Œã‚‹å‡¦ç†ã€‚
 		/// </summary>
 		virtual void OnForwardRender(RenderContext& rc)
 		{
 
 		}
 		/// <summary>
-		/// ”¼“§–¾ƒIƒuƒWƒFƒNƒg•`‰æƒpƒX‚©‚çŒÄ‚Î‚ê‚éˆ—B
+		/// åŠé€æ˜ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆæç”»ãƒ‘ã‚¹ã‹ã‚‰å‘¼ã°ã‚Œã‚‹å‡¦ç†ã€‚
 		/// </summary>
 		/// <param name="rc"></param>
 		virtual void OnTlanslucentRender(RenderContext& rc)
@@ -59,7 +59,7 @@ namespace nsK2EngineLow {
 
 		}
 		/// <summary>
-		/// 2D•`‰æƒpƒX‚©‚çŒÄ‚Î‚ê‚éˆ—B
+		/// 2Dæç”»ãƒ‘ã‚¹ã‹ã‚‰å‘¼ã°ã‚Œã‚‹å‡¦ç†ã€‚
 		/// </summary>
 		/// <param name="rc"></param>
 		virtual void OnRender2D(RenderContext& rc)
@@ -67,7 +67,7 @@ namespace nsK2EngineLow {
 
 		}
 		/// <summary>
-		/// ƒŒƒ“ƒ_ƒ‰[‚ª•`‰æ‚·‚éƒIƒuƒWƒFƒNƒg‚ÌÅ‘åÀ•W‚ÆÅ¬À•W‚ğæ“¾B
+		/// ãƒ¬ãƒ³ãƒ€ãƒ©ãƒ¼ãŒæç”»ã™ã‚‹ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®æœ€å¤§åº§æ¨™ã¨æœ€å°åº§æ¨™ã‚’å–å¾—ã€‚
 		/// </summary>
 		/// <param name="aabb"></param>
 		virtual void GetAABB(Vector3& vMax, Vector3& vMin, bool& isGet)
@@ -77,9 +77,9 @@ namespace nsK2EngineLow {
 			isGet = false;
 		}
 		/// <summary>
-		/// ƒVƒƒƒhƒEƒLƒƒƒXƒ^[H
+		/// ã‚·ãƒ£ãƒ‰ã‚¦ã‚­ãƒ£ã‚¹ã‚¿ãƒ¼ï¼Ÿ
 		/// </summary>
-		/// <returns>true‚ª‹A‚Á‚Ä‚­‚é‚ÆƒVƒƒƒhƒEƒLƒƒƒXƒ^[</returns>
+		/// <returns>trueãŒå¸°ã£ã¦ãã‚‹ã¨ã‚·ãƒ£ãƒ‰ã‚¦ã‚­ãƒ£ã‚¹ã‚¿ãƒ¼</returns>
 		virtual bool IsShadowCaster() const
 		{
 			return false;

@@ -12,58 +12,58 @@ nsK2EngineLow::Light::~Light()
 
 void nsK2EngineLow::Light::Init()
 {
-	//ƒfƒBƒŒƒNƒVƒ‡ƒ“ƒ‰ƒCƒg‚Ì‰ŠúÀ•W‚Ìİ’èB
+	//ãƒ‡ã‚£ãƒ¬ã‚¯ã‚·ãƒ§ãƒ³ãƒ©ã‚¤ãƒˆã®åˆæœŸåº§æ¨™ã®è¨­å®šã€‚
 	m_SceneLight.directionLig.m_direction.x = 0.0f;
 	m_SceneLight.directionLig.m_direction.y = 0.0f;
 	m_SceneLight.directionLig.m_direction.z = -1.0f;
 
-	//³‹K‰»‚·‚éB
+	//æ­£è¦åŒ–ã™ã‚‹ã€‚
 	m_SceneLight.directionLig.m_direction.Normalize();
 
-	//ƒ‰ƒCƒg‚ÌƒJƒ‰[‚Ìİ’èB
+	//ãƒ©ã‚¤ãƒˆã®ã‚«ãƒ©ãƒ¼ã®è¨­å®šã€‚
 	m_SceneLight.directionLig.m_color.x = 0.5f;
 	m_SceneLight.directionLig.m_color.y = 0.5f;
 	m_SceneLight.directionLig.m_color.z = 0.5f;
 
-	//‹“_‚ÌˆÊ’u‚ğİ’è‚·‚éB
+	//è¦–ç‚¹ã®ä½ç½®ã‚’è¨­å®šã™ã‚‹ã€‚
 	m_SceneLight.eyePos = g_camera3D->GetPosition();
 
-	//ƒ|ƒCƒ“ƒgƒ‰ƒCƒg‚Ì‰ŠúÀ•W‚Ìİ’èB
+	//ãƒã‚¤ãƒ³ãƒˆãƒ©ã‚¤ãƒˆã®åˆæœŸåº§æ¨™ã®è¨­å®šã€‚
 	m_SceneLight.pointLig.m_position.x = 0.0f;
 	m_SceneLight.pointLig.m_position.y = 25.0f;
 	m_SceneLight.pointLig.m_position.z = -50.0f;
 
-	//ƒ|ƒCƒ“ƒgƒ‰ƒCƒg‚Ì‰ŠúƒJƒ‰[‚ğİ’èB
+	//ãƒã‚¤ãƒ³ãƒˆãƒ©ã‚¤ãƒˆã®åˆæœŸã‚«ãƒ©ãƒ¼ã‚’è¨­å®šã€‚
 	m_SceneLight.pointLig.m_color.x = 1.0f;
 	m_SceneLight.pointLig.m_color.y = 0.0f;
 	m_SceneLight.pointLig.m_color.z = 0.0f;
 
-	//ƒ|ƒCƒ“ƒgƒ‰ƒCƒg‚Ì‰e‹¿”ÍˆÍ‚Ìİ’èB
+	//ãƒã‚¤ãƒ³ãƒˆãƒ©ã‚¤ãƒˆã®å½±éŸ¿ç¯„å›²ã®è¨­å®šã€‚
 	m_SceneLight.pointLig.m_renge = 100.0f;
 
 	
-	//ƒXƒ|ƒbƒgƒ‰ƒCƒgƒmƒf[ƒ^‚ğ‰Šú‰»‚·‚éB
-	//À•WB
+	//ã‚¹ãƒãƒƒãƒˆãƒ©ã‚¤ãƒˆãƒãƒ‡ãƒ¼ã‚¿ã‚’åˆæœŸåŒ–ã™ã‚‹ã€‚
+	//åº§æ¨™ã€‚
 	m_SceneLight.spotLig.m_position.x = 0.0f;
 	m_SceneLight.spotLig.m_position.y = 50.0f;
 	m_SceneLight.spotLig.m_position.z = 0.0f;
 
-	//ƒ‰ƒCƒg‚ÌƒJƒ‰[‚ğİ’èB
+	//ãƒ©ã‚¤ãƒˆã®ã‚«ãƒ©ãƒ¼ã‚’è¨­å®šã€‚
 	m_SceneLight.spotLig.m_color.x = 0.0f;
 	m_SceneLight.spotLig.m_color.y = 0.0f;
 	m_SceneLight.spotLig.m_color.z = 50.0f;
 
-	//‰Šú•ûŒü‚ÍÎ‚ß‰º‚É‚·‚éB
+	//åˆæœŸæ–¹å‘ã¯æ–œã‚ä¸‹ã«ã™ã‚‹ã€‚
 	m_SceneLight.spotLig.m_direction.x = 1.0f;
 	m_SceneLight.spotLig.m_direction.y = -1.0f;
 	m_SceneLight.spotLig.m_direction.z = 1.0f;
 
-	//•ûŒüƒf[ƒ^‚È‚Ì‚Å‘å‚«‚³‚ğ1‚É‚·‚é‚½‚ß³‹K‰»‚·‚éB
+	//æ–¹å‘ãƒ‡ãƒ¼ã‚¿ãªã®ã§å¤§ãã•ã‚’1ã«ã™ã‚‹ãŸã‚æ­£è¦åŒ–ã™ã‚‹ã€‚
 	m_SceneLight.spotLig.m_direction.Normalize();
 
-	//Ëo”ÍˆÍ‚Í300B
+	//å°„å‡ºç¯„å›²ã¯300ã€‚
 	m_SceneLight.spotLig.m_range = 300.0f;
-	//ËoŠp“x‚Í25“xB
+	//å°„å‡ºè§’åº¦ã¯25åº¦ã€‚
 	m_SceneLight.spotLig.m_angle = Math::DegToRad(25.0f);
 
 	m_SceneLight.ambientLight.x = 0.1f;
@@ -71,7 +71,7 @@ void nsK2EngineLow::Light::Init()
 	m_SceneLight.ambientLight.z = 0.1f;
 
 
-	//’n–ÊFBA“V‹…FA’n–Ê‚Ì–@ü‚ğ’Ç‰Á‚·‚éB
+	//åœ°é¢è‰²ã€‚ã€å¤©çƒè‰²ã€åœ°é¢ã®æ³•ç·šã‚’è¿½åŠ ã™ã‚‹ã€‚
 	m_SceneLight.m_hemiLig.m_groundColor.x = 0.5f;
 	m_SceneLight.m_hemiLig.m_groundColor.y = 0.4f;
 	m_SceneLight.m_hemiLig.m_groundColor.z = 0.3f;

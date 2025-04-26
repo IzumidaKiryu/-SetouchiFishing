@@ -19,7 +19,7 @@ void FishModel::Update()
 {
 	m_playFishing = FindGO<PlayFishing>("playFishing");
 
-	//�|�W�V������ݒ�B
+	//ポジションを設定。
 	SetPosition();
 }
 
@@ -39,7 +39,7 @@ void FishModel::SetInitPositon()
 	
 }
 /// <summary>
-/// �v���C�t�B�b�V���̋����̊����������ƂɃ|�W�V������ݒ肷��B
+/// プレイフィッシュの距離の割合いをもとにポジションを設定する。
 /// </summary>
 void FishModel::SetPosition()
 {

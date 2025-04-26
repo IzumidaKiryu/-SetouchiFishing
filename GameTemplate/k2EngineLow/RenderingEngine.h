@@ -7,7 +7,7 @@ namespace nsK2EngineLow {
 		{
 			m_renderObjects.push_back(renderObject);
 		}
-		std::vector< IRender* > m_renderObjects;                      // 描画オブジェクトのリスト。
+		std::vector< IRender* > m_renderObjects;                      // 謠冗判繧ｪ繝悶ず繧ｧ繧ｯ繝医�ｮ繝ｪ繧ｹ繝医�
 
 	};
 }

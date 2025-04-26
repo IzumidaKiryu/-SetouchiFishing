@@ -16,7 +16,7 @@ Jakoten::~Jakoten()
 }
 
 /// <summary>
-/// UI�̐ݒ�
+/// UIの設定
 /// </summary>
 void Jakoten::SetUI()
 {

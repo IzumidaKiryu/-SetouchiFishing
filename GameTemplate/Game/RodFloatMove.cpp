@@ -3,8 +3,8 @@
 #include "GameCamera.h"
 #include"SceneFightFish.h";
 #include"PlayFishing.h"
-#include <cmath>  // sqrtŠÖ”‚ğg‚¤‚½‚ß‚É•K—v
-#include <complex>   // •¡‘f”ƒ‰ƒCƒuƒ‰ƒŠ
+#include <cmath>  // sqrté–¢æ•°ã‚’ä½¿ã†ãŸã‚ã«å¿…è¦
+#include <complex>   // è¤‡ç´ æ•°ãƒ©ã‚¤ãƒ–ãƒ©ãƒª
 
 RodFloatMove::RodFloatMove()
 {
@@ -68,14 +68,14 @@ void RodFloatMove::ModelUpdate()
 //	/*scalar_multiply_in_first_velocity_vector =(sqrt(-g.y)*(InitPos.z- m_z_axis_value_drop_float))/ (first_velocity_vector.y*sqrt(first_velocity_vector.z)*sqrt((1* - 2 * InitPos.y * first_velocity_vector.z)+2* InitPos.z-2* m_z_axis_value_drop_float));*/
 //
 //
-//	//	iÅ‰‚Ìƒ|ƒWƒVƒ‡ƒ“+‰‘¬ƒxƒNƒgƒ‹~’è”~‚”j{d—Í~i‚”O2j/2
+//	//	ï¼ˆæœ€åˆã®ãƒã‚¸ã‚·ãƒ§ãƒ³+åˆé€Ÿãƒ™ã‚¯ãƒˆãƒ«Ã—å®šæ•°Ã—ï½”ï¼‰ï¼‹é‡åŠ›Ã—ï¼ˆï½”ï¼¾2ï¼‰/2
 //		m_rodFloatPosition = (InitPos + first_velocity_vector * 100*m_scalar_multiply_in_first_velocity_vector * t) +g * t * t * 1 / 2;
 //
-//		//ƒvƒŒƒCƒtƒBƒbƒVƒ“ƒO‚ÉƒEƒL‚Ì‹——£‚ÌŠ„‡‚ğ‘—‚éB
+//		//ãƒ—ãƒ¬ã‚¤ãƒ•ã‚£ãƒƒã‚·ãƒ³ã‚°ã«ã‚¦ã‚­ã®è·é›¢ã®å‰²åˆã‚’é€ã‚‹ã€‚
 //		m_playFishing = FindGO<PlayFishing>("playFishing");
 //		m_playFishing->SetCurrent_range_and_max_range_rate(m_current_range_and_max_range_rate);
 //
-//		//ŠC‚É‚Â‚¢‚½‚©’²‚×‚éB
+//		//æµ·ã«ã¤ã„ãŸã‹èª¿ã¹ã‚‹ã€‚
 //		if (m_rodFloatPosition.y <= water_surface_position_y) {
 //
 //			m_floatState = buoyancy;
@@ -87,8 +87,8 @@ void RodFloatMove::ModelUpdate()
 void RodFloatMove::Float()
 {
 	t += 0.05;
-	m_floating.y = (cos(t))*10;//ã‰º‚É“®‚©‚·
-	m_floating.x = (cos(t * 0.7/*üŠú‚ğ‚¸‚ç‚·*/)*10 );//¶‰E‚É“®‚©‚·
+	m_floating.y = (cos(t))*10;//ä¸Šä¸‹ã«å‹•ã‹ã™
+	m_floating.x = (cos(t * 0.7/*å‘¨æœŸã‚’ãšã‚‰ã™*/)*10 );//å·¦å³ã«å‹•ã‹ã™
 	m_rodFloatPosition = m_rodFloatPosition + m_floating;
 }
 
@@ -144,7 +144,7 @@ void RodFloatMove::SetPosition()
 
 	if (m_playFishing->m_playFishingStatus != cast/*, m_playFishing->m_playFishingStatus != wait_castGauge*/) {
 		Float();
-		//ƒ|ƒWƒVƒ‡ƒ“‚ğ”½‰f‚·‚éB
+		//ãƒã‚¸ã‚·ãƒ§ãƒ³ã‚’åæ˜ ã™ã‚‹ã€‚
 		m_rodFloatPosition = /*m_floating*/m_sumPosition + Vector3{ 0.0f,0.0f, m_playFishing->m_current_float_range_max_range_rate * m_limit_range_with_ship }+m_floating;
 	}
 	m_sumPosition = { 0.0f,0.0f,0.0f };
@@ -161,7 +161,7 @@ void RodFloatMove::SetSumPosition(Vector3 positon)
 //	m_playFishing = FindGO<PlayFishing>("playFishing");
 //	if (m_playFishing->m_playFishingStatus != cast) {
 //		Float();
-//		//ƒ|ƒWƒVƒ‡ƒ“‚ğ”½‰f‚·‚éB
+//		//ãƒã‚¸ã‚·ãƒ§ãƒ³ã‚’åæ˜ ã™ã‚‹ã€‚
 //		m_rodFloatPosition = m_floating + Vector3{ 0.0f,0.0f, m_playFishing->m_current_float_range_max_range_rate * m_limit_range_with_ship };
 //	}
 //}
