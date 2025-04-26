@@ -1,5 +1,5 @@
 #pragma once
-//ã•ã‹ãªãŒå³ã‚’å‘ã„ã¦ã„ãŸã‚‰é­šã¯é€ƒã’ã‚ˆã†ã¨æŠµæŠ—ã—ã¦ã„ã‚‹ã€å·¦ã‚’å‘ã„ã¦ã„ãŸã‚‰æŠµæŠ—ã—ãªã„ã€‚
+//‚³‚©‚È‚ª‰E‚ğŒü‚¢‚Ä‚¢‚½‚ç‹›‚Í“¦‚°‚æ‚¤‚Æ’ïR‚µ‚Ä‚¢‚éA¶‚ğŒü‚¢‚Ä‚¢‚½‚ç’ïR‚µ‚È‚¢B
 
 #include "SceneFightFish.h"
 
@@ -21,17 +21,17 @@ public:
 	//void AnnounceChangeFishState();
 
 
-	float m_signs_of_Fish_UI_Position = 0.0f;//é­šå½±ã®ãƒã‚¸ã‚·ãƒ§ãƒ³ï¼ˆXè»¸ï¼‰
-	float m_barBottom = -473.0f;//ã‚²ãƒ¼ã‚¸ä¸‹ç«¯ã€‚
-	float m_barTop = 473.0f;//ã‚²ãƒ¼ã‚¸ã®ä¸Šç«¯ã€‚
-	float m_bar_length = std::abs(m_barTop) + std::abs(m_barBottom);//ãƒãƒ¼ã®é•·ã•ã€‚(abs()ã¯çµ¶å¯¾å€¤ã‚’æ±‚ã‚ã‚‹é–¢æ•°ã€‚)
+	float m_signs_of_Fish_UI_Position = 0.0f;//‹›‰e‚Ìƒ|ƒWƒVƒ‡ƒ“iX²j
+	float m_barBottom = -473.0f;//ƒQ[ƒW‰º’[B
+	float m_barTop = 473.0f;//ƒQ[ƒW‚Ìã’[B
+	float m_bar_length = std::abs(m_barTop) + std::abs(m_barBottom);//ƒo[‚Ì’·‚³B(abs()‚Íâ‘Î’l‚ğ‹‚ß‚éŠÖ”B)
 	bool m_should_change_fish_to_anger_ui = true;
 	Vector3 fish3DPos;
 
 	FIshState m_fishState;
 	SpriteRender m_tensionGaugeInside;
 	SpriteRender m_tensionGaugeOutside;
-	SpriteRender m_signs_of_Fish;//é­šå½±
+	SpriteRender m_signs_of_Fish;//‹›‰e
 	PlayFishing* m_playFishing;
 	SceneFightFish* m_sceneFightFish;
 

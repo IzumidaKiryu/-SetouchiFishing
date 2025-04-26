@@ -4,9 +4,9 @@ class Character : public IGameObject
 public:
 	Character();
 	~Character();
-	//æ›´æ–°å‡¦ç†ã€‚
+	//XVˆ—B
 	void Update();
-	//ãƒ¢ãƒ‡ãƒ«ã®è¨­å®šã€‚
+	//ƒ‚ƒfƒ‹‚Ìİ’èB
 	void SetModel(const char* filePath,
 		AnimationClip* animationClips,
 		int numAnimationClips,
@@ -15,32 +15,32 @@ public:
 		const char* animationClip_Idle,
 		const char* animationClip_Walk
 	);
-	//ãƒ ãƒ¼ãƒ–ã‚¹ãƒ”ãƒ¼ãƒ‰ã‚’è¨­å®šã€‚
+	//ƒ€[ƒuƒXƒs[ƒh‚ğİ’èB
 	void virtual SetMoveSpeed();
-	//ç§»å‹•å‡¦ç†ã€‚
+	//ˆÚ“®ˆ—B
 	void  Move();
-	//å›è»¢å‡¦ç†ã€‚
+	//‰ñ“]ˆ—B
 	void Rotation();
-	//ã‚¹ãƒ†ãƒ¼ãƒˆç®¡ç†ã€‚
+	//ƒXƒe[ƒgŠÇ—B
 	void ManageState();
-	//ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã®å†ç”Ÿã€‚
+	//ƒAƒjƒ[ƒVƒ‡ƒ“‚ÌÄ¶B
 	void PlayAnimation();
 	//void Render(RenderContext& rc);
 
-	//ãƒ¡ãƒ³ãƒå¤‰æ•°ã€‚
-	ModelRender modelRender;	//ãƒ¢ãƒ‡ãƒ«ãƒ¬ãƒ³ãƒ€â€•ã€‚
-	Vector3 m_position;			//åº§æ¨™ã€‚
-	enum EnAnimationClip {		//ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã€‚
+	//ƒƒ“ƒo•Ï”B
+	ModelRender modelRender;	//ƒ‚ƒfƒ‹ƒŒƒ“ƒ_\B
+	Vector3 m_position;			//À•WB
+	enum EnAnimationClip {		//ƒAƒjƒ[ƒVƒ‡ƒ“B
 		enAnimationClip_Idle,
 		enAnimationClip_Walk,
 		//enAnimationClip_Jump,
 		enAnimationClip_Num,
 	};
-	AnimationClip animationClips[enAnimationClip_Num];		//ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã‚¯ãƒªãƒƒãƒ—ã€‚
-	CharacterController characterController;  //ã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©ãƒ¼ã€‚
-	Vector3 moveSpeed;		//ç§»å‹•é€Ÿåº¦ã€‚
-	Quaternion rotation;  //ã‚¯ã‚©ãƒ¼ã‚¿ãƒ‹ã‚ªãƒ³ã€‚
-	int playerState = 0;	//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ã‚¹ãƒ†ãƒ¼ãƒˆ(çŠ¶æ…‹)ã‚’è¡¨ã™å¤‰æ•°ã€‚
+	AnimationClip animationClips[enAnimationClip_Num];		//ƒAƒjƒ[ƒVƒ‡ƒ“ƒNƒŠƒbƒvB
+	CharacterController characterController;  //ƒLƒƒƒ‰ƒNƒ^[ƒRƒ“ƒgƒ[ƒ‰[B
+	Vector3 moveSpeed;		//ˆÚ“®‘¬“xB
+	Quaternion rotation;  //ƒNƒH[ƒ^ƒjƒIƒ“B
+	int playerState = 0;	//ƒvƒŒƒCƒ„[‚ÌƒXƒe[ƒg(ó‘Ô)‚ğ•\‚·•Ï”B
 
 };
 

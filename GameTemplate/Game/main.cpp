@@ -4,18 +4,18 @@
 #include"Title.h"
 
 
-// K2EngineLowã®ã‚°ãƒ­ãƒ¼ãƒãƒ«ã‚¢ã‚¯ã‚»ã‚¹ãƒã‚¤ãƒ³ãƒˆã€‚
+// K2EngineLow‚ÌƒOƒ[ƒoƒ‹ƒAƒNƒZƒXƒ|ƒCƒ“ƒgB
 K2EngineLow* g_k2EngineLow = nullptr;
 
 /// <summary>
-/// ãƒ¡ã‚¤ãƒ³é–¢æ•°
+/// ƒƒCƒ“ŠÖ”
 /// </summary>
 int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLine, int nCmdShow)
 {
-	// ã‚²ãƒ¼ãƒ ã®åˆæœŸåŒ–ã€‚
+	// ƒQ[ƒ€‚Ì‰Šú‰»B
 	InitGame(hInstance, hPrevInstance, lpCmdLine, nCmdShow, TEXT("Game"));
 
-	// k2EngineLowã®åˆæœŸåŒ–ã€‚
+	// k2EngineLow‚Ì‰Šú‰»B
 	g_k2EngineLow = new K2EngineLow();
 	g_k2EngineLow->Init(g_hWnd, FRAME_BUFFER_W, FRAME_BUFFER_H);
 	g_camera3D->SetPosition({ 0.0f, 100.0f, -200.0f });
@@ -23,22 +23,22 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 
 	NewGO<Title>(0, "title");
 
-	// ã“ã“ã‹ã‚‰ã‚²ãƒ¼ãƒ ãƒ«ãƒ¼ãƒ—ã€‚
+	// ‚±‚±‚©‚çƒQ[ƒ€ƒ‹[ƒvB
 	while (DispatchWindowMessage())
 	{
-		// ãƒ•ãƒ¬ãƒ¼ãƒ ã®é–‹å§‹æ™‚ã«å‘¼ã³å‡ºã™å¿…è¦ãŒã‚ã‚‹å‡¦ç†ã‚’å®Ÿè¡Œ
+		// ƒtƒŒ[ƒ€‚ÌŠJn‚ÉŒÄ‚Ño‚·•K—v‚ª‚ ‚éˆ—‚ğÀs
 		g_k2EngineLow->BeginFrame();
 
-		// ã‚²ãƒ¼ãƒ ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼ã®æ›´æ–°å‡¦ç†ã‚’å‘¼ã³å‡ºã™ã€‚
+		// ƒQ[ƒ€ƒIƒuƒWƒFƒNƒgƒ}ƒl[ƒWƒƒ[‚ÌXVˆ—‚ğŒÄ‚Ño‚·B
 		g_k2EngineLow->ExecuteUpdate();
 
-		// ã‚²ãƒ¼ãƒ ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼ã®æç”»å‡¦ç†ã‚’å‘¼ã³å‡ºã™ã€‚
+		// ƒQ[ƒ€ƒIƒuƒWƒFƒNƒgƒ}ƒl[ƒWƒƒ[‚Ì•`‰æˆ—‚ğŒÄ‚Ño‚·B
 		g_k2EngineLow->ExecuteRender();
 
-		// ãƒ‡ãƒãƒƒã‚°æç”»å‡¦ç†ã‚’å®Ÿè¡Œã™ã‚‹ã€‚
+		// ƒfƒoƒbƒO•`‰æˆ—‚ğÀs‚·‚éB
 		g_k2EngineLow->DebubDrawWorld();
 
-		// ãƒ•ãƒ¬ãƒ¼ãƒ ã®çµ‚äº†æ™‚ã«å‘¼ã³å‡ºã™å¿…è¦ãŒã‚ã‚‹å‡¦ç†ã‚’å®Ÿè¡Œã€‚
+		// ƒtƒŒ[ƒ€‚ÌI—¹‚ÉŒÄ‚Ño‚·•K—v‚ª‚ ‚éˆ—‚ğÀsB
 		g_k2EngineLow->EndFrame();
 	}
 

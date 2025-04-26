@@ -15,11 +15,11 @@ public:
 	~GameResult();
 	bool Start();
 	void Update();
-	void SetFastPos();//å„é…åˆ—ã®åˆæœŸåŒ–
+	void SetFastPos();//Še”z—ñ‚Ì‰Šú‰»
 	void Render(RenderContext& rc);
 	void Easing(FishName name, Vector3 fastPos, Vector3 endPos);
 
-	Vector3 m_fastPos[num] = {//ã‚¤ãƒ¼ã‚¸ãƒ³ã‚°å‰ã®åº§æ¨™ã€‚
+	Vector3 m_fastPos[num] = {//ƒC[ƒWƒ“ƒO‘O‚ÌÀ•WB
 		{ -350.0f,220.0f,0.0f } ,
 		{ -350.0f,130.0f,0.0f },
 		{ -350.0f,40.0f,0.0f },
@@ -28,7 +28,7 @@ public:
 		{ -350.0f,-230.0f,0.0f }
 	};
 
-	Vector3 m_endPos[num]{//ã‚¤ãƒ¼ã‚¸ãƒ³ã‚°å¾Œã®åº§æ¨™ã€‚
+	Vector3 m_endPos[num]{//ƒC[ƒWƒ“ƒOŒã‚ÌÀ•WB
 		{ -600.0f,220.0f,0.0f },
 		{ -600.0f,130.0f,0.0f },
 		{ -600.0f,40.0f,0.0f },
@@ -37,11 +37,11 @@ public:
 		{ -600.0f,-230.0f,0.0f }
 	};
 
-	Vector3 m_vec[num];//å„UIã®ãƒã‚¸ã‚·ãƒ§ãƒ³ã€‚
-	float m_t[num];			//è£œå®Œç‡ã€‚
+	Vector3 m_vec[num];//ŠeUI‚Ìƒ|ƒWƒVƒ‡ƒ“B
+	float m_t[num];			//•âŠ®—¦B
 
-	SpriteRender m_fishUI[6];//åé›†ã—ãŸé­šã®è¡¨ç¤ºç”¨ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆãƒ¬ãƒ³ãƒ€ãƒ¼ã€‚
-	SpriteRender m_back;//ãƒªã‚¶ãƒ«ãƒˆç”»é¢ã®èƒŒæ™¯ç”¨ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆãƒ¬ãƒ³ãƒ€ãƒ¼ã€‚
+	SpriteRender m_fishUI[6];//ûW‚µ‚½‹›‚Ì•\¦—pƒXƒvƒ‰ƒCƒgƒŒƒ“ƒ_[B
+	SpriteRender m_back;//ƒŠƒUƒ‹ƒg‰æ–Ê‚Ì”wŒi—pƒXƒvƒ‰ƒCƒgƒŒƒ“ƒ_[B
 
-	int nowFishName = FishName::Hamachi;//ã‚¤ãƒ¼ã‚¸ãƒ³ã‚°ã•ã›ã‚‹é­šã®UI(åˆæœŸè¨­å®šã¯ãƒãƒãƒ)ã€‚
+	int nowFishName = FishName::Hamachi;//ƒC[ƒWƒ“ƒO‚³‚¹‚é‹›‚ÌUI(‰Šúİ’è‚Íƒnƒ}ƒ`)B
 };

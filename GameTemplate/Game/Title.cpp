@@ -7,9 +7,9 @@ Title::Title()
 {
 	spriteRender.Init("Assets/sprite/title.dds", 1280.0f, 720.0f);
 
-	//ã‚¿ã‚¤ãƒˆãƒ«ã®BGMã‚’èª­ã¿è¾¼ã‚€ã€‚
+	//ƒ^ƒCƒgƒ‹‚ÌBGM‚ğ“Ç‚İ‚ŞB
 	//g_soundEngine->ResistWaveFileBank(0, "Assets/sound/titlebgm.wav");
-	////ã‚¿ã‚¤ãƒˆãƒ«ã®BGMã‚’å†ç”Ÿã™ã‚‹ã€‚
+	////ƒ^ƒCƒgƒ‹‚ÌBGM‚ğÄ¶‚·‚éB
 	//titleBGM = NewGO<SoundSource>(0);
 	//titleBGM->Init(0);
 	//titleBGM->Play(true);

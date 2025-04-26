@@ -6,20 +6,20 @@ public:
 	~GetRotation();
 	void Update();
 	void SetVectorA();
-	float CalculatingRotationQuantity();//å›è»¢é‡ã‚’è¨ˆç®—
-	void GetRotationDirection();//å›è»¢æ–¹å‘ã‚’å–å¾—
+	float CalculatingRotationQuantity();//‰ñ“]—Ê‚ğŒvZ
+	void GetRotationDirection();//‰ñ“]•ûŒü‚ğæ“¾
 
 	Vector2 stickL;
-	Vector3 nowVector;//ä»Šã®ãƒ•ãƒ¬ãƒ¼ãƒ ã§å–å¾—ã—ãŸãƒ™ã‚¯ãƒˆãƒ«ã€‚
-	Vector3 befreVector = { 0.0f,0.0f,0.0f };//å‰ã®ãƒ•ãƒ¬ãƒ¼ãƒ ã§å–å¾—ã—ãŸãƒ™ã‚¯ãƒˆãƒ«ã€‚
-	float rotationQuantity = 0.0f;//å›è»¢é‡
-	float nowFrameRotationQuantity = 0.0f;//ä»Šã®ãƒ•ãƒ¬ãƒ¼ãƒ ã§ã®å›è»¢é‡ã€‚ï¼ˆå›è»¢é‡ãŒãƒã‚¤ãƒŠã‚¹ã®æ™‚ã¯0ï¼‰
+	Vector3 nowVector;//¡‚ÌƒtƒŒ[ƒ€‚Åæ“¾‚µ‚½ƒxƒNƒgƒ‹B
+	Vector3 befreVector = { 0.0f,0.0f,0.0f };//‘O‚ÌƒtƒŒ[ƒ€‚Åæ“¾‚µ‚½ƒxƒNƒgƒ‹B
+	float rotationQuantity = 0.0f;//‰ñ“]—Ê
+	float nowFrameRotationQuantity = 0.0f;//¡‚ÌƒtƒŒ[ƒ€‚Å‚Ì‰ñ“]—ÊBi‰ñ“]—Ê‚ªƒ}ƒCƒiƒX‚Ì‚Í0j
 
 	enum RotationDirection {
 		Nonturn,
-		RightTurn,//å³å›è»¢(æ™‚è¨ˆå›ã‚Š)
-		LeftTurn//å·¦å›è»¢ï¼ˆåæ™‚è¨ˆå›ã‚Šï¼‰
+		RightTurn,//‰E‰ñ“](Œv‰ñ‚è)
+		LeftTurn//¶‰ñ“]i”½Œv‰ñ‚èj
 	};
-	RotationDirection rotationDirection = Nonturn;//å›è»¢ã®æ–¹å‘
+	RotationDirection rotationDirection = Nonturn;//‰ñ“]‚Ì•ûŒü
 };
 

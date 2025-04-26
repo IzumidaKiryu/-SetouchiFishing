@@ -1,13 +1,13 @@
 #pragma once
 enum FIshState
 {
-	setWhen_State_Announce_Should,//ã„ã¤ã‚¢ãƒŠã‚¦ãƒ³ã‚¹ã™ã‚‹ã‹ã‚’è¨­å®šã™ã‚‹ã€‚
-	normal,//æ™®é€šã€‚
-	setWhen_State_Angry_or_exhausted_Should,//ã„ã¤ã‚¹ãƒ†ãƒ¼ãƒˆã‚’Angryã‹exhaustedã«å¤‰ãˆã‚‹ã‹ã€‚
-	announce,//çŠ¶æ…‹ã®å¤‰åŒ–ã‚’ã‚¢ãƒŠã‚¦ãƒ³ã‚¹ã™ã‚‹ã€‚
+	setWhen_State_Announce_Should,//‚¢‚ÂƒAƒiƒEƒ“ƒX‚·‚é‚©‚ğİ’è‚·‚éB
+	normal,//•’ÊB
+	setWhen_State_Angry_or_exhausted_Should,//‚¢‚ÂƒXƒe[ƒg‚ğAngry‚©exhausted‚É•Ï‚¦‚é‚©B
+	announce,//ó‘Ô‚Ì•Ï‰»‚ğƒAƒiƒEƒ“ƒX‚·‚éB
 	change_Angry_or_exhausted,
-	angry,//æ€’ã£ã¦ã„ã‚‹ã€‚
-	exhausted,//ç–²å¼Šã—ã¦ã„ã‚‹ã€‚
+	angry,//“{‚Á‚Ä‚¢‚éB
+	exhausted,//”æ•¾‚µ‚Ä‚¢‚éB
 };
 
 class GetRotation;
@@ -27,19 +27,19 @@ public:
 	void RightAndLeftManagement();
 	void SetSigns_of_Fish_Position();
 	void SetFishEscapePower();
-	void SetFishDirection();//é­šãŒå‘ã„ã¦ã„ã‚‹æ–¹å‘ã‚’å¤‰ãˆã‚‹ã‹ã©ã†ã‹ã€‚
-	void FishDirectionChange();//é­šãŒå‘ã„ã¦ã„ã‚‹æ–¹å‘ã‚’å¤‰ãˆã‚‹ã€‚
-	void failure();//å¤±æ•—ã€‚
-	void success();//æˆåŠŸã€‚
+	void SetFishDirection();//‹›‚ªŒü‚¢‚Ä‚¢‚é•ûŒü‚ğ•Ï‚¦‚é‚©‚Ç‚¤‚©B
+	void FishDirectionChange();//‹›‚ªŒü‚¢‚Ä‚¢‚é•ûŒü‚ğ•Ï‚¦‚éB
+	void failure();//¸”sB
+	void success();//¬Œ÷B
 	float GetRotationPower();
 
 	void SetWhen_State_Announce_Should_State();
-	void NormalState();//é­šãŒæ™®é€šã®çŠ¶æ…‹ã®æ™‚ã®å‡¦ç†ã€‚
+	void NormalState();//‹›‚ª•’Ê‚Ìó‘Ô‚Ì‚Ìˆ—B
 	void When_State_Angry_or_exhausted_Shoul();
 	void AnnounceState();
 	void Change_Angry_or_Exhausted_State();
-	void AngerState();//é­šãŒæ€’ã£ã¦ã„ã‚‹ã¨ãã®å‡¦ç†ã€‚
-	void ExhaustedState();//é­šãŒç–²å¼Šã—ã¦ã„ã‚‹ã¨ãã®å‡¦ç†ã€‚
+	void AngerState();//‹›‚ª“{‚Á‚Ä‚¢‚é‚Æ‚«‚Ìˆ—B
+	void ExhaustedState();//‹›‚ª”æ•¾‚µ‚Ä‚¢‚é‚Æ‚«‚Ìˆ—B
 	void FishStateAdminister();
 	void SetRodFloatModel();
 	void SetCamera();
@@ -47,31 +47,31 @@ public:
 	void Set3DFishPosition();
 	void SetRangeRate();
 
-	float m_forcePullFish;//é­šã‚’å¼•ã£å¼µã‚‹åŠ›ã€‚
-	bool m_previous_is_fish_suited_for_upper_side = true;//å‰ã®ãƒ•ãƒ¬ãƒ¼ãƒ ã§é­šãŒä¸Šã‚’å‘ã„ã¦ã„ãŸã‹ã©ã†ã‹ã€‚
-	bool is_fish_suited_for_upper_side = true;//é­šãŒä¸Šå´ã‚’å‘ã„ã¦ã„ã‚‹ã‹ã©ã†ã‹ã€‚
+	float m_forcePullFish;//‹›‚ğˆø‚Á’£‚é—ÍB
+	bool m_previous_is_fish_suited_for_upper_side = true;//‘O‚ÌƒtƒŒ[ƒ€‚Å‹›‚ªã‚ğŒü‚¢‚Ä‚¢‚½‚©‚Ç‚¤‚©B
+	bool is_fish_suited_for_upper_side = true;//‹›‚ªã‘¤‚ğŒü‚¢‚Ä‚¢‚é‚©‚Ç‚¤‚©B
 	float m_initRangeRate;
-	float m_range_rate = 0.0f;//æœ€å¤§è·é›¢ã¨ä»Šã„ã‚‹è·é›¢ã®å‰²åˆã€‚
-	float m_barTop = 473.0f;//ã‚²ãƒ¼ã‚¸ã®ä¸Šç«¯ã€‚
-	float m_barBottom = -473.0f;//ã‚²ãƒ¼ã‚¸ã®ä¸‹ç«¯ã€‚
-	float m_fishEscapePower = 0.0f;//é­šãŒé€ƒã’ã‚ˆã†ã¨ã™ã‚‹åŠ›ã€‚ï¼ˆçŸ¢å°ã‚’å·¦å³ã«å¼•ã£å¼µã‚‹åŠ›ï¼‰ã€‚
-	int m_fishChange_in_DirectionTimes = 0;//é­šãŒæ–¹å‘è»¢æ›ã—ãŸæ•°ã€‚
-	int m_when_state_announce_should = 0;//ã„ã¤ã‚¹ãƒ†ãƒ¼ãƒˆã‚’ã‚¢ãƒŠã‚¦ãƒ³ã‚¹ã«å¤‰ãˆã‚‹ã‹ã€‚ï¼ˆã“ã®æ•°å­—23ãªã‚‰æ–¹å‘è»¢æ›å›æ•°ãŒ23å›ç›®ã®æ™‚ã«ã‚¹ãƒ†ãƒ¼ãƒˆã‚’ã‚¢ãƒŠã‚¦ãƒ³ã‚¹ã«ã™ã‚‹ã€‚ï¼‰
-	int m_when_State_Angry_or_exhausted_Should;//ã„ã¤ã‚¹ãƒ†ãƒ¼ãƒˆã‚’Angryã‹exhaustedã«å¤‰ãˆã‚‹ã‹ã€‚
-	int state_changed_when_directiontimes;//ä¸€ç•ªæ–°ã—ãã‚¹ãƒ†ãƒ¼ãƒˆãŒå¤‰ã‚ã£ãŸæ™‚ã«é­šãŒä»Šã¾ã§æ–¹å‘è»¢æ›ã—ãŸæ•°ã€‚
-	int m_angerState_frame_count = 0;//ã‚¢ãƒ³ã‚¬ãƒ¼ã‚¹ãƒ†ãƒ¼ãƒˆã®æ™‚ã«ãƒ•ãƒ¬ãƒ¼ãƒ ã‚’ã‚«ã‚¦ãƒ³ãƒˆã™ã‚‹ã€‚
+	float m_range_rate = 0.0f;//Å‘å‹——£‚Æ¡‚¢‚é‹——£‚ÌŠ„‡B
+	float m_barTop = 473.0f;//ƒQ[ƒW‚Ìã’[B
+	float m_barBottom = -473.0f;//ƒQ[ƒW‚Ì‰º’[B
+	float m_fishEscapePower = 0.0f;//‹›‚ª“¦‚°‚æ‚¤‚Æ‚·‚é—ÍBi–îˆó‚ğ¶‰E‚Éˆø‚Á’£‚é—ÍjB
+	int m_fishChange_in_DirectionTimes = 0;//‹›‚ª•ûŒü“]Š·‚µ‚½”B
+	int m_when_state_announce_should = 0;//‚¢‚ÂƒXƒe[ƒg‚ğƒAƒiƒEƒ“ƒX‚É•Ï‚¦‚é‚©Bi‚±‚Ì”š23‚È‚ç•ûŒü“]Š·‰ñ”‚ª23‰ñ–Ú‚Ì‚ÉƒXƒe[ƒg‚ğƒAƒiƒEƒ“ƒX‚É‚·‚éBj
+	int m_when_State_Angry_or_exhausted_Should;//‚¢‚ÂƒXƒe[ƒg‚ğAngry‚©exhausted‚É•Ï‚¦‚é‚©B
+	int state_changed_when_directiontimes;//ˆê”ÔV‚µ‚­ƒXƒe[ƒg‚ª•Ï‚í‚Á‚½‚É‹›‚ª¡‚Ü‚Å•ûŒü“]Š·‚µ‚½”B
+	int m_angerState_frame_count = 0;//ƒAƒ“ƒK[ƒXƒe[ƒg‚Ì‚ÉƒtƒŒ[ƒ€‚ğƒJƒEƒ“ƒg‚·‚éB
 	bool m_reduce_Hp_when_angry = true;
 	bool m_should_change_fish_to_anger_ui = true;
 	int m_frameCount = 0;
-	float m_this_frame_by_fish_advanced_distance;//ã“ã®ãƒ•ãƒ¬ãƒ¼ãƒ ã§é­šãŒé€²ã‚“ã è·é›¢ï¼ˆå‰²åˆã§è¡¨ã™ï¼‰
-	float m_total_by_fish_advanced_distance;//ãƒˆãƒ¼ã‚¿ãƒ«ã§é­šãŒé€²ã‚“ã è·é›¢ã€‚
+	float m_this_frame_by_fish_advanced_distance;//‚±‚ÌƒtƒŒ[ƒ€‚Å‹›‚ªi‚ñ‚¾‹——£iŠ„‡‚Å•\‚·j
+	float m_total_by_fish_advanced_distance;//ƒg[ƒ^ƒ‹‚Å‹›‚ªi‚ñ‚¾‹——£B
 
 	Vector3 fish3DPos;
 
 	FIshState m_fishState;
 	SpriteRender m_tensionGaugeInside;
 	SpriteRender m_tensionGaugeOutside;
-	SpriteRender m_signs_of_Fish;//é­šå½±
+	SpriteRender m_signs_of_Fish;//‹›‰e
 	GetRotation* m_getRotation;
 	PlayFishing* m_playFishing;
 	FishingRodHP* m_fishingRodHP;

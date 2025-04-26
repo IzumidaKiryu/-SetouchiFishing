@@ -20,16 +20,16 @@ PlayFishing::PlayFishing()
 {
 
 
-	m_objectName = new char[6];// ãƒ•ã‚£ãƒƒã‚·ãƒ¥ãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼ã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãƒãƒ¼ãƒ ã®ãƒ¡ãƒ¢ãƒªç¢ºä¿
+	m_objectName = new char[6];// ƒtƒBƒbƒVƒ…ƒ}ƒl[ƒWƒƒ[‚ÌƒIƒuƒWƒFƒNƒgƒl[ƒ€‚Ìƒƒ‚ƒŠŠm•Û
 
 	m_playFishingBackGround = NewGO< PlayFishingBackGround>(0, "playFishingBackGround");
-	//ã‚²ãƒ¼ãƒ ã‚«ãƒ¡ãƒ©ã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ä½œã‚‹ã€‚
+	//ƒQ[ƒ€ƒJƒƒ‰‚ÌƒIƒuƒWƒFƒNƒg‚ğì‚éB
 	gameCamera = NewGO<GameCamera>(0, "PlayFishing_GameCamera");
 
-	//é­šã®ãƒ¢ãƒ‡ãƒ«ã‚’ä½œæˆã€‚
+	//‹›‚Ìƒ‚ƒfƒ‹‚ğì¬B
 	m_fshModel= NewGO<FishModel>(0,"fshModel");
 
-	//ã‚¦ã‚­ã‚’ä½œæˆã€‚
+	//ƒEƒL‚ğì¬B
 	m_rodFloatMove = NewGO<RodFloatMove>(0, "rodFloatMove");
 
 
@@ -57,7 +57,7 @@ PlayFishing::~PlayFishing()
 
 void PlayFishing::Init()
 {
-	//ãƒ•ã‚£ãƒƒã‚·ãƒ¥ãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼ã‚’æ¢ã™ã€‚
+	//ƒtƒBƒbƒVƒ…ƒ}ƒl[ƒWƒƒ[‚ğ’T‚·B
 	FindeFishManager();
 
 	SetFishData();
@@ -70,8 +70,8 @@ void PlayFishing::Update()
 }
 
 /// <summary>
-/// ã‚·ãƒ¼ãƒ³ã®æ¨ç§»ã€‚
-/// ã“ã®ã‚¯ãƒ©ã‚¹ã®ä¸€ç•ªåˆã‚ã‹ã€æˆåŠŸã‹å¤±æ•—ã—ãŸã¨ãã«å‹•ã‹ã™ã€‚
+/// ƒV[ƒ“‚Ì„ˆÚB
+/// ‚±‚ÌƒNƒ‰ƒX‚Ìˆê”Ô‰‚ß‚©A¬Œ÷‚©¸”s‚µ‚½‚Æ‚«‚É“®‚©‚·B
 /// </summary>
 void PlayFishing::StatusManager()
 {
@@ -118,8 +118,8 @@ void PlayFishing::Success()
 		case wait_castGauge:
 			DeleteGO(m_castGauge);
 			m_playFishingStatus = /*fishingGsauge*/cast;
-			m_successful_or_failure = unfixed;//æˆåŠŸã‹å¤±æ•—ã‹ã©ã†ã‹ã‚’æœªç¢ºå®šã«ã™ã‚‹ã€‚
-			StatusManager();//ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼ã‚’å‹•ã‹ã™ã€‚
+			m_successful_or_failure = unfixed;//¬Œ÷‚©¸”s‚©‚Ç‚¤‚©‚ğ–¢Šm’è‚É‚·‚éB
+			StatusManager();//ƒXƒe[ƒ^ƒXƒ}ƒl[ƒWƒƒ[‚ğ“®‚©‚·B
 			break;
 		case castAnimasion:
 			m_successful_or_failure = unfixed;
@@ -127,12 +127,12 @@ void PlayFishing::Success()
 			StatusManager();
 			break;
 		case cast:
-			m_successful_or_failure = unfixed;//æˆåŠŸã‹å¤±æ•—ã‹ã©ã†ã‹ã‚’æœªç¢ºå®šã«ã™ã‚‹ã€‚
+			m_successful_or_failure = unfixed;//¬Œ÷‚©¸”s‚©‚Ç‚¤‚©‚ğ–¢Šm’è‚É‚·‚éB
 			/*m_playFishingStatus = wait_for_fish;*/
 			m_playFishingStatus = sceneFightFish;
 			break;
 		case wait_for_fish:
-			m_successful_or_failure = unfixed;//æˆåŠŸã‹å¤±æ•—ã‹ã©ã†ã‹ã‚’æœªç¢ºå®šã«ã™ã‚‹ã€‚
+			m_successful_or_failure = unfixed;//¬Œ÷‚©¸”s‚©‚Ç‚¤‚©‚ğ–¢Šm’è‚É‚·‚éB
 			m_playFishingStatus = sceneFightFish;
 			break;
 		case wait_ceneFightFish:
@@ -140,7 +140,7 @@ void PlayFishing::Success()
 			DeleteGO(m_fishingRodHP);
 			m_positionSelection = FindGO<PositionSelection>("positionSelection");
 			m_positionSelection->SetTotalValue(m_fishData.score);
-			//ã‚¹ã‚³ã‚¢ãƒ‡ã‚£ã‚¹ãƒ—ãƒ¬ã‚¤ã«ç§»å‹•ã™ã‚‹ã€‚
+			//ƒXƒRƒAƒfƒBƒXƒvƒŒƒC‚ÉˆÚ“®‚·‚éB
 			m_scoreDisplay = NewGO<ScoreDisplay>(0, "scoreDisplay");
 			DeleteGO(this);
 			break;
@@ -171,7 +171,7 @@ void PlayFishing::Failure()
 		}
 		m_positionSelection = FindGO<PositionSelection>("positionSelection");
 		m_positionSelection->SetisDisplayingTrue();
-		//ãƒã‚¸ã‚·ãƒ§ãƒ³ã‚»ãƒ¬ã‚¯ãƒˆã‚¯ãƒ©ã‚¹ã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ã‚¢ã‚¯ãƒ†ã‚£ãƒ–ã«ã™ã‚‹
+		//ƒ|ƒWƒVƒ‡ƒ“ƒZƒŒƒNƒgƒNƒ‰ƒX‚ÌƒIƒuƒWƒFƒNƒg‚ğƒAƒNƒeƒBƒu‚É‚·‚é
 		m_positionSelection->SetActivate();
 		DeleteThisClass();
 
@@ -209,25 +209,25 @@ void PlayFishing::SetRodFloatModalePosition()
 }
 
 /// <summary>
-/// æ°´ã«æµ®ã‹ã‚“ã§ã„ã‚‹ã‚ˆã†ã«å‹•ã‹ã™ã€‚
+/// …‚É•‚‚©‚ñ‚Å‚¢‚é‚æ‚¤‚É“®‚©‚·B
 /// </summary>
 void PlayFishing::float_to_water()
 {
 	t += 0.05;
-	m_floating.y = (cos(t)) * 0.5;//ä¸Šä¸‹ã«å‹•ã‹ã™
-	m_floating.z = (cos(t * 0.7/*å‘¨æœŸã‚’ãšã‚‰ã™*/) * 0.5);//å·¦å³ã«å‹•ã‹ã™
+	m_floating.y = (cos(t)) * 0.5;//ã‰º‚É“®‚©‚·
+	m_floating.z = (cos(t * 0.7/*üŠú‚ğ‚¸‚ç‚·*/) * 0.5);//¶‰E‚É“®‚©‚·
 	m_rodFloatPosition = m_rodFloatPosition + m_floating;
 }
 
 /// <summary>
-/// ã‚¦ã‚­ã®è·é›¢ã¨æœ€å¤§è·é›¢ã®å‰²åˆã‚’è¨ˆç®—ã€‚
-/// ã‚¦ã‚­ãƒ¢ãƒ‡ãƒ«ã®ãƒã‚¸ã‚·ãƒ§ãƒ³ã‹ã‚‰ã‚¦ã‚­ã®è·é›¢ã¨æœ€å¤§è·é›¢ã®å‰²åˆã‚’æ±‚ã‚ã‚‹ã€‚
+/// ƒEƒL‚Ì‹——£‚ÆÅ‘å‹——£‚ÌŠ„‡‚ğŒvZB
+/// ƒEƒLƒ‚ƒfƒ‹‚Ìƒ|ƒWƒVƒ‡ƒ“‚©‚çƒEƒL‚Ì‹——£‚ÆÅ‘å‹——£‚ÌŠ„‡‚ğ‹‚ß‚éB
 /// </summary>
 void PlayFishing::CalculateCurrent_float_range_and_max_range_rate()
 {
 	m_rodFloatMove = FindGO<RodFloatMove>("rodFloatMove");
 
-	//å‰²åˆã‚’æ±‚ã‚ã‚‹
+	//Š„‡‚ğ‹‚ß‚é
 	 m_current_float_range_max_range_rate=m_rodFloatMove->m_rodFloatPosition.z / m_rodFloatMove->m_limit_range_with_ship;
 }
 
@@ -280,14 +280,14 @@ void PlayFishing::DeleteThisClass()
 
 void PlayFishing::SetFishManagerObjectName(std::string string_objectName)
 {
-	//ãƒ•ã‚£ãƒƒã‚·ãƒ¥ãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼ã«ã¤ã‘ã‚‹ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãƒãƒ¼ãƒ ã®è¨­å®šã€‚
+	//ƒtƒBƒbƒVƒ…ƒ}ƒl[ƒWƒƒ[‚É‚Â‚¯‚éƒIƒuƒWƒFƒNƒgƒl[ƒ€‚Ìİ’èB
 	std::char_traits<char>::copy(m_objectName, string_objectName.c_str(), string_objectName.size() + 1);
 }
 
 
 /// <summary>
-/// æˆåŠŸã—ãŸã‚‰å„ã‚¯ãƒ©ã‚¹ã§ã“ã®ãƒ¡ã‚½ãƒƒãƒ‰ã‚’å‘¼ã¶ã€‚
-/// å‘¼ã¶ã¨è‡ªå‹•çš„ã«æ¬¡ã®ã‚¹ãƒ†ãƒ¼ãƒˆã¸è¡Œãæº–å‚™ï¼ˆã„ã‚‰ãªã„ã‚¯ãƒ©ã‚¹ã‚’æ¶ˆã—ãŸã‚Šï¼‰ã‚’ã—ã¦ã€æ¬¡ã®ã‚¹ãƒ†ãƒ¼ãƒˆã¸é€²ã‚€ã€‚
+/// ¬Œ÷‚µ‚½‚çŠeƒNƒ‰ƒX‚Å‚±‚Ìƒƒ\ƒbƒh‚ğŒÄ‚ÔB
+/// ŒÄ‚Ô‚Æ©“®“I‚ÉŸ‚ÌƒXƒe[ƒg‚Ös‚­€”õi‚¢‚ç‚È‚¢ƒNƒ‰ƒX‚ğÁ‚µ‚½‚èj‚ğ‚µ‚ÄAŸ‚ÌƒXƒe[ƒg‚Öi‚ŞB
 /// </summary>
 void PlayFishing::SetSuccess()
 {
@@ -296,7 +296,7 @@ void PlayFishing::SetSuccess()
 }
 
 /// <summary>
-/// å¤±æ•—ã—ãŸã‚‰å„ã‚¯ãƒ©ã‚¹ã§ã“ã®ãƒ¡ã‚½ãƒƒãƒ‰ã‚’å‘¼ã¶ã€‚
+/// ¸”s‚µ‚½‚çŠeƒNƒ‰ƒX‚Å‚±‚Ìƒƒ\ƒbƒh‚ğŒÄ‚ÔB
 /// </summary>
 void PlayFishing::SetFailure()
 {

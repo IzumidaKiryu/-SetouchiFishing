@@ -24,7 +24,7 @@ void FishManager::Update()
 }
 
 /// <summary>
-/// ç”Ÿæˆã™ã‚‹é­šã®ç¨®é¡ã‚’æ±ºã‚ã‚‹
+/// ¶¬‚·‚é‹›‚Ìí—Ş‚ğŒˆ‚ß‚é
 /// </summary>
 void FishManager::SelectFishType()
 {
@@ -50,7 +50,7 @@ void FishManager::NewGOTatiuo()
 }
 
 /// <summary>
-/// UIã‚’å–å¾—ã™ã‚‹ã€‚
+/// UI‚ğæ“¾‚·‚éB
 /// </summary>
 void FishManager::GetUI()
 {
@@ -76,7 +76,7 @@ void FishManager::GetUI()
 }
 
 /// <summary>
-/// é­šã‚’ç”Ÿæˆã™ã‚‹
+/// ‹›‚ğ¶¬‚·‚é
 /// </summary>
 void FishManager::FishNewGO()
 {
@@ -102,7 +102,7 @@ void FishManager::FishNewGO()
 }
 
 /// <summary>
-/// é­šã‚’å¤‰ãˆã‚‹ã‹ã©ã†ã‹åˆ¤æ–­ã™ã‚‹å¤‰æ•°ã‚’è¨­å®šã™ã‚‹ã€‚
+/// ‹›‚ğ•Ï‚¦‚é‚©‚Ç‚¤‚©”»’f‚·‚é•Ï”‚ğİ’è‚·‚éB
 /// </summary>
 void FishManager::SetShouldFishChange()
 {

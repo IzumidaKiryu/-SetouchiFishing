@@ -1,7 +1,7 @@
 #pragma once
 #include "sound/SoundSource.h"
 
-//ã‚¿ã‚¤ãƒˆãƒ«ã€‚
+//ƒ^ƒCƒgƒ‹B
 class Title :public IGameObject
 {
 public:
@@ -11,6 +11,6 @@ public:
 	void Render(RenderContext& rc);
 
 	SpriteRender spriteRender;
-	SoundSource* titleBGM;			//ã‚¿ã‚¤ãƒˆãƒ«ã®BGMã€‚
+	SoundSource* titleBGM;			//ƒ^ƒCƒgƒ‹‚ÌBGMB
 };
 
