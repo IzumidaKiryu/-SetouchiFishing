@@ -25,7 +25,9 @@ PositionSelection::PositionSelection()
 		objectName[i] = new char[PositionName[i].size() + 1];
 	}
 	//制限時間のUIを作る。
-	//m_timeLimitUI = NewGO<TimeLimitUI>(0, "timelimitUI");　//エラーが出るのでいったんコメントアウト。！！！！！！！！！！！
+	m_timeLimitUI = NewGO<TimeLimitUI>(0, "timelimitUI");
+
+	
 
 	//プレイヤーのオブジェクトを作る。
 	m_player = NewGO<Player>(0, "player");
@@ -35,6 +37,9 @@ PositionSelection::PositionSelection()
 
 	//ゲームカメラのオブジェクトを作る。
 	gameCamera = NewGO<GameCamera>(0, "gamecamera");
+	//カメラのポジションを設定
+	
+
 
 	//背景のオブジェクトを作る。
 	backGround = NewGO<BackGround>(0);
@@ -47,7 +52,7 @@ PositionSelection::PositionSelection()
 	//gameBGM = NewGO<SoundSource>(0);
 	/*gameBGM->Init(1);
 	gameBGM->Play(true);*/
-	gameCamera->m_toCameraPos.Set(0.0f, 750.0f, -250.0f);
+	//gameCamera->m_toCameraPos.Set(0.0f, 750.0f, -250.0f);
 
 	//UIの場所を決める。
 	SetFishDisplayPosition();
@@ -93,6 +98,7 @@ void PositionSelection::Update()
 			ChangeSceneToPlayFishing();
 			gameCamera->Activate();
 		}
+		SetCameraPosition();
 	}
 	else {
 		gameCamera->Deactivate();
@@ -111,6 +117,7 @@ void PositionSelection::Update()
 	/*for (int i = 0; i < 6; i++) {
 		m_timelimit=m_fishManager[i]->m_randum;
 	}*/
+
 }
 
 void PositionSelection::Render(RenderContext& rc)
@@ -157,13 +164,13 @@ void PositionSelection::SetStealPositionBarUI()
 {
 	m_stealPositionBarOutsideUI.Init("Assets/modelData/landscape_gauge_inside.DDS", 500, 100);
 	m_stealPositionBarOutsideUI.SetPivot(Vector2(0.5f, 0.5f));
-	m_stealPositionBarOutsideUI.SetPosition(Vector3{ 370.0f, 300.0f, 0.0f });
+	m_stealPositionBarOutsideUI.SetPosition(Vector3{ 500.0f, 390.0f, 0.0f });
 	m_stealPositionBarOutsideUI.SetScale(Vector3{ 1.0f, 1.0f, 1.0f });
 	m_stealPositionBarOutsideUI.Update();
 
 	m_stealPositionBarInsideUI.Init("Assets/modelData/landscape_gauge_outer.DDS", 500, 100);
 	m_stealPositionBarInsideUI.SetPivot(Vector2(0.5f, 0.5f));
-	m_stealPositionBarInsideUI.SetPosition(Vector3{ 370.0f, 300.0f, 0.0f });
+	m_stealPositionBarInsideUI.SetPosition(Vector3{ 500.0f, 390.0f, 0.0f });
 	m_stealPositionBarInsideUI.SetScale(Vector3{ 1.0f, 1.0f, 1.0f });
 	m_stealPositionBarInsideUI.Update();
 
@@ -173,10 +180,10 @@ void PositionSelection::SetFishDisplayPosition()
 {
 	for (int i = 0; i < 6; i++) {
 		if (i < 3) {
-			m_fishDisplayPosition[i] = { m_fishDisplayPositionXcriteria + m_fishDisplayPositionXinterval * (i), 180.0f, 0.0f };
+			m_fishDisplayPosition[i] = { m_fishDisplayPositionXcriteria + m_fishDisplayPositionXinterval * (i), 230.0f, 0.0f };
 		}
 		if (2 < i) {
-			m_fishDisplayPosition[i] = { m_fishDisplayPositionXcriteria + m_fishDisplayPositionXinterval * (i - 3), -250.0f, 0.0f };
+			m_fishDisplayPosition[i] = { m_fishDisplayPositionXcriteria + m_fishDisplayPositionXinterval * (i - 3), -300.0f, 0.0f };
 		}
 	}
 }
@@ -196,14 +203,16 @@ void PositionSelection::SetisDisplayingFalse()
 /// </summary>
 void PositionSelection::ChangeSceneToPlayFishing()
 {
-	SetisDisplayingFalse();
+	if (position_with_now != ENEMY_SAME_POSITION) {//敵とポジションがかぶっていないとき。
+		SetisDisplayingFalse();
 
-	// インスタンス生成→ポジション設定→初期設定(内部でポジション設定の情報を使っている)
-	m_playFishing = NewGO<PlayFishing>(0, "playFishing");
-	SelectPosition();
-	m_playFishing->Init();
+		// インスタンス生成→ポジション設定→初期設定(内部でポジション設定の情報を使っている)
+		m_playFishing = NewGO<PlayFishing>(0, "playFishing");
+		SelectPosition();
+		m_playFishing->Init();
 
-	SetDeactivate();
+		SetDeactivate();
+	}
 }
 
 bool PositionSelection::GetisDisplaying()
@@ -215,6 +224,8 @@ void PositionSelection::SetDeactivate()
 {
 	//プレイヤーを非アクティブにする。
 	m_player->Deactivate();
+	//エネミーを非アクティブ。
+	m_enemy->Deactivate();
 	//ゲームカメラを非アクティブにする。
 	gameCamera->Deactivate();
 	//背景を非アクティブにする。
@@ -227,6 +238,8 @@ void PositionSelection::SetActivate()
 {
 	//プレイヤーをアクティブにする。
 	m_player->Activate();
+	//エネミーをアクティブ。
+	m_enemy->Activate();
 	//ゲームカメラをアクティブにする。
 	gameCamera->Activate();
 	//背景をアクティブにする。
@@ -296,8 +309,7 @@ void PositionSelection::FishChange()
 
 void PositionSelection::SelectPosition()
 {
-
-	m_playFishing->SetFishManagerObjectName(PositionName[position_with_now]);
+		m_playFishing->SetFishManagerObjectName(PositionName[position_with_now]);
 }
 
 void PositionSelection::SetTotalValue(float individualValue)
@@ -411,6 +423,12 @@ void PositionSelection::SetFishDisplayOutside_to_Green(Position position)
 	//}
 	//m_previousFramePlayerPositionState = position;
 
+}
+
+void PositionSelection::SetCameraPosition()
+{
+	gameCamera->SetPosition(Vector3{0.0f,900.0f,0.0f});
+	gameCamera->SetTarget(Vector3{0.0f,0.0f,200.0f});
 }
 
 

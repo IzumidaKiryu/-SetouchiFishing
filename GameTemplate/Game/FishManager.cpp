@@ -3,6 +3,8 @@
 #include "Buri.h"
 #include "Tatiuo.h"
 #include "PositionSelection.h"
+#include "Jakoten.h"
+#include "Hirame.h"
 #include <random>
 
 FishManager::FishManager()
@@ -31,11 +33,17 @@ void FishManager::SelectFishType()
 	std::random_device rd;
 	int randum = rd() % 100;
 	m_randum = randum;
-	if (0 <= randum && randum <= 49) {
+	if (0 <= randum && randum <= 20) {
 		m_fishType = BURI;
 	}
-	if (50 <= randum && randum <= 100) {
+	if (21 <= randum && randum <=30 ) {
 		m_fishType = TATIUO;
+	}
+	if (31 <= randum && randum <= 50){
+		m_fishType = JAKOTENN;
+	}
+	if (51 <= randum && randum <= 100) {
+		m_fishType = HIRAME;
 	}
 }
 
@@ -48,6 +56,17 @@ void FishManager::NewGOTatiuo()
 {
 	m_tatiuo = NewGO<Tatiuo>(0, "tatiuo");
 }
+
+void FishManager::NewGOJakoten()
+{
+	m_jakoten = NewGO<Jakoten>(0, "jakoten");
+}
+
+void FishManager::NewGOHirame()
+{
+	m_hirame=NewGO<Hirame>(0, "hirame");
+}
+
 
 /// <summary>
 /// UI‚ðŽæ“¾‚·‚éB
@@ -65,8 +84,10 @@ void FishManager::GetUI()
 		m_ui = &(m_tatiuo->GetUI());
 		break;
 	case HIRAME:
+		m_ui = &(m_hirame->GetUI());
 		break;
 	case JAKOTENN:
+		m_ui = &(m_jakoten->GetUI());
 		break;
 	case SINJU:
 		break;
@@ -91,8 +112,10 @@ void FishManager::FishNewGO()
 		NewGOTatiuo();
 		break;
 	case HIRAME:
+		NewGOHirame();
 		break;
 	case JAKOTENN:
+		NewGOJakoten();
 		break;
 	case SINJU:
 		break;
@@ -117,8 +140,10 @@ void FishManager::SetShouldFishChange()
 		m_shouldFishChange = m_tatiuo->GetShouldFishChange();
 		break;
 	case HIRAME:
+		m_shouldFishChange = m_hirame->GetShouldFishChange();
 		break;
 	case JAKOTENN:
+		m_shouldFishChange = m_jakoten->GetShouldFishChange();
 		break;
 	case SINJU:
 		break;
@@ -145,8 +170,10 @@ void FishManager::SetFishData()
 		p_fishData = &(m_tatiuo->GetFishData());
 		break;
 	case HIRAME:
+		p_fishData = &(m_hirame->GetFishData());
 		break;
 	case JAKOTENN:
+		p_fishData = &(m_jakoten->GetFishData());
 		break;
 	case SINJU:
 		break;
@@ -180,8 +207,10 @@ void FishManager::Timer()
 		m_tatiuo->TimeCount();
 		break;
 	case HIRAME:
+		m_hirame->TimeCount();
 		break;
 	case JAKOTENN:
+		m_jakoten->TimeCount();
 		break;
 	case SINJU:
 		break;

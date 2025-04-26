@@ -14,6 +14,10 @@
 
 Game::Game()
 {
+	m_skyCube = NewGO<SkyCube>(0, "skyCube");
+	m_skyCube->SetLuminance(1.0f);
+	m_skyCube->SetScale(400.0f);//4000倍にすると描画がなくなるかも。
+
 	//m_rul = NewGO<GameResult>(0, "rusut");
 	positionSelection = NewGO<PositionSelection>(0, "positionSelection");
 	//m_scoreDisplay = NewGO<ScoreDisplay>(0, "scoreDisplay");
@@ -33,10 +37,7 @@ Game::Game()
 
 	////�w�i�̃I�u�W�F�N�g����B
 	//backGround = NewGO<BackGround>(0);
-	m_skyCube = NewGO<SkyCube>(0, "skyCube");
-	m_skyCube->SetLuminance(1.0f);
-	m_skyCube->SetScale(400.0f);//4000倍にすると描画がなくなるかも。
-
+	
 }
 
 Game::~Game()

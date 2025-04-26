@@ -8,7 +8,7 @@ Enemy::Enemy()
 		"Assets/animData/Enemy/EnamyWalking.tka"
 	);
 	//ユニティちゃんのモデルを読み込む。
-	SetModel("Assets/modelData/Enemy/Enemy.tkm", animationClips, enAnimationClip_Num, enModelUpAxisY);
+	SetModel("Assets/modelData/Enemy/Enemy.tkm", animationClips, enAnimationClip_Num, enModelUpAxisZ);
 }
 
 Enemy::~Enemy()

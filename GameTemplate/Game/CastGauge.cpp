@@ -23,7 +23,7 @@ CastGauge::CastGauge()
 	m_castGaugeOutside.SetScale(Vector3{ 1.0f, 1.0f, 1.0f });
 	m_castGaugeOutside.Update();
 
-	m_castGaugeInside.Init("Assets/modelData/castGauge_inside.DDS", 100, 500);
+	m_castGaugeInside.Init("Assets/modelData/new_castgauge.DDS", 100, 500);
 	m_castGaugeInside.SetPivot(Vector2(0.0f, 0.5f));
 	m_castGaugeInside.SetPosition(Vector3(500.0f, 0.0f, 0.0f));
 	m_castGaugeInside.SetScale(Vector3{ 1.0f, 1.0f, 1.0f });
@@ -33,8 +33,8 @@ CastGauge::CastGauge()
 	m_castGaugeArrow.SetPivot(Vector2(0.0f, 0.5f));
 	m_castGaugeArrow.SetScale(Vector3{ 1.0f, 1.0f, 1.0f });
 
-	m_gaugeCastSuccessful = NewGO<GaugeCastSuccessful>(0, "gaugeCastSuccessful");
-	m_gaugeCastSuccessful->Init(10.0f, 10.0f);
+	//m_gaugeCastSuccessful = NewGO<GaugeCastSuccessful>(0, "gaugeCastSuccessful");
+	//m_gaugeCastSuccessful->Init(10.0f, 10.0f);
 
 	m_positionSelection = FindGO<PositionSelection>("positionSelection");
 
@@ -44,7 +44,7 @@ CastGauge::CastGauge()
 
 CastGauge::~CastGauge()
 {
-	DeleteGO(m_gaugeCastSuccessful);
+	//DeleteGO(m_gaugeCastSuccessful);
 }
 
 void CastGauge::Update()
@@ -125,7 +125,7 @@ void CastGauge::HitTest()
 		//ウキの距離を計算。
 		m_float_range_max_range_rate = (m_arrowPosition - m_gaugeLowerLimit) / m_gauge_length;
 
-		m_rodFloatMove = FindGO<RodFloatMove>("rodFloatMove");
+		//m_rodFloatMove = FindGO<RodFloatMove>("rodFloatMove");
 
 
 		m_playFishing = FindGO<PlayFishing>("playFishing");
@@ -175,7 +175,7 @@ void CastGauge::ChastStaeManager()
 
 		break;
 	case  chast:
-		m_rodFloatMove = FindGO<RodFloatMove>("rodFloatMove");
+		//m_rodFloatMove = FindGO<RodFloatMove>("rodFloatMove");
 		IsCastEnd();
 		break;
 	default:
@@ -194,7 +194,7 @@ void CastGauge::SetCameraPlayingSgtate()
 
 void CastGauge::SetCameraChast()
 {
-	m_gameCameraTarget=m_rodFloatMove->m_rodFloatPosition;
+	//m_gameCameraTarget=m_rodFloatMove->m_rodFloatPosition;
 }
 
 void CastGauge::SetCamera()
@@ -214,8 +214,6 @@ void CastGauge::SetCamera()
 	default:
 		break;
 	}
-	m_gameCamera->SetTarget(m_gameCameraTarget);
-	m_gameCamera->SetPosition(m_gameCameraPos);
 }
 /// <summary>
 /// 波の動きを表現。
@@ -229,7 +227,7 @@ void CastGauge::WaveMotion()
 
 void CastGauge::IsCastEnd()
 {
-	m_rodFloatMove = FindGO<RodFloatMove>("rodFloatMove");
+	//m_rodFloatMove = FindGO<RodFloatMove>("rodFloatMove");
 	/*if (m_rodFloatMove->IsCastEnd() == true) {
 		m_playFishing = FindGO<PlayFishing>("playFishing");
 		m_playFishing->SetSuccess();
@@ -246,7 +244,7 @@ void CastGauge::Render(RenderContext& rc)
 {
 	if (m_chastState== playing) {
 		m_castGaugeInside.Draw(rc);
-		m_gaugeCastSuccessful->m_gaugeCastSuccessfulSprite.Draw(rc);
+	/*	m_gaugeCastSuccessful->m_gaugeCastSuccessfulSprite.Draw(rc);*/
 		m_castGaugeArrow.Draw(rc);
 		m_castGaugeOutside.Draw(rc);
 	}

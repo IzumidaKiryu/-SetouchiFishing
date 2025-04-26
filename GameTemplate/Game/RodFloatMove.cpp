@@ -8,7 +8,7 @@
 
 RodFloatMove::RodFloatMove()
 {
-	PhysicsWorld::GetInstance()->EnableDrawDebugWireFrame();
+	//PhysicsWorld::GetInstance()->EnableDrawDebugWireFrame();
 	m_rodFloatModel.SetPosition(Vector3{ 0.0f,0.0f,0.0f });
 	m_rodFloatModel.SetScale(Vector3{ 1.0f,1.0f,1.0f });
 	m_rodFloatModel.Init("Assets/modelData/uki.tkm");
@@ -22,6 +22,7 @@ RodFloatMove::~RodFloatMove()
 void RodFloatMove::Update()
 {
 	//RodFloatStateManagement();
+	SetPosition();
 	ModelUpdate();
 }
 
@@ -86,8 +87,8 @@ void RodFloatMove::ModelUpdate()
 void RodFloatMove::Float()
 {
 	t += 0.05;
-	m_floating.y = (cos(t))*2;//上下に動かす
-	m_floating.x = (cos(t * 0.7/*周期をずらす*/)*2 );//左右に動かす
+	m_floating.y = (cos(t))*10;//上下に動かす
+	m_floating.x = (cos(t * 0.7/*周期をずらす*/)*10 );//左右に動かす
 	m_rodFloatPosition = m_rodFloatPosition + m_floating;
 }
 
@@ -133,22 +134,37 @@ void RodFloatMove::Float()
 
 void RodFloatMove::SetPosition(Vector3 position)
 {
+
 	m_rodFloatPosition = position;
+}
+
+void RodFloatMove::SetPosition()
+{
+	m_playFishing = FindGO<PlayFishing>("playFishing");
+
+	if (m_playFishing->m_playFishingStatus != cast/*, m_playFishing->m_playFishingStatus != wait_castGauge*/) {
+		Float();
+		//ポジションを反映する。
+		m_rodFloatPosition = /*m_floating*/m_sumPosition + Vector3{ 0.0f,0.0f, m_playFishing->m_current_float_range_max_range_rate * m_limit_range_with_ship }+m_floating;
+	}
+	m_sumPosition = { 0.0f,0.0f,0.0f };
 }
 
 void RodFloatMove::SetSumPosition(Vector3 positon)
 {
-	m_rodFloatPosition += positon;
+	m_sumPosition = positon;
 }
 
-void RodFloatMove::SetCurrent_range_and_max_range_rate(float current_range_and_max_range_rate)
-{
-	Float();
-	m_current_range_and_max_range_rate = current_range_and_max_range_rate;
-
-	//ポジションを反映する。
-	m_rodFloatPosition = m_floating+Vector3{0.0f,0.0f, current_range_and_max_range_rate * m_limit_range_with_ship };
-}
+//void RodFloatMove::SetCurrent_range_and_max_range_rate(float current_range_and_max_range_rate)
+//{
+//	
+//	m_playFishing = FindGO<PlayFishing>("playFishing");
+//	if (m_playFishing->m_playFishingStatus != cast) {
+//		Float();
+//		//ポジションを反映する。
+//		m_rodFloatPosition = m_floating + Vector3{ 0.0f,0.0f, m_playFishing->m_current_float_range_max_range_rate * m_limit_range_with_ship };
+//	}
+//}
 
 //void RodFloatMove::FightFish()
 //{

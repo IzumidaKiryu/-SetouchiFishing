@@ -7,6 +7,7 @@ Tatiuo::Tatiuo()
 	SetBaseScore(120.0f);
 	SetScore();
 	SetTimeUntilEscape(10.0f);
+	SetInitPos(0.7f);
 }
 
 Tatiuo::~Tatiuo()

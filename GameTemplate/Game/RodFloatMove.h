@@ -30,12 +30,11 @@ public:
 	void SetCastState();
 	void SetFightFishState();
 	void SetScalar_multiply_in_first_velocity_vector(float scalar_multiply_in_first_velocity_vector);*/
+	void SetPosition();
 	void SetPosition(Vector3 position);
 
 	void SetSumPosition(Vector3 positon);//ポジションを足し算する。
 	/*void FightFish();*/
-	void SetCurrent_range_and_max_range_rate(float current_range_and_max_range_rate);
-
 	void Render(RenderContext& rc);
 	//bool IsCastEnd();//キャストが終わっているか。
 
@@ -49,6 +48,7 @@ public:
 	Vector3 g{ 0.0f,-30.0f,0.0f };
 	Vector3 InitPos{ 0.0f,500.0f,10.0f };
 	Vector3 m_rodFloatPosition= InitPos;
+	Vector3 m_sumPosition;
 	ModelRender m_rodFloatModel;
 	//void SetRodFloatPositon();
 	GameCamera* m_gameCamera;
@@ -60,7 +60,7 @@ public:
 	Vector3 landing_position;
 	float m_current_range_and_max_range_rate=1;//今の距離と限界の距離の割合。
 
-
+	
 	bool m_cast_end=false;//キャストが終わっているか。
 
 	float float_diameter=50.0f;

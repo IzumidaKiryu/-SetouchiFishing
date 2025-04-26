@@ -6,6 +6,7 @@
 #include"RodFloatMove.h";
 #include "SceneFightFish.h"
 
+
 #include <random>
 
 
@@ -26,8 +27,15 @@ TensionGauge::TensionGauge()
 	m_tensionGaugeOutside.Update();
 
 	m_signs_of_Fish.Init("Assets/modelData/new_signs_of_fish.DDS", 50, 50);
-	m_signs_of_Fish.SetPivot(Vector2(0.5f, 0.0f));
+	m_signs_of_Fish.SetPivot(Vector2(0.5f, 1.0f));
 	m_signs_of_Fish.SetScale(Vector3{ 1.0f, 1.0f, 1.0f });
+
+	
+	m_rodFloat.Init("Assets/modelData/rod_float.DDS", 50, 50);
+	m_rodFloat.SetPivot(Vector2(0.5f, 0.5f));
+	m_rodFloat.SetPosition(Vector3(650.0f, 0.0f, 0.0f));
+	m_rodFloat.SetScale(Vector3{ 1.0f, 1.0f, 1.0f });
+	m_rodFloat.Update();
 }
 
 TensionGauge::~TensionGauge()
@@ -41,6 +49,8 @@ void TensionGauge::Update()
 	/*Set_signs_of_Fish_UI();*/
 
 	/*SetFishUI_Position();*/
+	SetScale();
+	SetFishUI_Position();
 }
 
 void TensionGauge::RightAndLeftManagement()
@@ -48,12 +58,28 @@ void TensionGauge::RightAndLeftManagement()
 
 }
 
-void TensionGauge::SetFishUI_Position(float position)
+void TensionGauge::SetFishUI_Position()
 {
-	m_signs_of_Fish_UI_Position= position/*m_sceneFightFish->m_range_with_fish*/;
-	m_signs_of_Fish.SetPosition(Vector3(650.0f, m_bar_length * m_signs_of_Fish_UI_Position+ m_barBottom, 0.0f));
+	m_playFishing = FindGO<PlayFishing>("playFishing");
+	
+	m_signs_of_Fish.SetPosition(Vector3(650.0f, m_bar_length * m_playFishing->m_current_fish_range_and_max_range_rate+ m_barBottom, 0.0f));
 	m_signs_of_Fish.Update();
 
+	m_rodFloat.SetPosition(Vector3(650.0f, m_bar_length * m_playFishing->m_current_float_range_max_range_rate + m_barBottom, 0.0f));
+	m_rodFloat.Update();
+
+}
+/// <summary>
+/// ‘å‚«‚³‚ğ•ÏXB
+/// </summary>
+void TensionGauge::SetScale()
+{
+
+	//ŠÔ‚ª‚ ‚ê‚Î‰e‚à‡‚í‚¹‚½‚¢B
+	m_rodFloatMove = FindGO<RodFloatMove>("rodFloatMove");
+
+
+	m_rodFloat.SetScale(Vector3{ 1.0f, 1.0f, 1.0f }*(1 + (m_rodFloatMove->m_rodFloatPosition.y / 300)));
 }
 
 void TensionGauge::Set_signs_of_Fish_UI()
@@ -138,4 +164,7 @@ void TensionGauge::Render(RenderContext& rc)
 	m_tensionGaugeInside.Draw(rc);
 	m_tensionGaugeOutside.Draw(rc);
 	m_signs_of_Fish.Draw(rc);
+	if (m_playFishing->m_playFishingStatus != wait_castGauge) {
+		m_rodFloat.Draw(rc);
+	}
 }
