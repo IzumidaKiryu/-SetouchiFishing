@@ -3,7 +3,7 @@
 
 TimeLimitUI::TimeLimitUI()
 {
-	/*m_clockUI.Init("Assets/modelData/timelimit_clock.DDS", 60, 100);
+	m_clockUI.Init("Assets/modelData/timelimit_clock.DDS", 60, 100);
 	m_clockUI.SetPivot(Vector2(0.5f, 0.5f));
 	m_clockUI.SetPosition(m_clockUIPos);
 	m_clockUI.SetScale(Vector3{ 1.0f, 1.0f, 1.0f });
@@ -14,7 +14,7 @@ TimeLimitUI::TimeLimitUI()
 	m_hundredsPlaceUI.SetPivot(Vector2(0.5f, 0.5f));
 	m_hundredsPlaceUI.SetPosition(m_hundredsPlaceUIPos);
 	m_hundredsPlaceUI.SetScale(Vector3{ 1.0f, 1.0f, 1.0f });
-	m_hundredsPlaceUI.Update();*/
+	m_hundredsPlaceUI.Update();
 }
 
 TimeLimitUI::~TimeLimitUI()
@@ -23,22 +23,22 @@ TimeLimitUI::~TimeLimitUI()
 
 void TimeLimitUI::DisplayTimeLimitUI(int time)
 {
-	//if (time != m_prevTime) {//時間が変わった時だけ処理をする。
+	if (time != m_prevTime) {//時間が変わった時だけ処理をする。
 
-	//	SetTime(time);//時間をメンバ変数に設定する
+		SetTime(time);//時間をメンバ変数に設定する
 
-	//	SetOnesPlace();//1の位を設定する。
-	//	SetTensPlace();//10の位を設定する
-	//	SetHundredsPlace();//100の位を設定する。
+		SetOnesPlace();//1の位を設定する。
+		SetTensPlace();//10の位を設定する
+		SetHundredsPlace();//100の位を設定する。
 
-	//	SetOnesPlaceUI();//1の位のUIを設定する。
-	//	SetTensPlaceUI();//10の位のUIを設定する。
-	//	SetHundredsPlaceUI();//100の位のUIを設定する。
+		SetOnesPlaceUI();//1の位のUIを設定する。
+		SetTensPlaceUI();//10の位のUIを設定する。
+		SetHundredsPlaceUI();//100の位のUIを設定する。
 
-	//	/*m_hundredsPlaceUI.Update();*/
-	//	m_prevTime = m_time;
+		/*m_hundredsPlaceUI.Update();*/
+		m_prevTime = m_time;
 
-	//}
+	}
 }
 
 void TimeLimitUI::SetTime(int time)
@@ -88,13 +88,13 @@ void TimeLimitUI::SetOnesPlaceUI()
 		m_onesPlaceUI.Init("Assets/modelData/timelimit_six.DDS", 100, 100);
 		break;
 	case 7:
-		m_onesPlaceUI.Init("Assets/modelData/timelimit_seven.DDS", 100, 100);
+		m_onesPlaceUI.Init("Assets/modelData/timelimit_zero.DDS", 100, 100);
 		break;
 	case 8:
-		m_onesPlaceUI.Init("Assets/modelData/timelimit_eight.DDS", 100, 100);
+		m_onesPlaceUI.Init("Assets/modelData/timelimit_zero.DDS", 100, 100);
 		break;
 	case 9:
-		m_onesPlaceUI.Init("Assets/modelData/timelimit_nine.DDS", 100, 100);
+		m_onesPlaceUI.Init("Assets/modelData/timelimit_zero.DDS", 100, 100);
 		break;
 	default:
 		break;

@@ -238,6 +238,8 @@
     <ClCompile Include="GameResult.cpp" />
     <ClCompile Include="GaugeCastSuccessful.cpp" />
     <ClCompile Include="GetRotation.cpp" />
+    <ClCompile Include="Hirame.cpp" />
+    <ClCompile Include="Jakoten.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayFishing.cpp" />
@@ -274,6 +276,8 @@
     <ClInclude Include="GameResult.h" />
     <ClInclude Include="GaugeCastSuccessful.h" />
     <ClInclude Include="GetRotation.h" />
+    <ClInclude Include="Hirame.h" />
+    <ClInclude Include="Jakoten.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayFishing.h" />
     <ClInclude Include="PlayFishingBackGround.h" />

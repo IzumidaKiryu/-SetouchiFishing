@@ -65,7 +65,8 @@ public:
 	float GetRange_of_fish_and_float();
 	void SetScalar_multiply_in_first_velocity_vector(float scalar_multiply_in_first_velocity_vector);
 	void Cast();
-	void SetRodFloatModalePosition();
+	void WaitForFish();
+	//void SetRodFloatModalePosition();
 	void float_to_water();
 	void CalculateCurrent_float_range_and_max_range_rate();//ウキとの距離の割合を計算する
 
@@ -80,7 +81,8 @@ public:
 
 	float m_current_fish_range_and_max_range_rate;//今の魚の距離と最大の魚の距離の割合（それぞれのクラスで船と魚の最大距離とこの割合を掛けて場所を表現する。）
 	float m_current_float_range_max_range_rate;//今のウキの距離と最大のウキの距離の割合。
-	float t;
+	float m_floating_t;
+	float m_casting_t;
 	Vector3 m_floating;
 	Vector3 m_gameCameraTarget;
 

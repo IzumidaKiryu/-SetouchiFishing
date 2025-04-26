@@ -50,6 +50,8 @@ public:
 	void FindFishHighScore();//スコアが高い魚を探す。
 	void IsWith_any_Position();
 	void SetFishDisplayOutside_to_Green(Position positon);
+	void SetCameraPosition();
+
 
 	float setFish = 0.0f;
 	Vector3 m_fishDisplayPosition[6];//ディスプレイUIのポジション

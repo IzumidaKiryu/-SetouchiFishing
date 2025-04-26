@@ -38,6 +38,8 @@ void SceneFightFish::Update()
 {
 	m_tensionGauge= FindGO<TensionGauge>("tensionGauge");
 
+	m_playFishing = FindGO<PlayFishing>("playFishing");
+
 	//フレーム数を計る
 	FrameCount();
 	//ステータス管理
@@ -59,8 +61,12 @@ void SceneFightFish::Update()
 	success();//失敗したかどうか。
 
 	SetCamera();
-
-	m_tensionGauge->SetFishUI_Position(m_range_rate);
+	m_playFishing->m_current_float_range_max_range_rate = m_playFishing->m_current_fish_range_and_max_range_rate;
+	m_playFishing->m_current_fish_range_and_max_range_rate = m_playFishing->m_current_float_range_max_range_rate;
+	//m_tensionGauge->SetFishUI_Position(m_playFishing->m_current_fish_range_and_max_range_rate);
+	// 
+	// 
+	// 
 	//m_playFishing->SetFailure();
 }
 
@@ -84,7 +90,7 @@ void SceneFightFish::SetSigns_of_Fish_Position()
 		m_forcePullFish += m_getRotation->nowFrameRotationQuantity /** 200*/*0.1;
 	}
 
-	m_range_rate =-m_forcePullFish + m_fishEscapePower+ m_initRangeRate;
+	m_playFishing->m_current_fish_range_and_max_range_rate =-m_forcePullFish + m_fishEscapePower+ m_initRangeRate;
 	//m_signs_of_Fish.SetPosition(Vector3(m_signs_of_Fish_2D_Position, -250.0f, 0.0f));
 	//m_signs_of_Fish.Update();
 }
@@ -137,7 +143,7 @@ void SceneFightFish::FishDirectionChange()
 /// </summary>
 void SceneFightFish::failure()
 {
-	if (m_range_rate >= 1) {//上端まで行ったら。
+	if (m_playFishing->m_current_fish_range_and_max_range_rate >= 1) {//上端まで行ったら。
 		m_playFishing = FindGO<PlayFishing>("playFishing");
 		m_playFishing->SetFailure();
 	}
@@ -148,7 +154,7 @@ void SceneFightFish::failure()
 /// </summary>
 void SceneFightFish::success()
 {
-	if (m_range_rate <= 0) {//下端まで行ったら。
+	if (m_playFishing->m_current_fish_range_and_max_range_rate <= 0) {//下端まで行ったら。
 		m_playFishing = FindGO<PlayFishing>("playFishing");
 		m_positionSelection = FindGO<PositionSelection>("positionSelection");
 		m_fishingRodHP = FindGO<FishingRodHP>("fishingRodHP");
@@ -326,7 +332,7 @@ void SceneFightFish::FrameCount()
 
 void SceneFightFish::Set3DFishPosition()
 {
-	m_range_rate;
+	m_playFishing->m_current_fish_range_and_max_range_rate;
 }
 
 void SceneFightFish::SetRangeRate()

@@ -43,6 +43,7 @@ void Character::SetModel(const char* filePath, AnimationClip* animationClips, in
 {
 	//ユニティちゃんのモデルを読み込む。
 	modelRender.Init(filePath, animationClips, numAnimationClips, enModelUpAxis);
+	modelRender.SetScale(Vector3{ 2.0f,2.0f,2.0f });
 }
 
 void Character::SetAnimationClipsLoad(const char* animationClip_Idle, const char* animationClip_Walk)

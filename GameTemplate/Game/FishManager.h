@@ -12,6 +12,8 @@ enum FishType {
 
 class Buri;
 class Tatiuo;
+class Jakoten;
+class Hirame;
 class FishManager :public IGameObject
 {
 public:
@@ -22,6 +24,8 @@ public:
 	void SelectFishType();
 	void NewGOBuri();
 	void NewGOTatiuo();
+	void NewGOJakoten();
+	void NewGOHirame();
 	void GetUI();
 	void FishNewGO();
 	void SetShouldFishChange();
@@ -41,5 +45,7 @@ public:
 	Buri* m_buri;
 	Tatiuo* m_tatiuo;
 	SpriteRender* m_ui;
+	Jakoten* m_jakoten;
+	Hirame* m_hirame;
 };
 

@@ -33,25 +33,25 @@ PlayFishing::PlayFishing()
 	m_rodFloatMove = NewGO<RodFloatMove>(0, "rodFloatMove");
 
 
-	m_tensionGauge = NewGO<TensionGauge>(0, "tensionGauge");
-
-	m_tensionGauge->SetFishUI_Position(m_fishData.initPos);
+	//m_player= NewGO<Player>(0, "player_Playfishing");
 
 	//m_playFishingStatus = sceneFightFish;
 
 	StatusManager();
+	m_rodFloatMove->SetPosition(m_rodFloatPosition);
 }
 
 PlayFishing::~PlayFishing()
 {
-
-
+	//DeleteGO(m_player);
+	DeleteGO(m_fshModel);
 	DeleteGO(m_playFishingBackGround);
 	DeleteGO(gameCamera);
 	DeleteGO(m_rodFloatMove);
 	//DeleteGO(m_fishManager);
 
 	m_positionSelection = FindGO<PositionSelection>("positionSelection");
+
 
 }
 
@@ -61,6 +61,11 @@ void PlayFishing::Init()
 	FindeFishManager();
 
 	SetFishData();
+
+	m_tensionGauge = NewGO<TensionGauge>(0, "tensionGauge");
+	m_current_fish_range_and_max_range_rate = m_fishData.initPos;
+
+	/*m_tensionGauge->SetFishUI_Position(m_fishData.initPos);*/
 }
 
 void PlayFishing::Update()
@@ -81,14 +86,23 @@ void PlayFishing::StatusManager()
 		NewGOCastGauge();
 		m_playFishingStatus = wait_castGauge;
 	case wait_castGauge:
+		float_to_water();
+		m_rodFloatMove->SetSumPosition(Vector3 {0.0f,500.0f,0.0f});
+		gameCamera->SetTarget(/*m_rodFloatMove->m_rodFloatPosition*/Vector3{0.0f,0.0f,500.0f}+ m_floating);
+		//gameCamera->SetPosition(m_player->m_position+Vector3{0.0f,100.0f,100.0f});
+
 		break;
 	case cast:
 		Cast();
-		SetRodFloatModalePosition();
+		/*SetRodFloatModalePosition();*/
+		gameCamera->SetTarget(m_rodFloatMove->m_rodFloatPosition);
 		break;
 	case wait_for_fish:
-		float_to_water();
-		SetRodFloatModalePosition();
+		
+		/*float_to_water();*/
+		gameCamera->SetTarget(m_rodFloatMove->m_rodFloatPosition);
+		WaitForFish();
+		/*SetRodFloatModalePosition();*/
 		break;
 		//case fishingGsauge:
 		//	/*DeleteGO(m_castGauge);*/
@@ -104,7 +118,7 @@ void PlayFishing::StatusManager()
 		m_rodFloatMove = FindGO<RodFloatMove>("rodFloatMove");
 		m_sceneFightFish = FindGO<SceneFightFish>("sceneFightFish");
 
-		m_rodFloatMove->SetCurrent_range_and_max_range_rate(m_sceneFightFish->m_range_rate);
+		//m_rodFloatMove->SetCurrent_range_and_max_range_rate(m_current_fish_range_and_max_range_rate);
 	default:
 		break;
 	}
@@ -129,7 +143,7 @@ void PlayFishing::Success()
 		case cast:
 			m_successful_or_failure = unfixed;//成功か失敗かどうかを未確定にする。
 			/*m_playFishingStatus = wait_for_fish;*/
-			m_playFishingStatus = sceneFightFish;
+			m_playFishingStatus = wait_for_fish;
 			break;
 		case wait_for_fish:
 			m_successful_or_failure = unfixed;//成功か失敗かどうかを未確定にする。
@@ -193,30 +207,53 @@ void PlayFishing::Failure()
 
 void PlayFishing::Cast()
 {
-	t+=0.1;
-	m_rodFloatPosition = (m_float_initPos + first_velocity_vector * 100 * m_scalar_multiply_in_first_velocity_vector * t) + g * t * t * 1 / 2;
+	m_casting_t +=0.1;
+	m_rodFloatPosition = m_float_initPos + (first_velocity_vector * 100 * m_scalar_multiply_in_first_velocity_vector * m_casting_t) + g * m_casting_t * m_casting_t * 1 / 2;
 	CalculateCurrent_float_range_and_max_range_rate();
+	m_rodFloatMove = FindGO<RodFloatMove>("rodFloatMove");
+	m_rodFloatMove->SetPosition(m_rodFloatPosition);
 	if (m_rodFloatPosition.y <= water_surface_position_y) {
 
 		SetSuccess();
 	}
 }
 
-void PlayFishing::SetRodFloatModalePosition()
+void PlayFishing::WaitForFish()
 {
-	m_rodFloatMove = FindGO<RodFloatMove>("rodFloatMove");
-	m_rodFloatMove->SetPosition(m_rodFloatPosition);
+	if (m_current_fish_range_and_max_range_rate > m_current_float_range_max_range_rate) {
+		m_current_fish_range_and_max_range_rate -= 0.001;
+		if (m_current_fish_range_and_max_range_rate - m_current_float_range_max_range_rate<=0) {
+			SetSuccess();
+		}
+	}
+
+	if (m_current_fish_range_and_max_range_rate < m_current_float_range_max_range_rate) {
+		m_current_fish_range_and_max_range_rate += 0.001;
+		if (m_current_float_range_max_range_rate - m_current_fish_range_and_max_range_rate <= 0) {
+			SetSuccess();
+		}
+	}
+	/*float a = m_current_fish_range_and_max_range_rate - m_current_float_range_max_range_rate;
+	if (a<=0.001|| a>= -0.001) {
+		SetSuccess();
+	}*/
 }
+
+//void PlayFishing::SetRodFloatModalePosition()
+//{
+//	m_rodFloatMove = FindGO<RodFloatMove>("rodFloatMove");
+//	m_rodFloatMove->SetPosition(m_rodFloatPosition);
+//}
 
 /// <summary>
 /// 水に浮かんでいるように動かす。
 /// </summary>
 void PlayFishing::float_to_water()
 {
-	t += 0.05;
-	m_floating.y = (cos(t)) * 0.5;//上下に動かす
-	m_floating.z = (cos(t * 0.7/*周期をずらす*/) * 0.5);//左右に動かす
-	m_rodFloatPosition = m_rodFloatPosition + m_floating;
+	m_floating_t += 0.05;
+	m_floating.y = (cos(m_floating_t*0.9)) * 3;//上下に動かす
+	m_floating.z = (cos(m_floating_t * 0.7/*周期をずらす*/) * 5);//左右に動かす
+	/*m_rodFloatPosition = m_rodFloatPosition + m_floating;*/
 }
 
 /// <summary>

@@ -1,7 +1,7 @@
 #include "stdafx.h"
-#include "Tatiuo.h"
+#include "Hirame.h"
 
-Tatiuo::Tatiuo()
+Hirame::Hirame()
 {
 	SetUI();
 	SetBaseScore(120.0f);
@@ -10,7 +10,7 @@ Tatiuo::Tatiuo()
 	SetInitPos(0.7f);
 }
 
-Tatiuo::~Tatiuo()
+Hirame::~Hirame()
 {
 
 }
@@ -18,9 +18,9 @@ Tatiuo::~Tatiuo()
 /// <summary>
 /// UIÇÃê›íË
 /// </summary>
-void Tatiuo::SetUI()
+void Hirame::SetUI()
 {
-	m_ui.Init("Assets/modelData/tatiuo.DDS", 150, 150);
+	m_ui.Init("Assets/modelData/hirameUI.DDS", 150, 150);
 	/*m_ui.SetPivot(Vector2(0.5f, 0.5f));
 	m_ui.SetScale(Vector3{ 1.0f, 1.0f, 1.0f });
 	m_ui.Update();*/

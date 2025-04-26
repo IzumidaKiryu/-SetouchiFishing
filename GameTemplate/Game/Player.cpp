@@ -10,7 +10,8 @@ Player::Player()
 		"Assets/animData/Player/Walking.tka"
 	);
 
-	SetModel("Assets/modelData/Player/Player.tkm", animationClips, enAnimationClip_Num, enModelUpAxisY);
+	SetModel("Assets/modelData/Player/Player.tkm", animationClips, enAnimationClip_Num, enModelUpAxisZ);
+	
 
 }
 
@@ -22,6 +23,7 @@ Player::~Player()
 
 void Player::SetMoveSpeed()
 {
+	m_position;
 	Vector3 forward = Vector3{ 0.0f,0.0f,1.0f };
 	Vector3 right = Vector3{ 1.0f,0.0f,0.0f };
 

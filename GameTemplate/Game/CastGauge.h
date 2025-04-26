@@ -64,7 +64,7 @@ public:
 	SpriteRender m_castGaugeOutside;
 	SpriteRender m_castGaugeInside;
 	SpriteRender m_castGaugeArrow;
-	GaugeCastSuccessful* m_gaugeCastSuccessful = nullptr;
+	/*GaugeCastSuccessful* m_gaugeCastSuccessful = nullptr;*/
 	FishingGauge* m_fishingGauge;
 	TensionGauge* tensionGauge = nullptr;
 	PositionSelection* m_positionSelection;
