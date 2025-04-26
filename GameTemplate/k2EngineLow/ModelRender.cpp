@@ -14,9 +14,9 @@ nsK2EngineLow::ModelRender::~ModelRender()
 
 void nsK2EngineLow::ModelRender::Init(const char* filePath, AnimationClip* animationClips, int numAnimationClips, EnModelUpAxis enModelUpAxis)
 {
-	// ƒXƒPƒ‹ƒgƒ“‚ð‰Šú‰»B
+	// ã‚¹ã‚±ãƒ«ãƒˆãƒ³ã‚’åˆæœŸåŒ–ã€‚
 	InitSkeleton(filePath);
-	// ƒAƒjƒ[ƒVƒ‡ƒ“‚ð‰Šú‰»B
+	// ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã‚’åˆæœŸåŒ–ã€‚
 	InitAnimation(animationClips, numAnimationClips, enModelUpAxis);
 	InitModel(filePath, enModelUpAxis);
 
@@ -30,7 +30,7 @@ void nsK2EngineLow::ModelRender::InitSkyCubeModel(ModelInitData& initData)
 void nsK2EngineLow::ModelRender::InitSkeleton(const char* filePath)
 {
 
-	//ƒXƒPƒ‹ƒgƒ“‚Ìƒf[ƒ^‚ð“Ç‚Ýž‚ÝB
+	//ã‚¹ã‚±ãƒ«ãƒˆãƒ³ã®ãƒ‡ãƒ¼ã‚¿ã‚’èª­ã¿è¾¼ã¿ã€‚
 	std::string skeletonFilePath = filePath;
 	int pos = (int)skeletonFilePath.find(".tkm");
 	skeletonFilePath.replace(pos, 4, ".tks");
@@ -51,43 +51,43 @@ void nsK2EngineLow::ModelRender::InitAnimation(AnimationClip* animationClips, in
 void nsK2EngineLow::ModelRender::InitModel(const char* filePath, EnModelUpAxis enModelUpAxis)
 {
 	ModelInitData initData;
-	//tkmƒtƒ@ƒCƒ‹‚Ìƒtƒ@ƒCƒ‹ƒpƒX‚ðŽw’è‚·‚éB
+	//tkmãƒ•ã‚¡ã‚¤ãƒ«ã®ãƒ•ã‚¡ã‚¤ãƒ«ãƒ‘ã‚¹ã‚’æŒ‡å®šã™ã‚‹ã€‚
 	initData.m_tkmFilePath = filePath;
-	//ƒVƒF[ƒ_[ƒtƒ@ƒCƒ‹‚Ìƒtƒ@ƒCƒ‹ƒpƒX‚ðŽw’è‚·‚éB
+	//ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ãƒ•ã‚¡ã‚¤ãƒ«ã®ãƒ•ã‚¡ã‚¤ãƒ«ãƒ‘ã‚¹ã‚’æŒ‡å®šã™ã‚‹ã€‚
 	initData.m_fxFilePath = "Assets/shader/model.fx";
 
 	initData.m_expandConstantBuffer = &m_light->GetLight();
 	initData.m_expandConstantBufferSize = sizeof(m_light->GetLight());
 
-	//ƒmƒ“ƒXƒLƒ“ƒƒbƒVƒ…—p‚Ì’¸“_ƒVƒF[ƒ_[‚ÌƒGƒ“ƒgƒŠ[ƒ|ƒCƒ“ƒg‚ðŽw’è‚·‚éB
+	//ãƒŽãƒ³ã‚¹ã‚­ãƒ³ãƒ¡ãƒƒã‚·ãƒ¥ç”¨ã®é ‚ç‚¹ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ã®ã‚¨ãƒ³ãƒˆãƒªãƒ¼ãƒã‚¤ãƒ³ãƒˆã‚’æŒ‡å®šã™ã‚‹ã€‚
 	initData.m_vsEntryPointFunc = "VSMain";
 
 	if (m_animationClips != nullptr) {
-		//ƒXƒLƒ“ƒƒbƒVƒ…—p‚Ì’¸“_ƒVƒF[ƒ_[‚ÌƒGƒ“ƒgƒŠ[ƒ|ƒCƒ“ƒg‚ðŽw’èB
+		//ã‚¹ã‚­ãƒ³ãƒ¡ãƒƒã‚·ãƒ¥ç”¨ã®é ‚ç‚¹ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ã®ã‚¨ãƒ³ãƒˆãƒªãƒ¼ãƒã‚¤ãƒ³ãƒˆã‚’æŒ‡å®šã€‚
 		initData.m_vsSkinEntryPointFunc = "VSSkinMain";
-		//ƒXƒPƒ‹ƒgƒ“‚ðŽw’è‚·‚éB
+		//ã‚¹ã‚±ãƒ«ãƒˆãƒ³ã‚’æŒ‡å®šã™ã‚‹ã€‚
 		initData.m_skeleton = &m_skeleton;
 	}
 
-	//ƒ‚ƒfƒ‹‚Ìã•ûŒü‚ðŽw’è‚·‚éB
+	//ãƒ¢ãƒ‡ãƒ«ã®ä¸Šæ–¹å‘ã‚’æŒ‡å®šã™ã‚‹ã€‚
 	initData.m_modelUpAxis = enModelUpAxis;
 
-	//ì¬‚µ‚½‰Šú‰»ƒf[ƒ^‚ð‚à‚Æ‚Éƒ‚ƒfƒ‹‚ð‰Šú‰»‚·‚éA
+	//ä½œæˆã—ãŸåˆæœŸåŒ–ãƒ‡ãƒ¼ã‚¿ã‚’ã‚‚ã¨ã«ãƒ¢ãƒ‡ãƒ«ã‚’åˆæœŸåŒ–ã™ã‚‹ã€
 	m_model.Init(initData);
 }
 void nsK2EngineLow::ModelRender::Update()
 {
-	//ƒXƒPƒ‹ƒgƒ“‚ðXVB
+	//ã‚¹ã‚±ãƒ«ãƒˆãƒ³ã‚’æ›´æ–°ã€‚
 	m_skeleton.Update(m_model.GetWorldMatrix());
 
-	//ƒ‚ƒfƒ‹‚ÌXVB
+	//ãƒ¢ãƒ‡ãƒ«ã®æ›´æ–°ã€‚
 	m_model.UpdateWorldMatrix(m_position, m_rotation, m_scale);
 
-	//ƒAƒjƒ[ƒVƒ‡ƒ“‚ði‚ß‚éB
+	//ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã‚’é€²ã‚ã‚‹ã€‚
 	m_animation.Progress(g_gameTime->GetFrameDeltaTime());
 
 
-	//////ƒRƒ“ƒgƒ[ƒ‰[‚Åƒ|ƒCƒ“ƒgƒ‰ƒCƒg‚ð“®‚©‚·BiŠm”F—p‚ÌŽÀ‘•‚Ì‚½‚ßAƒRƒƒ“ƒgƒAƒEƒgjB
+	//////ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©ãƒ¼ã§ãƒã‚¤ãƒ³ãƒˆãƒ©ã‚¤ãƒˆã‚’å‹•ã‹ã™ã€‚ï¼ˆç¢ºèªç”¨ã®å®Ÿè£…ã®ãŸã‚ã€ã‚³ãƒ¡ãƒ³ãƒˆã‚¢ã‚¦ãƒˆï¼‰ã€‚
 	//m_light->m_SceneLight.pointLig.ptPosition.x -= g_pad[0]->GetLStickXF();
 	//if (g_pad[0]->IsPress(enButtonB)) {
 	//	m_light->m_SceneLight.pointLig.ptPosition.y += g_pad[0]->GetLStickYF();
@@ -97,7 +97,7 @@ void nsK2EngineLow::ModelRender::Update()
 	//}
 	
 
-	////ƒRƒ“ƒgƒ[ƒ‰[‚ÅƒXƒ|ƒbƒgƒ‰ƒCƒgƒ‰ƒCƒg‚ð“®‚©‚·BiŠm”F—p‚ÌŽÀ‘•‚Ì‚½‚ßAƒRƒƒ“ƒgƒAƒEƒgjB
+	////ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©ãƒ¼ã§ã‚¹ãƒãƒƒãƒˆãƒ©ã‚¤ãƒˆãƒ©ã‚¤ãƒˆã‚’å‹•ã‹ã™ã€‚ï¼ˆç¢ºèªç”¨ã®å®Ÿè£…ã®ãŸã‚ã€ã‚³ãƒ¡ãƒ³ãƒˆã‚¢ã‚¦ãƒˆï¼‰ã€‚
 	m_light->m_SceneLight.spotLig.m_position.x -= g_pad[0]->GetLStickXF();
 	if (g_pad[0]->IsPress(enButtonB)) {
 		m_light->m_SceneLight.spotLig.m_position.y += g_pad[0]->GetLStickYF();
@@ -107,21 +107,21 @@ void nsK2EngineLow::ModelRender::Update()
 	}
 
 
-	//ƒRƒ“ƒgƒ[ƒ‰[‰EƒXƒeƒBƒbƒN‚ÅƒXƒ|ƒbƒgƒ‰ƒCƒg‚ð‰ñ“]‚³‚¹‚éB
-	//YŽ²Žü‚è‚ÌƒNƒI[ƒ^ƒjƒIƒ“‚ðŒvŽZ‚·‚éB
+	//ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©ãƒ¼å³ã‚¹ãƒ†ã‚£ãƒƒã‚¯ã§ã‚¹ãƒãƒƒãƒˆãƒ©ã‚¤ãƒˆã‚’å›žè»¢ã•ã›ã‚‹ã€‚
+	//Yè»¸å‘¨ã‚Šã®ã‚¯ã‚ªãƒ¼ã‚¿ãƒ‹ã‚ªãƒ³ã‚’è¨ˆç®—ã™ã‚‹ã€‚
 	Quaternion qRotY;
 	qRotY.SetRotationY(g_pad[0]->GetRStickXF() * 0.01f);
 
-	//ŒvŽZ‚µ‚½ƒNƒI[ƒ^ƒjƒIƒ“‚Åƒ‰ƒCƒg‚Ì‚Ù‚¤‚±‚¤‚ð‚Ü‚í‚·B
+	//è¨ˆç®—ã—ãŸã‚¯ã‚ªãƒ¼ã‚¿ãƒ‹ã‚ªãƒ³ã§ãƒ©ã‚¤ãƒˆã®ã»ã†ã“ã†ã‚’ã¾ã‚ã™ã€‚
 	qRotY.Apply(m_light->m_SceneLight.spotLig.m_direction);
 
-	//XŽ²Žü‚è‚ÌƒNƒI[ƒ^ƒjƒIƒ“‚ðŒvŽZ‚·‚éB
+	//Xè»¸å‘¨ã‚Šã®ã‚¯ã‚ªãƒ¼ã‚¿ãƒ‹ã‚ªãƒ³ã‚’è¨ˆç®—ã™ã‚‹ã€‚
 	Vector3 rotAxis;
 	rotAxis.Cross(g_vec3AxisY, m_light->m_SceneLight.spotLig.m_direction);
 	Quaternion qRotX;
 	qRotX.SetRotation(rotAxis, g_pad[0]->GetRStickYF() * 0.01f);
 
-	//ŒvŽZ‚µ‚½ƒNƒI[ƒ^ƒjƒIƒ“‚Åƒ‰ƒCƒg‚Ì•ûŒü‚ð‰ñ‚·B
+	//è¨ˆç®—ã—ãŸã‚¯ã‚ªãƒ¼ã‚¿ãƒ‹ã‚ªãƒ³ã§ãƒ©ã‚¤ãƒˆã®æ–¹å‘ã‚’å›žã™ã€‚
 	qRotX.Apply(m_light->m_SceneLight.spotLig.m_direction);
 
 	
@@ -132,15 +132,15 @@ void nsK2EngineLow::ModelRender::Draw(RenderContext& rc)
 	m_model.Draw(rc);
 	//m_zprepassModel.Draw(rc);
 	//if (m_isEnableInstancingDraw) {
-	//	// ƒCƒ“ƒXƒ^ƒ“ƒVƒ“ƒO•`‰æ‚Íƒrƒ…[ƒtƒ‰ƒXƒ^ƒ€ƒJƒŠƒ“ƒO‚Ís‚í‚È‚¢B
+	//	// ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚·ãƒ³ã‚°æç”»ã¯ãƒ“ãƒ¥ãƒ¼ãƒ•ãƒ©ã‚¹ã‚¿ãƒ ã‚«ãƒªãƒ³ã‚°ã¯è¡Œã‚ãªã„ã€‚
 	//	g_renderingEngine->AddRenderObject(this);
 	//	m_worldMatrixArraySB.Update(m_worldMatrixArray.get());
 	//	m_numInstance = 0;
 	//}
 	//else {
-	//	// ’Êí•`‰æ
+	//	// é€šå¸¸æç”»
 	//	if (m_geometryDatas[0].IsInViewFrustum()) {
-	//		// ƒrƒ…[ƒtƒ‰ƒXƒ^ƒ€‚ÉŠÜ‚Ü‚ê‚Ä‚¢‚éB
+	//		// ãƒ“ãƒ¥ãƒ¼ãƒ•ãƒ©ã‚¹ã‚¿ãƒ ã«å«ã¾ã‚Œã¦ã„ã‚‹ã€‚
 	//		g_renderingEngine->AddRenderObject(this);
 	//	}
 	//}

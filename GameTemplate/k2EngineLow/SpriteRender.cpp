@@ -6,15 +6,15 @@ using namespace nsK2EngineLow;
 void nsK2EngineLow::SpriteRender::Init(const char* filePath, const float w, const float h, AlphaBlendMode alphaBlendMode)
 {
 	SpriteInitData initData;
-	//DDSƒtƒ@ƒCƒ‹ƒpƒX‚ğŠi”[‚·‚é•Ï”‚Ìİ’èB
+	//DDSãƒ•ã‚¡ã‚¤ãƒ«ãƒ‘ã‚¹ã‚’æ ¼ç´ã™ã‚‹å¤‰æ•°ã®è¨­å®šã€‚
 	initData.m_ddsFilePath[0] = filePath;
-	//Sprite‚Åg—p‚·‚éƒVƒF[ƒ_[ƒpƒX‚ğİ’èB
+	//Spriteã§ä½¿ç”¨ã™ã‚‹ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ãƒ‘ã‚¹ã‚’è¨­å®šã€‚
 	initData.m_fxFilePath = "Assets/shader/sprite.fx";
-	//ƒXƒvƒ‰ƒCƒg‚Ìc‰¡•‚ğİ’èB
+	//ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆã®ç¸¦æ¨ªå¹…ã‚’è¨­å®šã€‚
 	initData.m_width = w;
 	initData.m_height = h;
 	initData.m_alphaBlendMode = alphaBlendMode;
-	//SpriteRenderƒm‰Šúƒf[ƒ^‚ğg—p‚µ‚ÄSpritereader‚ğ‰Šú‰»B
+	//SpriteRenderãƒåˆæœŸãƒ‡ãƒ¼ã‚¿ã‚’ä½¿ç”¨ã—ã¦Spritereaderã‚’åˆæœŸåŒ–ã€‚
 	m_sprite.Init(initData);
 }
 

@@ -2,32 +2,32 @@
 namespace nsK2EngineLow {
 
 
-	//ƒ‰ƒCƒgƒNƒ‰ƒXBŠÂ‹«Œõ‚ÍƒVƒF[ƒ_[‘¤‚Åİ’è‚µ‚Ä‚é(Še‰Šú’l0.3f)B
+	//ãƒ©ã‚¤ãƒˆã‚¯ãƒ©ã‚¹ã€‚ç’°å¢ƒå…‰ã¯ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼å´ã§è¨­å®šã—ã¦ã‚‹(å„åˆæœŸå€¤0.3f)ã€‚
 	class Light :public IGameObject
 	{
 	public:
 		struct DirectionLight {
-			Vector3 m_direction;//ƒ‰ƒCƒg‚Ì•ûŒüB3—v‘f‚ÌƒxƒNƒgƒ‹‚Å•\Œ»B
+			Vector3 m_direction;//ãƒ©ã‚¤ãƒˆã®æ–¹å‘ã€‚3è¦ç´ ã®ãƒ™ã‚¯ãƒˆãƒ«ã§è¡¨ç¾ã€‚
 			float pad0;
-			Vector3 m_color;//ƒ‰ƒCƒg‚ÌƒJƒ‰[BŒõ‚Ì3Œ´F‚Å•\Œ»B
+			Vector3 m_color;//ãƒ©ã‚¤ãƒˆã®ã‚«ãƒ©ãƒ¼ã€‚å…‰ã®3åŸè‰²ã§è¡¨ç¾ã€‚
 			float pad1;
 		};
 
 		struct PointLight {
-			Vector3 m_position;//ƒ‰ƒCƒg‚ÌˆÊ’uB3—v‘f‚ÌƒxƒNƒgƒ‹‚Å•\Œ»B
-			float pad2;//ƒpƒeƒBƒ“ƒOB
-			Vector3 m_color;//ƒ‰ƒCƒg‚ÌƒJƒ‰[BŒõ‚Ì3Œ´F‚Å•\Œ»B
-			float m_renge;//‰e‹¿”ÍˆÍB’PˆÊ‚Íƒ[ƒgƒ‹B
+			Vector3 m_position;//ãƒ©ã‚¤ãƒˆã®ä½ç½®ã€‚3è¦ç´ ã®ãƒ™ã‚¯ãƒˆãƒ«ã§è¡¨ç¾ã€‚
+			float pad2;//ãƒ‘ãƒ†ã‚£ãƒ³ã‚°ã€‚
+			Vector3 m_color;//ãƒ©ã‚¤ãƒˆã®ã‚«ãƒ©ãƒ¼ã€‚å…‰ã®3åŸè‰²ã§è¡¨ç¾ã€‚
+			float m_renge;//å½±éŸ¿ç¯„å›²ã€‚å˜ä½ã¯ãƒ¡ãƒ¼ãƒˆãƒ«ã€‚
 		
 		};
 
 		struct SpotLight {
-			Vector3 m_position;//ƒ‰ƒCƒg‚ÌˆÊ’uB3—v‘f‚ÌƒxƒNƒgƒ‹‚Å•\Œ»B
+			Vector3 m_position;//ãƒ©ã‚¤ãƒˆã®ä½ç½®ã€‚3è¦ç´ ã®ãƒ™ã‚¯ãƒˆãƒ«ã§è¡¨ç¾ã€‚
 			float pad3;
-			Vector3 m_color;//ƒ‰ƒCƒg‚ÌƒJƒ‰[BŒõ‚Ì3Œ´F‚Å•\Œ»B
-			float m_range;//‰e‹¿”ÍˆÍB’PˆÊ‚Íƒ[ƒgƒ‹B
-			Vector3 m_direction;//•úË•ûŒüB3—v‘f‚ÌƒxƒNƒgƒ‹‚Å•\Œ»B
-			float m_angle;//•úËŠp“xB
+			Vector3 m_color;//ãƒ©ã‚¤ãƒˆã®ã‚«ãƒ©ãƒ¼ã€‚å…‰ã®3åŸè‰²ã§è¡¨ç¾ã€‚
+			float m_range;//å½±éŸ¿ç¯„å›²ã€‚å˜ä½ã¯ãƒ¡ãƒ¼ãƒˆãƒ«ã€‚
+			Vector3 m_direction;//æ”¾å°„æ–¹å‘ã€‚3è¦ç´ ã®ãƒ™ã‚¯ãƒˆãƒ«ã§è¡¨ç¾ã€‚
+			float m_angle;//æ”¾å°„è§’åº¦ã€‚
 		};
 
 		struct HemisphereLight {

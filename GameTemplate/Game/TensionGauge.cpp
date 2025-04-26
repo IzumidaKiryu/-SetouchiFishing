@@ -70,12 +70,12 @@ void TensionGauge::SetFishUI_Position()
 
 }
 /// <summary>
-/// ‘å‚«‚³‚ğ•ÏXB
+/// å¤§ãã•ã‚’å¤‰æ›´ã€‚
 /// </summary>
 void TensionGauge::SetScale()
 {
 
-	//ŠÔ‚ª‚ ‚ê‚Î‰e‚à‡‚í‚¹‚½‚¢B
+	//æ™‚é–“ãŒã‚ã‚Œã°å½±ã‚‚åˆã‚ã›ãŸã„ã€‚
 	m_rodFloatMove = FindGO<RodFloatMove>("rodFloatMove");
 
 
@@ -84,7 +84,7 @@ void TensionGauge::SetScale()
 
 void TensionGauge::Set_signs_of_Fish_UI()
 {
-	if (m_sceneFightFish->m_previous_is_fish_suited_for_upper_side != m_sceneFightFish->is_fish_suited_for_upper_side) {//‘O‚ÌƒtƒŒ[ƒ€‚Æó‘Ô‚ªˆá‚¤‚¾‚¯B
+	if (m_sceneFightFish->m_previous_is_fish_suited_for_upper_side != m_sceneFightFish->is_fish_suited_for_upper_side) {//å‰ã®ãƒ•ãƒ¬ãƒ¼ãƒ ã¨çŠ¶æ…‹ãŒé•ã†æ™‚ã ã‘ã€‚
 		switch (m_sceneFightFish->m_fishState)
 		{
 		case normal:

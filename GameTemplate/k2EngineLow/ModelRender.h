@@ -26,7 +26,7 @@ namespace nsK2EngineLow {
 		}
 
 		/// <summary>
-		/// ƒAƒjƒ[ƒVƒ‡ƒ“‚ÌÄ¶’†H
+		/// ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã®å†ç”Ÿä¸­ï¼Ÿ
 		/// </summary>
 		bool IsPlayingAnimation() const
 		{
@@ -38,34 +38,34 @@ namespace nsK2EngineLow {
 			m_position = pos;
 		}
 		/// <summary>
-		/// À•W‚ğİ’èB
+		/// åº§æ¨™ã‚’è¨­å®šã€‚
 		/// </summary>
-		/// <param name="x">xÀ•W</param>
-		/// <param name="y">yÀ•W</param>
-		/// <param name="z">zÀ•W</param>
+		/// <param name="x">xåº§æ¨™</param>
+		/// <param name="y">yåº§æ¨™</param>
+		/// <param name="z">zåº§æ¨™</param>
 		void SetPosition(float x, float y, float z)
 		{
 			SetPosition({ x, y, z });
 		}
 		/// <summary>
-		/// ‰ñ“]‚ğİ’èB
+		/// å›è»¢ã‚’è¨­å®šã€‚
 		/// </summary>
 		/// <remark>
-		/// ƒCƒ“ƒXƒ^ƒ“ƒVƒ“ƒO•`‰æ‚ª—LŒø‚Ìê‡‚ÍA‚±‚Ìİ’è‚Í–³‹‚³‚ê‚Ü‚·B
+		/// ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚·ãƒ³ã‚°æç”»ãŒæœ‰åŠ¹ã®å ´åˆã¯ã€ã“ã®è¨­å®šã¯ç„¡è¦–ã•ã‚Œã¾ã™ã€‚
 		/// </remark>
-		/// <param name="rotation">‰ñ“]B</param>
+		/// <param name="rotation">å›è»¢ã€‚</param>
 		void SetRotation(const Quaternion& rotation)
 		{
 			m_rotation = rotation;
 		}
 
 		/// <summary>
-		/// Šg‘å—¦‚ğİ’èB
+		/// æ‹¡å¤§ç‡ã‚’è¨­å®šã€‚
 		/// </summary>
 		/// <remark>
-		/// ƒCƒ“ƒXƒ^ƒ“ƒVƒ“ƒO•`‰æ‚ª—LŒø‚Ìê‡‚ÍA‚±‚Ìİ’è‚Í–³‹‚³‚ê‚Ü‚·B
+		/// ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚·ãƒ³ã‚°æç”»ãŒæœ‰åŠ¹ã®å ´åˆã¯ã€ã“ã®è¨­å®šã¯ç„¡è¦–ã•ã‚Œã¾ã™ã€‚
 		/// </remark>
-		/// <param name="scale">Šg‘å—¦B</param>
+		/// <param name="scale">æ‹¡å¤§ç‡ã€‚</param>
 		void SetScale(const Vector3& scale)
 		{
 			m_scale = scale;
@@ -76,25 +76,25 @@ namespace nsK2EngineLow {
 		}
 
 		/// <summary>
-	/// ƒ‚ƒfƒ‹‚ğæ“¾B
+	/// ãƒ¢ãƒ‡ãƒ«ã‚’å–å¾—ã€‚
 	/// </summary>
-	/// <returns>ƒ‚ƒfƒ‹</returns>
+	/// <returns>ãƒ¢ãƒ‡ãƒ«</returns>
 		Model& GetModel()
 		{
 			return m_model;
 		}
 
 		/// <summary>
-		/// ƒXƒPƒ‹ƒgƒ“‚Ì‰Šú‰»B
+		/// ã‚¹ã‚±ãƒ«ãƒˆãƒ³ã®åˆæœŸåŒ–ã€‚
 		/// </summary>
-		/// <param name="filePath">ƒtƒ@ƒCƒ‹ƒpƒXB</param>
+		/// <param name="filePath">ãƒ•ã‚¡ã‚¤ãƒ«ãƒ‘ã‚¹ã€‚</param>
 		void InitSkeleton(const char* filePath);
 		/// <summary>
-		/// ƒAƒjƒ[ƒVƒ‡ƒ“‚Ì‰Šú‰»B
+		/// ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã®åˆæœŸåŒ–ã€‚
 		/// </summary>
-		/// <param name="animationClips">ƒAƒjƒ[ƒVƒ‡ƒ“ƒNƒŠƒbƒvB</param>
-		/// <param name="numAnimationClips">ƒAƒjƒ[ƒVƒ‡ƒ“ƒNƒŠƒbƒv‚Ì”B</param>
-		/// <param name="enModelUpAxis">ƒ‚ƒfƒ‹‚ÌãŒü‚«B</param>
+		/// <param name="animationClips">ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã‚¯ãƒªãƒƒãƒ—ã€‚</param>
+		/// <param name="numAnimationClips">ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã‚¯ãƒªãƒƒãƒ—ã®æ•°ã€‚</param>
+		/// <param name="enModelUpAxis">ãƒ¢ãƒ‡ãƒ«ã®ä¸Šå‘ãã€‚</param>
 		void InitAnimation(AnimationClip* animationClips,
 			int numAnimationClips,
 			EnModelUpAxis enModelUpAxis);
@@ -105,7 +105,7 @@ namespace nsK2EngineLow {
 			int numAnimationClips = 0,
 			EnModelUpAxis enModelUpAxis = enModelUpAxisZ);
 
-		//À•WŠg‘å‰ñ“]‘S‚Ä‚ğİ’è
+		//åº§æ¨™æ‹¡å¤§å›è»¢å…¨ã¦ã‚’è¨­å®š
 		void SetTRS(const Vector3& pos, const Quaternion& rotation, const Vector3& scale)
 		{
 			SetPosition(pos);
@@ -114,34 +114,34 @@ namespace nsK2EngineLow {
 		}
 
 
-		AnimationClip* m_animationClips = nullptr;			// ƒAƒjƒ[ƒVƒ‡ƒ“ƒNƒŠƒbƒvB
-		int							m_numAnimationClips = 0;			// ƒAƒjƒ[ƒVƒ‡ƒ“ƒNƒŠƒbƒv‚Ì”B
-		Vector3 					m_position = Vector3::Zero;			// À•WB
-		Quaternion	 				m_rotation = Quaternion::Identity;	// ‰ñ“]B
-		Vector3						m_scale = Vector3::One;				// Šg‘å—¦B
-		EnModelUpAxis				m_enFbxUpAxis = enModelUpAxisZ;		// FBX‚Ìã•ûŒüB
-		Animation					m_animation;						// ƒAƒjƒ[ƒVƒ‡ƒ“B
-		//ComputeAnimationVertexBuffer m_computeAnimationVertexBuffer;	// ƒAƒjƒ[ƒVƒ‡ƒ“Ï‚İ’¸“_ƒoƒbƒtƒ@‚ÌŒvZˆ—B
-		Model* m_addRaytracingWorldModel = nullptr;// ƒŒƒCƒgƒŒƒ[ƒ‹ƒh‚É“o˜^‚µ‚½ƒ‚ƒfƒ‹B				
-		Model						m_zprepassModel;					// ZPrepass‚Å•`‰æ‚³‚ê‚éƒ‚ƒfƒ‹
-		Model						m_forwardRenderModel;				// ƒtƒHƒ[ƒhƒŒƒ“ƒ_ƒŠƒ“ƒO‚Ì•`‰æƒpƒX‚Å•`‰æ‚³‚ê‚éƒ‚ƒfƒ‹
-		Model						m_translucentModel;					// ”¼“§–¾ƒ‚ƒfƒ‹B
-		Model						m_renderToGBufferModel;				// RenderToGBuffer‚Å•`‰æ‚³‚ê‚éƒ‚ƒfƒ‹
+		AnimationClip* m_animationClips = nullptr;			// ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã‚¯ãƒªãƒƒãƒ—ã€‚
+		int							m_numAnimationClips = 0;			// ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã‚¯ãƒªãƒƒãƒ—ã®æ•°ã€‚
+		Vector3 					m_position = Vector3::Zero;			// åº§æ¨™ã€‚
+		Quaternion	 				m_rotation = Quaternion::Identity;	// å›è»¢ã€‚
+		Vector3						m_scale = Vector3::One;				// æ‹¡å¤§ç‡ã€‚
+		EnModelUpAxis				m_enFbxUpAxis = enModelUpAxisZ;		// FBXã®ä¸Šæ–¹å‘ã€‚
+		Animation					m_animation;						// ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã€‚
+		//ComputeAnimationVertexBuffer m_computeAnimationVertexBuffer;	// ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³æ¸ˆã¿é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ã®è¨ˆç®—å‡¦ç†ã€‚
+		Model* m_addRaytracingWorldModel = nullptr;// ãƒ¬ã‚¤ãƒˆãƒ¬ãƒ¯ãƒ¼ãƒ«ãƒ‰ã«ç™»éŒ²ã—ãŸãƒ¢ãƒ‡ãƒ«ã€‚				
+		Model						m_zprepassModel;					// ZPrepassã§æç”»ã•ã‚Œã‚‹ãƒ¢ãƒ‡ãƒ«
+		Model						m_forwardRenderModel;				// ãƒ•ã‚©ãƒ¯ãƒ¼ãƒ‰ãƒ¬ãƒ³ãƒ€ãƒªãƒ³ã‚°ã®æç”»ãƒ‘ã‚¹ã§æç”»ã•ã‚Œã‚‹ãƒ¢ãƒ‡ãƒ«
+		Model						m_translucentModel;					// åŠé€æ˜ãƒ¢ãƒ‡ãƒ«ã€‚
+		Model						m_renderToGBufferModel;				// RenderToGBufferã§æç”»ã•ã‚Œã‚‹ãƒ¢ãƒ‡ãƒ«
 		Model						m_model;
-		//Model						m_shadowModels[MAX_DIRECTIONAL_LIGHT][NUM_SHADOW_MAP];	// ƒVƒƒƒhƒEƒ}ƒbƒv‚É•`‰æ‚·‚éƒ‚ƒfƒ‹
-		//ConstantBuffer				m_drawShadowMapCameraParamCB[MAX_DIRECTIONAL_LIGHT][NUM_SHADOW_MAP];		// ƒVƒƒƒhƒEƒ}ƒbƒvì¬‚É•K—v‚ÈƒJƒƒ‰ƒpƒ‰ƒ[ƒ^—p‚Ì’è”ƒoƒbƒtƒ@B
-		bool						m_isUpdateAnimation = true;			// ƒAƒjƒ[ƒVƒ‡ƒ“‚ğXV‚·‚éH
-		Skeleton					m_skeleton;							// œB
-		bool						m_isShadowCaster = true;			// ƒVƒƒƒhƒEƒLƒƒƒXƒ^[ƒtƒ‰ƒO
+		//Model						m_shadowModels[MAX_DIRECTIONAL_LIGHT][NUM_SHADOW_MAP];	// ã‚·ãƒ£ãƒ‰ã‚¦ãƒãƒƒãƒ—ã«æç”»ã™ã‚‹ãƒ¢ãƒ‡ãƒ«
+		//ConstantBuffer				m_drawShadowMapCameraParamCB[MAX_DIRECTIONAL_LIGHT][NUM_SHADOW_MAP];		// ã‚·ãƒ£ãƒ‰ã‚¦ãƒãƒƒãƒ—ä½œæˆæ™‚ã«å¿…è¦ãªã‚«ãƒ¡ãƒ©ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ç”¨ã®å®šæ•°ãƒãƒƒãƒ•ã‚¡ã€‚
+		bool						m_isUpdateAnimation = true;			// ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã‚’æ›´æ–°ã™ã‚‹ï¼Ÿ
+		Skeleton					m_skeleton;							// éª¨ã€‚
+		bool						m_isShadowCaster = true;			// ã‚·ãƒ£ãƒ‰ã‚¦ã‚­ãƒ£ã‚¹ã‚¿ãƒ¼ãƒ•ãƒ©ã‚°
 		float						m_animationSpeed = 1.0f;
-		int							m_numInstance = 0;					// ƒCƒ“ƒXƒ^ƒ“ƒX‚Ì”B
-		int							m_maxInstance = 1;					// Å‘åƒCƒ“ƒXƒ^ƒ“ƒX”B
-		bool						m_isEnableInstancingDraw = false;	// ƒCƒ“ƒXƒ^ƒ“ƒVƒ“ƒO•`‰æ‚ª—LŒøH
-		bool						m_isRaytracingWorld = true;			//ƒŒƒCƒgƒŒƒ[ƒ‹ƒh‚É“o˜^‚·‚éH
-		std::unique_ptr<Matrix[]>	m_worldMatrixArray;					// ƒ[ƒ‹ƒhs—ñ‚Ì”z—ñB
-		StructuredBuffer			m_worldMatrixArraySB;				// ƒ[ƒ‹ƒhs—ñ‚Ì”z—ñ‚ÌƒXƒgƒ‰ƒNƒ`ƒƒ[ƒhƒoƒbƒtƒ@B
-		//std::vector< GemometryData > m_geometryDatas;					// ƒWƒIƒƒgƒŠî•ñB
-		std::unique_ptr<int[]>		m_instanceNoToWorldMatrixArrayIndexTable;	// ƒCƒ“ƒXƒ^ƒ“ƒX”Ô†‚©‚çƒ[ƒ‹ƒhs—ñ‚Ì”z—ñ‚ÌƒCƒ“ƒfƒbƒNƒX‚É•ÏŠ·‚·‚éƒe[ƒuƒ‹B
+		int							m_numInstance = 0;					// ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã®æ•°ã€‚
+		int							m_maxInstance = 1;					// æœ€å¤§ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹æ•°ã€‚
+		bool						m_isEnableInstancingDraw = false;	// ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚·ãƒ³ã‚°æç”»ãŒæœ‰åŠ¹ï¼Ÿ
+		bool						m_isRaytracingWorld = true;			//ãƒ¬ã‚¤ãƒˆãƒ¬ãƒ¯ãƒ¼ãƒ«ãƒ‰ã«ç™»éŒ²ã™ã‚‹ï¼Ÿ
+		std::unique_ptr<Matrix[]>	m_worldMatrixArray;					// ãƒ¯ãƒ¼ãƒ«ãƒ‰è¡Œåˆ—ã®é…åˆ—ã€‚
+		StructuredBuffer			m_worldMatrixArraySB;				// ãƒ¯ãƒ¼ãƒ«ãƒ‰è¡Œåˆ—ã®é…åˆ—ã®ã‚¹ãƒˆãƒ©ã‚¯ãƒãƒ£ãƒ¼ãƒ‰ãƒãƒƒãƒ•ã‚¡ã€‚
+		//std::vector< GemometryData > m_geometryDatas;					// ã‚¸ã‚ªãƒ¡ãƒˆãƒªæƒ…å ±ã€‚
+		std::unique_ptr<int[]>		m_instanceNoToWorldMatrixArrayIndexTable;	// ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ç•ªå·ã‹ã‚‰ãƒ¯ãƒ¼ãƒ«ãƒ‰è¡Œåˆ—ã®é…åˆ—ã®ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ã«å¤‰æ›ã™ã‚‹ãƒ†ãƒ¼ãƒ–ãƒ«ã€‚
 		Light* m_light;
 };
 }

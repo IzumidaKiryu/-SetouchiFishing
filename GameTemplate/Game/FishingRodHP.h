@@ -16,13 +16,13 @@ public:
 	void SetFishingRodHP();
 	void SetUI();
 	void Render(RenderContext& rc);
-	void failure();//¸”sB
+	void failure();//å¤±æ•—ã€‚
 	void SetIs_playFishingFinishedTrue();
 	void AddStealPositionPoint();
 
-	float m_MaxHp = 200.0f;//HP‚ÌãŒÀB
-	float m_Hp = m_MaxHp;//’Ş‚èŠÆ‚ÌHPB
-	float m_previousFrameHP = 0.0f;//‘O‚ÌƒtƒŒ[ƒ€‚Å‚ÌHPB
+	float m_MaxHp = 200.0f;//HPã®ä¸Šé™ã€‚
+	float m_Hp = m_MaxHp;//é‡£ã‚Šç«¿ã®HPã€‚
+	float m_previousFrameHP = 0.0f;//å‰ã®ãƒ•ãƒ¬ãƒ¼ãƒ ã§ã®HPã€‚
 	float test;
 	bool m_is_playFishingFinished = false;
 

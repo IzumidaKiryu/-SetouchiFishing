@@ -40,25 +40,25 @@ void SceneFightFish::Update()
 
 	m_playFishing = FindGO<PlayFishing>("playFishing");
 
-	//ƒtƒŒ[ƒ€”‚ğŒv‚é
+	//ãƒ•ãƒ¬ãƒ¼ãƒ æ•°ã‚’è¨ˆã‚‹
 	FrameCount();
-	//ƒXƒe[ƒ^ƒXŠÇ—
+	//ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ç®¡ç†
 	FishStateAdminister();
 
-	//‹›‚ÌŒü‚­•ûŒü‚ğŒˆ‚ß‚éB
+	//é­šã®å‘ãæ–¹å‘ã‚’æ±ºã‚ã‚‹ã€‚
 	FishDirectionChange();
 
-	//‹›‚ª“¦‚°‚Ä‚¢‚­—Í‚ğŒvZ‚·‚éB
+	//é­šãŒé€ƒã’ã¦ã„ãåŠ›ã‚’è¨ˆç®—ã™ã‚‹ã€‚
 	SetFishEscapePower();
 
-	//‹›‰e‚ÌˆÊ’u‚ğŒˆ‚ß‚éB
+	//é­šå½±ã®ä½ç½®ã‚’æ±ºã‚ã‚‹ã€‚
 	SetSigns_of_Fish_Position();
 
 	SetRangeRate();
 	
 
-	failure();//¬Œ÷‚µ‚½‚©‚Ç‚¤‚©.
-	success();//¸”s‚µ‚½‚©‚Ç‚¤‚©B
+	failure();//æˆåŠŸã—ãŸã‹ã©ã†ã‹.
+	success();//å¤±æ•—ã—ãŸã‹ã©ã†ã‹ã€‚
 
 	SetCamera();
 	m_playFishing->m_current_float_range_max_range_rate = m_playFishing->m_current_fish_range_and_max_range_rate;
@@ -83,7 +83,7 @@ void SceneFightFish::RightAndLeftManagement()
 void SceneFightFish::SetSigns_of_Fish_Position()
 {
 	//SetFishEscapePower();
-	if (is_fish_suited_for_upper_side == true) {//‹›‚ªã‚ğŒü‚¢‚Ä‚¢‚é‚Æ‚«‚É‚àˆø‚«Šñ‚¹‚é—Í‚ğ‰Á‚¦‚éB(ã‚ğŒü‚¢‚Ä‚¢‚é‚Æ‚«‚É‚à­‚µ‚Í‰º‚Éˆø‚Á’£‚ê‚é‚æ‚¤‚É‚·‚é‚½‚ß)B
+	if (is_fish_suited_for_upper_side == true) {//é­šãŒä¸Šã‚’å‘ã„ã¦ã„ã‚‹ã¨ãã«ã‚‚å¼•ãå¯„ã›ã‚‹åŠ›ã‚’åŠ ãˆã‚‹ã€‚(ä¸Šã‚’å‘ã„ã¦ã„ã‚‹ã¨ãã«ã‚‚å°‘ã—ã¯ä¸‹ã«å¼•ã£å¼µã‚Œã‚‹ã‚ˆã†ã«ã™ã‚‹ãŸã‚)ã€‚
 		m_forcePullFish += m_getRotation->nowFrameRotationQuantity/* * 200*/ * 1.3 *0.05;
 	}
 	else {
@@ -110,14 +110,14 @@ void SceneFightFish::SetFishDirection()
 }
 
 /// <summary>
-/// ‹›‚ÌŒü‚­•ûŒü‚ğ•ÏX‚·‚é‚½‚ß‚ÌŠÖ”B
+/// é­šã®å‘ãæ–¹å‘ã‚’å¤‰æ›´ã™ã‚‹ãŸã‚ã®é–¢æ•°ã€‚
 /// </summary>
 void SceneFightFish::FishDirectionChange()
 {
-	if (m_frameCount % 10 == 0) {//1‚OƒtƒŒ[ƒ€‚Éˆê‰ñ•ûŒü‚ğ•Ï‚¦‚é‚©‚Ç‚¤‚©’Š‘I‚ğ‚·‚éB
+	if (m_frameCount % 10 == 0) {//1ï¼ãƒ•ãƒ¬ãƒ¼ãƒ ã«ä¸€å›æ–¹å‘ã‚’å¤‰ãˆã‚‹ã‹ã©ã†ã‹æŠ½é¸ã‚’ã™ã‚‹ã€‚
 		std::random_device rd;
 		int randum = rd() % 2;
-		if (randum == 0)//ƒ[ƒ‚ªo‚½‚çŒü‚­•ûŒü‚ğ•Ï‚¦‚éB
+		if (randum == 0)//ã‚¼ãƒ­ãŒå‡ºãŸã‚‰å‘ãæ–¹å‘ã‚’å¤‰ãˆã‚‹ã€‚
 		{
 			switch (is_fish_suited_for_upper_side)
 			{
@@ -133,28 +133,28 @@ void SceneFightFish::FishDirectionChange()
 			default:
 				break;
 			}
-			m_fishChange_in_DirectionTimes++;//•ûŒü“]Š·‚µ‚½”‚ğ”‚¦‚éB
+			m_fishChange_in_DirectionTimes++;//æ–¹å‘è»¢æ›ã—ãŸæ•°ã‚’æ•°ãˆã‚‹ã€‚
 		}
 	}
 }
 
 /// <summary>
-/// ¸”s
+/// å¤±æ•—
 /// </summary>
 void SceneFightFish::failure()
 {
-	if (m_playFishing->m_current_fish_range_and_max_range_rate >= 1) {//ã’[‚Ü‚Ås‚Á‚½‚çB
+	if (m_playFishing->m_current_fish_range_and_max_range_rate >= 1) {//ä¸Šç«¯ã¾ã§è¡Œã£ãŸã‚‰ã€‚
 		m_playFishing = FindGO<PlayFishing>("playFishing");
 		m_playFishing->SetFailure();
 	}
 }
 
 /// <summary>
-/// ¬Œ÷‚µ‚½‚Æ‚«B
+/// æˆåŠŸã—ãŸã¨ãã€‚
 /// </summary>
 void SceneFightFish::success()
 {
-	if (m_playFishing->m_current_fish_range_and_max_range_rate <= 0) {//‰º’[‚Ü‚Ås‚Á‚½‚çB
+	if (m_playFishing->m_current_fish_range_and_max_range_rate <= 0) {//ä¸‹ç«¯ã¾ã§è¡Œã£ãŸã‚‰ã€‚
 		m_playFishing = FindGO<PlayFishing>("playFishing");
 		m_positionSelection = FindGO<PositionSelection>("positionSelection");
 		m_fishingRodHP = FindGO<FishingRodHP>("fishingRodHP");
@@ -171,13 +171,13 @@ float SceneFightFish::GetRotationPower()
 
 void SceneFightFish::SetWhen_State_Announce_Should_State()
 {
-	//i5‚©‚ç10‚Ü‚Å‚Ìƒ‰ƒ“ƒ_ƒ€‚È”j+i‚±‚Ìˆ—‚ğ‚µ‚Ä‚¢‚é’iŠK‚Å‚Ì‹›‚ª•ûŒü“]Š·‚µ‚½‰ñ”jŸ‚ÌƒXƒe[ƒg‚Éi‚Ş‚Æ‚«‚Ì¡‚Ü‚Å•ûŒü“]Š·‚µ‚½‰ñ”
+	//ï¼ˆ5ã‹ã‚‰10ã¾ã§ã®ãƒ©ãƒ³ãƒ€ãƒ ãªæ•°ï¼‰+ï¼ˆã“ã®å‡¦ç†ã‚’ã—ã¦ã„ã‚‹æ®µéšã§ã®é­šãŒæ–¹å‘è»¢æ›ã—ãŸå›æ•°ï¼‰ï¼æ¬¡ã®ã‚¹ãƒ†ãƒ¼ãƒˆã«é€²ã‚€ã¨ãã®ä»Šã¾ã§æ–¹å‘è»¢æ›ã—ãŸå›æ•°
 	std::random_device rd;
 
-	//‚±‚Ì”š23‚È‚ç•ûŒü“]Š·‰ñ”‚ª23‰ñ–Ú‚Ì‚ÉƒXƒe[ƒg‚ğƒAƒiƒEƒ“ƒX‚É‚·‚éB
+	//ã“ã®æ•°å­—23ãªã‚‰æ–¹å‘è»¢æ›å›æ•°ãŒ23å›ç›®ã®æ™‚ã«ã‚¹ãƒ†ãƒ¼ãƒˆã‚’ã‚¢ãƒŠã‚¦ãƒ³ã‚¹ã«ã™ã‚‹ã€‚
 	m_when_state_announce_should += 5;
 	m_when_state_announce_should += (rd() % 6);
-	m_when_state_announce_should += m_fishChange_in_DirectionTimes;//¡‚Ü‚Å•ûŒü“]Š·‚µ‚½”‚ğ”‚¦‚éB
+	m_when_state_announce_should += m_fishChange_in_DirectionTimes;//ä»Šã¾ã§æ–¹å‘è»¢æ›ã—ãŸæ•°ã‚’æ•°ãˆã‚‹ã€‚
 
 	m_fishState = normal;
 }
@@ -197,7 +197,7 @@ void SceneFightFish::When_State_Angry_or_exhausted_Shoul()
 	m_when_State_Angry_or_exhausted_Should = 0;
 	m_when_State_Angry_or_exhausted_Should += 5;
 	m_when_State_Angry_or_exhausted_Should += (rd() % 6);
-	m_when_State_Angry_or_exhausted_Should += m_fishChange_in_DirectionTimes;//¡‚Ü‚Å•ûŒü“]Š·‚µ‚½”‚ğ”‚¦‚éB
+	m_when_State_Angry_or_exhausted_Should += m_fishChange_in_DirectionTimes;//ä»Šã¾ã§æ–¹å‘è»¢æ›ã—ãŸæ•°ã‚’æ•°ãˆã‚‹ã€‚
 
 	m_fishState = announce;
 
@@ -212,7 +212,7 @@ void SceneFightFish::AnnounceState()
 
 void SceneFightFish::Change_Angry_or_Exhausted_State()
 {
-	if (is_fish_suited_for_upper_side == true) {//‚à‚µ‹›‚ª¶‚ğŒü‚¢‚Ä‚¢‚½‚ç“{‚èó‘Ô‚É‚·‚éB
+	if (is_fish_suited_for_upper_side == true) {//ã‚‚ã—é­šãŒå·¦ã‚’å‘ã„ã¦ã„ãŸã‚‰æ€’ã‚ŠçŠ¶æ…‹ã«ã™ã‚‹ã€‚
 		m_fishState = angry;
 	}
 	else {
@@ -226,9 +226,9 @@ void SceneFightFish::Change_Angry_or_Exhausted_State()
 void SceneFightFish::AngerState()
 {
 	m_angerState_frame_count++;
-	if (m_angerState_frame_count <= 4 && m_getRotation->nowFrameRotationQuantity > 0) {//4ƒtƒŒ[ƒ€ŠÔ‚É“ü—Í‚ª‚ ‚Á‚½‚çB
+	if (m_angerState_frame_count <= 4 && m_getRotation->nowFrameRotationQuantity > 0) {//4ãƒ•ãƒ¬ãƒ¼ãƒ é–“ã«å…¥åŠ›ãŒã‚ã£ãŸã‚‰ã€‚
 
-		if (m_reduce_Hp_when_angry == true) {//˜A‘±‚Å“ñ“xˆÈãˆ—‚³‚ê‚È‚¢‚æ‚¤‚É‚·‚éB
+		if (m_reduce_Hp_when_angry == true) {//é€£ç¶šã§äºŒåº¦ä»¥ä¸Šå‡¦ç†ã•ã‚Œãªã„ã‚ˆã†ã«ã™ã‚‹ã€‚
 			m_fishingRodHP = FindGO<FishingRodHP>("fishingRodHP");
 			m_fishingRodHP->m_Hp -= 100.0f;
 			if (m_fishingRodHP->m_Hp <= 30) {
@@ -238,7 +238,7 @@ void SceneFightFish::AngerState()
 		}
 	}
 
-	if (m_angerState_frame_count > 100)//100ƒtƒŒ[ƒ€’´‚¦‚½‚ç
+	if (m_angerState_frame_count > 100)//100ãƒ•ãƒ¬ãƒ¼ãƒ è¶…ãˆãŸã‚‰
 	{
 		m_angerState_frame_count = 0;
 		m_fishState = setWhen_State_Announce_Should;
@@ -246,19 +246,19 @@ void SceneFightFish::AngerState()
 }
 
 /// <summary>
-/// ‹›‚ª”æ•¾ƒXƒe[ƒg‚Ì‚Æ‚«‚Ìˆ—
+/// é­šãŒç–²å¼Šã‚¹ãƒ†ãƒ¼ãƒˆã®ã¨ãã®å‡¦ç†
 /// </summary>
 void SceneFightFish::ExhaustedState()
 {
 	m_angerState_frame_count++;
-	if (m_reduce_Hp_when_angry == true) {//˜A‘±‚Å“ñ“xˆÈãˆ—‚³‚ê‚È‚¢‚æ‚¤‚É‚·‚éB
+	if (m_reduce_Hp_when_angry == true) {//é€£ç¶šã§äºŒåº¦ä»¥ä¸Šå‡¦ç†ã•ã‚Œãªã„ã‚ˆã†ã«ã™ã‚‹ã€‚
 		m_forcePullFish -= m_getRotation->nowFrameRotationQuantity * 200 * 1.3 * 20;
 		m_reduce_Hp_when_angry = false;
 	}
 }
 
 /// <summary>
-/// ƒtƒBƒbƒVƒ…ƒXƒe[ƒg‚ğŠÇ—‚·‚é
+/// ãƒ•ã‚£ãƒƒã‚·ãƒ¥ã‚¹ãƒ†ãƒ¼ãƒˆã‚’ç®¡ç†ã™ã‚‹
 /// </summary>
 void SceneFightFish::FishStateAdminister()
 {

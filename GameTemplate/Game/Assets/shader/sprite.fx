@@ -1,10 +1,10 @@
 /*!
- * @brief	�X�v���C�g�p�̃V�F�[�_�[�B
+ * @brief	・ｽX・ｽv・ｽ・ｽ・ｽC・ｽg・ｽp・ｽﾌシ・ｽF・ｽ[・ｽ_・ｽ[・ｽB
  */
 
 cbuffer cb : register(b0){
-	float4x4 mvp;		//���[���h�r���[�v���W�F�N�V�����s��B
-	float4 mulColor;	//��Z�J���[�B
+	float4x4 mvp;		//・ｽ・ｽ・ｽ[・ｽ・ｽ・ｽh・ｽr・ｽ・ｽ・ｽ[・ｽv・ｽ・ｽ・ｽW・ｽF・ｽN・ｽV・ｽ・ｽ・ｽ・ｽ・ｽs・ｽ・ｽB
+	float4 mulColor;	//・ｽ・ｽZ・ｽJ・ｽ・ｽ・ｽ[・ｽB
 };
 struct VSInput{
 	float4 pos : POSITION;
@@ -16,7 +16,7 @@ struct PSInput{
 	float2 uv  : TEXCOORD0;
 };
 
-Texture2D<float4> colorTexture : register(t0);	//�J���[�e�N�X�`���B
+Texture2D<float4> colorTexture : register(t0);	//・ｽJ・ｽ・ｽ・ｽ[・ｽe・ｽN・ｽX・ｽ`・ｽ・ｽ・ｽB
 sampler Sampler : register(s0);
 
 PSInput VSMain(VSInput In) 

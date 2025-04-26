@@ -30,16 +30,16 @@ public:
 	void FishNewGO();
 	void SetShouldFishChange();
 	bool GetShouldFishChange();
-	void SetFishData();//ƒtƒBƒbƒVƒ…ƒf[ƒ^‚ğİ’è‚·‚éB
-	FishData& GetFishData();//ƒtƒBƒbƒVƒ…ƒf[ƒ^‚ğ“¾‚é‚½‚ß‚ÌŠÖ”B
+	void SetFishData();//ãƒ•ã‚£ãƒƒã‚·ãƒ¥ãƒ‡ãƒ¼ã‚¿ã‚’è¨­å®šã™ã‚‹ã€‚
+	FishData& GetFishData();//ãƒ•ã‚£ãƒƒã‚·ãƒ¥ãƒ‡ãƒ¼ã‚¿ã‚’å¾—ã‚‹ãŸã‚ã®é–¢æ•°ã€‚
 	float GetScore();
 	void Timer();
 
-	bool m_shouldFishChange = false;//‹›‚ğ•Ï‚¦‚é‚×‚«‚©‚Ç‚¤‚©B
+	bool m_shouldFishChange = false;//é­šã‚’å¤‰ãˆã‚‹ã¹ãã‹ã©ã†ã‹ã€‚
 	int m_randum;
 
-	FishData* p_fishData = &m_fishData;//ƒtƒBƒbƒVƒ…ƒf[ƒ^‚Ìƒ|ƒCƒ“ƒ^
-	FishData m_fishData;//‹›‚Ìƒf[ƒ^B
+	FishData* p_fishData = &m_fishData;//ãƒ•ã‚£ãƒƒã‚·ãƒ¥ãƒ‡ãƒ¼ã‚¿ã®ãƒã‚¤ãƒ³ã‚¿
+	FishData m_fishData;//é­šã®ãƒ‡ãƒ¼ã‚¿ã€‚
 
 	FishType m_fishType;
 	Buri* m_buri;
