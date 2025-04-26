@@ -9,12 +9,12 @@ ScoreDisplay::ScoreDisplay()
 	m_playFishing = FindGO<PlayFishing>("playFishing");
 	m_score = m_playFishing->GetFIshScore();
 
-	//1スコアのそれぞれの桁を求める。
+	//1�X�R�A�̂��ꂼ��̌������߂�B
 	SetOnesPlace();
 	SetTensPlace();
 	SetHundredsPlace();
 
-	//それぞれの桁のUIを設定する。
+	//���ꂼ��̌���UI��ݒ肷��B
 	SetOnesPlaceUI();
 	SetTensPlaceUI();
 	SetHundredsPlaceUI();
@@ -30,7 +30,7 @@ ScoreDisplay::~ScoreDisplay()
 {
 	m_positionSelection = FindGO<PositionSelection>("positionSelection");
 	m_positionSelection->SetisDisplayingTrue();
-	//ポジションセレクトクラスのオブジェクトをアクティブにする
+	//�|�W�V�����Z���N�g�N���X�̃I�u�W�F�N�g���A�N�e�B�u�ɂ���
 	m_positionSelection->SetActivate();
 }
 

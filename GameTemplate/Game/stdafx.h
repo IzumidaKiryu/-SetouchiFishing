@@ -3,5 +3,5 @@
 
 #include "k2EngineLowPreCompile.h"
 using namespace nsK2EngineLow;
-// K2EngineLowã®ã‚°ãƒ­ãƒ¼ãƒãƒ«ã‚¢ã‚¯ã‚»ã‚¹ãƒã‚¤ãƒ³ãƒˆ
+// K2EngineLow‚ÌƒOƒ[ƒoƒ‹ƒAƒNƒZƒXƒ|ƒCƒ“ƒg
 extern K2EngineLow* g_k2EngineLow;

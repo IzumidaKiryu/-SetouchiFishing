@@ -23,17 +23,17 @@ TimeLimitUI::~TimeLimitUI()
 
 void TimeLimitUI::DisplayTimeLimitUI(int time)
 {
-	//if (time != m_prevTime) {//æ™‚é–“ãŒå¤‰ã‚ã£ãŸæ™‚ã ã‘å‡¦ç†ã‚’ã™ã‚‹ã€‚
+	//if (time != m_prevTime) {//ŠÔ‚ª•Ï‚í‚Á‚½‚¾‚¯ˆ—‚ğ‚·‚éB
 
-	//	SetTime(time);//æ™‚é–“ã‚’ãƒ¡ãƒ³ãƒå¤‰æ•°ã«è¨­å®šã™ã‚‹
+	//	SetTime(time);//ŠÔ‚ğƒƒ“ƒo•Ï”‚Éİ’è‚·‚é
 
-	//	SetOnesPlace();//1ã®ä½ã‚’è¨­å®šã™ã‚‹ã€‚
-	//	SetTensPlace();//10ã®ä½ã‚’è¨­å®šã™ã‚‹
-	//	SetHundredsPlace();//100ã®ä½ã‚’è¨­å®šã™ã‚‹ã€‚
+	//	SetOnesPlace();//1‚ÌˆÊ‚ğİ’è‚·‚éB
+	//	SetTensPlace();//10‚ÌˆÊ‚ğİ’è‚·‚é
+	//	SetHundredsPlace();//100‚ÌˆÊ‚ğİ’è‚·‚éB
 
-	//	SetOnesPlaceUI();//1ã®ä½ã®UIã‚’è¨­å®šã™ã‚‹ã€‚
-	//	SetTensPlaceUI();//10ã®ä½ã®UIã‚’è¨­å®šã™ã‚‹ã€‚
-	//	SetHundredsPlaceUI();//100ã®ä½ã®UIã‚’è¨­å®šã™ã‚‹ã€‚
+	//	SetOnesPlaceUI();//1‚ÌˆÊ‚ÌUI‚ğİ’è‚·‚éB
+	//	SetTensPlaceUI();//10‚ÌˆÊ‚ÌUI‚ğİ’è‚·‚éB
+	//	SetHundredsPlaceUI();//100‚ÌˆÊ‚ÌUI‚ğİ’è‚·‚éB
 
 	//	/*m_hundredsPlaceUI.Update();*/
 	//	m_prevTime = m_time;

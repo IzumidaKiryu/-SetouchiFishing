@@ -54,7 +54,7 @@ void CastGauge::Update()
 }
 
 /// <summary>
-/// çŸ¢å°ã®å ´æ‰€ã‚’è¨­å®š
+/// –îˆó‚ÌêŠ‚ğİ’è
 /// </summary>
 void CastGauge::SetArrowPosition()
 {
@@ -62,7 +62,7 @@ void CastGauge::SetArrowPosition()
 }
 
 /// <summary>
-/// çŸ¢å°ã‚’ä¸Šã«å‹•ã‹ã™ã‹ä¸‹ã«å‹•ã‹ã™ã‹æ±ºã‚ã‚‹ã€‚
+/// –îˆó‚ğã‚É“®‚©‚·‚©‰º‚É“®‚©‚·‚©Œˆ‚ß‚éB
 /// </summary>
 void CastGauge::UpAndDownManagement()
 {
@@ -74,31 +74,31 @@ void CastGauge::UpAndDownManagement()
 	}
 }
 /// <summary>
-/// çŸ¢å°ã‚’ä¸Šã«ç§»å‹•ã€‚
+/// –îˆó‚ğã‚ÉˆÚ“®B
 /// </summary>
 void CastGauge::UpwardOperation()
 {
 	m_arrowPosition += m_gaugeSpead;
 	if (m_arrowPosition >= m_gaugeUpperLimit) {
-		m_arrowPosition = (-m_arrowPosition + m_gaugeUpperLimit) + m_gaugeUpperLimit;//ä¸Šé™ã‚’é€šã‚ŠéããŸã‚‰ãã®åˆ†æˆ»ã‚‹å‡¦ç†ã€‚
+		m_arrowPosition = (-m_arrowPosition + m_gaugeUpperLimit) + m_gaugeUpperLimit;//ãŒÀ‚ğ’Ê‚è‰ß‚¬‚½‚ç‚»‚Ì•ª–ß‚éˆ—B
 		upState = false;
 	}
 }
 
 /// <summary>
-/// çŸ¢å°ã‚’ä¸‹ã«ç§»å‹•
+/// –îˆó‚ğ‰º‚ÉˆÚ“®
 /// </summary>
 void CastGauge::DownwardOperation()
 {
 	m_arrowPosition -= m_gaugeSpead;
 	if (m_arrowPosition <= m_gaugeLowerLimit) {
-		m_arrowPosition = (-m_arrowPosition + m_gaugeLowerLimit) + m_gaugeLowerLimit;//ä¸‹é™ã‚’é€šã‚ŠéããŸã‚‰ãã®åˆ†æˆ»ã‚‹å‡¦ç†ã€‚
+		m_arrowPosition = (-m_arrowPosition + m_gaugeLowerLimit) + m_gaugeLowerLimit;//‰ºŒÀ‚ğ’Ê‚è‰ß‚¬‚½‚ç‚»‚Ì•ª–ß‚éˆ—B
 		upState = true;
 	}
 }
 
 /// <summary>
-/// çŸ¢å°ã®ã‚¹ãƒ”ãƒ¼ãƒ‰ã‚’è¨­å®š
+/// –îˆó‚ÌƒXƒs[ƒh‚ğİ’è
 /// </summary>
 void CastGauge::SetGaugeSpead()
 {
@@ -106,23 +106,23 @@ void CastGauge::SetGaugeSpead()
 }
 
 /// <summary>
-/// å½“ãŸã‚Šåˆ¤å®šã‚’ç¢ºã‹ã‚ã‚‹
+/// “–‚½‚è”»’è‚ğŠm‚©‚ß‚é
 /// </summary>
 void CastGauge::HitTest()
 {
 	if (g_pad[0]->IsTrigger(enButtonA)) {
-		//if (m_gaugeCastSuccessful->hitTest(m_arrowPosition) == true)//æˆåŠŸã—ãŸã‚‰ã€‚
+		//if (m_gaugeCastSuccessful->hitTest(m_arrowPosition) == true)//¬Œ÷‚µ‚½‚çB
 		//{
 		//	/*m_fishingGauge=NewGO<FishingGauge>(0, "fishingGauge ");*/
 		//	/*tensionGauge = NewGO<TensionGauge>(0, "tensionGauge");*/
 		//	Success();
 		//}
-		//else if (m_gaugeCastSuccessful->hitTest(m_arrowPosition) == false) //å¤±æ•—ã—ãŸã‚‰ã€‚
+		//else if (m_gaugeCastSuccessful->hitTest(m_arrowPosition) == false) //¸”s‚µ‚½‚çB
 		//{
 		//	Failure();
 		//}
 
-		//ã‚¦ã‚­ã®è·é›¢ã‚’è¨ˆç®—ã€‚
+		//ƒEƒL‚Ì‹——£‚ğŒvZB
 		m_float_range_max_range_rate = (m_arrowPosition - m_gaugeLowerLimit) / m_gauge_length;
 
 		m_rodFloatMove = FindGO<RodFloatMove>("rodFloatMove");
@@ -130,10 +130,10 @@ void CastGauge::HitTest()
 
 		m_playFishing = FindGO<PlayFishing>("playFishing");
 
-		//ãƒ—ãƒ¬ã‚¤ãƒ•ã‚£ãƒƒã‚·ãƒ³ã‚°ã‚¯ãƒ©ã‚¹ã«ã‚¦ã‚­ã®è·é›¢ã®å‰²åˆã‚’æ¸¡ã™
+		//ƒvƒŒƒCƒtƒBƒbƒVƒ“ƒOƒNƒ‰ƒX‚ÉƒEƒL‚Ì‹——£‚ÌŠ„‡‚ğ“n‚·
 		m_playFishing->SetScalar_multiply_in_first_velocity_vector(m_float_range_max_range_rate);
 
-		m_playFishing->SetSuccess();//ãƒ—ãƒ¬ã‚¤ãƒ•ã‚£ãƒƒã‚·ãƒ³ã‚°ã‚¯ãƒ©ã‚¹ã®ã‚¹ãƒ†ãƒ¼ãƒˆã‚’é€²ã‚ã‚‹ã€‚
+		m_playFishing->SetSuccess();//ƒvƒŒƒCƒtƒBƒbƒVƒ“ƒOƒNƒ‰ƒX‚ÌƒXƒe[ƒg‚ği‚ß‚éB
 		//
 		m_chastState = chast;
 
@@ -166,9 +166,9 @@ void CastGauge::ChastStaeManager()
 	{
 	case playing:
 		SetGaugeSpead();
-		UpAndDownManagement();//çŸ¢å°ã®å‹•ãå‘ãã‚’æ±ºã‚ã‚‹ã€‚
-		SetArrowPosition();//çŸ¢å°ã®å ´æ‰€ã‚’æ±ºã‚ã‚‹ã€‚
-		m_castGaugeArrow.Update();//çŸ¢å°ã®æç”»ã‚’æ›´æ–°ã™ã‚‹ã€‚
+		UpAndDownManagement();//–îˆó‚Ì“®‚­Œü‚«‚ğŒˆ‚ß‚éB
+		SetArrowPosition();//–îˆó‚ÌêŠ‚ğŒˆ‚ß‚éB
+		m_castGaugeArrow.Update();//–îˆó‚Ì•`‰æ‚ğXV‚·‚éB
 		HitTest();
 		break;
 	case character_animation:
@@ -218,13 +218,13 @@ void CastGauge::SetCamera()
 	m_gameCamera->SetPosition(m_gameCameraPos);
 }
 /// <summary>
-/// æ³¢ã®å‹•ãã‚’è¡¨ç¾ã€‚
+/// ”g‚Ì“®‚«‚ğ•\Œ»B
 /// </summary>
 void CastGauge::WaveMotion()
 {
 	t += 0.05;
-	m_waveMotion.y = (cos(t));//ä¸Šä¸‹ã«å‹•ã‹ã™
-	m_waveMotion.z = (cos(t * 0.7/*å‘¨æœŸã‚’ãšã‚‰ã™*/) * 0.5);//å·¦å³ã«å‹•ã‹ã™
+	m_waveMotion.y = (cos(t));//ã‰º‚É“®‚©‚·
+	m_waveMotion.z = (cos(t * 0.7/*üŠú‚ğ‚¸‚ç‚·*/) * 0.5);//¶‰E‚É“®‚©‚·
 }
 
 void CastGauge::IsCastEnd()

@@ -16,8 +16,8 @@ void GetRotation::Update()
 	nowFrameRotationQuantity = 0.0f;
 
 	SetVectorA();
-	if (befreVector.x != 0 || befreVector.y != 0 || befreVector.z != 0) {//å…¥åŠ›ãŒã‚ã£ãŸã‚‰ã€‚
-		CalculatingRotationQuantity();//å›è»¢ã®è¨ˆç®—ã‚’ã™ã‚‹ã€‚
+	if (befreVector.x != 0 || befreVector.y != 0 || befreVector.z != 0) {//“ü—Í‚ª‚ ‚Á‚½‚çB
+		CalculatingRotationQuantity();//‰ñ“]‚ÌŒvZ‚ğ‚·‚éB
 	}
 	befreVector = nowVector;
 	befreVector.Normalize();
@@ -25,33 +25,33 @@ void GetRotation::Update()
 
 void GetRotation::SetVectorA()
 {
-	//Lã‚¹ãƒ†ã‚£ãƒƒã‚¯ã®å…¥åŠ›ã‚’å–å¾—ã€‚
+	//LƒXƒeƒBƒbƒN‚Ì“ü—Í‚ğæ“¾B
 	stickL.x = g_pad[0]->GetLStickXF();
 	stickL.y = g_pad[0]->GetLStickYF();
 
-	//nowVectorã«ã‚»ãƒƒãƒˆã™ã‚‹ã€‚
+	//nowVector‚ÉƒZƒbƒg‚·‚éB
 	nowVector.x = stickL.x;
 	nowVector.y = stickL.y;
 	nowVector.z = 0.0f;
 
-	//æ­£è¦åŒ–ã™ã‚‹
+	//³‹K‰»‚·‚é
 	nowVector.Normalize();
 
 }
 
 float GetRotation::CalculatingRotationQuantity()
 {
-	GetRotationDirection();//å›è»¢ã®å‘ãã‚’å–å¾—ã€‚
-	if (int(nowVector.x * 100) != int(befreVector.x * 100) || int(nowVector.y * 100) != int(befreVector.y * 100)) {//å–å¾—ã—ãŸãƒ™ã‚¯ãƒˆãƒ«ãŒå‰ã¨åŒã˜ãƒ™ã‚¯ãƒˆãƒ«ã®æ™‚ã¯è¨ˆç®—ã—ãªã„ã€‚
+	GetRotationDirection();//‰ñ“]‚ÌŒü‚«‚ğæ“¾B
+	if (int(nowVector.x * 100) != int(befreVector.x * 100) || int(nowVector.y * 100) != int(befreVector.y * 100)) {//æ“¾‚µ‚½ƒxƒNƒgƒ‹‚ª‘O‚Æ“¯‚¶ƒxƒNƒgƒ‹‚Ì‚ÍŒvZ‚µ‚È‚¢B
 
 		float t = Dot(nowVector, befreVector);
 		t = min(1.0f, t);
 		t = max(-1.0f, t);
-		if (rotationDirection == RightTurn) {//å³å›è»¢ã®æ™‚ã¯å›è»¢é‡ã«ãƒ—ãƒ©ã‚¹ã™ã‚‹ã€‚
-			rotationQuantity += acos(t) / 20;//ãªãœã‹å†…ç©ãŒ1ä»¥ä¸Š-1ä»¥ä¸‹ã«ãªã‚‹ã‹ã‚‰Ã·2ã‚’ã—ãŸã€‚
+		if (rotationDirection == RightTurn) {//‰E‰ñ“]‚Ì‚Í‰ñ“]—Ê‚Éƒvƒ‰ƒX‚·‚éB
+			rotationQuantity += acos(t) / 20;//‚È‚º‚©“àÏ‚ª1ˆÈã-1ˆÈ‰º‚É‚È‚é‚©‚ç€2‚ğ‚µ‚½B
 			nowFrameRotationQuantity = acos(t) / 20;
 		}
-		if (rotationDirection == LeftTurn) {//å·¦å›è»¢ãªã‚‰ãƒã‚¤ãƒŠã‚¹ã™ã‚‹ã€‚
+		if (rotationDirection == LeftTurn) {//¶‰ñ“]‚È‚çƒ}ƒCƒiƒX‚·‚éB
 			rotationQuantity -= acos(t) / 20;
 		}
 	}
@@ -62,10 +62,10 @@ void GetRotation::GetRotationDirection()
 {
 	if (Cross(nowVector, befreVector).z < 0)//
 	{
-		rotationDirection = LeftTurn;//å·¦å›è»¢
+		rotationDirection = LeftTurn;//¶‰ñ“]
 	}
 	if (Cross(nowVector, befreVector).z > 0)
 	{
-		rotationDirection = RightTurn;//å³å›è»¢
+		rotationDirection = RightTurn;//‰E‰ñ“]
 	}
 }

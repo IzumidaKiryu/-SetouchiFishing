@@ -7,7 +7,7 @@ Enemy::Enemy()
 	SetAnimationClipsLoad("Assets/animData/Enemy/EnamyIdle.tka",
 		"Assets/animData/Enemy/EnamyWalking.tka"
 	);
-	//ãƒ¦ãƒ‹ãƒ†ã‚£ã¡ã‚ƒã‚“ã®ãƒ¢ãƒ‡ãƒ«ã‚’èª­ã¿è¾¼ã‚€ã€‚
+	//ƒ†ƒjƒeƒB‚¿‚á‚ñ‚Ìƒ‚ƒfƒ‹‚ğ“Ç‚İ‚ŞB
 	SetModel("Assets/modelData/Enemy/Enemy.tkm", animationClips, enAnimationClip_Num, enModelUpAxisY);
 }
 
@@ -21,12 +21,12 @@ void Enemy::SetMoveSpeed()
 	//Vector3 forward = Vector3{ 0.0f,0.0f,1.0f };
 	//Vector3 right = Vector3{ 1.0f,0.0f,0.0f };
 
-	////å·¦ã‚¹ãƒ†ã‚£ãƒƒã‚¯ã®å…¥åŠ›é‡ã‚’å–å¾—ã€‚
+	////¶ƒXƒeƒBƒbƒN‚Ì“ü—Í—Ê‚ğæ“¾B
 	//Vector3 stickL;
 	////stickL.x = g_pad[0]->GetLStickXF();
 	////stickL.y = g_pad[0]->GetLStickYF();
 
-	////å·¦ã‚¹ãƒ†ã‚£ãƒƒã‚¯ã®å…¥åŠ›é‡ã¨120.0fã‚’ä¹—ç®—ã€‚
+	////¶ƒXƒeƒBƒbƒN‚Ì“ü—Í—Ê‚Æ120.0f‚ğæZB
 	//right *= stickL.x * 120.0f;
 	//forward *= stickL.y * 120.0f;
 	m_positionSelection = FindGO<PositionSelection>("positionSelection");
@@ -38,10 +38,10 @@ void Enemy::SetMoveSpeed()
 	}
 }
 
-//æç”»å‡¦ç†ã€‚
+//•`‰æˆ—B
 void Enemy::Render(RenderContext& rc)
 {
-	//ãƒ¦ãƒ‹ãƒ†ã‚£ã¡ã‚ƒã‚“ã‚’æç”»ã™ã‚‹ã€‚
+	//ƒ†ƒjƒeƒB‚¿‚á‚ñ‚ğ•`‰æ‚·‚éB
 	modelRender.Draw(rc);
 }
 

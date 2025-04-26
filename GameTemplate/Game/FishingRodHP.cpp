@@ -24,7 +24,7 @@ void FishingRodHP::Update()
 	m_RodHPBar.Update();
 	/*}*/
 
-	failure();//å¤±æ•—ã—ãŸã‹ã©ã†ã‹ã€‚
+	failure();//Ž¸”s‚µ‚½‚©‚Ç‚¤‚©B
 	m_previousFrameHP = m_Hp;
 }
 
@@ -34,25 +34,25 @@ void FishingRodHP::SetFishingRodHP()
 
 
 	if (m_sceneFightFish->is_fish_suited_for_upper_side == true) {
-		//é­šã®å‘ããŒå·¦ãªã‚‰ã€‚
-		//ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©ãƒ¼ã‚’å›žã—ãŸåˆ†ã ã‘ç«¿ã®HPãŒæ¸›ã‚‹ã€‚
+		//‹›‚ÌŒü‚«‚ª¶‚È‚çB
+		//ƒRƒ“ƒgƒ[ƒ‰[‚ð‰ñ‚µ‚½•ª‚¾‚¯ŠÆ‚ÌHP‚ªŒ¸‚éB
 		m_Hp -= m_sceneFightFish->GetRotationPower() * 50.0f;
 	}
 	if (m_sceneFightFish->is_fish_suited_for_upper_side == false) {
-		//é­šã®å‘ããŒå·¦ãªã‚‰ã€‚
-		//ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©ãƒ¼ã‚’å›žã—ãŸåˆ†ã ã‘ç«¿ã®HPãŒæ¸›ã‚‹ã€‚
+		//‹›‚ÌŒü‚«‚ª¶‚È‚çB
+		//ƒRƒ“ƒgƒ[ƒ‰[‚ð‰ñ‚µ‚½•ª‚¾‚¯ŠÆ‚ÌHP‚ªŒ¸‚éB
 		m_Hp += 0.1;
 	}
 
 
 	float m_rotationPower = m_sceneFightFish->GetRotationPower();
-	//ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©ãƒ¼ãŒå›žã£ã¦ãªã„ã¨ãã¯HPã‚’å›žå¾©ã™ã‚‹ã€‚
+	//ƒRƒ“ƒgƒ[ƒ‰[‚ª‰ñ‚Á‚Ä‚È‚¢‚Æ‚«‚ÍHP‚ð‰ñ•œ‚·‚éB
 	if (m_rotationPower <= 0.0000f) {
 		m_Hp += 1;
 	}
 
 
-	//HPãŒMAXã‚’è¶…ãˆã¦ã„ãŸã‚‰ã€MAXã®å€¤ã«ã™ã‚‹ã€‚
+	//HP‚ªMAX‚ð’´‚¦‚Ä‚¢‚½‚çAMAX‚Ì’l‚É‚·‚éB
 	if (m_Hp > m_MaxHp) {
 		m_Hp = m_MaxHp;
 	}

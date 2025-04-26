@@ -1,36 +1,36 @@
 #pragma once
 #include"Character.h";
-//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚¯ãƒ©ã‚¹ã€‚
+//ƒvƒŒƒCƒ„[ƒNƒ‰ƒXB
 class Player : public Character
 {
 public:
 	Player();
 	~Player();
-	//æ›´æ–°å‡¦ç†ã€‚
+	//XVˆ—B
 	/*void Update();*/
-	//ãƒ ãƒ¼ãƒ–ã‚¹ãƒ”ãƒ¼ãƒ‰ã‚’è¨­å®šã€‚
+	//ƒ€[ƒuƒXƒs[ƒh‚ğİ’èB
 	void SetMoveSpeed() override;
-	//ç§»å‹•å‡¦ç†ã€‚
+	//ˆÚ“®ˆ—B
 	//void Move();
-	////å›è»¢å‡¦ç†ã€‚
+	////‰ñ“]ˆ—B
 	//void Rotation();
-	////ã‚¹ãƒ†ãƒ¼ãƒˆç®¡ç†ã€‚
+	////ƒXƒe[ƒgŠÇ—B
 	//void ManageState();
-	////ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã®å†ç”Ÿã€‚
+	////ƒAƒjƒ[ƒVƒ‡ƒ“‚ÌÄ¶B
 	//void PlayAnimation();
 
-	//ãƒ¡ãƒ³ãƒå¤‰æ•°ã€‚
-	//enum EnAnimationClip {		//ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã€‚
+	//ƒƒ“ƒo•Ï”B
+	//enum EnAnimationClip {		//ƒAƒjƒ[ƒVƒ‡ƒ“B
 	//	enAnimationClip_Idle,
 	//	enAnimationClip_Walk,
 	//	enAnimationClip_Jump,
 	//	enAnimationClip_Num,
 	//};
-/*	AnimationClip animationClips[enAnimationClip_Num];*/		//ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã‚¯ãƒªãƒƒãƒ—ã€‚
-	//CharacterController characterController;  //ã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©ãƒ¼ã€‚
-	//Vector3 moveSpeed;		//ç§»å‹•é€Ÿåº¦ã€‚
-	//Quaternion rotation;  //ã‚¯ã‚©ãƒ¼ã‚¿ãƒ‹ã‚ªãƒ³ã€‚
-	//int playerState = 0;	//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ã‚¹ãƒ†ãƒ¼ãƒˆ(çŠ¶æ…‹)ã‚’è¡¨ã™å¤‰æ•°ã€‚
-	//int starCount = 0;	//é›†ã‚ãŸâ˜†ã®æ•°ã‚’ã‚«ã‚¦ãƒ³ãƒˆã™ã‚‹ã€‚
+/*	AnimationClip animationClips[enAnimationClip_Num];*/		//ƒAƒjƒ[ƒVƒ‡ƒ“ƒNƒŠƒbƒvB
+	//CharacterController characterController;  //ƒLƒƒƒ‰ƒNƒ^[ƒRƒ“ƒgƒ[ƒ‰[B
+	//Vector3 moveSpeed;		//ˆÚ“®‘¬“xB
+	//Quaternion rotation;  //ƒNƒH[ƒ^ƒjƒIƒ“B
+	//int playerState = 0;	//ƒvƒŒƒCƒ„[‚ÌƒXƒe[ƒg(ó‘Ô)‚ğ•\‚·•Ï”B
+	//int starCount = 0;	//W‚ß‚½™‚Ì”‚ğƒJƒEƒ“ƒg‚·‚éB
 	void Render(RenderContext& rc);
 };

@@ -1,10 +1,10 @@
 #pragma once
 
 //enum RodFloatState {
-//	initState,//åˆæœŸã‚¹ãƒ†ãƒ¼ãƒˆ
-//	cast,//ã‚­ãƒ£ã‚¹ãƒˆä¸­ã€‚
+//	initState,//‰ŠúƒXƒe[ƒg
+//	cast,//ƒLƒƒƒXƒg’†B
 //	buoyancy,
-//	floating,//æµ®ã‹ã‚“ã§ã„ã‚‹ã€‚
+//	floating,//•‚‚©‚ñ‚Å‚¢‚éB
 //	fightFish,
 //};
 
@@ -32,18 +32,18 @@ public:
 	void SetScalar_multiply_in_first_velocity_vector(float scalar_multiply_in_first_velocity_vector);*/
 	void SetPosition(Vector3 position);
 
-	void SetSumPosition(Vector3 positon);//ãƒã‚¸ã‚·ãƒ§ãƒ³ã‚’è¶³ã—ç®—ã™ã‚‹ã€‚
+	void SetSumPosition(Vector3 positon);//ƒ|ƒWƒVƒ‡ƒ“‚ğ‘«‚µZ‚·‚éB
 	/*void FightFish();*/
 	void SetCurrent_range_and_max_range_rate(float current_range_and_max_range_rate);
 
 	void Render(RenderContext& rc);
-	//bool IsCastEnd();//ã‚­ãƒ£ã‚¹ãƒˆãŒçµ‚ã‚ã£ã¦ã„ã‚‹ã‹ã€‚
+	//bool IsCastEnd();//ƒLƒƒƒXƒg‚ªI‚í‚Á‚Ä‚¢‚é‚©B
 
 
-	float m_scalar_multiply_in_first_velocity_vector;//åˆé€Ÿåº¦ã«æ›ã‘ã‚‹ã‚¹ã‚«ãƒ©ãƒ¼
-	float first_velocity_vector_z=2;//åˆé€Ÿãƒ™ã‚¯ãƒˆãƒ«ï½šã®å€¤ï¼ˆï½™ã¨ï½šã®æ¯”ç‡ï¼‰ã€‚
-	Vector3 first_velocity_vector{ 0.0f,1.0f,first_velocity_vector_z };//åˆé€Ÿãƒ™ã‚¯ãƒˆãƒ«ï¼ˆï½™ã¯å¿…ãš1ã«ã—ã¦ãŠãï¼‰ã€‚
-	float m_z_axis_value_drop_float;//ã‚¦ã‚­ã‚’è½ã¨ã™ï½šè»¸ã®å€¤ã€‚
+	float m_scalar_multiply_in_first_velocity_vector;//‰‘¬“x‚ÉŠ|‚¯‚éƒXƒJƒ‰[
+	float first_velocity_vector_z=2;//‰‘¬ƒxƒNƒgƒ‹‚š‚Ì’li‚™‚Æ‚š‚Ì”ä—¦jB
+	Vector3 first_velocity_vector{ 0.0f,1.0f,first_velocity_vector_z };//‰‘¬ƒxƒNƒgƒ‹i‚™‚Í•K‚¸1‚É‚µ‚Ä‚¨‚­jB
+	float m_z_axis_value_drop_float;//ƒEƒL‚ğ—‚Æ‚·‚š²‚Ì’lB
 
 	float t = 0;
 	Vector3 g{ 0.0f,-30.0f,0.0f };
@@ -58,16 +58,16 @@ public:
 	Vector3 m_floating;
 	float m_cos=0.0f;
 	Vector3 landing_position;
-	float m_current_range_and_max_range_rate=1;//ä»Šã®è·é›¢ã¨é™ç•Œã®è·é›¢ã®å‰²åˆã€‚
+	float m_current_range_and_max_range_rate=1;//¡‚Ì‹——£‚ÆŒÀŠE‚Ì‹——£‚ÌŠ„‡B
 
 
-	bool m_cast_end=false;//ã‚­ãƒ£ã‚¹ãƒˆãŒçµ‚ã‚ã£ã¦ã„ã‚‹ã‹ã€‚
+	bool m_cast_end=false;//ƒLƒƒƒXƒg‚ªI‚í‚Á‚Ä‚¢‚é‚©B
 
 	float float_diameter=50.0f;
-	float m_water_contains_rate;//ã‚¦ã‚­ãŒæ°´ã«ã¤ã‹ã£ã¦ã„ã‚‹å‰²åˆï¼ˆ1ãªã‚‰100ãƒ‘ãƒ¼ã‚»ãƒ³ãƒˆï¼‰
-	float float_volume;//ã‚¦ã‚­ã®ä½“ç©ã€‚
+	float m_water_contains_rate;//ƒEƒL‚ª…‚É‚Â‚©‚Á‚Ä‚¢‚éŠ„‡i1‚È‚ç100ƒp[ƒZƒ“ƒgj
+	float float_volume;//ƒEƒL‚Ì‘ÌÏB
 	Vector3 m_range_with_fish={0.0f,0.0f,0.0f};
-	float m_limit_range_with_ship=2010.1f;//èˆ¹ã¨ã®é™ç•Œè·é›¢ã€‚
+	float m_limit_range_with_ship=2010.1f;//‘D‚Æ‚ÌŒÀŠE‹——£B
 
 	BuoyancyState m_buoyancyState;
 	SceneFightFish* m_sceneFightFish;

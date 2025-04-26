@@ -15,7 +15,7 @@ Tatiuo::~Tatiuo()
 }
 
 /// <summary>
-/// UIの設定
+/// UI�̐ݒ�
 /// </summary>
 void Tatiuo::SetUI()
 {
