@@ -5,7 +5,7 @@
 
 Title::Title()
 {
-	spriteRender.Init("Assets/sprite/title.dds", 1280.0f, 720.0f);
+	spriteRender.Init("Assets/sprite/yattabe.DDS", 1920.0f, 1080.0f);
 
 	//タイトルのBGMを読み込む。
 	//g_soundEngine->ResistWaveFileBank(0, "Assets/sound/titlebgm.wav");
