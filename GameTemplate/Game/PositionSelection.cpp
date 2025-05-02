@@ -11,6 +11,8 @@
 #include <string>
 #include "stdafx.h"
 #include "Enemy.h"
+#include "StealPositionBar.h"
+
 
 
 PositionSelection::PositionSelection()
@@ -27,7 +29,8 @@ PositionSelection::PositionSelection()
 	//制限時間のUIを作る。
 	m_timeLimitUI = NewGO<TimeLimitUI>(0, "timelimitUI");
 
-	
+	//横取りゲージを作る。
+	m_stealPositionBar = NewGO<StealPositionBar>(0,"stealPositionBar");
 
 	//プレイヤーのオブジェクトを作る。
 	m_player = NewGO<Player>(0, "player");
@@ -59,7 +62,6 @@ PositionSelection::PositionSelection()
 
 	//UIを設定する。
 	SetDisplayiUI();
-	SetStealPositionBarUI();
 
 	for (int i = 0; i < 6; i++) {
 
@@ -74,6 +76,8 @@ PositionSelection::PositionSelection()
 
 PositionSelection::~PositionSelection()
 {
+	//横取りゲージを削除する。
+	DeleteGO(m_stealPositionBar);
 	//プレイヤーを削除する。
 	DeleteGO(m_player);
 	//ゲームカメラを削除する。
@@ -133,8 +137,6 @@ void PositionSelection::Render(RenderContext& rc)
 			m_fishDisplayOutside[i].Draw(rc);
 			m_fishUI[i]->Draw(rc);
 		}
-		m_stealPositionBarOutsideUI.Draw(rc);
-		m_stealPositionBarInsideUI.Draw(rc);
 	}
 }
 
@@ -158,22 +160,6 @@ void PositionSelection::SetDisplayiUI()
 		m_fishDisplayOutside[i].SetScale(Vector3{ 1.0f, 1.0f, 1.0f });
 
 	}
-}
-
-void PositionSelection::SetStealPositionBarUI()
-{
-	m_stealPositionBarOutsideUI.Init("Assets/modelData/landscape_gauge_inside.DDS", 500, 100);
-	m_stealPositionBarOutsideUI.SetPivot(Vector2(0.5f, 0.5f));
-	m_stealPositionBarOutsideUI.SetPosition(Vector3{ 500.0f, 390.0f, 0.0f });
-	m_stealPositionBarOutsideUI.SetScale(Vector3{ 1.0f, 1.0f, 1.0f });
-	m_stealPositionBarOutsideUI.Update();
-
-	m_stealPositionBarInsideUI.Init("Assets/modelData/landscape_gauge_outer.DDS", 500, 100);
-	m_stealPositionBarInsideUI.SetPivot(Vector2(0.5f, 0.5f));
-	m_stealPositionBarInsideUI.SetPosition(Vector3{ 500.0f, 390.0f, 0.0f });
-	m_stealPositionBarInsideUI.SetScale(Vector3{ 1.0f, 1.0f, 1.0f });
-	m_stealPositionBarInsideUI.Update();
-
 }
 
 void PositionSelection::SetFishDisplayPosition()
@@ -337,6 +323,9 @@ void PositionSelection::FindFishHighScore()
 
 }
 
+/// <summary>
+/// 今いるポジションを判断する。
+/// </summary>
 void PositionSelection::IsWith_any_Position()
 {
 	if (m_player->m_position.z >= 12.0f)
@@ -404,6 +393,10 @@ void PositionSelection::IsWith_any_Position()
 	SetFishDisplayOutside_to_Green(position_with_now);
 }
 
+/// <summary>
+/// 魚を表示するフレームの色をそこにいるキャラクターによって変える。
+/// </summary>
+/// <param name="position"></param>
 void PositionSelection::SetFishDisplayOutside_to_Green(Position position)
 {
 	//エラーが出る。
@@ -425,6 +418,9 @@ void PositionSelection::SetFishDisplayOutside_to_Green(Position position)
 
 }
 
+/// <summary>
+/// カメラのポジションをセットする。
+/// </summary>
 void PositionSelection::SetCameraPosition()
 {
 	gameCamera->SetPosition(Vector3{0.0f,900.0f,0.0f});

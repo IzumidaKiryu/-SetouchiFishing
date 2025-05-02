@@ -21,6 +21,7 @@ class FishManager;
 class PlayFishing;
 class TimeLimitUI;
 class Enemy;
+class StealPositionBar;
 
 class PositionSelection : public IGameObject
 {
@@ -32,7 +33,7 @@ public:
 	void Update();
 	void Render(RenderContext& rc);
 	void SetDisplayiUI();
-	void SetStealPositionBarUI();
+	//void SetStealPositionBarUI();
 	void SetFishUI();//魚のUIをセット。
 	void SetFishDisplayPosition();//ディスプレイUIの場所を設定。
 	void SetisDisplayingTrue();
@@ -64,7 +65,6 @@ public:
 	int m_int_time = m_timelimit;//時間(Int型)
 	float m_totalScore = 0.0f;//スコアの合計。
 	bool m_is_time_up;//タイムアップしているかどうか。
-	float m_stealPositionPoint = 0.0f;//敵からからポジションを奪うためのポイント。
 
 	//int m_isSetFishDisplayOutside_to_Green=0;//フレームのUIを緑色にするか。
 	Position m_currentFramePlayerPositionState;//今のフレームのポジション
@@ -102,12 +102,9 @@ public:
 	FishManager* m_fishManager[6];
 	PlayFishing* m_playFishing;
 	SpriteRender* m_fishUI[6];
-	SpriteRender m_stealPositionBarInsideUI;
-	SpriteRender m_stealPositionBarOutsideUI;
-	SpriteRender m_stealPositionGaugeUI;
 	TimeLimitUI* m_timeLimitUI;
 	//ModelRender m_rodFloatModel;
-
+	StealPositionBar* m_stealPositionBar;
 	Stopwatch m_stopwatch;
 	Enemy* m_enemy;
 
