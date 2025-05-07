@@ -247,6 +247,7 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayFishing.cpp" />
     <ClCompile Include="PlayFishingBackGround.cpp" />
+    <ClCompile Include="PlayFishingStateBase.cpp" />
     <ClCompile Include="PositionSelection.cpp" />
     <ClCompile Include="RodFloatMove.cpp" />
     <ClCompile Include="SceneFightFish.cpp" />
@@ -285,6 +286,7 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayFishing.h" />
     <ClInclude Include="PlayFishingBackGround.h" />
+    <ClInclude Include="PlayFishingStateBase.h" />
     <ClInclude Include="PositionSelection.h" />
     <ClInclude Include="RodFloatMove.h" />
     <ClInclude Include="SceneFightFish.h" />

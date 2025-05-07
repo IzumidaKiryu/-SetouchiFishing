@@ -41,6 +41,7 @@
     <ClCompile Include="Jakoten.cpp" />
     <ClCompile Include="Hirame.cpp" />
     <ClCompile Include="StealPositionBar.cpp" />
+    <ClCompile Include="PlayFishingStateBase.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -77,5 +78,6 @@
     <ClInclude Include="Jakoten.h" />
     <ClInclude Include="Hirame.h" />
     <ClInclude Include="StealPositionBar.h" />
+    <ClInclude Include="PlayFishingStateBase.h" />
   </ItemGroup>
 </Project>
