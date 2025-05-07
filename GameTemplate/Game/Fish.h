@@ -28,6 +28,7 @@ public:
 	void SetisSelectedFalse();
 	bool GetShouldFishChange();
 	void SetBaseScore(float baseScore);//基準になるスコア。
+	virtual void Effect();//釣った後の効果。
 	FishData& GetFishData();
 
 	SpriteRender& GetUI();

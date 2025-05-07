@@ -7,6 +7,6 @@ public:
 	Hirame();
 	~Hirame();
 	void SetUI();
-
+	void Effect()override;
 };
 

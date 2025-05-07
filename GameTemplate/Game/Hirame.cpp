@@ -25,3 +25,8 @@ void Hirame::SetUI()
 	m_ui.SetScale(Vector3{ 1.0f, 1.0f, 1.0f });
 	m_ui.Update();*/
 }
+
+void Hirame::Effect()
+{
+
+}
