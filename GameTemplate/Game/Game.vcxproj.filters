@@ -43,6 +43,7 @@
     <ClCompile Include="CastState.cpp" />
     <ClCompile Include="StealPositionBar.cpp" />
     <ClCompile Include="PlayFishingStateBase.cpp" />
+    <ClCompile Include="PlayCastGaugeState.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -81,5 +82,6 @@
     <ClInclude Include="CastState.h" />
     <ClInclude Include="StealPositionBar.h" />
     <ClInclude Include="PlayFishingStateBase.h" />
+    <ClInclude Include="PlayCastGaugeState.h" />
   </ItemGroup>
 </Project>

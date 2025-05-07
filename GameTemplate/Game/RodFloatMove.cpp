@@ -22,13 +22,13 @@ RodFloatMove::~RodFloatMove()
 void RodFloatMove::Update()
 {
 	//RodFloatStateManagement();
-	SetPosition();
-	ModelUpdate();
+	/*SetPosition();*/
+	/*ModelUpdate();*/
 }
 
 void RodFloatMove::ModelUpdate()
 {
-	m_rodFloatModel.SetPosition(m_rodFloatPosition);
+	m_rodFloatModel.SetPosition(m_position);
 	m_rodFloatModel.Update();
 }
 
@@ -89,7 +89,7 @@ void RodFloatMove::Float()
 	t += 0.05;
 	m_floating.y = (cos(t))*10;//上下に動かす
 	m_floating.x = (cos(t * 0.7/*周期をずらす*/)*10 );//左右に動かす
-	m_rodFloatPosition = m_rodFloatPosition + m_floating;
+	m_position = m_position + m_floating;
 }
 
 //void RodFloatMove::RodFloatStateManagement()
@@ -135,7 +135,22 @@ void RodFloatMove::Float()
 void RodFloatMove::SetPosition(Vector3 position)
 {
 
-	m_rodFloatPosition = position;
+	m_position = position;
+	m_rodFloatModel.SetPosition(m_position);
+	m_rodFloatModel.Update();
+}
+
+float RodFloatMove::ChangePosition_Z(float current_float_range_max_range_rate)
+{
+	float positon_z =m_limit_range_with_ship* current_float_range_max_range_rate;
+	return positon_z;
+}
+
+float RodFloatMove::GetCurrent_Float_Range_Max_Range_Rate(float position_x)
+{
+	float current_float_range_max_range_rate;
+	current_float_range_max_range_rate = position_x / m_limit_range_with_ship;
+	return current_float_range_max_range_rate;
 }
 
 void RodFloatMove::SetPosition()
@@ -145,14 +160,14 @@ void RodFloatMove::SetPosition()
 	if (m_playFishing->m_playFishingStatus != cast/*, m_playFishing->m_playFishingStatus != wait_castGauge*/) {
 		Float();
 		//ポジションを反映する。
-		m_rodFloatPosition = /*m_floating*/m_sumPosition + Vector3{ 0.0f,0.0f, m_playFishing->m_current_float_range_max_range_rate * m_limit_range_with_ship }+m_floating;
+		m_position = /*m_floating*/m_sumPosition + Vector3{ 0.0f,0.0f, m_playFishing->m_current_float_range_max_range_rate * m_limit_range_with_ship }+m_floating;
 	}
 	m_sumPosition = { 0.0f,0.0f,0.0f };
 }
 
 void RodFloatMove::SetSumPosition(Vector3 positon)
 {
-	m_sumPosition = positon;
+	m_position += positon;
 }
 
 //void RodFloatMove::SetCurrent_range_and_max_range_rate(float current_range_and_max_range_rate)
@@ -177,6 +192,11 @@ void RodFloatMove::SetSumPosition(Vector3 positon)
 void RodFloatMove::Render(RenderContext& rc)
 {
 	m_rodFloatModel.Draw(rc);
+}
+
+Vector3 RodFloatMove::GetPosition()
+{
+	return m_position;
 }
 
 
