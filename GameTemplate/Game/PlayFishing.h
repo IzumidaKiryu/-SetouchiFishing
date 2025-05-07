@@ -2,7 +2,7 @@
 #include "Fish.h"
 
 enum PlayFishingStatus {
-	castGauge,
+	playCastGauge,
 	wait_castGauge,
 	castAnimasion,
 	cast,
@@ -31,6 +31,9 @@ class Player;
 class SceneFightFish;
 class FishModel;
 class RodFloatMove;
+class PlayCastGaugeState;
+class CastState;
+class WaitForFishState;
 
 
 class PlayFishing :public IGameObject
@@ -63,7 +66,7 @@ public:
 	float GetRange_of_fish_and_ship();
 	void SetRange_of_fish_and_float(float range_of_fish_and_float);//ウキと船の距離を設定
 	float GetRange_of_fish_and_float();
-	void SetScalar_multiply_in_first_velocity_vector(float scalar_multiply_in_first_velocity_vector);
+	void SetCastStrength(float scalar_multiply_in_first_velocity_vector);
 	void Cast();
 	void WaitForFish();
 	//void SetRodFloatModalePosition();
@@ -92,13 +95,16 @@ public:
 	Vector3 m_float_initPos{ 0.0f,500.0f,10.0f };
 	Vector3 m_rodFloatPosition = m_float_initPos;
 	float water_surface_position_y=0;//うみのy軸での場所。
-	float m_scalar_multiply_in_first_velocity_vector;//初速度に掛けるスカラー
+	float m_castStrength;//キャストの強さ（ウキのとび具合が変わる）
 	float first_velocity_vector_z = 2;//初速ベクトルｚの値（ｙとｚの比率）。
 	Vector3 first_velocity_vector{ 0.0f,1.0f,first_velocity_vector_z };//初速ベクトル（ｙは必ず1にしておく）。
 	float m_z_axis_value_drop_float;//ウキを落とすｚ軸の値。
 
+	Vector3 m_rodFloatModelPos;
+	Vector3 m_fishModelPos;
 
-	PlayFishingStatus m_playFishingStatus = castGauge;
+
+	PlayFishingStatus m_playFishingStatus = playCastGauge;
 	Successful_or_Failure m_successful_or_failure = unfixed;
 
 	FishData m_fishData;//魚のデータ。
@@ -118,5 +124,8 @@ public:
 	SceneFightFish* m_sceneFightFish;
 	FishModel* m_fshModel;
 	RodFloatMove* m_rodFloatMove;
+	PlayCastGaugeState* m_playCastGaugeState;
+	CastState* m_castState;
+	WaitForFishState* m_waitForFishState;
 
 };

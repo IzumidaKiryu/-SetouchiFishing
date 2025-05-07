@@ -158,7 +158,7 @@ void SceneFightFish::success()
 		m_playFishing = FindGO<PlayFishing>("playFishing");
 		m_positionSelection = FindGO<PositionSelection>("positionSelection");
 		m_fishingRodHP = FindGO<FishingRodHP>("fishingRodHP");
-		m_positionSelection->m_stealPositionPoint += m_fishingRodHP->m_Hp;
+		/*m_positionSelection->m_stealPositionPoint += m_fishingRodHP->m_Hp;*/
 		m_playFishing->SetSuccess();
 	}
 }
@@ -322,7 +322,7 @@ void SceneFightFish::SetCamera()
 {
 	m_gameCamera = FindGO<GameCamera>("gameCamera");
 	m_rodFloatMove = FindGO<RodFloatMove>("rodFloatMove");
-	m_gameCamera->SetTarget(m_rodFloatMove->m_rodFloatPosition);
+	m_gameCamera->SetTarget(m_rodFloatMove->m_position);
 }
 
 void SceneFightFish::FrameCount()

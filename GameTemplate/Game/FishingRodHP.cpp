@@ -103,5 +103,5 @@ void FishingRodHP::AddStealPositionPoint()
 {
 	/*m_positionSelection = NewGO<PositionSelection>(0, "m_PositionSelection");*/
 	m_positionSelection=FindGO<PositionSelection>("m_PositionSelection");
-	m_positionSelection->m_stealPositionPoint += m_Hp;
+	/*m_positionSelection->m_stealPositionPoint += m_Hp;*/
 }
