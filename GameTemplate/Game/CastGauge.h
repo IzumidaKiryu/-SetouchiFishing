@@ -6,6 +6,7 @@ class PositionSelection;
 class PlayFishing;
 class GameCamera;
 class RodFloatMove;
+class PlayCastGaugeState;
 
 enum ChasutState {
 	playing,
@@ -39,7 +40,7 @@ public:
 	void SetCamera();
 	void WaveMotion();//波の動きを疑似的に表現
 	void IsCastEnd();
-	
+	bool GetIsThisClasEnd();
 
 
 	//void SetRodFloatPositon();//
@@ -57,9 +58,11 @@ public:
 	bool is_ended = false;
 	float t = 0.0f;
 
-	float m_float_range_max_range_rate=0.0f;//今のウキの限界のウキの距離の割合。
+	float m_castStrength=0.0f;//今のウキの限界のウキの距離の割合。
 	Vector3 m_gameCameraTarget;
 	Vector3 m_gameCameraPos;
+
+	bool m_is_thisClassEnd=false;
 
 	SpriteRender m_castGaugeOutside;
 	SpriteRender m_castGaugeInside;
@@ -83,5 +86,6 @@ public:
 
 	Player* m_player;
 	SceneFightFish* m_sceneFightFish;
+	PlayCastGaugeState* m_playCastGaugeState;
 };
 

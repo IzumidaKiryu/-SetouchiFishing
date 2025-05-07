@@ -266,6 +266,7 @@
     <ClCompile Include="TensionGauge.cpp" />
     <ClCompile Include="TimeLimitUI.cpp" />
     <ClCompile Include="Title.cpp" />
+    <ClCompile Include="WaitForFishState.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BackGround.h" />
@@ -303,6 +304,7 @@
     <ClInclude Include="TensionGauge.h" />
     <ClInclude Include="TimeLimitUI.h" />
     <ClInclude Include="Title.h" />
+    <ClInclude Include="WaitForFishState.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

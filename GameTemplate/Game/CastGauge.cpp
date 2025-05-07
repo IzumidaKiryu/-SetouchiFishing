@@ -10,6 +10,7 @@
 #include"Player.h"
 #include"RodFloatMove.h"
 #include"SceneFightFish.h"
+#include"PlayCastGaugeState.h"
 
 
 
@@ -123,15 +124,15 @@ void CastGauge::HitTest()
 		//}
 
 		//ウキの距離を計算。
-		m_float_range_max_range_rate = (m_arrowPosition - m_gaugeLowerLimit) / m_gauge_length;
+		m_castStrength = (m_arrowPosition - m_gaugeLowerLimit) / m_gauge_length;
 
 		//m_rodFloatMove = FindGO<RodFloatMove>("rodFloatMove");
 
 
 		m_playFishing = FindGO<PlayFishing>("playFishing");
-
-		//プレイフィッシングクラスにウキの距離の割合を渡す
-		m_playFishing->SetScalar_multiply_in_first_velocity_vector(m_float_range_max_range_rate);
+		m_is_thisClassEnd = true;
+		//プレイフィッシングクラスにキャストの強さを渡す。
+		m_playFishing->SetCastStrength(m_castStrength);
 
 		m_playFishing->SetSuccess();//プレイフィッシングクラスのステートを進める。
 		//
@@ -232,6 +233,11 @@ void CastGauge::IsCastEnd()
 		m_playFishing = FindGO<PlayFishing>("playFishing");
 		m_playFishing->SetSuccess();
 	}*/
+}
+
+bool CastGauge::GetIsThisClasEnd()
+{
+	return m_is_thisClassEnd;
 }
 
 //void CastGauge::SetRodFloatPositon()

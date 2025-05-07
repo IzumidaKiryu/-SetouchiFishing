@@ -17,7 +17,8 @@ public:
 	void Update();
 	void Set_signs_of_Fish_UI();
 	void RightAndLeftManagement();
-	void SetFishUI_Position();
+	void SetFishUI_Position(float current_fish_range_and_max_range_rate);
+	void SetFloatUI_Position(float current_float_range_max_range_rate);
 	void SetScale();
 	//void AnnounceChangeFishState();
 
@@ -33,7 +34,7 @@ public:
 	SpriteRender m_tensionGaugeInside;
 	SpriteRender m_tensionGaugeOutside;
 	SpriteRender m_signs_of_Fish;//魚影
-	SpriteRender m_rodFloat;
+	SpriteRender m_rodFloatUI;
 	PlayFishing* m_playFishing;
 	SceneFightFish* m_sceneFightFish;
 	RodFloatMove* m_rodFloatMove;
