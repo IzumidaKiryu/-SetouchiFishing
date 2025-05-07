@@ -40,6 +40,7 @@
     <ClCompile Include="FishModel.cpp" />
     <ClCompile Include="Jakoten.cpp" />
     <ClCompile Include="Hirame.cpp" />
+    <ClCompile Include="CastState.cpp" />
     <ClCompile Include="StealPositionBar.cpp" />
     <ClCompile Include="PlayFishingStateBase.cpp" />
   </ItemGroup>
@@ -77,6 +78,7 @@
     <ClInclude Include="FishModel.h" />
     <ClInclude Include="Jakoten.h" />
     <ClInclude Include="Hirame.h" />
+    <ClInclude Include="CastState.h" />
     <ClInclude Include="StealPositionBar.h" />
     <ClInclude Include="PlayFishingStateBase.h" />
   </ItemGroup>
