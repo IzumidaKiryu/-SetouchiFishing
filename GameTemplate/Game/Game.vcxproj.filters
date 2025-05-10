@@ -45,6 +45,9 @@
     <ClCompile Include="PlayFishingStateBase.cpp" />
     <ClCompile Include="PlayCastGaugeState.cpp" />
     <ClCompile Include="WaitForFishState.cpp" />
+    <ClCompile Include="FightFishState.cpp" />
+    <ClCompile Include="FishingAnimationState.cpp" />
+    <ClCompile Include="Tai.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -85,5 +88,8 @@
     <ClInclude Include="PlayFishingStateBase.h" />
     <ClInclude Include="PlayCastGaugeState.h" />
     <ClInclude Include="WaitForFishState.h" />
+    <ClInclude Include="FightFishState.h" />
+    <ClInclude Include="FishingAnimationState.h" />
+    <ClInclude Include="Tai.h" />
   </ItemGroup>
 </Project>
