@@ -6,7 +6,7 @@ Hirame::Hirame()
 	SetUI();
 	SetBaseScore(120.0f);
 	SetScore();
-	SetTimeUntilEscape(10.0f);
+	SetTimeUntilEscape(15.0f);
 	SetInitPos(0.7f);
 }
 
@@ -24,4 +24,9 @@ void Hirame::SetUI()
 	/*m_ui.SetPivot(Vector2(0.5f, 0.5f));
 	m_ui.SetScale(Vector3{ 1.0f, 1.0f, 1.0f });
 	m_ui.Update();*/
+}
+
+void Hirame::Effect()
+{
+
 }

@@ -5,6 +5,7 @@
 #include"FishingRodHP.h"
 #include"RodFloatMove.h";
 #include "SceneFightFish.h"
+#include "FightFishState.h"
 
 
 #include <random>
@@ -31,11 +32,11 @@ TensionGauge::TensionGauge()
 	m_signs_of_Fish.SetScale(Vector3{ 1.0f, 1.0f, 1.0f });
 
 	
-	m_rodFloat.Init("Assets/modelData/rod_float.DDS", 50, 50);
-	m_rodFloat.SetPivot(Vector2(0.5f, 0.5f));
-	m_rodFloat.SetPosition(Vector3(650.0f, 0.0f, 0.0f));
-	m_rodFloat.SetScale(Vector3{ 1.0f, 1.0f, 1.0f });
-	m_rodFloat.Update();
+	m_rodFloatUI.Init("Assets/modelData/rod_float.DDS", 50, 50);
+	m_rodFloatUI.SetPivot(Vector2(0.5f, 0.5f));
+	m_rodFloatUI.SetPosition(Vector3(650.0f, 0.0f, 0.0f));
+	m_rodFloatUI.SetScale(Vector3{ 1.0f, 1.0f, 1.0f });
+	m_rodFloatUI.Update();
 }
 
 TensionGauge::~TensionGauge()
@@ -45,12 +46,14 @@ TensionGauge::~TensionGauge()
 
 void TensionGauge::Update()
 {
-	m_sceneFightFish=FindGO<SceneFightFish>("sceneFightFish");
-	/*Set_signs_of_Fish_UI();*/
+	m_fightFishState=FindGO<FightFishState>("fightFishState");
+	//if (m_fightFishState != nullptr) {
+	//	Set_signs_of_Fish_UI();
+	//}
 
 	/*SetFishUI_Position();*/
 	SetScale();
-	SetFishUI_Position();
+	/*SetFishUI_Position();*/
 }
 
 void TensionGauge::RightAndLeftManagement()
@@ -58,16 +61,15 @@ void TensionGauge::RightAndLeftManagement()
 
 }
 
-void TensionGauge::SetFishUI_Position()
+void TensionGauge::SetFishUI_Position(float current_fish_range_and_max_range_rate)
 {
-	m_playFishing = FindGO<PlayFishing>("playFishing");
-	
-	m_signs_of_Fish.SetPosition(Vector3(650.0f, m_bar_length * m_playFishing->m_current_fish_range_and_max_range_rate+ m_barBottom, 0.0f));
+	m_signs_of_Fish.SetPosition(Vector3(650.0f, m_bar_length * current_fish_range_and_max_range_rate+ m_barBottom, 0.0f));
 	m_signs_of_Fish.Update();
-
-	m_rodFloat.SetPosition(Vector3(650.0f, m_bar_length * m_playFishing->m_current_float_range_max_range_rate + m_barBottom, 0.0f));
-	m_rodFloat.Update();
-
+}
+void TensionGauge::SetFloatUI_Position(float current_float_range_max_range_rate)
+{
+	m_rodFloatUI.SetPosition(Vector3(650.0f, m_bar_length * current_float_range_max_range_rate + m_barBottom, 0.0f));
+	m_rodFloatUI.Update();
 }
 /// <summary>
 /// 大きさを変更。
@@ -78,17 +80,18 @@ void TensionGauge::SetScale()
 	//時間があれば影も合わせたい。
 	m_rodFloatMove = FindGO<RodFloatMove>("rodFloatMove");
 
-
-	m_rodFloat.SetScale(Vector3{ 1.0f, 1.0f, 1.0f }*(1 + (m_rodFloatMove->m_rodFloatPosition.y / 300)));
+	if (m_rodFloatMove != nullptr) {//ウキが作成されていない場合は行わない。
+		m_rodFloatUI.SetScale(Vector3{ 1.0f, 1.0f, 1.0f }*(1 + (m_rodFloatMove->m_position.y / 300)));
+	}
 }
 
 void TensionGauge::Set_signs_of_Fish_UI()
 {
-	if (m_sceneFightFish->m_previous_is_fish_suited_for_upper_side != m_sceneFightFish->is_fish_suited_for_upper_side) {//前のフレームと状態が違う時だけ。
-		switch (m_sceneFightFish->m_fishState)
+	if (m_fightFishState->m_previous_is_fish_suited_for_upper_side != m_fightFishState->is_fish_suited_for_upper_side) {//前のフレームと状態が違う時だけ。
+		switch (m_fightFishState->m_fishState)
 		{
 		case normal:
-			switch (m_sceneFightFish->is_fish_suited_for_upper_side)
+			switch (m_fightFishState->is_fish_suited_for_upper_side)
 			{
 
 			case true:
@@ -104,7 +107,7 @@ void TensionGauge::Set_signs_of_Fish_UI()
 			}
 			break;
 		case announce:
-			switch (m_sceneFightFish->is_fish_suited_for_upper_side)
+			switch (m_fightFishState->is_fish_suited_for_upper_side)
 			{
 
 			case true:
@@ -120,7 +123,7 @@ void TensionGauge::Set_signs_of_Fish_UI()
 			}
 			break;
 		case angry:
-			switch (m_sceneFightFish->is_fish_suited_for_upper_side)
+			switch (m_fightFishState->is_fish_suited_for_upper_side)
 			{
 
 			case true:
@@ -136,7 +139,7 @@ void TensionGauge::Set_signs_of_Fish_UI()
 			}
 			break;
 		case exhausted:
-			switch (m_sceneFightFish->is_fish_suited_for_upper_side)
+			switch (m_fightFishState->is_fish_suited_for_upper_side)
 			{
 
 			case true:
@@ -156,7 +159,7 @@ void TensionGauge::Set_signs_of_Fish_UI()
 		}
 	}
 	m_signs_of_Fish.Update();
-	m_sceneFightFish->m_previous_is_fish_suited_for_upper_side = m_sceneFightFish->is_fish_suited_for_upper_side;
+	m_fightFishState->m_previous_is_fish_suited_for_upper_side = m_fightFishState->is_fish_suited_for_upper_side;
 }
 
 void TensionGauge::Render(RenderContext& rc)
@@ -164,7 +167,8 @@ void TensionGauge::Render(RenderContext& rc)
 	m_tensionGaugeInside.Draw(rc);
 	m_tensionGaugeOutside.Draw(rc);
 	m_signs_of_Fish.Draw(rc);
-	if (m_playFishing->m_playFishingStatus != wait_castGauge) {
-		m_rodFloat.Draw(rc);
+	m_rodFloatMove = FindGO<RodFloatMove>("rodFloatMove");
+	if (m_rodFloatMove != nullptr) {//ウキが作られていなに時は表示しない。
+		m_rodFloatUI.Draw(rc);
 	}
 }

@@ -4,6 +4,7 @@
 #include"PlayFishing.h"
 #include"PositionSelection.h"
 #include"SceneFightFish.h"
+#include"FightFishState.h"
 
 
 FishingRodHP::FishingRodHP()
@@ -19,7 +20,7 @@ void FishingRodHP::Update()
 {
 	SetFishingRodHP();
 	/*if (m_previousFrameHP != m_Hp) {*/
-	float m_rotationPower = m_sceneFightFish->GetRotationPower();
+	float m_rotationPower = m_fightFishState->GetRotationPower();
 	m_RodHPBar.SetScale(Vector3{ m_Hp * 2 / m_MaxHp, 1.0f, 1.0f });
 	m_RodHPBar.Update();
 	/*}*/
@@ -30,22 +31,22 @@ void FishingRodHP::Update()
 
 void FishingRodHP::SetFishingRodHP()
 {
-	m_sceneFightFish = FindGO<SceneFightFish>("sceneFightFish");
+	m_fightFishState = FindGO<FightFishState>("fightFishState");
 
 
-	if (m_sceneFightFish->is_fish_suited_for_upper_side == true) {
+	if (m_fightFishState->is_fish_suited_for_upper_side == true) {
 		//魚の向きが左なら。
 		//コントローラーを回した分だけ竿のHPが減る。
-		m_Hp -= m_sceneFightFish->GetRotationPower() * 50.0f;
+		m_Hp -= m_fightFishState->GetRotationPower() * 50.0f;
 	}
-	if (m_sceneFightFish->is_fish_suited_for_upper_side == false) {
+	if (m_fightFishState->is_fish_suited_for_upper_side == false) {
 		//魚の向きが左なら。
 		//コントローラーを回した分だけ竿のHPが減る。
 		m_Hp += 0.1;
 	}
 
 
-	float m_rotationPower = m_sceneFightFish->GetRotationPower();
+	float m_rotationPower = m_fightFishState->GetRotationPower();
 	//コントローラーが回ってないときはHPを回復する。
 	if (m_rotationPower <= 0.0000f) {
 		m_Hp += 1;
@@ -62,11 +63,11 @@ void FishingRodHP::SetUI()
 {
 	m_RodHPGaugeInside.Init("Assets/modelData/castGauge_inside.DDS", 500, 100);
 	m_RodHPGaugeInside.SetPivot(Vector2(0.0f, 0.5f));
-	m_RodHPGaugeInside.SetPosition(Vector3(-300.0f, -300.0f, 0.0f));
+	m_RodHPGaugeInside.SetPosition(Vector3(-450.0f, -300.0f, 0.0f));
 	m_RodHPGaugeInside.SetScale(Vector3{ 2.0f, 1.0f, 1.0f });
 	m_RodHPGaugeInside.Update();
 
-	m_RodHPGaugeOutside.Init("Assets / modelData / tensionGaugeFrame.DDS", 500, 100);
+	m_RodHPGaugeOutside.Init("Assets/modelData/castGauge_Outside.DDS", 500, 100);
 	m_RodHPGaugeOutside.SetPivot(Vector2(0.5f, 0.5f));
 	m_RodHPGaugeOutside.SetPosition(Vector3(-300.0f, -300.0f, 0.0f));
 	m_RodHPGaugeOutside.SetScale(Vector3{ 2.0f, 1.0f, 1.0f });
@@ -82,7 +83,7 @@ void FishingRodHP::SetUI()
 void FishingRodHP::Render(RenderContext& rc)
 {
 	m_RodHPGaugeInside.Draw(rc);   
-	m_RodHPGaugeOutside.Draw(rc);
+	//m_RodHPGaugeOutside.Draw(rc);
 	m_RodHPBar.Draw(rc);
 }
 
@@ -103,5 +104,5 @@ void FishingRodHP::AddStealPositionPoint()
 {
 	/*m_positionSelection = NewGO<PositionSelection>(0, "m_PositionSelection");*/
 	m_positionSelection=FindGO<PositionSelection>("m_PositionSelection");
-	m_positionSelection->m_stealPositionPoint += m_Hp;
+	/*m_positionSelection->m_stealPositionPoint += m_Hp;*/
 }

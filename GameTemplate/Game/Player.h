@@ -10,6 +10,9 @@ public:
 	/*void Update();*/
 	//ムーブスピードを設定。
 	void SetMoveSpeed() override;
+	void SetMoveDeActive();
+	void SetMoveActive();
+	bool m_is_moveActive=true;
 	//移動処理。
 	//void Move();
 	////回転処理。

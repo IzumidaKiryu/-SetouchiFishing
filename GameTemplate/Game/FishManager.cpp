@@ -5,6 +5,7 @@
 #include "PositionSelection.h"
 #include "Jakoten.h"
 #include "Hirame.h"
+#include "Tai.h"
 #include <random>
 
 FishManager::FishManager()
@@ -42,8 +43,11 @@ void FishManager::SelectFishType()
 	if (31 <= randum && randum <= 50){
 		m_fishType = JAKOTENN;
 	}
-	if (51 <= randum && randum <= 100) {
+	if (51 <= randum && randum <= 90) {
 		m_fishType = HIRAME;
+	}
+	if (91 <= randum && randum <= 100) {
+
 	}
 }
 
@@ -67,6 +71,11 @@ void FishManager::NewGOHirame()
 	m_hirame=NewGO<Hirame>(0, "hirame");
 }
 
+void FishManager::NewGOTai()
+{
+	m_tai = NewGO<Tai>(0,"tai");
+}
+
 
 /// <summary>
 /// UIを取得する。
@@ -76,6 +85,7 @@ void FishManager::GetUI()
 	switch (m_fishType)
 	{
 	case TAI:
+		m_ui = &(m_tai->GetUI());
 		break;
 	case BURI:
 		m_ui = &(m_buri->GetUI());
@@ -104,6 +114,7 @@ void FishManager::FishNewGO()
 	switch (m_fishType)
 	{
 	case TAI:
+		NewGOTai();
 		break;
 	case BURI:
 		NewGOBuri();
@@ -132,6 +143,7 @@ void FishManager::SetShouldFishChange()
 	switch (m_fishType)
 	{
 	case TAI:
+		m_shouldFishChange = m_tai->GetShouldFishChange();
 		break;
 	case BURI:
 		m_shouldFishChange = m_buri->GetShouldFishChange();
@@ -162,6 +174,7 @@ void FishManager::SetFishData()
 	switch (m_fishType)
 	{
 	case TAI:
+		p_fishData = &(m_tai->GetFishData());
 		break;
 	case BURI:
 		p_fishData = &(m_buri->GetFishData());
@@ -199,6 +212,7 @@ void FishManager::Timer()
 	switch (m_fishType)
 	{
 	case TAI:
+		m_tai->TimeCount();
 		break;
 	case BURI:
 		m_buri->TimeCount();

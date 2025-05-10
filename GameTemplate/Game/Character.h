@@ -13,7 +13,8 @@ public:
 		EnModelUpAxis enModelUpAxis);
 	void SetAnimationClipsLoad(
 		const char* animationClip_Idle,
-		const char* animationClip_Walk
+		const char* animationClip_Walk,
+		const char* animationClip_Cast
 	);
 	//ムーブスピードを設定。
 	void virtual SetMoveSpeed();
@@ -26,7 +27,9 @@ public:
 	//アニメーションの再生。
 	void PlayAnimation();
 	//void Render(RenderContext& rc);
-
+	//void SetChastAnimation();
+	//void SetIdleAnimation();
+	bool m_is_cast=false;
 	//メンバ変数。
 	ModelRender modelRender;	//モデルレンダ―。
 	Vector3 m_position;			//座標。
@@ -34,13 +37,14 @@ public:
 		enAnimationClip_Idle,
 		enAnimationClip_Walk,
 		//enAnimationClip_Jump,
+		enAnimationClip_Cast,
 		enAnimationClip_Num,
 	};
 	AnimationClip animationClips[enAnimationClip_Num];		//アニメーションクリップ。
 	CharacterController characterController;  //キャラクターコントローラー。
 	Vector3 moveSpeed;		//移動速度。
 	Quaternion rotation;  //クォータニオン。
-	int playerState = 0;	//プレイヤーのステート(状態)を表す変数。
+	EnAnimationClip playerState ;	//プレイヤーのステート(状態)を表す変数。
 
 };
 

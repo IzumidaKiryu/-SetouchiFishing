@@ -3,6 +3,7 @@ class TensionGauge;
 class PlayFishing;
 class PositionSelection;
 class SceneFightFish;
+class FightFishState;
 
 class FishingRodHP :public IGameObject
 {
@@ -33,6 +34,6 @@ public:
 	PlayFishing* m_playFishing;
 	TensionGauge* m_tensionGauge;
 	PositionSelection* m_positionSelection;
-	SceneFightFish* m_sceneFightFish;
+	FightFishState* m_fightFishState;
 };
 

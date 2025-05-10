@@ -40,6 +40,14 @@
     <ClCompile Include="FishModel.cpp" />
     <ClCompile Include="Jakoten.cpp" />
     <ClCompile Include="Hirame.cpp" />
+    <ClCompile Include="CastState.cpp" />
+    <ClCompile Include="StealPositionBar.cpp" />
+    <ClCompile Include="PlayFishingStateBase.cpp" />
+    <ClCompile Include="PlayCastGaugeState.cpp" />
+    <ClCompile Include="WaitForFishState.cpp" />
+    <ClCompile Include="FightFishState.cpp" />
+    <ClCompile Include="FishingAnimationState.cpp" />
+    <ClCompile Include="Tai.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -75,5 +83,13 @@
     <ClInclude Include="FishModel.h" />
     <ClInclude Include="Jakoten.h" />
     <ClInclude Include="Hirame.h" />
+    <ClInclude Include="CastState.h" />
+    <ClInclude Include="StealPositionBar.h" />
+    <ClInclude Include="PlayFishingStateBase.h" />
+    <ClInclude Include="PlayCastGaugeState.h" />
+    <ClInclude Include="WaitForFishState.h" />
+    <ClInclude Include="FightFishState.h" />
+    <ClInclude Include="FishingAnimationState.h" />
+    <ClInclude Include="Tai.h" />
   </ItemGroup>
 </Project>

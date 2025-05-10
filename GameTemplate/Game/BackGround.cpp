@@ -11,6 +11,11 @@ BackGround::BackGround()
 	//modelRender.Init("Assets/material/stera.tkm");
 	modelRender.Update();
 	physicsStaticObject.CreateFromModel(modelRender.GetModel(), modelRender.GetModel().GetWorldMatrix());
+
+	m_sea.SetPosition(m_positio);
+	m_sea.SetScale(Vector3{ 1.0f,1.0f,1.0f }*10.0f);
+	m_sea.Init("Assets/modelData/sea_kari.tkm");
+	m_sea.Update();
 }
 
 BackGround::~BackGround()
@@ -35,4 +40,5 @@ void BackGround::Float()
 void BackGround::Render(RenderContext& rc)
 {
 	modelRender.Draw(rc);
+	m_sea.Draw(rc);
 }

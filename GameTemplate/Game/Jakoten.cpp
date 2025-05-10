@@ -6,7 +6,7 @@ Jakoten::Jakoten()
 	SetUI();
 	SetBaseScore(120.0f);
 	SetScore();
-	SetTimeUntilEscape(10.0f);
+	SetTimeUntilEscape(12.0f);
 	SetInitPos(0.7f);
 }
 

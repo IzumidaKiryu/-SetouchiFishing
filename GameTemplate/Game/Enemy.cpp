@@ -5,7 +5,8 @@
 Enemy::Enemy()
 {
 	SetAnimationClipsLoad("Assets/animData/Enemy/EnamyIdle.tka",
-		"Assets/animData/Enemy/EnamyWalking.tka"
+		"Assets/animData/Enemy/EnamyWalking.tka",
+		"Assets/animData/Player/FishingCast.tka"
 	);
 	//ユニティちゃんのモデルを読み込む。
 	SetModel("Assets/modelData/Enemy/Enemy.tkm", animationClips, enAnimationClip_Num, enModelUpAxisZ);
@@ -31,8 +32,11 @@ void Enemy::SetMoveSpeed()
 	//forward *= stickL.y * 120.0f;
 	m_positionSelection = FindGO<PositionSelection>("positionSelection");
 	m_positionSelection->FindFishHighScore();
-	if (m_position.x <= enemyFishingPosition[m_positionSelection->enemy_position].x - 10.0f || m_position.y <= enemyFishingPosition[m_positionSelection->enemy_position].y) {
-		moveSpeed += (enemyFishingPosition[m_positionSelection->enemy_position] - m_position);
+	/*if (m_position.x <= enemyFishingPosition[m_positionSelection->enemy_position].x - 10.0f || m_position.y <= enemyFishingPosition[m_positionSelection->enemy_position].y) {*/
+
+	Vector3 range_of_enemy_and_position= enemyFishingPosition[m_positionSelection->enemy_position] - m_position;//敵ポジションと選んでいるポジションの距離。
+	if (range_of_enemy_and_position.Length() >=5.0f ) {
+		moveSpeed += range_of_enemy_and_position/*(enemyFishingPosition[m_positionSelection->enemy_position] - m_position)*/;
 		moveSpeed.Normalize();
 		moveSpeed *= 700.0f;
 	}

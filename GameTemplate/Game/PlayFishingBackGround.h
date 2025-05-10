@@ -7,6 +7,8 @@ public:
 
 	void Render(RenderContext& rc);
 	ModelRender modelRender;
+	ModelRender m_ship;
+	ModelRender m_isrand;
 	PhysicsStaticObject physicsStaticObject;
 };
 

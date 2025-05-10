@@ -32,11 +32,15 @@ public:
 	void SetScalar_multiply_in_first_velocity_vector(float scalar_multiply_in_first_velocity_vector);*/
 	void SetPosition();
 	void SetPosition(Vector3 position);
+	float ChangePosition_Z(float current_float_range_max_range_rate);
+	float GetCurrent_Float_Range_Max_Range_Rate(float position_z);
+	void SetRotation(Quaternion rot);
 
 	void SetSumPosition(Vector3 positon);//ポジションを足し算する。
 	/*void FightFish();*/
 	void Render(RenderContext& rc);
 	//bool IsCastEnd();//キャストが終わっているか。
+	Vector3 GetPosition();
 
 
 	float m_scalar_multiply_in_first_velocity_vector;//初速度に掛けるスカラー
@@ -47,7 +51,7 @@ public:
 	float t = 0;
 	Vector3 g{ 0.0f,-30.0f,0.0f };
 	Vector3 InitPos{ 0.0f,500.0f,10.0f };
-	Vector3 m_rodFloatPosition= InitPos;
+	Vector3 m_position= InitPos;
 	Vector3 m_sumPosition;
 	ModelRender m_rodFloatModel;
 	//void SetRodFloatPositon();
@@ -68,6 +72,7 @@ public:
 	float float_volume;//ウキの体積。
 	Vector3 m_range_with_fish={0.0f,0.0f,0.0f};
 	float m_limit_range_with_ship=2010.1f;//船との限界距離。
+
 
 	BuoyancyState m_buoyancyState;
 	SceneFightFish* m_sceneFightFish;

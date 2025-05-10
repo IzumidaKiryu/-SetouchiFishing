@@ -14,6 +14,7 @@ class Buri;
 class Tatiuo;
 class Jakoten;
 class Hirame;
+class Tai;
 class FishManager :public IGameObject
 {
 public:
@@ -26,6 +27,7 @@ public:
 	void NewGOTatiuo();
 	void NewGOJakoten();
 	void NewGOHirame();
+	void NewGOTai();
 	void GetUI();
 	void FishNewGO();
 	void SetShouldFishChange();
@@ -47,5 +49,6 @@ public:
 	SpriteRender* m_ui;
 	Jakoten* m_jakoten;
 	Hirame* m_hirame;
+	Tai* m_tai;
 };
 

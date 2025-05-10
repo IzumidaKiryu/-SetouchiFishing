@@ -121,6 +121,13 @@ void Fish::SetBaseScore(float individualScore)
 	m_baseScore = individualScore;
 }
 
+/// <summary>
+/// 釣った後の効果。
+/// </summary>
+void Fish::Effect()
+{
+}
+
 FishData& Fish::GetFishData()
 {
 	return m_fishData;
