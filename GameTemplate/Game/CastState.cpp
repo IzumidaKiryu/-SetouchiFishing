@@ -4,6 +4,8 @@
 #include "RodFloatMove.h"
 #include"Player.h"
 #include"PlayFishing.h"
+#define _USE_MATH_DEFINES
+#include <math.h>
 
 CastState::CastState()
 {
@@ -12,32 +14,238 @@ CastState::CastState()
 }
 
 CastState::~CastState()
-{
-	m_rodFloatMove = NewGO<RodFloatMove>(0, "rodFloatMove");
-	
+{	
 }
 
 void CastState::Update()
 {
-	Cast();
+	/*Cast();*/
+	StateManager();
+	Rotation();
 	m_player = FindGO<Player>("player_Playfishing");
-
+	SetFloat();
+	SumRodFloatPosition(m_rodFloatPosition + m_float_initPos);
 	SetCamera(
-		Vector3{ 500.0f,100.0f,20.0f },
+		Vector3{ 500.0f,500.0f,20.0f }/*Vector3{ 100.0f,100.0f,100.0f }+ Vector3{ m_rodFloatMove->GetPosition().x,0 ,m_rodFloatMove->GetPosition().z}*/,
 		m_rodFloatMove->GetPosition()
 	);
 
 
 }
 
+//void CastState::Cast()
+//{
+//	t += 0.1;
+//	m_playFishing = FindGO<PlayFishing>("playFishing");
+//	//m_rodFloatPosition = m_float_initPos + (first_velocity_vector * 100 * m_playFishing->m_castStrength * t) + g * t * t * 1 / 2;
+//	//SumRodFloatPosition(m_rodFloatPosition);
+//	//SetFloat();
+//	float z_slope= g.z * t + (100 * first_velocity_vector.z * m_playFishing->m_castStrength)*0.075f;
+//	float y_slope= (g.y * t + (100 * first_velocity_vector.y * m_playFishing->m_castStrength))*0.075f;
+//
+//
+//	forceVector = { 0.0f, y_slope, z_slope};
+//
+//	
+//	/*SumRodFloatPosition(m_rodFloatPosition+ m_float_initPos);*/
+//	if (m_is_landing == false) {
+//		if (m_rodFloatPosition.y + m_float_initPos.y <= water_surface_position_y) {
+//			/*Success();*/
+//			m_is_landing = true;
+//		}
+//	}
+//	if (m_is_landing) {
+//		RiseUP();
+//	}
+//}
+//
+//void CastState::Rotation()
+//{
+//	//float high_position_when_t;//ウキが一番高いところにいるときのtの値。
+//
+//	////この式はウキをキャストしたときのウキの高さの関数（x=t（時間）,y=高さ)の導関数のyがの0になっている、
+//	////時のtの値を求める式。
+//	////つまり、元の関数の接線がｘ軸と並行になっている地点のｔの値を求めている。
+//	//high_position_when_t = -(100 * first_velocity_vector.y * m_playFishing->m_castStrength) / g.y;
+//
+//	//float high_position_y;//今回の場合のウキの最大の高さ。（この高さはキャストゲージの入力によって変わる。）
+//
+//	//high_position_y = m_float_initPos.y + (first_velocity_vector.y * 100 * m_playFishing->m_castStrength * high_position_when_t) + g.y * high_position_when_t * high_position_when_t * 1 / 2;
+//
+//	float floatAngle;
+//
+//	//ウキの向きとキャストしたときのウキの高さの関数（x=t（時間）,y=高さ)の傾きが比例するようにする。
+//
+//	//導関数を使って傾きを求める。
+//	floatAngle = g.y * t + (100 * first_velocity_vector.y * m_playFishing->m_castStrength);
+//
+//	m_floatRotation.SetRotationX(-floatAngle/100+M_PI);
+//	m_rodFloatMove->SetRotation(m_floatRotation);
+//
+//}
+//
+///// <summary>
+///// 浮き上がる。
+///// </summary>
+//void CastState::RiseUP()
+//{
+//	float sinkDistance;//どれだけ海に沈んでいるか。
+//	sinkDistance = water_surface_position_y - m_rodFloatPosition.y;
+//
+//	
+//	HydraulicPressureDifference += sinkDistance*0.002f;//水圧差は沈んでいる深さに比例する。
+//	if (sinkDistance < 0) {
+//		HydraulicPressureDifference = 0;
+//	}
+//	 
+//	//水圧を考慮する。
+//
+//	forceVector.z *= 1/(HydraulicPressureDifference*0.8);
+//	//forceVector.y *= 1/(HydraulicPressureDifference);
+//	forceVector.y += HydraulicPressureDifference;
+//	//if (forceVector.y > 0) {
+//	//	forceVector.y =0;
+//	//}
+//	m_rodFloatPosition += forceVector;
+//	if (m_rodFloatPosition.y<0) {
+//		m_rodFloatPosition.y= -500;
+//	}
+//	if (m_rodFloatPosition.y + m_float_initPos.y >= water_surface_position_y) {
+//		/*Success();*/
+//		//m_rodFloatPosition.y-=200;
+//	}
+//
+//}
+
 void CastState::Cast()
 {
 	t += 0.1;
 	m_playFishing = FindGO<PlayFishing>("playFishing");
-	m_rodFloatPosition = m_float_initPos + (first_velocity_vector * 100 * m_playFishing->m_castStrength * t) + g * t * t * 1 / 2;
-	SumRodFloatPosition(m_rodFloatPosition);
-	SetFloat();
-	if (m_rodFloatPosition.y <= water_surface_position_y) {
+	//m_rodFloatPosition = m_float_initPos + (first_velocity_vector * 100 * m_playFishing->m_castStrength * t) + g * t * t * 1 / 2;
+	//SumRodFloatPosition(m_rodFloatPosition);
+	//SetFloat();
+	z_slope = g.z * t + (100 * first_velocity_vector.z * m_playFishing->m_castStrength) * 0.075f;
+	y_slope = (g.y * t + (100 * first_velocity_vector.y * m_playFishing->m_castStrength)) * 0.075f;
+
+
+	forceVector = { 0.0f, y_slope, z_slope };
+
+	m_rodFloatPosition += forceVector;
+	/*SumRodFloatPosition(m_rodFloatPosition+ m_float_initPos);*/
+		if (m_rodFloatPosition.y + m_float_initPos.y <= water_surface_position_y) {
+			/*Success();*/
+			m_castMoveState = riseUP;
+		}
+}
+
+void CastState::Rotation()
+{
+	//float high_position_when_t;//ウキが一番高いところにいるときのtの値。
+
+	////この式はウキをキャストしたときのウキの高さの関数（x=t（時間）,y=高さ)の導関数のyがの0になっている、
+	////時のtの値を求める式。
+	////つまり、元の関数の接線がｘ軸と並行になっている地点のｔの値を求めている。
+	//high_position_when_t = -(100 * first_velocity_vector.y * m_playFishing->m_castStrength) / g.y;
+
+	//float high_position_y;//今回の場合のウキの最大の高さ。（この高さはキャストゲージの入力によって変わる。）
+
+	//high_position_y = m_float_initPos.y + (first_velocity_vector.y * 100 * m_playFishing->m_castStrength * high_position_when_t) + g.y * high_position_when_t * high_position_when_t * 1 / 2;
+
+
+	float floatAngle;
+
+	//ウキの向きとキャストしたときのウキの高さの関数（x=t（時間）,y=高さ)の傾きが比例するようにする。
+
+	//導関数を使って傾きを求める。
+	floatAngle = g.y * t + (100 * first_velocity_vector.y * m_playFishing->m_castStrength);
+
+	m_floatRotation.SetRotationX(-floatAngle / 100 + M_PI);
+	m_rodFloatMove->SetRotation(m_floatRotation);
+
+
+}
+
+/// <summary>
+/// 浮き上がる。
+/// </summary>
+void CastState::RiseUP()
+{
+	t += 0.1;
+	z_slope = g.z * t + (100 * first_velocity_vector.z * m_playFishing->m_castStrength) * 0.075f;
+	y_slope = (g.y * t + (100 * first_velocity_vector.y * m_playFishing->m_castStrength)) * 0.075f;
+
+
+
+	float sinkDistance;//どれだけ海に沈んでいるか。
+	sinkDistance = water_surface_position_y - m_rodFloatPosition.y;
+
+
+	HydraulicPressureDifference += sinkDistance * 0.002f;//水圧差は沈んでいる深さに比例する。
+	if (sinkDistance < 0) {
+		HydraulicPressureDifference = 0;
+	}
+
+	//水圧を考慮する。
+
+	forceVector.z *= 1 / (HydraulicPressureDifference * 0.8);
+	forceVector.y += HydraulicPressureDifference;
+
+
+	m_rodFloatPosition += forceVector;
+
+
+	if (m_rodFloatPosition.y + m_float_initPos.y >= water_surface_position_y) {
+		/*Success();*/
+		//m_rodFloatPosition.y-=200;
+		m_castMoveState = swing;
+	}
+
+}
+
+
+void CastState::Swing()
+{
+	//float sinkDistance;//どれだけ海に沈んでいるか。
+	//sinkDistance = water_surface_position_y - m_rodFloatPosition.y;
+
+
+	//HydraulicPressureDifference += sinkDistance * 0.002f;//水圧差は沈んでいる深さに比例する。
+	///*if (sinkDistance < 0) {
+	//	HydraulicPressureDifference = 0;
+	//}*/
+
+	////水圧を考慮する。
+
+	//forceVector.z *= 1 / (HydraulicPressureDifference * 0.8);
+
+
+	//m_rodFloatPosition += forceVector;
+
+	swing_t+=0.08;
+	//float swing = ((sin(swing_t) / swing_t) -1) * 100.0f;
+	
+	float swing = -(std::pow(e, -0.3 * swing_t))* abs(sin(swing_t));
+	m_rodFloatPosition.y = (swing*100)-500;
+	m_rodFloatPosition += Floating();
+	if (swing_t >= 0.03*60*5) {
 		Success();
+	}
+}
+
+void CastState::StateManager()
+{
+	switch (m_castMoveState)
+	{
+	case cast:
+		Cast();
+		break;
+	case riseUP:
+		RiseUP();
+		break;
+	case swing:
+		Swing();
+		break;
+	default:
+		break;
 	}
 }

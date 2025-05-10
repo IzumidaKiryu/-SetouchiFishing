@@ -39,6 +39,7 @@ CastGauge::CastGauge()
 
 	m_positionSelection = FindGO<PositionSelection>("positionSelection");
 
+	SetGaugeSpead();
 
 }
 
@@ -50,8 +51,10 @@ CastGauge::~CastGauge()
 
 void CastGauge::Update()
 {
-	SetCamera();
-	ChastStaeManager();
+	UpAndDownManagement();
+	SetArrowPosition();//矢印の場所を決める。
+	m_castGaugeArrow.Update();//矢印の描画を更新する。
+	HitTest();
 }
 
 /// <summary>
@@ -112,22 +115,9 @@ void CastGauge::SetGaugeSpead()
 void CastGauge::HitTest()
 {
 	if (g_pad[0]->IsTrigger(enButtonA)) {
-		//if (m_gaugeCastSuccessful->hitTest(m_arrowPosition) == true)//成功したら。
-		//{
-		//	/*m_fishingGauge=NewGO<FishingGauge>(0, "fishingGauge ");*/
-		//	/*tensionGauge = NewGO<TensionGauge>(0, "tensionGauge");*/
-		//	Success();
-		//}
-		//else if (m_gaugeCastSuccessful->hitTest(m_arrowPosition) == false) //失敗したら。
-		//{
-		//	Failure();
-		//}
 
 		//ウキの距離を計算。
 		m_castStrength = (m_arrowPosition - m_gaugeLowerLimit) / m_gauge_length;
-
-		//m_rodFloatMove = FindGO<RodFloatMove>("rodFloatMove");
-
 
 		m_playFishing = FindGO<PlayFishing>("playFishing");
 		m_is_thisClassEnd = true;
@@ -143,108 +133,11 @@ void CastGauge::HitTest()
 	}
 }
 
-void CastGauge::Failure()
-{
-	m_playFishing = FindGO<PlayFishing>("playFishing");
-	m_playFishing->SetFailure();
-}
-
-void CastGauge::Success()
-{
-	m_playFishing = FindGO<PlayFishing>("playFishing");
-	//m_chastState= character_animation;
-	m_chastState = chast;
-}
-
-void CastGauge::Chast()
-{
-	
-}
-
-void CastGauge::ChastStaeManager()
-{
-	switch (m_chastState)
-	{
-	case playing:
-		SetGaugeSpead();
-		UpAndDownManagement();//矢印の動く向きを決める。
-		SetArrowPosition();//矢印の場所を決める。
-		m_castGaugeArrow.Update();//矢印の描画を更新する。
-		HitTest();
-		break;
-	case character_animation:
-
-		break;
-	case  chast:
-		//m_rodFloatMove = FindGO<RodFloatMove>("rodFloatMove");
-		IsCastEnd();
-		break;
-	default:
-		break;
-	}
-}
-
-void CastGauge::SetCameraPlayingSgtate()
-{
-	m_player = FindGO<Player>("player");
-	WaveMotion();
-	m_gameCameraTarget = m_player->m_position + Vector3{ 1000.0f,30.0f,0.0f };
-	m_gameCameraTarget += m_waveMotion;
-	m_gameCameraPos = m_player->m_position + Vector3{ 0.0f,200.0f,-100.0f };
-}
-
-void CastGauge::SetCameraChast()
-{
-	//m_gameCameraTarget=m_rodFloatMove->m_rodFloatPosition;
-}
-
-void CastGauge::SetCamera()
-{
-	m_gameCamera=FindGO<GameCamera>("PlayFishing_GameCamera");
-	switch (m_chastState)
-	{
-	case playing:
-		SetCameraPlayingSgtate();
-		break;
-	case character_animation:
-		SetCameraChast();
-		break;
-	case chast:
-		SetCameraChast();
-		break;
-	default:
-		break;
-	}
-}
-/// <summary>
-/// 波の動きを表現。
-/// </summary>
-void CastGauge::WaveMotion()
-{
-	t += 0.05;
-	m_waveMotion.y = (cos(t));//上下に動かす
-	m_waveMotion.z = (cos(t * 0.7/*周期をずらす*/) * 0.5);//左右に動かす
-}
-
-void CastGauge::IsCastEnd()
-{
-	//m_rodFloatMove = FindGO<RodFloatMove>("rodFloatMove");
-	/*if (m_rodFloatMove->IsCastEnd() == true) {
-		m_playFishing = FindGO<PlayFishing>("playFishing");
-		m_playFishing->SetSuccess();
-	}*/
-}
 
 bool CastGauge::GetIsThisClasEnd()
 {
 	return m_is_thisClassEnd;
 }
-
-//void CastGauge::SetRodFloatPositon()
-//{
-//	t += 0.1;
-//	m_rodFloatPosition=(InitPos+first_velocity_vector*30 * t) + g * t * t * 1 / 2;
-//}
 
 void CastGauge::Render(RenderContext& rc)
 {

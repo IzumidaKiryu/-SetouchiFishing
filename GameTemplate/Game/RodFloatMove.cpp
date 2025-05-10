@@ -153,6 +153,12 @@ float RodFloatMove::GetCurrent_Float_Range_Max_Range_Rate(float position_x)
 	return current_float_range_max_range_rate;
 }
 
+void RodFloatMove::SetRotation(Quaternion rot)
+{
+	m_rodFloatModel.SetRotation(rot);
+	m_rodFloatModel.Update();
+}
+
 void RodFloatMove::SetPosition()
 {
 	m_playFishing = FindGO<PlayFishing>("playFishing");

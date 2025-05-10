@@ -34,6 +34,7 @@ public:
 	void SetPosition(Vector3 position);
 	float ChangePosition_Z(float current_float_range_max_range_rate);
 	float GetCurrent_Float_Range_Max_Range_Rate(float position_z);
+	void SetRotation(Quaternion rot);
 
 	void SetSumPosition(Vector3 positon);//ポジションを足し算する。
 	/*void FightFish();*/
