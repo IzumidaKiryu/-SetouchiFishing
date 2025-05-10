@@ -34,6 +34,8 @@ class RodFloatMove;
 class PlayCastGaugeState;
 class CastState;
 class WaitForFishState;
+class FightFishState;
+class FishingAnimationState;
 
 
 class PlayFishing :public IGameObject
@@ -127,5 +129,6 @@ public:
 	PlayCastGaugeState* m_playCastGaugeState;
 	CastState* m_castState;
 	WaitForFishState* m_waitForFishState;
-
+	FightFishState* m_fightFishState;
+	FishingAnimationState* m_fishingAnimationState;
 };

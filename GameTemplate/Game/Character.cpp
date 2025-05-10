@@ -46,13 +46,16 @@ void Character::SetModel(const char* filePath, AnimationClip* animationClips, in
 	modelRender.SetScale(Vector3{ 2.0f,2.0f,2.0f });
 }
 
-void Character::SetAnimationClipsLoad(const char* animationClip_Idle, const char* animationClip_Walk)
+void Character::SetAnimationClipsLoad(const char* animationClip_Idle, const char* animationClip_Walk, const char* animationClip_Cast)
 {
 	animationClips[enAnimationClip_Idle].Load(animationClip_Idle);
 	animationClips[enAnimationClip_Idle].SetLoopFlag(true);
 
 	animationClips[enAnimationClip_Walk].Load(animationClip_Walk);
 	animationClips[enAnimationClip_Walk].SetLoopFlag(true);
+
+	animationClips[enAnimationClip_Cast].Load(animationClip_Cast);
+	animationClips[enAnimationClip_Cast].SetLoopFlag(true);
 }
 
 void Character::SetMoveSpeed()
@@ -147,7 +150,12 @@ void Character::PlayAnimation()
 		//プレイヤーステートが2(歩き)だったら。
 		modelRender.PlayAnimation(enAnimationClip_Walk);
 		break;
+	case enAnimationClip_Cast:
+		modelRender.PlayAnimation(enAnimationClip_Cast);
+			break;
+
 	}
+	
 }
 ////描画処理。
 //void Character::Render(RenderContext & rc)

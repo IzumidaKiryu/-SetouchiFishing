@@ -5,7 +5,8 @@
 Enemy::Enemy()
 {
 	SetAnimationClipsLoad("Assets/animData/Enemy/EnamyIdle.tka",
-		"Assets/animData/Enemy/EnamyWalking.tka"
+		"Assets/animData/Enemy/EnamyWalking.tka",
+		"Assets/animData/Player/FishingCast.tka"
 	);
 	//ユニティちゃんのモデルを読み込む。
 	SetModel("Assets/modelData/Enemy/Enemy.tkm", animationClips, enAnimationClip_Num, enModelUpAxisZ);

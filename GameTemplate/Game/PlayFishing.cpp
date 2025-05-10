@@ -16,6 +16,10 @@
 #include "PlayCastGaugeState.h"
 #include "CastState.h"
 #include "WaitForFishState.h"
+#include "FightFishState.h"
+#include "FishingAnimationState.h"
+
+
 
 
 
@@ -38,6 +42,8 @@ PlayFishing::PlayFishing()
 
 
 	m_player= NewGO<Player>(0, "player_Playfishing");
+	//プレイヤーがコントローラーで動かないようにする。
+	m_player->SetMoveDeActive();
 
 	//m_playFishingStatus = sceneFightFish;
 
@@ -52,11 +58,9 @@ PlayFishing::~PlayFishing()
 	DeleteGO(m_fshModel);
 	DeleteGO(m_playFishingBackGround);
 	DeleteGO(gameCamera);
-	DeleteGO(m_rodFloatMove);
 	//DeleteGO(m_fishManager);
-
+	DeleteGO(m_tensionGauge);
 	m_positionSelection = FindGO<PositionSelection>("positionSelection");
-
 
 }
 
@@ -99,7 +103,7 @@ void PlayFishing::StatusManager()
 
 		break;
 	case castAnimasion:
-
+		m_fishingAnimationState=NewGO<FishingAnimationState>(0, "fishingAnimationState");
 
 		break;
 	case cast:
@@ -110,6 +114,7 @@ void PlayFishing::StatusManager()
 		m_waitForFishState = NewGO<WaitForFishState>(0, "waitForFishState");
 		break;
 	case sceneFightFish:
+		m_fightFishState = NewGO<FightFishState>(0, "fightFishState");
 		break;
 	default:
 		break;
@@ -170,7 +175,9 @@ void PlayFishing::Success()
 		StatusManager();
 		break;
 	case castAnimasion:
-
+		DeleteGO(m_fishingAnimationState);
+		m_playFishingStatus = cast;
+		StatusManager();
 		break;
 	case cast:
 		DeleteGO(m_castState);
@@ -178,9 +185,18 @@ void PlayFishing::Success()
 		StatusManager();
 		break;
 	case wait_for_fish:
+		DeleteGO(m_waitForFishState);
+		m_playFishingStatus = sceneFightFish;
+		StatusManager();
 
 		break;
 	case sceneFightFish:
+		DeleteGO(m_fightFishState);
+		DeleteThisClass();
+		m_positionSelection = FindGO<PositionSelection>("positionSelection");
+		m_positionSelection->SetTotalValue(m_fishData.score);
+		m_scoreDisplay = NewGO<ScoreDisplay>(0, "scoreDisplay");
+
 		break;
 	default:
 		break;
@@ -225,7 +241,6 @@ void PlayFishing::Success()
 
 void PlayFishing::Failure()
 {
-	if (m_successful_or_failure == failure) {
 		switch (m_playFishingStatus)
 		{
 		case playCastGauge:
@@ -235,7 +250,11 @@ void PlayFishing::Failure()
 			break;
 		case cast:
 			break;
+		case sceneFightFish:
+			DeleteGO(m_fightFishState);
+				break;
 		default:
+
 			break;
 		}
 		m_positionSelection = FindGO<PositionSelection>("positionSelection");
@@ -244,7 +263,6 @@ void PlayFishing::Failure()
 		m_positionSelection->SetActivate();
 		DeleteThisClass();
 
-	}
 }
 
 
@@ -259,46 +277,6 @@ void PlayFishing::Failure()
 
 
 
-
-void PlayFishing::Cast()
-{
-	m_casting_t +=0.1;
-	m_rodFloatPosition = m_float_initPos + (first_velocity_vector * 100 * m_castStrength * m_casting_t) + g * m_casting_t * m_casting_t * 1 / 2;
-	CalculateCurrent_float_range_and_max_range_rate();
-	m_rodFloatMove = FindGO<RodFloatMove>("rodFloatMove");
-	m_rodFloatMove->SetPosition(m_rodFloatPosition);
-	if (m_rodFloatPosition.y <= water_surface_position_y) {
-
-		SetSuccess();
-	}
-}
-
-void PlayFishing::WaitForFish()
-{
-	if (m_current_fish_range_and_max_range_rate > m_current_float_range_max_range_rate) {
-		m_current_fish_range_and_max_range_rate -= 0.001;
-		if (m_current_fish_range_and_max_range_rate - m_current_float_range_max_range_rate<=0) {
-			SetSuccess();
-		}
-	}
-
-	if (m_current_fish_range_and_max_range_rate < m_current_float_range_max_range_rate) {
-		m_current_fish_range_and_max_range_rate += 0.001;
-		if (m_current_float_range_max_range_rate - m_current_fish_range_and_max_range_rate <= 0) {
-			SetSuccess();
-		}
-	}
-	/*float a = m_current_fish_range_and_max_range_rate - m_current_float_range_max_range_rate;
-	if (a<=0.001|| a>= -0.001) {
-		SetSuccess();
-	}*/
-}
-
-//void PlayFishing::SetRodFloatModalePosition()
-//{
-//	m_rodFloatMove = FindGO<RodFloatMove>("rodFloatMove");
-//	m_rodFloatMove->SetPosition(m_rodFloatPosition);
-//}
 
 /// <summary>
 /// 水に浮かんでいるように動かす。
@@ -311,30 +289,30 @@ void PlayFishing::float_to_water()
 	/*m_rodFloatPosition = m_rodFloatPosition + m_floating;*/
 }
 
-/// <summary>
-/// ウキの距離と最大距離の割合を計算。
-/// ウキモデルのポジションからウキの距離と最大距離の割合を求める。
-/// </summary>
-void PlayFishing::CalculateCurrent_float_range_and_max_range_rate()
-{
-	m_rodFloatMove = FindGO<RodFloatMove>("rodFloatMove");
-
-	//割合を求める
-	 m_current_float_range_max_range_rate=m_rodFloatMove->m_position.z / m_rodFloatMove->m_limit_range_with_ship;
-}
-
-
+///// <summary>
+///// ウキの距離と最大距離の割合を計算。
+///// ウキモデルのポジションからウキの距離と最大距離の割合を求める。
+///// </summary>
+//void PlayFishing::CalculateCurrent_float_range_and_max_range_rate()
+//{
+//	m_rodFloatMove = FindGO<RodFloatMove>("rodFloatMove");
+//
+//	//割合を求める
+//	 m_current_float_range_max_range_rate=m_rodFloatMove->m_position.z / m_rodFloatMove->m_limit_range_with_ship;
+//}
 
 
 
-void PlayFishing::NewGOFishingRodHP()
-{
-	if (canNewGOFishingRodHP == true) {
-		m_fishingRodHP = NewGO<FishingRodHP>(0, "fishingRodHP");
-
-	}
-	canNewGOFishingRodHP = false;
-}
+//
+//
+//void PlayFishing::NewGOFishingRodHP()
+//{
+//	if (canNewGOFishingRodHP == true) {
+//		m_fishingRodHP = NewGO<FishingRodHP>(0, "fishingRodHP");
+//
+//	}
+//	canNewGOFishingRodHP = false;
+//}
 void PlayFishing::NewGOCastGauge()
 {
 	m_castGauge = NewGO<CastGauge>(0, "CastGauge");
@@ -434,15 +412,5 @@ FishData& PlayFishing::GetFishData()
 float PlayFishing::GetFIshScore()
 {
 	return m_fishData.score;
-}
-
-float PlayFishing::GetRange_of_fish_and_ship()
-{
-	return m_current_fish_range_and_max_range_rate;
-}
-
-float PlayFishing::GetRange_of_fish_and_float()
-{
-	return m_current_float_range_max_range_rate;
 }
 
