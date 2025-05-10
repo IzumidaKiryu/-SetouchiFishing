@@ -43,6 +43,7 @@ public:
 	Vector3 GetRodPosition();
 	Vector3 GetFishModelPosition();
 	void Success();
+	void Failure();
 	void Pass_Current_Fish_Range_And_Max_Range_Rate();//プレイフィッシングに魚の距離の割合いを渡す。
 	void Pass_Current_Float_Range_And_Max_Range_Rate();//プレイフィッシングにウキの距離の割合いを渡す。
 	void Pass_FishModelPos();
@@ -51,6 +52,11 @@ public:
 	void Set_Init_Current_Float_Range_And_Max_Range_Rate();
 	void Set_Init_FishModelPos();
 	void Set_Init_FloatModelPos();
+	float GetCurrentFishRangeAndMaxRangeRate();
+	float GetCurrent_Float_Range_Max_Range_Rate();
+	Vector3 GetPlayerPos();
+	Vector3 GetFishModelPos();
+	Vector3 GetFloatModelPos();
 
 	Vector3 Floating();//海の上で浮いている表現
 
@@ -64,8 +70,8 @@ public:
 	Vector3 m_sum_fishModelPos;
 	Vector3 m_sum_floatModelPos;
 
-	float m_current_fish_range_and_max_range_rate;//今の魚の距離と最大の魚の距離の割合（それぞれのクラスで船と魚の最大距離とこの割合を掛けて場所を表現する。）
-	float m_current_float_range_max_range_rate;//今のウキの距離と最大のウキの距離の割合。
+	float m_sum_current_fish_range_and_max_range_rate;//今の魚の距離と最大の魚の距離の割合（それぞれのクラスで船と魚の最大距離とこの割合を掛けて場所を表現する。）
+	float m_sum_current_float_range_max_range_rate;//今のウキの距離と最大のウキの距離の割合。
 	bool m_isChengeState=false;
 
 	GameCamera* m_gameCamera;
