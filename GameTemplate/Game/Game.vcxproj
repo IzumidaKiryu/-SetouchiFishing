@@ -264,6 +264,7 @@
     </ClCompile>
     <ClCompile Include="StealPositionBar.cpp" />
     <ClCompile Include="system\system.cpp" />
+    <ClCompile Include="Tai.cpp" />
     <ClCompile Include="Tatiuo.cpp" />
     <ClCompile Include="TensionGauge.cpp" />
     <ClCompile Include="TimeLimitUI.cpp" />
@@ -304,6 +305,7 @@
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="StealPositionBar.h" />
     <ClInclude Include="system\system.h" />
+    <ClInclude Include="Tai.h" />
     <ClInclude Include="Tatiuo.h" />
     <ClInclude Include="TensionGauge.h" />
     <ClInclude Include="TimeLimitUI.h" />
