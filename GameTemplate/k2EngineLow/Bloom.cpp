@@ -14,11 +14,12 @@ nsK2EngineLow::Bloom::~Bloom()
 void nsK2EngineLow::Bloom::Init(RenderTarget& renderTarget)
 {
 	luminanceRenderTarget.Create(
-		g_graphicsEngine->GetFrameBufferWidth(),
-		g_graphicsEngine->GetFrameBufferHeight(),
+		renderTarget.GetWidth(),
+		renderTarget.GetHeight(),
 		1,
 		1,
-		DXGI_FORMAT_R32G32B32A32_FLOAT,
+		renderTarget.GetColorBufferFormat(),
+		//DXGI_FORMAT_R32G32B32A32_FLOAT,
 		DXGI_FORMAT_D32_FLOAT
 	);
 	
@@ -26,11 +27,13 @@ void nsK2EngineLow::Bloom::Init(RenderTarget& renderTarget)
 	luminanceSpriteInitData.m_fxFilePath = "Assets/shader/PostEffect.fx";
 	luminanceSpriteInitData.m_vsEntryPointFunc = "VSMain";
 	luminanceSpriteInitData.m_psEntryPoinFunc = "PSSamplingLuminance";
-	luminanceSpriteInitData.m_width = g_graphicsEngine->GetFrameBufferWidth();
-	luminanceSpriteInitData.m_height = g_graphicsEngine->GetFrameBufferHeight();
+	luminanceSpriteInitData.m_width = renderTarget.GetWidth();
+	luminanceSpriteInitData.m_height = renderTarget.GetHeight();
 	luminanceSpriteInitData.m_textures[0] = &renderTarget.GetRenderTargetTexture();
 	luminanceSpriteInitData.m_colorBufferFormat[0] = DXGI_FORMAT_R32G32B32A32_FLOAT;
-	m_luminuceSprite.Init(luminanceSpriteInitData);
+	m_luminanceSprite.Init(luminanceSpriteInitData);
+
+
 
 	//ガウシアンブラー。
 	gaussianBulur[0].Init(&luminanceRenderTarget.GetRenderTargetTexture());
@@ -38,6 +41,11 @@ void nsK2EngineLow::Bloom::Init(RenderTarget& renderTarget)
 	gaussianBulur[2].Init(&gaussianBulur[1].GetBokeTexture());
 	gaussianBulur[3].Init(&gaussianBulur[2].GetBokeTexture());
 
+
+	finalSpriteInitData.m_textures[0] = &gaussianBulur[0].GetBokeTexture();
+	finalSpriteInitData.m_textures[1] = &gaussianBulur[1].GetBokeTexture();
+	finalSpriteInitData.m_textures[2] = &gaussianBulur[2].GetBokeTexture();
+	finalSpriteInitData.m_textures[3] = &gaussianBulur[3].GetBokeTexture();
 	finalSpriteInitData.m_width = renderTarget.GetWidth();
 	finalSpriteInitData.m_height = renderTarget.GetHeight();
 	//ボケ画像を合成する必要があるので２D用シェーダーではなく専用シェーダーを利用する。
@@ -63,15 +71,15 @@ void nsK2EngineLow::Bloom::Render(RenderContext& rc, RenderTarget&renderTarget)
 	//ターゲットのクリア。
 	rc.ClearRenderTargetView(luminanceRenderTarget);
 	//描画し終わるまで待つ。
-	m_luminuceSprite.Draw(rc);
+	m_luminanceSprite.Draw(rc);
 	rc.WaitUntilFinishDrawingToRenderTarget(luminanceRenderTarget);
 	//luminanceRenderTarget終了。
 
 	//ガウシアンブラーの実行。
-	gaussianBulur[0].ExecuteOnGPU(rc, 10);
-	gaussianBulur[1].ExecuteOnGPU(rc, 10);
-	gaussianBulur[2].ExecuteOnGPU(rc, 10);
-	gaussianBulur[3].ExecuteOnGPU(rc, 10);
+	gaussianBulur[0].ExecuteOnGPU(rc, 7);
+	gaussianBulur[1].ExecuteOnGPU(rc, 7);
+	gaussianBulur[2].ExecuteOnGPU(rc, 7);
+	gaussianBulur[3].ExecuteOnGPU(rc, 7);
 
 	//mainRenderTargetのセット。
 	rc.WaitUntilToPossibleSetRenderTarget(renderTarget);
