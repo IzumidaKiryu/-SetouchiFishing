@@ -5,6 +5,7 @@
 #include"FishingRodHP.h"
 #include"RodFloatMove.h";
 #include "SceneFightFish.h"
+#include "FightFishState.h"
 
 
 #include <random>
@@ -45,8 +46,10 @@ TensionGauge::~TensionGauge()
 
 void TensionGauge::Update()
 {
-	m_sceneFightFish=FindGO<SceneFightFish>("sceneFightFish");
-	/*Set_signs_of_Fish_UI();*/
+	m_fightFishState=FindGO<FightFishState>("fightFishState");
+	//if (m_fightFishState != nullptr) {
+	//	Set_signs_of_Fish_UI();
+	//}
 
 	/*SetFishUI_Position();*/
 	SetScale();
@@ -84,11 +87,11 @@ void TensionGauge::SetScale()
 
 void TensionGauge::Set_signs_of_Fish_UI()
 {
-	if (m_sceneFightFish->m_previous_is_fish_suited_for_upper_side != m_sceneFightFish->is_fish_suited_for_upper_side) {//前のフレームと状態が違う時だけ。
-		switch (m_sceneFightFish->m_fishState)
+	if (m_fightFishState->m_previous_is_fish_suited_for_upper_side != m_fightFishState->is_fish_suited_for_upper_side) {//前のフレームと状態が違う時だけ。
+		switch (m_fightFishState->m_fishState)
 		{
 		case normal:
-			switch (m_sceneFightFish->is_fish_suited_for_upper_side)
+			switch (m_fightFishState->is_fish_suited_for_upper_side)
 			{
 
 			case true:
@@ -104,7 +107,7 @@ void TensionGauge::Set_signs_of_Fish_UI()
 			}
 			break;
 		case announce:
-			switch (m_sceneFightFish->is_fish_suited_for_upper_side)
+			switch (m_fightFishState->is_fish_suited_for_upper_side)
 			{
 
 			case true:
@@ -120,7 +123,7 @@ void TensionGauge::Set_signs_of_Fish_UI()
 			}
 			break;
 		case angry:
-			switch (m_sceneFightFish->is_fish_suited_for_upper_side)
+			switch (m_fightFishState->is_fish_suited_for_upper_side)
 			{
 
 			case true:
@@ -136,7 +139,7 @@ void TensionGauge::Set_signs_of_Fish_UI()
 			}
 			break;
 		case exhausted:
-			switch (m_sceneFightFish->is_fish_suited_for_upper_side)
+			switch (m_fightFishState->is_fish_suited_for_upper_side)
 			{
 
 			case true:
@@ -156,7 +159,7 @@ void TensionGauge::Set_signs_of_Fish_UI()
 		}
 	}
 	m_signs_of_Fish.Update();
-	m_sceneFightFish->m_previous_is_fish_suited_for_upper_side = m_sceneFightFish->is_fish_suited_for_upper_side;
+	m_fightFishState->m_previous_is_fish_suited_for_upper_side = m_fightFishState->is_fish_suited_for_upper_side;
 }
 
 void TensionGauge::Render(RenderContext& rc)

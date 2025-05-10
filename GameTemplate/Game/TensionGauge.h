@@ -1,13 +1,14 @@
 #pragma once
 //さかなが右を向いていたら魚は逃げようと抵抗している、左を向いていたら抵抗しない。
 
-#include "SceneFightFish.h"
+#include "FightFishState.h"
 
 
 class GetRotation;
 class PlayFishing;
 class FishingRodHP;
 class RodFloatMove;
+class FightFishState;
 class TensionGauge :public IGameObject
 {
 public:
@@ -36,7 +37,7 @@ public:
 	SpriteRender m_signs_of_Fish;//魚影
 	SpriteRender m_rodFloatUI;
 	PlayFishing* m_playFishing;
-	SceneFightFish* m_sceneFightFish;
+	FightFishState* m_fightFishState;
 	RodFloatMove* m_rodFloatMove;
 
 	void Render(RenderContext& rc);
