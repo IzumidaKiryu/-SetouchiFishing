@@ -84,6 +84,8 @@ namespace nsK2EngineLow {
 		}
 	
 		void Draw(RenderContext& rc);
+
+		void OnDraw(RenderContext& rc);
 		
 		void SetShadowParam(bool isDrawShadow, float shadowOffset, const Vector4& shadowColor)
 		{

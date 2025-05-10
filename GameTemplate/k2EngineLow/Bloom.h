@@ -14,7 +14,7 @@ namespace nsK2EngineLow {
 		
 		SpriteInitData luminanceSpriteInitData;
 		SpriteInitData finalSpriteInitData;
-		Sprite m_luminuceSprite;
+		Sprite m_luminanceSprite;
 		Sprite m_finalSprite;
 		GaussianBlur gaussianBulur[4];
 	

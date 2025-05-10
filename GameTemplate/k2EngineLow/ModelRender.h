@@ -20,6 +20,11 @@ namespace nsK2EngineLow {
 		void Update();
 
 		void Draw(RenderContext& rc);
+
+		void OnDraw(RenderContext& rc)
+		{
+			m_model.Draw(rc, 1);
+		}
 		void PlayAnimation(int animNo, float interpolateTime = 0.0f)
 		{
 			m_animation.Play(animNo, interpolateTime);
