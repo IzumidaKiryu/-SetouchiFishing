@@ -1,4 +1,5 @@
 #pragma once
+class FishingAnimationState;
 class Character : public IGameObject
 {
 public:
@@ -27,12 +28,16 @@ public:
 	//アニメーションの再生。
 	void PlayAnimation();
 	//void Render(RenderContext& rc);
-	//void SetChastAnimation();
+	bool SetChastAnimation();
 	//void SetIdleAnimation();
-	bool m_is_cast=false;
+	bool m_is_cast = false;
+	Vector3 GetPos();
+	float GetAnimationRatio();
+
+
 	//メンバ変数。
 	ModelRender modelRender;	//モデルレンダ―。
-	Vector3 m_position;			//座標。
+	Vector3 m_position = { 0.0f,100.0f,-100.0f };			//座標。
 	enum EnAnimationClip {		//アニメーション。
 		enAnimationClip_Idle,
 		enAnimationClip_Walk,
@@ -44,7 +49,8 @@ public:
 	CharacterController characterController;  //キャラクターコントローラー。
 	Vector3 moveSpeed;		//移動速度。
 	Quaternion rotation;  //クォータニオン。
-	EnAnimationClip playerState ;	//プレイヤーのステート(状態)を表す変数。
+	EnAnimationClip playerState;	//プレイヤーのステート(状態)を表す変数。
+	FishingAnimationState* m_castAnimationState;
 
 };
 

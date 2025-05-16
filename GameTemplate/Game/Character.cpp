@@ -1,5 +1,7 @@
 #include "stdafx.h"
 #include "Character.h"
+#include"FishingAnimationState.h"
+
 Character::Character()
 {
 	////アニメーションクリップをロードする。
@@ -55,7 +57,7 @@ void Character::SetAnimationClipsLoad(const char* animationClip_Idle, const char
 	animationClips[enAnimationClip_Walk].SetLoopFlag(true);
 
 	animationClips[enAnimationClip_Cast].Load(animationClip_Cast);
-	animationClips[enAnimationClip_Cast].SetLoopFlag(true);
+	animationClips[enAnimationClip_Cast].SetLoopFlag(false);
 }
 
 void Character::SetMoveSpeed()
@@ -110,6 +112,14 @@ void Character::Rotation()
 //ステート管理。
 void Character::ManageState()
 {
+	m_castAnimationState = FindGO<FishingAnimationState>("fishingAnimationState");
+
+	//キャストアニメーションクラスが実行されていたら。
+	if (m_is_cast) {
+		playerState = enAnimationClip_Cast;
+		return;
+	}
+
 	//地面に付いていなかったら。
 	if (characterController.IsOnGround() == false)
 	{
@@ -152,10 +162,25 @@ void Character::PlayAnimation()
 		break;
 	case enAnimationClip_Cast:
 		modelRender.PlayAnimation(enAnimationClip_Cast);
-			break;
+		
+		break;
 
 	}
-	
+
+}
+bool Character::SetChastAnimation()
+{
+
+	m_is_cast = true;
+	return modelRender.IsPlayingAnimation();
+}
+Vector3 Character::GetPos()
+{
+	return m_position;
+}
+float Character::GetAnimationRatio()
+{
+	return modelRender.GetAnimationRatio();
 }
 ////描画処理。
 //void Character::Render(RenderContext & rc)
