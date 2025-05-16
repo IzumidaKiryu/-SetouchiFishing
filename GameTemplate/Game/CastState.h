@@ -17,7 +17,10 @@ public:
 	CastState();
 	~CastState();
 
+	/*using PlayFishingStateBase::Start;*/
 	void Update();
+	bool Start();
+	void CameraManagement()override;
 	void Cast();
 	void Rotation();
 	void RiseUP();//浮力の計算。
@@ -29,6 +32,8 @@ public:
 	float z_slope;
 	float y_slope;
 	const float e=2.71828;
+
+	
 
 	Vector3 g{ 0.0f,-30.0f,0.0f };//重力。
 	Vector3 m_float_initPos{ 0.0f,500.0f,10.0f };
@@ -46,5 +51,7 @@ public:
 	Quaternion m_floatRotation;
 
 	CastMoveState m_castMoveState;
+
+
 };
 
