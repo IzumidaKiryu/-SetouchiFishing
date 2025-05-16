@@ -21,27 +21,34 @@ PlayFishingStateBase::~PlayFishingStateBase()
 	}
 
 	m_playFishing = FindGO<PlayFishing>("playFishing");
-	if (m_playFishing!=nullptr) {
+	if (m_playFishing != nullptr) {
 		Pass_Current_Fish_Range_And_Max_Range_Rate();
 		Pass_Current_Float_Range_And_Max_Range_Rate();
 		Pass_FishModelPos();
 		Pass_FloatModelPos();
+		Pass_CameraPos();
+		Pass_CameraTarget();
 	}
 
 }
 
 bool PlayFishingStateBase::Start()
 {
+	m_playFishing = FindGO<PlayFishing>("playFishing");
 	Set_Init_Current_Fish_Range_And_Max_Range_Rate();
 	Set_Init_Current_Float_Range_And_Max_Range_Rate();
 	Set_Init_FishModelPos();
 	Set_Init_FloatModelPos();
+
+	Set_Init_CameraPos();
+	Set_Init_CameraTarget();
+
 	return true;
 }
 
 void PlayFishingStateBase::Update()
 {
-
+	
 }
 
 void PlayFishingStateBase::ChangeState()
@@ -113,7 +120,7 @@ void PlayFishingStateBase::SetFish()
 
 	//魚のUIの場所を設定。
 	SetFishUIPosition(m_fishModel->GetCurrentFishRangeAndMaxRangeRate(m_fishModelPos.z));
-	
+
 	//次回も足し算ができるようにポジションをゼロにする。
 	ResetFishModelPosition();
 
@@ -122,12 +129,12 @@ void PlayFishingStateBase::SetFish()
 
 void PlayFishingStateBase::ResetFishModelPosition()
 {
-	m_sum_fishModelPos = Vector3{0.0f,0.0f,0.0f};
+	m_sum_fishModelPos = Vector3{ 0.0f,0.0f,0.0f };
 }
 
 void PlayFishingStateBase::ResetFloatModelPosition()
 {
-	m_sum_floatModelPos =Vector3{ 0.0f,0.0f,0.0f };
+	m_sum_floatModelPos = Vector3{ 0.0f,0.0f,0.0f };
 }
 
 void PlayFishingStateBase::SetFloat()
@@ -171,7 +178,7 @@ void PlayFishingStateBase::SetFloatUIPosition(float current_float_range_max_rang
 
 void PlayFishingStateBase::SetCurrentFishRangeAndMaxRangeRate(float current_fish_range_and_max_range_rate)
 {
-	m_sum_current_fish_range_and_max_range_rate= current_fish_range_and_max_range_rate;
+	m_sum_current_fish_range_and_max_range_rate = current_fish_range_and_max_range_rate;
 }
 
 Vector3 PlayFishingStateBase::GetRodPosition()
@@ -211,7 +218,7 @@ void PlayFishingStateBase::Pass_Current_Float_Range_And_Max_Range_Rate()
 
 void PlayFishingStateBase::Pass_FishModelPos()
 {
-	m_playFishing->m_fishModelPos=m_fishModelPos;
+	m_playFishing->m_fishModelPos = m_fishModelPos;
 }
 
 void PlayFishingStateBase::Pass_FloatModelPos()
@@ -219,29 +226,50 @@ void PlayFishingStateBase::Pass_FloatModelPos()
 	m_playFishing->m_rodFloatModelPos = m_floatModelPos;
 }
 
+void PlayFishingStateBase::Pass_CameraPos()
+{
+	m_playFishing->m_cameraPos = m_cameraPos;
+}
+
+void PlayFishingStateBase::Pass_CameraTarget()
+{
+	m_playFishing->m_cameraTarget = m_cameraTarget;
+}
+
 void PlayFishingStateBase::Set_Init_Current_Fish_Range_And_Max_Range_Rate()
 {
-	m_playFishing = FindGO<PlayFishing>("playFishing");
+
 	m_sum_current_fish_range_and_max_range_rate = m_playFishing->m_current_fish_range_and_max_range_rate;
 }
 
 void PlayFishingStateBase::Set_Init_Current_Float_Range_And_Max_Range_Rate()
 {
-	m_playFishing = FindGO<PlayFishing>("playFishing");
+
 	m_sum_current_float_range_max_range_rate = m_playFishing->m_current_float_range_max_range_rate;
 }
 
 void PlayFishingStateBase::Set_Init_FishModelPos()
 {
-	m_playFishing = FindGO<PlayFishing>("playFishing");
+
 	m_init_fishModelPos = m_playFishing->m_fishModelPos;
 }
 
 void PlayFishingStateBase::Set_Init_FloatModelPos()
 {
-	m_playFishing = FindGO<PlayFishing>("playFishing");
-	m_init_floatModelPos= m_playFishing->m_rodFloatModelPos;
+	
+	m_init_floatModelPos = m_playFishing->m_rodFloatModelPos;
 }
+
+void PlayFishingStateBase::Set_Init_CameraPos()
+{
+	m_cameraPos = m_playFishing->m_cameraPos;
+}
+
+void PlayFishingStateBase::Set_Init_CameraTarget()
+{
+	m_cameraTarget = m_playFishing->m_cameraTarget;
+}
+
 
 float PlayFishingStateBase::GetCurrentFishRangeAndMaxRangeRate()
 {
@@ -252,7 +280,7 @@ float PlayFishingStateBase::GetCurrentFishRangeAndMaxRangeRate()
 float PlayFishingStateBase::GetCurrent_Float_Range_Max_Range_Rate()
 {
 	m_rodFloatMove = FindGO<RodFloatMove>("rodFloatMove");
-	return m_rodFloatMove->GetCurrent_Float_Range_Max_Range_Rate(m_rodFloatMove->m_position.z);
+;	return m_rodFloatMove->GetCurrent_Float_Range_Max_Range_Rate(m_rodFloatMove->m_position.z);
 }
 
 Vector3 PlayFishingStateBase::GetPlayerPos()
