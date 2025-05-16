@@ -10,6 +10,7 @@ public:
 	PlayCastGaugeState();
 	~PlayCastGaugeState();
 	void Update();
+	void CameraManagement()override;
 
 	Player* m_player;
 	CastGauge* m_castGauge;

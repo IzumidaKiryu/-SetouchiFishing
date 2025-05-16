@@ -6,7 +6,7 @@
 
 PlayCastGaugeState::PlayCastGaugeState()
 {
-	m_castGauge = NewGO<CastGauge>(0,"castGauge");
+	m_castGauge = NewGO<CastGauge>(0, "castGauge");
 	SetCurrentFishRangeAndMaxRangeRate(m_fishData.initPos);
 }
 
@@ -17,16 +17,10 @@ PlayCastGaugeState::~PlayCastGaugeState()
 
 void PlayCastGaugeState::Update()
 {
-	m_player=FindGO<Player>("player_Playfishing");
+	m_player = FindGO<Player>("player_Playfishing");
 	m_playFishing = FindGO<PlayFishing>("playFishing");
-
-
-	SetCamera(
-		m_player->m_position + Vector3{0.0f,100.0f,100.0f},
-		GetFishModelPosition() + m_playFishing->m_floating
-	);
-
-
+	//カメラを管理する。
+	CameraManagement();
 	//魚の場所を決める。
 	SumFishModelPosition(m_sum_current_fish_range_and_max_range_rate);
 	//場所を反映させる。
@@ -34,4 +28,15 @@ void PlayCastGaugeState::Update()
 	if (m_castGauge->GetIsThisClasEnd()) {
 		SetSuccess();
 	}
+}
+
+void PlayCastGaugeState::CameraManagement()
+{
+	m_cameraPos = m_player->m_position + Vector3{ 0.0f,100.0f,100.0f } + Floating(CameraPattern);
+	m_cameraTarget = GetFishModelPosition();
+
+	SetCamera(
+		m_cameraPos,
+		m_cameraTarget
+	);
 }
