@@ -100,6 +100,7 @@ namespace nsK2EngineLow {
 		for (int i = 0; i < m_numAnimationPlayController; i++) {
 			int index = GetAnimationControllerIndex(startIndex, i);
 			float intepolateRate = m_animationPlayController[index].GetInterpolateRate();
+
 			const auto& localBoneMatrix = m_animationPlayController[index].GetBoneLocalMatrix();
 			auto deltaValueFootStep = m_animationPlayController[index].GetFootStepDeltaValueOnUpdate();
 			//footstepの移動量の補完
@@ -196,5 +197,14 @@ namespace nsK2EngineLow {
 
 		//グローバルポーズを計算していく。
 		UpdateGlobalPose();
+	}
+
+	void Animation::SetAnimationRatio(float animationRatio)
+	{
+		m_animationRatio += animationRatio;
+	}
+
+	float Animation::GetAnimationRatio() {
+		return m_animationRatio;
 	}
 }

@@ -50,9 +50,27 @@ void Fish::SetTimeUntilEscape(float timeUntilEscape)
 	m_fishData.timeUntilEscape = timeUntilEscape;
 }
 
+void Fish::SetArrowSpeed(float arrowspeed)
+{
+	m_fishData.arrowSpeed = arrowspeed;
+}
+
+void Fish::SetBaseScore(float baseScore)
+{
+	m_baseScore = baseScore;
+}
+
 void Fish::SetInitPos(float initpos)
 {
 	m_fishData.initPos = initpos;
+}
+
+void Fish::SetParameter(float timeUntilEscape, float arrowspeed, float baseScore, float initpos)
+{
+	SetTimeUntilEscape(timeUntilEscape);
+	SetArrowSpeed(arrowspeed);
+	SetBaseScore(baseScore);
+	SetInitPos(initpos);
 }
 
 /// <summary>
@@ -115,11 +133,6 @@ bool Fish::GetShouldFishChange()
 	return m_shouldFishChange;
 }
 
-
-void Fish::SetBaseScore(float individualScore)
-{
-	m_baseScore = individualScore;
-}
 
 /// <summary>
 /// 釣った後の効果。

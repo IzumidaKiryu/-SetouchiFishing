@@ -4,10 +4,7 @@
 Jakoten::Jakoten()
 {
 	SetUI();
-	SetBaseScore(120.0f);
-	SetScore();
-	SetTimeUntilEscape(12.0f);
-	SetInitPos(0.7f);
+	SetParameter(12.0f, 5.0f, 120.0f, 0.7);
 }
 
 Jakoten::~Jakoten()

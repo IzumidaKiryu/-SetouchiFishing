@@ -34,12 +34,12 @@ void FishingRodHP::SetFishingRodHP()
 	m_fightFishState = FindGO<FightFishState>("fightFishState");
 
 
-	if (m_fightFishState->is_fish_suited_for_upper_side == true) {
+	if (m_fightFishState->m_fishFacing == Upward) {
 		//魚の向きが左なら。
 		//コントローラーを回した分だけ竿のHPが減る。
-		m_Hp -= m_fightFishState->GetRotationPower() * 50.0f;
+		m_Hp -= m_fightFishState->GetRotationPower() * 100.0f;
 	}
-	if (m_fightFishState->is_fish_suited_for_upper_side == false) {
+	if (m_fightFishState->m_fishFacing == Downward) {
 		//魚の向きが左なら。
 		//コントローラーを回した分だけ竿のHPが減る。
 		m_Hp += 0.1;
@@ -49,7 +49,7 @@ void FishingRodHP::SetFishingRodHP()
 	float m_rotationPower = m_fightFishState->GetRotationPower();
 	//コントローラーが回ってないときはHPを回復する。
 	if (m_rotationPower <= 0.0000f) {
-		m_Hp += 1;
+		m_Hp += 3;
 	}
 
 
@@ -82,7 +82,7 @@ void FishingRodHP::SetUI()
 
 void FishingRodHP::Render(RenderContext& rc)
 {
-	m_RodHPGaugeInside.Draw(rc);   
+	m_RodHPGaugeInside.Draw(rc);
 	//m_RodHPGaugeOutside.Draw(rc);
 	m_RodHPBar.Draw(rc);
 }
@@ -103,6 +103,6 @@ void FishingRodHP::SetIs_playFishingFinishedTrue()
 void FishingRodHP::AddStealPositionPoint()
 {
 	/*m_positionSelection = NewGO<PositionSelection>(0, "m_PositionSelection");*/
-	m_positionSelection=FindGO<PositionSelection>("m_PositionSelection");
+	m_positionSelection = FindGO<PositionSelection>("m_PositionSelection");
 	/*m_positionSelection->m_stealPositionPoint += m_Hp;*/
 }

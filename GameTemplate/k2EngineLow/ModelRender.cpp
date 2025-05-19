@@ -153,3 +153,9 @@ void nsK2EngineLow::ModelRender::IniTranslucent(
 
 }
 
+float nsK2EngineLow::ModelRender::GetAnimationRatio()
+{
+	return m_animation.GetAnimationRatio();
+}
+
+
