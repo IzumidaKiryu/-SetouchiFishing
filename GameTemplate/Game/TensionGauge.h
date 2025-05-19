@@ -17,6 +17,8 @@ public:
 	~TensionGauge();
 	void Update();
 	void Set_signs_of_Fish_UI();
+	void SetUpwardFishUI();
+	void SetDownwardFishUI();
 	void RightAndLeftManagement();
 	void SetFishUI_Position(float current_fish_range_and_max_range_rate);
 	void SetFloatUI_Position(float current_float_range_max_range_rate);
@@ -31,6 +33,8 @@ public:
 	bool m_should_change_fish_to_anger_ui = true;
 	Vector3 fish3DPos;
 
+	//円周率
+	double pie = 3.141592653589793;
 	FIshState m_fishState;
 	SpriteRender m_tensionGaugeInside;
 	SpriteRender m_tensionGaugeOutside;
@@ -39,6 +43,8 @@ public:
 	PlayFishing* m_playFishing;
 	FightFishState* m_fightFishState;
 	RodFloatMove* m_rodFloatMove;
+	Quaternion m_upward;
+	Quaternion m_downward;
 
 	void Render(RenderContext& rc);
 };

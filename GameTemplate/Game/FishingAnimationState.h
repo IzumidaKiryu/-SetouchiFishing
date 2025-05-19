@@ -1,6 +1,6 @@
 #pragma once
 #include "PlayFishingStateBase.h"
-
+class FishModel;
 class Player;
 class FishingAnimationState:public PlayFishingStateBase
 {
@@ -8,10 +8,11 @@ public:
 
 	FishingAnimationState();
 	~FishingAnimationState();
-	bool Start();
+	void CameraManagement()override;
 	void Update();
 	void Count();
-	void SetCastAnimation();
+	bool SetCastAnimation();
 	Player* m_player;
+	FishModel* m_fishModel;
 };
 

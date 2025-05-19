@@ -14,7 +14,7 @@ PlayFishingBackGround::PlayFishingBackGround()
 	m_ship.SetScale(Vector3(1.0f, 1.0f, 1.0f));
 	m_ship.Update();
 
-	
+
 	m_isrand.Init("Assets/modelData/stage/shima.tkm");
 	m_isrand.SetPosition(Vector3(-500.0f, 0.0f, 4000.0f));
 	m_isrand.SetScale(Vector3(10.0f, 10.0f, 10.0f));
@@ -32,7 +32,7 @@ PlayFishingBackGround::~PlayFishingBackGround()
 
 void PlayFishingBackGround::Render(RenderContext& rc)
 {
-	modelRender.Draw(rc);
+	/*modelRender.Draw(rc);*/
 	/*m_ship.Draw(rc);*/
 	m_isrand.Draw(rc);
 }

@@ -4,10 +4,8 @@
 Buri::Buri()
 {
 	SetUI();
-	SetBaseScore(100.0f);//基準になるスコア。
-	SetScore();//この魚のスコアを設定。
-	SetTimeUntilEscape(10.0f);
-	SetInitPos(0.6f);
+
+	SetParameter(10.0f, 5.0f, 100.0f, 0.6);
 }
 
 Buri::~Buri()

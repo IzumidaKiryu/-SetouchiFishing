@@ -245,6 +245,7 @@
     <ClCompile Include="GaugeCastSuccessful.cpp" />
     <ClCompile Include="GetRotation.cpp" />
     <ClCompile Include="Hirame.cpp" />
+    <ClCompile Include="HitUIState.cpp" />
     <ClCompile Include="Jakoten.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="PlayCastGaugeState.cpp" />
@@ -291,6 +292,7 @@
     <ClInclude Include="GaugeCastSuccessful.h" />
     <ClInclude Include="GetRotation.h" />
     <ClInclude Include="Hirame.h" />
+    <ClInclude Include="HitUIState.h" />
     <ClInclude Include="Jakoten.h" />
     <ClInclude Include="PlayCastGaugeState.h" />
     <ClInclude Include="Player.h" />

@@ -4,6 +4,7 @@ class TimeLimitUI : public IGameObject
 public:
 	TimeLimitUI();
 	~TimeLimitUI();
+	void Update();
 	void DisplayTimeLimitUI(int time);
 	void SetTime(int time);
 	void SetOnesPlace();
@@ -30,5 +31,7 @@ public:
 	SpriteRender m_tensPlaceUI;
 	SpriteRender m_hundredsPlaceUI;
 	SpriteRender m_clockUI;
+	FontRender m_timeFont;
+
 };
 

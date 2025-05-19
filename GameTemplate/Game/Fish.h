@@ -3,7 +3,7 @@
 struct FishData
 {
 	float timeUntilEscape=0.5;//魚が逃げるまでの時間
-	float arrowSpeed = 0.0f;
+	float arrowSpeed = 5.0f;
 	float score = 0.0f;//個体値
 	float initPos=1;
 };
@@ -18,7 +18,16 @@ public:
 	bool Start();
 	void SetScore();//フィッシュデータのスコアを設定する。
 	void SetTimeUntilEscape(float timeUntilEscape);//逃げるまでの時間の設定。
+	void SetArrowSpeed(float spead);
+	void SetBaseScore(float baseScore);//基準になるスコア。
 	void SetInitPos(float initpos);
+	
+	void SetParameter(float timeUntilEscape, 
+		float spead,
+		float baseScore,
+		float initpos);
+
+
 	bool TimeCount();
 	//void SetIndividualValue();//個体値を設定
 	//void ShouldFishChange();//魚を変えるかどうか。
@@ -27,7 +36,10 @@ public:
 	void SetisSelectedTrue();
 	void SetisSelectedFalse();
 	bool GetShouldFishChange();
-	void SetBaseScore(float baseScore);//基準になるスコア。
+	
+
+
+
 	virtual void Effect();//釣った後の効果。
 	FishData& GetFishData();
 

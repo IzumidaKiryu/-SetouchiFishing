@@ -93,8 +93,8 @@ public:
 	Position position_with_now;
 	Position enemy_position = INITIALSTATE;//初期状態;
 	Player* m_player;			//プレイヤー。
-	GameCamera* gameCamera;			//ゲームカメラ。
-	BackGround* backGround;
+	GameCamera* m_gameCamera;			//ゲームカメラ。
+	BackGround* m_backGround;
 	//SoundSource* gameBGM;		//ゲーム中のBGM。
 	FontRender m_fontRender;
 	SpriteRender m_fishDisplayInside[6];

@@ -39,7 +39,7 @@ CastGauge::CastGauge()
 
 	m_positionSelection = FindGO<PositionSelection>("positionSelection");
 
-	SetGaugeSpead();
+	/*SetArrowSpead();*/
 
 }
 
@@ -101,12 +101,14 @@ void CastGauge::DownwardOperation()
 	}
 }
 
+
 /// <summary>
 /// 矢印のスピードを設定
 /// </summary>
-void CastGauge::SetGaugeSpead()
+
+void CastGauge::SetArrowSpead(float spead)
 {
-	m_gaugeSpead = /*(237.0f*2.0f)/10*/8;
+	m_gaugeSpead = spead;
 }
 
 /// <summary>
@@ -141,9 +143,9 @@ bool CastGauge::GetIsThisClasEnd()
 
 void CastGauge::Render(RenderContext& rc)
 {
-	if (m_chastState== playing) {
+	if (m_chastState == playing) {
 		m_castGaugeInside.Draw(rc);
-	/*	m_gaugeCastSuccessful->m_gaugeCastSuccessfulSprite.Draw(rc);*/
+		/*	m_gaugeCastSuccessful->m_gaugeCastSuccessfulSprite.Draw(rc);*/
 		m_castGaugeArrow.Draw(rc);
 		m_castGaugeOutside.Draw(rc);
 	}

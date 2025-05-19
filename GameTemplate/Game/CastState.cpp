@@ -9,8 +9,14 @@
 
 CastState::CastState()
 {
-	//ウキを作成。
-	m_rodFloatMove = NewGO<RodFloatMove>(0, "rodFloatMove");
+	////ウキを作成。
+	//m_rodFloatMove = NewGO<RodFloatMove>(0, "rodFloatMove");
+
+	//initCameraPos = m_cameraPos;
+	//endCameraPos = { 500.0f,500.0f,20.0f };
+	//initCameraTarget = m_cameraTarget;
+	//endCameraTarget = m_rodFloatMove->GetPosition();
+
 }
 
 CastState::~CastState()
@@ -20,19 +26,56 @@ CastState::~CastState()
 void CastState::Update()
 {
 	/*Cast();*/
+		//カメラを管理する。
+	CameraManagement();
 	StateManager();
 	Rotation();
 	m_player = FindGO<Player>("player_Playfishing");
 	SetFloat();
 	SumRodFloatPosition(m_rodFloatPosition + m_float_initPos);
-	SetCamera(
-		Vector3{ 500.0f,500.0f,20.0f }/*Vector3{ 100.0f,100.0f,100.0f }+ Vector3{ m_rodFloatMove->GetPosition().x,0 ,m_rodFloatMove->GetPosition().z}*/,
-		m_rodFloatMove->GetPosition()
-	);
+	
 
 
 }
 
+bool CastState::Start()
+{
+	PlayFishingStateBase::Start();
+
+	//ウキを作成。
+	m_rodFloatMove = NewGO<RodFloatMove>(0, "rodFloatMove");
+
+	m_initCameraPos = m_cameraPos;
+	m_initCameraTarget = m_cameraTarget;
+	m_endCameraTarget = m_rodFloatMove->GetPosition();
+	return true;
+}
+
+void CastState::CameraManagement()
+{
+	m_endCameraPos = m_rodFloatMove->m_position+Vector3{ 300.0f,300.0f,-500.0f };
+
+	m_cameraPos_t += 0.02;
+	m_cameraTarget_t += 0.12;
+
+	if (m_cameraPos_t >= 1.0f) {
+		m_cameraPos_t = 1;
+	}
+	if (m_cameraTarget_t >= 1.0f) {
+		m_cameraTarget_t = 1;
+	}
+	m_cameraPos.Lerp(m_cameraPos_t, m_initCameraPos, m_endCameraPos);
+
+	m_endCameraTarget = m_rodFloatMove->GetPosition();
+	m_cameraTarget.Lerp(m_cameraTarget_t, m_initCameraTarget, m_endCameraTarget);
+
+
+
+	SetCamera(
+		m_cameraPos,
+		m_cameraTarget
+	);
+}
 //void CastState::Cast()
 //{
 //	t += 0.1;
@@ -152,6 +195,36 @@ void CastState::Rotation()
 	//high_position_y = m_float_initPos.y + (first_velocity_vector.y * 100 * m_playFishing->m_castStrength * high_position_when_t) + g.y * high_position_when_t * high_position_when_t * 1 / 2;
 
 
+	//float floatAngle;
+
+	////ウキの向きとキャストしたときのウキの高さの関数（x=t（時間）,y=高さ)の傾きが比例するようにする。
+
+	////導関数を使って傾きを求める。
+	//Vector3 movement;//このフレームでの移動量{横方向(ｚ),高さ（ｙ）}
+	//movement = { 0.0f,y_slope,z_slope};
+	//movement.Normalize();//
+
+	//float angle;//角度
+	//angle=Dot(movement, Vector3{ 0.0f,0.0f,1.0f });//このフレームで動きた軌跡とz軸との傾き具合を計算する。
+	////度数法の範囲にリマップする。
+
+	//angle += 1;
+
+	////外積を計算してベクトルが下を向ているか上を向ているか計算する。
+	//if (0 < Cross(movement, Vector3{ 0.0f,0.0f,1.0f }).z) {
+	//	//下を向いていたらマイナスを掛ける。
+	//	angle *= -1;
+	//}
+
+	//angle += 2;//+2をして0～4の範囲にする。
+
+	//angle *= 2*M_PI / 4;//範囲を0～360にする
+
+
+	//m_floatRotation.SetRotationX(-angle/*-floatAngle / 100 + M_PI*/);
+	//m_rodFloatMove->SetRotation(m_floatRotation);
+
+
 	float floatAngle;
 
 	//ウキの向きとキャストしたときのウキの高さの関数（x=t（時間）,y=高さ)の傾きが比例するようにする。
@@ -161,7 +234,6 @@ void CastState::Rotation()
 
 	m_floatRotation.SetRotationX(-floatAngle / 100 + M_PI);
 	m_rodFloatMove->SetRotation(m_floatRotation);
-
 
 }
 

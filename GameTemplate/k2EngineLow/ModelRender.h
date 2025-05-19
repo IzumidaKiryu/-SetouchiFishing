@@ -7,7 +7,7 @@ namespace nsK2EngineLow {
 	public:
 		ModelRender();
 		~ModelRender();
-		
+
 		void Init(const char* filePath,
 			AnimationClip* animationClips = nullptr,
 			int numAnimationCrips = 0,
@@ -64,6 +64,11 @@ namespace nsK2EngineLow {
 			m_rotation = rotation;
 		}
 
+		Quaternion GetRotation()
+		{
+			return m_rotation;
+		}
+
 		/// <summary>
 		/// 拡大率を設定。
 		/// </summary>
@@ -109,6 +114,8 @@ namespace nsK2EngineLow {
 			AnimationClip* animationClips = nullptr,
 			int numAnimationClips = 0,
 			EnModelUpAxis enModelUpAxis = enModelUpAxisZ);
+		float GetAnimationRatio();
+
 
 		//座標拡大回転全てを設定
 		void SetTRS(const Vector3& pos, const Quaternion& rotation, const Vector3& scale)
@@ -148,6 +155,6 @@ namespace nsK2EngineLow {
 		//std::vector< GemometryData > m_geometryDatas;					// ジオメトリ情報。
 		std::unique_ptr<int[]>		m_instanceNoToWorldMatrixArrayIndexTable;	// インスタンス番号からワールド行列の配列のインデックスに変換するテーブル。
 		Light* m_light;
-};
+	};
 }
 

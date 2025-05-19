@@ -18,7 +18,7 @@ class RodFloatMove;
 class TensionGauge;
 class GameCamera;
 class PositionSelection;
-class FightFishState:public PlayFishingStateBase
+class FightFishState :public PlayFishingStateBase
 {
 public:
 
@@ -31,6 +31,7 @@ public:
 	void SetFishEscapePower();
 	void SetFishDirection();//魚が向いている方向を変えるかどうか。
 	void FishDirectionChange();//魚が向いている方向を変える。
+	void InitFishDirection();//魚の最初の向き
 	void CheckFailure();//失敗。
 	void CheckSuccess();//成功。
 	float GetRotationPower();
@@ -47,10 +48,11 @@ public:
 	void FrameCount();
 	void Set3DFishPosition();
 	void SetRangeRate();
+	void CameraManagement()override;
+
 
 	float m_forcePullFish;//魚を引っ張る力。
-	bool m_previous_is_fish_suited_for_upper_side = true;//前のフレームで魚が上を向いていたかどうか。
-	bool is_fish_suited_for_upper_side = true;//魚が上側を向いているかどうか。
+	//bool is_fish_suited_for_upper_side = true;//魚が上側を向いているかどうか。
 	float m_initRangeRate;
 	float m_fishEscapePower = 0.0f;//魚が逃げようとする力。（矢印を左右に引っ張る力）。
 	int m_fishChange_in_DirectionTimes = 0;//魚が方向転換した数。
@@ -76,6 +78,7 @@ public:
 	TensionGauge* m_tensionGauge;
 	GameCamera* m_gameCamera;
 	PositionSelection* m_positionSelection;
+	FishFacing m_previous_fishFacing = Upward;//前のフレームで魚が上を向いていたかどうか。
 
 };
 

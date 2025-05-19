@@ -4,10 +4,7 @@
 Hirame::Hirame()
 {
 	SetUI();
-	SetBaseScore(120.0f);
-	SetScore();
-	SetTimeUntilEscape(15.0f);
-	SetInitPos(0.7f);
+	SetParameter(15.0f, 10.0f, 120.0f, 0.7);
 }
 
 Hirame::~Hirame()

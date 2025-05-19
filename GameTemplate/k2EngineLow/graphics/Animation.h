@@ -98,7 +98,16 @@ namespace nsK2EngineLow {
 		/// </remarks>
 		/// <param name="deltaTime">アニメーションを進める時間(単位：秒)</param>
 		void Progress(float deltaTime);
+
+		void SetAnimationRatio(float animationRatio);
+
+		/// <summary>
+		/// アニメーションの進んでいる割合を渡す。
+		/// </summary>
+		/// <returns></returns>
+		float GetAnimationRatio();
 		/*!
+		* 
 		*@brief	アニメーションイベントリスナーを登録。
 		*@return
 		* 登録されたリスナー。
@@ -202,5 +211,6 @@ namespace nsK2EngineLow {
 		Vector3 m_footstepDeltaValue = g_vec3Zero;					//footstepボーンの移動量。
 		bool m_isInited = false;
 		float m_deltaTimeOnUpdate = 0.0f;							//Update関数を実行したときのデルタタイム。
+		float m_animationRatio;//アニメーションが進んでいる割合。
 	};
 }

@@ -87,8 +87,8 @@ void RodFloatMove::ModelUpdate()
 void RodFloatMove::Float()
 {
 	t += 0.05;
-	m_floating.y = (cos(t))*10;//上下に動かす
-	m_floating.x = (cos(t * 0.7/*周期をずらす*/)*10 );//左右に動かす
+	m_floating.y = (cos(t)) * 10;//上下に動かす
+	m_floating.x = (cos(t * 0.7/*周期をずらす*/) * 10);//左右に動かす
 	m_position = m_position + m_floating;
 }
 
@@ -142,7 +142,7 @@ void RodFloatMove::SetPosition(Vector3 position)
 
 float RodFloatMove::ChangePosition_Z(float current_float_range_max_range_rate)
 {
-	float positon_z =m_limit_range_with_ship* current_float_range_max_range_rate;
+	float positon_z = m_limit_range_with_ship * current_float_range_max_range_rate;
 	return positon_z;
 }
 
@@ -166,7 +166,7 @@ void RodFloatMove::SetPosition()
 	if (m_playFishing->m_playFishingStatus != cast/*, m_playFishing->m_playFishingStatus != wait_castGauge*/) {
 		Float();
 		//ポジションを反映する。
-		m_position = /*m_floating*/m_sumPosition + Vector3{ 0.0f,0.0f, m_playFishing->m_current_float_range_max_range_rate * m_limit_range_with_ship }+m_floating;
+		m_position = /*m_floating*/m_sumPosition + Vector3{ 0.0f,0.0f, m_playFishing->m_current_float_range_max_range_rate * m_limit_range_with_ship } + m_floating;
 	}
 	m_sumPosition = { 0.0f,0.0f,0.0f };
 }
