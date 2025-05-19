@@ -36,6 +36,8 @@ void FightFishState::Update()
 
 	m_playFishing = FindGO<PlayFishing>("playFishing");
 
+	//カメラを管理する。
+	CameraManagement();
 	//フレーム数を計る
 	FrameCount();
 	//ステータス管理
@@ -359,6 +361,14 @@ void FightFishState::SetRangeRate()
 	//m_total_by_fish_advanced_distance+=m_this_frame_by_fish_advanced_distance;
 	//m_range_rate += m_total_by_fish_advanced_distance;
 }
+
+void FightFishState::CameraManagement()
+{
+	//m_cameraPos = GetPlayerPos() + Vector3{ 0.0f,100.0f,100.0f } + Floating();
+	m_cameraTarget = GetFishModelPos();
+	SetCamera(m_cameraPos, m_cameraTarget);
+}
+
 
 //void TensionGauge::AnnounceChangeFishState()
 //{
