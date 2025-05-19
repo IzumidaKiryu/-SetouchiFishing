@@ -19,6 +19,7 @@ public:
 	void In();
 	void Wait();
 	void Out();
+	void CameraManagement();
 	void Render(RenderContext& rc);
 
 

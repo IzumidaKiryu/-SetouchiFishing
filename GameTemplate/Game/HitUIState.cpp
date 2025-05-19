@@ -103,6 +103,13 @@ void HitUIState::Out()
 	}
 }
 
+void HitUIState::CameraManagement()
+{
+	
+	m_cameraPos.Lerp(m_t,m_initCameraPos,m_endCameraPos);
+	m_cameraTarget.Lerp(m_t,m_initCameraTarget,m_endCameraTarget);
+	SetCamera(m_cameraPos, m_cameraTarget);
+}
 
 void HitUIState::Render(RenderContext& rc)
 {
