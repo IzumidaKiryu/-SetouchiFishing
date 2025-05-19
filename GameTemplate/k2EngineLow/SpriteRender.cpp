@@ -18,3 +18,9 @@ void nsK2EngineLow::SpriteRender::Init(const char* filePath, const float w, cons
 	m_sprite.Init(initData);
 }
 
+void nsK2EngineLow::SpriteRender::Draw(RenderContext& rc)
+{
+	g_renderingEngine->AddSpriteRenderObject(this);
+
+}
+

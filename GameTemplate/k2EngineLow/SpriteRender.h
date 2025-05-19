@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 #pragma once
 
 /// <summary>
@@ -96,7 +96,9 @@ namespace nsK2EngineLow {
 		/// 描画
 		/// </summary>
 		/// <param name="rc">RenderContext</param>
-		void Draw(RenderContext& rc)
+		void Draw(RenderContext& rc);
+
+		void OnDraw(RenderContext& rc)
 		{
 			m_sprite.Draw(rc);
 		}

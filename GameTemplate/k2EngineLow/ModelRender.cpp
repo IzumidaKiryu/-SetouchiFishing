@@ -129,21 +129,8 @@ void nsK2EngineLow::ModelRender::Update()
 
 void nsK2EngineLow::ModelRender::Draw(RenderContext& rc)
 {
-	m_model.Draw(rc);
-	//m_zprepassModel.Draw(rc);
-	//if (m_isEnableInstancingDraw) {
-	//	// インスタンシング描画はビューフラスタムカリングは行わない。
-	//	g_renderingEngine->AddRenderObject(this);
-	//	m_worldMatrixArraySB.Update(m_worldMatrixArray.get());
-	//	m_numInstance = 0;
-	//}
-	//else {
-	//	// 通常描画
-	//	if (m_geometryDatas[0].IsInViewFrustum()) {
-	//		// ビューフラスタムに含まれている。
-	//		g_renderingEngine->AddRenderObject(this);
-	//	}
-	//}
+	g_renderingEngine->AddModelRenderObject(this);
+	
 }
 void nsK2EngineLow::ModelRender::IniTranslucent(
 	const char* filePath,

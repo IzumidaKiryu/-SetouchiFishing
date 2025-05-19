@@ -141,6 +141,13 @@ void Fish::Effect()
 {
 }
 
+/// <summary>
+/// 釣った後の効果。
+/// </summary>
+void Fish::Effect()
+{
+}
+
 FishData& Fish::GetFishData()
 {
 	return m_fishData;
