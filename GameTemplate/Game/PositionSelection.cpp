@@ -30,7 +30,7 @@ PositionSelection::PositionSelection()
 	m_timeLimitUI = NewGO<TimeLimitUI>(0, "timelimitUI");
 
 	//横取りゲージを作る。
-	m_stealPositionBar = NewGO<StealPositionBar>(0,"stealPositionBar");
+	m_stealPositionBar = NewGO<StealPositionBar>(0, "stealPositionBar");
 
 	//プレイヤーのオブジェクトを作る。
 	m_player = NewGO<Player>(0, "player");
@@ -39,13 +39,13 @@ PositionSelection::PositionSelection()
 	m_enemy = NewGO<Enemy>(0, "enemy");
 
 	//ゲームカメラのオブジェクトを作る。
-	gameCamera = NewGO<GameCamera>(0, "gamecamera");
+	m_gameCamera = NewGO<GameCamera>(0, "gamecamera");
 	//カメラのポジションを設定
-	
+
 
 
 	//背景のオブジェクトを作る。
-	backGround = NewGO<BackGround>(0);
+	m_backGround = NewGO<BackGround>(0);
 	//ゲーム中のBGMを読み込む。
 	g_soundEngine->ResistWaveFileBank(1, "Assets/sound/gamebgm.wav");
 
@@ -81,11 +81,11 @@ PositionSelection::~PositionSelection()
 	//プレイヤーを削除する。
 	DeleteGO(m_player);
 	//ゲームカメラを削除する。
-	DeleteGO(gameCamera);
+	DeleteGO(m_gameCamera);
 	//ゲーム中のBGMを削除する。
-	DeleteGO(gameCamera);
+	DeleteGO(m_gameCamera);
 	//背景を削除する。
-	DeleteGO(backGround);
+	DeleteGO(m_backGround);
 }
 
 void PositionSelection::Update()
@@ -95,17 +95,17 @@ void PositionSelection::Update()
 	//m_timeLimitUI->DisplayTimeLimitUI(m_int_time);//タイムリミットを表示する。エラーが出るのでコメントアウト！！！！！！！
 	IsWith_any_Position();//今どこのポジションにいるか判定する。
 
-	
+
 	if (m_shouldPartiallyDeactivate == false) {//アクティブかどうか判断する。
 		SetFishUI();
 		if (g_pad[0]->IsTrigger(enButtonA)) {
 			ChangeSceneToPlayFishing();
-			gameCamera->Activate();
+			m_gameCamera->Activate();
 		}
 		SetCameraPosition();
 	}
 	else {
-		gameCamera->Deactivate();
+		m_gameCamera->Deactivate();
 	}
 	for (int i = 0; i < 6; i++) {
 		//フィッシュマネージャーの生成。
@@ -130,6 +130,7 @@ void PositionSelection::Render(RenderContext& rc)
 	//m_timeLimitUI->GetOnesPlacUI().Draw(rc);
 	//m_timeLimitUI->GetTensPlacUI().Draw(rc);
 	//m_timeLimitUI->GetHundredsPlacUI().Draw(rc);
+	m_timeLimitUI->m_timeFont.Draw(rc);
 
 	if (m_shouldPartiallyDeactivate == false) {
 		for (int i = 0; i < 6; i++) {
@@ -213,9 +214,10 @@ void PositionSelection::SetDeactivate()
 	//エネミーを非アクティブ。
 	m_enemy->Deactivate();
 	//ゲームカメラを非アクティブにする。
-	gameCamera->Deactivate();
+	m_gameCamera->Deactivate();
 	//背景を非アクティブにする。
-	backGround->Deactivate();
+	/*backGround->Deactivate();*/
+	/*backGround->BackGroundDeactive();*/
 	//Uiを表示しない。
 	m_shouldPartiallyDeactivate = true;
 }
@@ -227,9 +229,10 @@ void PositionSelection::SetActivate()
 	//エネミーをアクティブ。
 	m_enemy->Activate();
 	//ゲームカメラをアクティブにする。
-	gameCamera->Activate();
+	m_gameCamera->Activate();
 	//背景をアクティブにする。
-	backGround->Activate();
+	/*backGround->Activate();*/
+	/*backGround->BackGroundActive();*/
 	//UIを表示する。
 	m_shouldPartiallyDeactivate = false;
 }
@@ -241,6 +244,7 @@ void PositionSelection::Timer()
 {
 	m_int_time = m_timelimit - m_stopwatch.GetElapsed();
 	m_stopwatch.Stop();
+	m_timeLimitUI->SetTime(m_int_time);
 	if (m_int_time <= 0)
 	{
 		m_is_time_up = true;
@@ -295,7 +299,7 @@ void PositionSelection::FishChange()
 
 void PositionSelection::SelectPosition()
 {
-		m_playFishing->SetFishManagerObjectName(PositionName[position_with_now]);
+	m_playFishing->SetFishManagerObjectName(PositionName[position_with_now]);
 }
 
 void PositionSelection::SetTotalValue(float individualValue)
@@ -423,8 +427,9 @@ void PositionSelection::SetFishDisplayOutside_to_Green(Position position)
 /// </summary>
 void PositionSelection::SetCameraPosition()
 {
-	gameCamera->SetPosition(Vector3{0.0f,900.0f,0.0f});
-	gameCamera->SetTarget(Vector3{0.0f,0.0f,200.0f});
+
+	m_gameCamera->SetPosition(m_backGround->m_shipPosition + Vector3{ 0.0f,1500.0f,-50.0f }/*Vector3{ 0.0f,0.0f,1000.0f }*/);
+	m_gameCamera->SetTarget(m_backGround->m_shipPosition + Vector3{ 0.0f,0.0f,100.0f });
 }
 
 
