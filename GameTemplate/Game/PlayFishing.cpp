@@ -18,6 +18,7 @@
 #include "WaitForFishState.h"
 #include "FightFishState.h"
 #include "FishingAnimationState.h"
+#include "HitUIState.h"
 
 
 
@@ -114,6 +115,9 @@ void PlayFishing::StatusManager()
 	case wait_for_fish:
 		m_waitForFishState = NewGO<WaitForFishState>(0, "waitForFishState");
 		break;
+	case hitUI:
+		m_hitUIState = NewGO<HitUIState>(0, "hitUIState");
+		break;
 	case sceneFightFish:
 		m_fightFishState = NewGO<FightFishState>(0, "fightFishState");
 		break;
@@ -187,9 +191,14 @@ void PlayFishing::Success()
 		break;
 	case wait_for_fish:
 		DeleteGO(m_waitForFishState);
-		m_playFishingStatus = sceneFightFish;
+		m_playFishingStatus = hitUI;
 		StatusManager();
 
+		break;
+	case hitUI:
+		DeleteGO(m_hitUIState);
+		m_playFishingStatus = sceneFightFish;
+		StatusManager();
 		break;
 	case sceneFightFish:
 		DeleteGO(m_fightFishState);
