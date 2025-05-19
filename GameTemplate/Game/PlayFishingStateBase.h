@@ -16,7 +16,6 @@ class PlayFishingStateBase :public IGameObject
 {
 public:
 
-
 	PlayFishingStateBase();
 	~PlayFishingStateBase();
 	bool Start();
@@ -98,6 +97,7 @@ public:
 
 	float m_cameraPos_t = 0;
 	float m_cameraTarget_t = 0;
+	float m_animation_t = 0;
 
 	Vector3 m_initCameraPos;
 	Vector3 m_endCameraPos;

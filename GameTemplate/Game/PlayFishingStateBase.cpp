@@ -334,11 +334,27 @@ Vector3 PlayFishingStateBase::GetFloatModelPos()
 	return m_floatModelPos;
 }
 
-Vector3 PlayFishingStateBase::Floating()
+
+Vector3 PlayFishingStateBase::Floating(FloatingPattern floatingPattern)
 {
-	m_floating_t += 0.05;
-	m_floating.y = (cos(m_floating_t * 0.9))*0.3 ;//上下に動かす
-	m_floating.z = (cos(m_floating_t * 0.7/*周期をずらす*/)*0.5 );//左右に動かす
-	m_floating.x = (cos(m_floating_t * 0.3) * 0.2);
+	switch (floatingPattern)
+	{
+	case PlayFishingStateBase::CameraPattern:
+		m_floating_t += 0.08;
+		m_floating.y = (cos(m_floating_t * 0.2)) * 12.0f;//上下に動かす
+		//m_floating.z = (cos(m_floating_t * 0.5/*周期をずらす*/) *8.0f);
+		m_floating.x = (cos(m_floating_t * 0.5) * 2.0f);//左右に動かす
+		break;
+	case PlayFishingStateBase::ModelPattern:
+		m_floating_t += 0.05;
+		m_floating.y = (cos(m_floating_t * 0.9)) * 0.3;//上下に動かす
+		m_floating.z = (cos(m_floating_t * 0.7/*周期をずらす*/) * 0.5);
+		m_floating.x = (cos(m_floating_t * 0.3) * 0.2);//左右に動かす
+		break;
+	default:
+		break;
+	}
+	
+
 	return m_floating;
 }
