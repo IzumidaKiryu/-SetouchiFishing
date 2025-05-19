@@ -26,7 +26,7 @@
 
 PlayFishing::PlayFishing()
 {
-
+	
 
 	m_objectName = new char[6];// フィッシュマネージャーのオブジェクトネームのメモリ確保
 
@@ -35,13 +35,14 @@ PlayFishing::PlayFishing()
 	gameCamera = NewGO<GameCamera>(0, "PlayFishing_GameCamera");
 
 	//魚のモデルを作成。
-	m_fshModel= NewGO<FishModel>(0,"fishModel");
+	m_fshModel = NewGO<FishModel>(0, "fishModel");
 
 	////ウキを作成。
 	//m_rodFloatMove = NewGO<RodFloatMove>(0, "rodFloatMove");
 
 
-	m_player= NewGO<Player>(0, "player_Playfishing");
+	m_player = NewGO<Player>(0, "player_Playfishing");
+	m_player->m_position = Vector3{ 0.0f,100.0f,250 };
 	//プレイヤーがコントローラーで動かないようにする。
 	m_player->SetMoveDeActive();
 
@@ -81,7 +82,7 @@ void PlayFishing::Init()
 void PlayFishing::Update()
 {
 	if (m_playCastGaugeState != nullptr) {
-		if (m_playCastGaugeState->GetSuccessful_or_Failure()==success) {
+		if (m_playCastGaugeState->GetSuccessful_or_Failure() == success) {
 			m_castState = NewGO<CastState>(0, "castState");
 			DeleteGO(m_playCastGaugeState);
 		};
@@ -103,7 +104,7 @@ void PlayFishing::StatusManager()
 
 		break;
 	case castAnimasion:
-		m_fishingAnimationState=NewGO<FishingAnimationState>(0, "fishingAnimationState");
+		m_fishingAnimationState = NewGO<FishingAnimationState>(0, "fishingAnimationState");
 
 		break;
 	case cast:
@@ -171,7 +172,7 @@ void PlayFishing::Success()
 	{
 	case playCastGauge:
 		DeleteGO(m_playCastGaugeState);
-		m_playFishingStatus = cast;
+		m_playFishingStatus = castAnimasion;
 		StatusManager();
 		break;
 	case castAnimasion:
@@ -241,27 +242,27 @@ void PlayFishing::Success()
 
 void PlayFishing::Failure()
 {
-		switch (m_playFishingStatus)
-		{
-		case playCastGauge:
-			DeleteGO(m_castGauge);
-			break;
-		case castAnimasion:
-			break;
-		case cast:
-			break;
-		case sceneFightFish:
-			DeleteGO(m_fightFishState);
-				break;
-		default:
+	switch (m_playFishingStatus)
+	{
+	case playCastGauge:
+		DeleteGO(m_castGauge);
+		break;
+	case castAnimasion:
+		break;
+	case cast:
+		break;
+	case sceneFightFish:
+		DeleteGO(m_fightFishState);
+		break;
+	default:
 
-			break;
-		}
-		m_positionSelection = FindGO<PositionSelection>("positionSelection");
-		m_positionSelection->SetisDisplayingTrue();
-		//ポジションセレクトクラスのオブジェクトをアクティブにする
-		m_positionSelection->SetActivate();
-		DeleteThisClass();
+		break;
+	}
+	m_positionSelection = FindGO<PositionSelection>("positionSelection");
+	m_positionSelection->SetisDisplayingTrue();
+	//ポジションセレクトクラスのオブジェクトをアクティブにする
+	m_positionSelection->SetActivate();
+	DeleteThisClass();
 
 }
 
@@ -284,7 +285,7 @@ void PlayFishing::Failure()
 void PlayFishing::float_to_water()
 {
 	m_floating_t += 0.05;
-	m_floating.y = (cos(m_floating_t*0.9)) * 3;//上下に動かす
+	m_floating.y = (cos(m_floating_t * 0.9)) * 3;//上下に動かす
 	m_floating.z = (cos(m_floating_t * 0.7/*周期をずらす*/) * 5);//左右に動かす
 	/*m_rodFloatPosition = m_rodFloatPosition + m_floating;*/
 }

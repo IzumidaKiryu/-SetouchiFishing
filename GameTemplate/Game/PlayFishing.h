@@ -48,8 +48,8 @@ public:
 	void Update();
 
 
-	
-	
+
+
 	void SetFishManagerObjectName(std::string string_objectName);
 	void FindeFishManager();//フィッシュマネージャーを探して魚の情報を取得する。　
 	char* m_objectName;
@@ -104,6 +104,9 @@ public:
 
 	Vector3 m_rodFloatModelPos;
 	Vector3 m_fishModelPos;
+
+	Vector3 m_cameraPos{0.0f,0.0f,0.0f};
+	Vector3 m_cameraTarget{0.0f,0.0f,0.0f};
 
 
 	PlayFishingStatus m_playFishingStatus = playCastGauge;
