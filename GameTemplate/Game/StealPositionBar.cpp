@@ -22,7 +22,7 @@ StealPositionBar::StealPositionBar()
 		
 }
 
-void StealPositionBar::Render(RenderContext& rc)
+void StealPositionBar::DisplayUI(RenderContext& rc)
 {
 	m_stealPositionBarOutsideUI.Draw(rc);
 	m_stealPositionGaugeUI.Draw(rc);

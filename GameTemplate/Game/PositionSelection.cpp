@@ -131,7 +131,7 @@ void PositionSelection::Render(RenderContext& rc)
 	//m_timeLimitUI->GetTensPlacUI().Draw(rc);
 	//m_timeLimitUI->GetHundredsPlacUI().Draw(rc);
 	m_timeLimitUI->m_timeFont.Draw(rc);
-
+	m_stealPositionBar->DisplayUI(rc);
 	if (m_shouldPartiallyDeactivate == false) {
 		for (int i = 0; i < 6; i++) {
 			m_fishDisplayInside[i].Draw(rc);

@@ -4,7 +4,7 @@ class StealPositionBar :public IGameObject
 {
 public:
 	StealPositionBar();
-	void Render(RenderContext& rc);
+	void DisplayUI(RenderContext& rc);
 	void Update();
 	void SetBarLength();
 	void AddStealPoint(float addPoint);//ポイントを足す。
