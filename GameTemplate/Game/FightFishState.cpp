@@ -5,7 +5,6 @@
 #include"PlayFishing.h"
 #include"FishingRodHP.h"
 #include"RodFloatMove.h"
-#include"TensionGauge.h"
 #include"GameCamera.h"
 #include"PositionSelection.h"
 #include"FishingRodHP.h"
@@ -18,6 +17,7 @@ FightFishState::FightFishState()
 	m_fishingRodHP = NewGO<FishingRodHP>(0, "fishingRodHP");
 	m_getRotation = NewGO<GetRotation>(0, "getRotation");
 	//m_playFishing = FindGO<PlayFishing>("playFishing");
+	InitFishDirection();
 }
 
 FightFishState::~FightFishState()
@@ -54,7 +54,7 @@ void FightFishState::Update()
 
 
 
-	SetCamera(GetPlayerPos() + Vector3{0.0f,100.0f,100.0f}, GetFishModelPos());
+	
 	/*m_playFishing->m_current_float_range_max_range_rate = m_playFishing->m_current_fish_range_and_max_range_rate;
 	m_playFishing->m_current_fish_range_and_max_range_rate = m_playFishing->m_current_float_range_max_range_rate;*/
 	//m_tensionGauge->SetFishUI_Position(m_playFishing->m_current_fish_range_and_max_range_rate);
@@ -87,20 +87,20 @@ void FightFishState::RightAndLeftManagement()
 void FightFishState::SetSigns_of_Fish_Position()
 {
 	//SetFishEscapePower();
-	if (is_fish_suited_for_upper_side == true) {//魚が上を向いているときにも引き寄せる力を加える。(上を向いているときにも少しは下に引っ張れるようにするため)。
-		m_forcePullFish += m_getRotation->nowFrameRotationQuantity/* * 200*/ * 1.3 * 0.05;
+	if (m_fishFacing == Upward) {//魚が上を向いているときにも引き寄せる力を加える。(上を向いているときにも少しは下に引っ張れるようにするため)。
+		m_forcePullFish += m_getRotation->nowFrameRotationQuantity/* * 200*/ * 2 * 0.05;
 	}
 	else {
 		m_forcePullFish += m_getRotation->nowFrameRotationQuantity /** 200*/ * 0.1;
 	}
 
 	m_sum_current_fish_range_and_max_range_rate = -m_forcePullFish + m_fishEscapePower;
-	
+
 }
 
 void FightFishState::SetFishEscapePower()
 {
-	if (is_fish_suited_for_upper_side == true) {
+	if (m_fishFacing == Upward) {
 		m_fishEscapePower += 0.002;
 	}
 
@@ -117,20 +117,20 @@ void FightFishState::SetFishDirection()
 /// </summary>
 void FightFishState::FishDirectionChange()
 {
-	if (m_frameCount % 10 == 0) {//1０フレームに一回方向を変えるかどうか抽選をする。
+	if (m_frameCount % 30 == 0) {//1０フレームに一回方向を変えるかどうか抽選をする。
 		std::random_device rd;
 		int randum = rd() % 2;
 		if (randum == 0)//ゼロが出たら向く方向を変える。
 		{
-			switch (is_fish_suited_for_upper_side)
+			switch (m_fishFacing)
 			{
 
-			case true:
-				is_fish_suited_for_upper_side = false;
+			case Upward:
+				SetFishDownward();
 				break;
 
-			case false:
-				is_fish_suited_for_upper_side = true;
+			case Downward:
+				SetFishUpward();
 				break;
 
 			default:
@@ -139,6 +139,29 @@ void FightFishState::FishDirectionChange()
 			m_fishChange_in_DirectionTimes++;//方向転換した数を数える。
 		}
 	}
+}
+
+void FightFishState::InitFishDirection()
+{
+	std::random_device rd;
+	int randum = rd() % 2;
+
+
+	switch (randum)
+	{
+
+	case 0:
+		SetFishDownward();
+		break;
+
+	case 1:
+		SetFishUpward();
+		break;
+
+	default:
+		break;
+	}
+	m_fishChange_in_DirectionTimes++;//方向転換した数を数える。
 }
 
 /// <summary>
@@ -213,7 +236,7 @@ void FightFishState::AnnounceState()
 
 void FightFishState::Change_Angry_or_Exhausted_State()
 {
-	if (is_fish_suited_for_upper_side == true) {//もし魚が左を向いていたら怒り状態にする。
+	if (m_fishFacing == Upward) {//もし魚が左を向いていたら怒り状態にする。
 		m_fishState = angry;
 	}
 	else {

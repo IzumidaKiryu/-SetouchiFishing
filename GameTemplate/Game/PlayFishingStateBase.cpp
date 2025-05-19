@@ -270,6 +270,41 @@ void PlayFishingStateBase::Set_Init_CameraTarget()
 	m_cameraTarget = m_playFishing->m_cameraTarget;
 }
 
+void PlayFishingStateBase::SetFishModelDownward()
+{
+	m_fishModel = FindGO<FishModel>("fishModel");
+	m_fishModel->SetISTurningUpwardTrue();
+}
+
+void PlayFishingStateBase::SetFishModelUpward()
+{
+	m_fishModel = FindGO<FishModel>("fishModel");
+	m_fishModel->SetISTurningDownwardTrue();
+
+}
+
+void PlayFishingStateBase::SetFishDownward()
+{
+	m_tensionGauge = FindGO<TensionGauge>("tensionGauge");
+	m_fishFacing = Downward;
+	m_tensionGauge->SetDownwardFishUI();
+	SetFishModelDownward();
+
+
+}
+
+void PlayFishingStateBase::SetFishUpward()
+{
+	m_tensionGauge = FindGO<TensionGauge>("tensionGauge");
+	m_fishFacing = Upward;
+	m_tensionGauge->SetUpwardFishUI();
+	SetFishModelUpward();
+}
+
+ void PlayFishingStateBase::CameraManagement()
+{
+}
+
 
 float PlayFishingStateBase::GetCurrentFishRangeAndMaxRangeRate()
 {
