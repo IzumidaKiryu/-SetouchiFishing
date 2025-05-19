@@ -39,7 +39,7 @@ CastGauge::CastGauge()
 
 	m_positionSelection = FindGO<PositionSelection>("positionSelection");
 
-	SetGaugeSpead();
+	/*SetArrowSpead();*/
 
 }
 
@@ -101,12 +101,14 @@ void CastGauge::DownwardOperation()
 	}
 }
 
+
 /// <summary>
 /// 矢印のスピードを設定
 /// </summary>
-void CastGauge::SetGaugeSpead()
+
+void CastGauge::SetArrowSpead(float spead)
 {
-	m_gaugeSpead = /*(237.0f*2.0f)/10*/35;
+	m_gaugeSpead = spead;
 }
 
 /// <summary>

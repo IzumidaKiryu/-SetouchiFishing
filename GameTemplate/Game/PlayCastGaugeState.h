@@ -11,6 +11,7 @@ public:
 	~PlayCastGaugeState();
 	void Update();
 	void CameraManagement()override;
+	void SetArrowSpead();
 
 	Player* m_player;
 	CastGauge* m_castGauge;

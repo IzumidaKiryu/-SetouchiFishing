@@ -27,7 +27,7 @@ public:
 	void UpAndDownManagement();//キャストゲージの上下動作の管理。
 	void UpwardOperation();
 	void DownwardOperation();
-	void SetGaugeSpead();
+	void SetArrowSpead(float spead);
 	void HitTest();
 	void Failure();//失敗。
 	void Success();//成功。
@@ -41,7 +41,6 @@ public:
 	void WaveMotion();//波の動きを疑似的に表現
 	void IsCastEnd();
 	bool GetIsThisClasEnd();
-
 
 	//void SetRodFloatPositon();//
 

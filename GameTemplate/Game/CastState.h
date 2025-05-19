@@ -4,6 +4,7 @@
 
 class RodFloatMove;
 class PlayFishing;
+class TensionGauge;
 class CastState :public PlayFishingStateBase
 {
 public:
@@ -26,6 +27,7 @@ public:
 	void RiseUP();//浮力の計算。
 	void Swing();
 	void StateManager();
+
 
 	float t;
 	float swing_t;
@@ -51,7 +53,7 @@ public:
 	Quaternion m_floatRotation;
 
 	CastMoveState m_castMoveState;
-
+	TensionGauge* m_tensionGauge;
 
 };
 
