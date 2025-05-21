@@ -26,6 +26,7 @@ void FishManager::Update()
 	SetShouldFishChange();
 	Timer();
 	UIPopIn();
+	SetTimeRatio();
 }
 
 /// <summary>
@@ -273,3 +274,35 @@ void FishManager::DeleteFish()
 		break;
 	}
 }
+
+void FishManager::SetTimeRatio()
+{
+	switch (m_fishType)
+	{
+	case TAI:
+		m_timeRatio=m_tai->GetTimeRatio();
+		break;
+	case BURI:
+		m_timeRatio = m_buri->GetTimeRatio();
+		break;
+	case TATIUO:
+		m_timeRatio = m_tatiuo->GetTimeRatio();
+		break;
+	case HIRAME:
+		m_timeRatio = m_hirame->GetTimeRatio();
+		break;
+	case JAKOTENN:
+		m_timeRatio = m_jakoten->GetTimeRatio();
+		break;
+	case SINJU:
+		break;
+	default:
+		break;
+	}
+}
+
+float FishManager::GetTimeRatio()
+{
+	return m_timeRatio;
+}
+
