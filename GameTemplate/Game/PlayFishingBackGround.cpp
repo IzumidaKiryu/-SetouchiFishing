@@ -6,11 +6,11 @@ PlayFishingBackGround::PlayFishingBackGround()
 	//?R?????g?A?E?g????B
 	//PhysicsWorld::GetInstance()->EnableDrawDebugWireFrame();
 
-	modelRender.Init("Assets/modelData/sea_kari.tkm");
+	modelRender.Init("Assets/modelData/sea_kari.tkm",false);
 	modelRender.SetScale(Vector3(10.0f, 10.0f, 10.0f));
 	modelRender.Update();
 
-	m_ship.Init("Assets/modelData/newStage/MAP.tkm");
+	m_ship.Init("Assets/modelData/newStage/MAP.tkm",false);
 	m_ship.SetScale(Vector3(1.0f, 1.0f, 1.0f));
 	m_ship.Update();
 

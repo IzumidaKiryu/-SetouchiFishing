@@ -4,10 +4,10 @@
 BackGround::BackGround()
 {
 	//コメントアウトする。
-	/*PhysicsWorld::GetInstance()->EnableDrawDebugWireFrame();*/
+	//PhysicsWorld::GetInstance()->EnableDrawDebugWireFrame();
 	modelRender.SetPosition(m_shipPosition);
-	modelRender.SetScale(Vector3{ 1.0f,1.0f,1.0f }*2.0f);
-	modelRender.Init("Assets/modelData/2Dship.tkm");
+	modelRender.SetScale(Vector3{ 1.0f,1.0f,1.0f }*1.8);
+	modelRender.Init("Assets/modelData/2Dship.tkm",false);
 	//modelRender.Init("Assets/material/stera.tkm");
 	modelRender.Update();
 
@@ -16,7 +16,7 @@ BackGround::BackGround()
 
 	m_sea.SetPosition(/*m_positio*/Vector3{ 1.0f,1.0f,1.0f });
 	m_sea.SetScale(Vector3{ 1.0f,1.0f,1.0f }*10.0f);
-	m_sea.Init("Assets/modelData/sea_kari.tkm");
+	m_sea.Init("Assets/modelData/sea_kari.tkm",false);
 	m_sea.Update();
 }
 

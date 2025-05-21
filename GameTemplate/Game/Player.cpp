@@ -11,7 +11,7 @@ Player::Player()
 		"Assets/animData/Player/FishingCast.tka"
 	);
 
-	SetModel("Assets/modelData/Player/Player.tkm", animationClips, enAnimationClip_Num, enModelUpAxisZ);
+	SetModel("Assets/modelData/Player/Player.tkm", true,animationClips, enAnimationClip_Num, enModelUpAxisZ);
 	
 
 }
