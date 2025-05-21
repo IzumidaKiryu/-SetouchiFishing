@@ -234,6 +234,7 @@
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="FightFishState.cpp" />
     <ClCompile Include="Fish.cpp" />
+    <ClCompile Include="FishDetectionRadius.cpp" />
     <ClCompile Include="FishingAnimationState.cpp" />
     <ClCompile Include="FishingGauge.cpp" />
     <ClCompile Include="FishingRodHP.cpp" />
@@ -281,6 +282,7 @@
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="FightFishState.h" />
     <ClInclude Include="Fish.h" />
+    <ClInclude Include="FishDetectionRadius.h" />
     <ClInclude Include="FishingAnimationState.h" />
     <ClInclude Include="FishingGauge.h" />
     <ClInclude Include="FishingRodHP.h" />

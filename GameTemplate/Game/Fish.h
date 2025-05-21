@@ -15,6 +15,7 @@ struct FishData
 	//一定の間隔の時間で向きを変えるかどうか抽選される。その時に変える確率。
 	//なので100と書いてもずっと下を向くわけではない。
 	int downwardBias=50;
+	float fishDetectionRadius=0;
 };
 class PositionSelection;
 class Fish : public IGameObject
@@ -32,6 +33,7 @@ public:
 	void SetInitPos(float initpos);
 	void SetUpWardBias(float bias);
 	void SetDownwardBias(float bias);
+	void SetFishDetectionRadius(float fishDetectionRadius);
 	
 	void SetParameter(float timeUntilEscape, 
 		float spead,
@@ -39,6 +41,7 @@ public:
 		float initpos,
 		float upwardBias,
 		float downwardBias,
+		float fishDetectionRadius=0.3f
 	);
 
 
