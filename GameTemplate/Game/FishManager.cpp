@@ -13,17 +13,19 @@ FishManager::FishManager()
 	SelectFishType();
 	FishNewGO();
 	SetFishData();
-	GetUI();
+	SetUI();
 }
 
 FishManager::~FishManager()
 {
+	//DeleteFish();
 }
 
 void FishManager::Update()
 {
 	SetShouldFishChange();
 	Timer();
+	UIPopIn();
 }
 
 /// <summary>
@@ -80,7 +82,7 @@ void FishManager::NewGOTai()
 /// <summary>
 /// UIを取得する。
 /// </summary>
-void FishManager::GetUI()
+void FishManager::SetUI()
 {
 	switch (m_fishType)
 	{
@@ -196,6 +198,19 @@ void FishManager::SetFishData()
 	m_fishData = *p_fishData;
 }
 
+void FishManager::UIPopIn()
+{
+	m_uiPopIn_t+=0.1;
+	float scale=0.0f;
+	scale=(pow(e, -( m_uiPopIn_t-1)) * sin((m_uiPopIn_t-1)))+1;
+	if (scale < 0) {
+		scale = 0;
+	}
+	m_ui->SetScale(m_uiScale* scale);
+	m_ui->Update();
+
+}
+
 FishData& FishManager::GetFishData()
 {
 	/*FishData &a=*p_fishData;*/
@@ -233,3 +248,28 @@ void FishManager::Timer()
 	}
 }
 
+void FishManager::DeleteFish()
+{
+	switch (m_fishType)
+	{
+	case TAI:
+		DeleteGO(m_tai);
+		break;
+	case BURI:
+		DeleteGO(m_buri);
+		break;
+	case TATIUO:
+		DeleteGO(m_tatiuo);
+		break;
+	case HIRAME:
+		DeleteGO(m_hirame);
+		break;
+	case JAKOTENN:
+		DeleteGO(m_jakoten);
+		break;
+	case SINJU:
+		break;
+	default:
+		break;
+	}
+}
