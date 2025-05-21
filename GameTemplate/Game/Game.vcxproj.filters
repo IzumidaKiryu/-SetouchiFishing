@@ -49,6 +49,7 @@
     <ClCompile Include="FishingAnimationState.cpp" />
     <ClCompile Include="Tai.cpp" />
     <ClCompile Include="HitUIState.cpp" />
+    <ClCompile Include="FishDetectionRadius.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -93,5 +94,6 @@
     <ClInclude Include="FishingAnimationState.h" />
     <ClInclude Include="Tai.h" />
     <ClInclude Include="HitUIState.h" />
+    <ClInclude Include="FishDetectionRadius.h" />
   </ItemGroup>
 </Project>

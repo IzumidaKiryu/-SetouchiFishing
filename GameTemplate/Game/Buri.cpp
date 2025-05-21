@@ -5,7 +5,7 @@ Buri::Buri()
 {
 	SetUI();
 
-	SetParameter(10.0f, 5.0f, 100.0f, 0.6);
+	SetParameter(10.0f, 5.0f, 100.0f, 0.6,50,50);
 }
 
 Buri::~Buri()

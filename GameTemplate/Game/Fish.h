@@ -6,6 +6,16 @@ struct FishData
 	float arrowSpeed = 5.0f;
 	float score = 0.0f;//個体値
 	float initPos=1;
+
+	//上を向いている時下向きに変える確率。(0～100の範囲の整数値)。
+	//一定の間隔の時間で向きを変えるかどうか抽選される。その時に変える確率。
+	//なので100と書いてもずっと上を向くわけではない。
+	int upwardBias=50;
+	//下を向いている時上向きに変える確率。(0～100の範囲の整数値)。
+	//一定の間隔の時間で向きを変えるかどうか抽選される。その時に変える確率。
+	//なので100と書いてもずっと下を向くわけではない。
+	int downwardBias=50;
+	float fishDetectionRadius=0;
 };
 class PositionSelection;
 class Fish : public IGameObject
@@ -21,11 +31,18 @@ public:
 	void SetArrowSpeed(float spead);
 	void SetBaseScore(float baseScore);//基準になるスコア。
 	void SetInitPos(float initpos);
+	void SetUpWardBias(float bias);
+	void SetDownwardBias(float bias);
+	void SetFishDetectionRadius(float fishDetectionRadius);
 	
 	void SetParameter(float timeUntilEscape, 
 		float spead,
 		float baseScore,
-		float initpos);
+		float initpos,
+		float upwardBias,
+		float downwardBias,
+		float fishDetectionRadius=0.3f
+	);
 
 
 	bool TimeCount();
@@ -36,7 +53,10 @@ public:
 	void SetisSelectedTrue();
 	void SetisSelectedFalse();
 	bool GetShouldFishChange();
+
 	
+	float GetTimeRatio();
+
 
 
 
@@ -50,6 +70,7 @@ public:
 	//float m_time = 0.0f;
 	float m_initialTime = 0.0f;//このクラスが作られたときの時間。
 	float m_nowTime;
+	float m_timeRatio = 0.0f;
 	SpriteRender m_ui;
 	PositionSelection* m_positionSelection;
 	FishData m_fishData;

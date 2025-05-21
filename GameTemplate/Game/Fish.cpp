@@ -16,7 +16,7 @@ Fish::~Fish()
 
 void Fish::Update()
 {
-	/*TimeCount();*/
+	TimeCount();
 }
 
 bool Fish::Start()
@@ -65,12 +65,59 @@ void Fish::SetInitPos(float initpos)
 	m_fishData.initPos = initpos;
 }
 
-void Fish::SetParameter(float timeUntilEscape, float arrowspeed, float baseScore, float initpos)
+void Fish::SetUpWardBias(float bias)
+{
+	//範囲を超えた値が入ったら0以上100以下にする。
+	if (bias < 0) {
+		bias = 0;
+	}
+
+	if (bias > 100) {
+		bias = 100;
+	}
+	m_fishData.upwardBias = bias;
+
+}
+
+void Fish::SetDownwardBias(float bias)
+{
+	//範囲を超えた値が入ったら0以上100以下にする。
+	if (bias < 0) {
+		bias = 0;
+	}
+
+	if (bias > 100) {
+		bias = 100;
+	}
+	m_fishData.downwardBias = bias;
+}
+
+void Fish::SetFishDetectionRadius(float fishDetectionRadius)
+{
+	
+	//範囲を超えた値が入ったら0以上100以下にする。
+	if (fishDetectionRadius < 0) {
+		fishDetectionRadius = 0;
+	}
+
+	if (fishDetectionRadius > 1) {
+		fishDetectionRadius = 1;
+	}
+	m_fishData.fishDetectionRadius = fishDetectionRadius;
+}
+
+void Fish::SetParameter(float timeUntilEscape, float arrowspeed, 
+	float baseScore, float initpos,
+	float upwardBias,float downwardBias,
+	float fishDetectionRadius)
 {
 	SetTimeUntilEscape(timeUntilEscape);
 	SetArrowSpeed(arrowspeed);
 	SetBaseScore(baseScore);
 	SetInitPos(initpos);
+	SetUpWardBias(upwardBias);
+	SetDownwardBias(downwardBias);
+	SetFishDetectionRadius(fishDetectionRadius);
 }
 
 /// <summary>
@@ -82,11 +129,14 @@ bool Fish::TimeCount()
 	m_positionSelection = FindGO<PositionSelection>("positionSelection");
 	m_nowTime = m_positionSelection->GetTime();
 
+	//魚が逃げるまでの残り時間を計算する。
+	m_timeRatio = ((m_initialTime-m_nowTime)/m_fishData.timeUntilEscape);
+
 	if (m_initialTime - m_nowTime <= m_fishData.timeUntilEscape)
 	{
 		return true;
 	}
-	else {
+	if(m_initialTime - m_nowTime >= m_fishData.timeUntilEscape) {
 		ShouldFishChangeTrue();
 		return false;
 	}
@@ -131,6 +181,11 @@ void Fish::SetisSelectedFalse()
 bool Fish::GetShouldFishChange()
 {
 	return m_shouldFishChange;
+}
+
+float Fish::GetTimeRatio()
+{
+	return m_timeRatio;
 }
 
 

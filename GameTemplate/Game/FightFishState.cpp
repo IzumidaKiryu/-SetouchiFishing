@@ -17,7 +17,7 @@ FightFishState::FightFishState()
 	m_fishingRodHP = NewGO<FishingRodHP>(0, "fishingRodHP");
 	m_getRotation = NewGO<GetRotation>(0, "getRotation");
 	//m_playFishing = FindGO<PlayFishing>("playFishing");
-	InitFishDirection();
+	//InitFishDirection();
 }
 
 FightFishState::~FightFishState()
@@ -90,13 +90,13 @@ void FightFishState::SetSigns_of_Fish_Position()
 {
 	//SetFishEscapePower();
 	if (m_fishFacing == Upward) {//魚が上を向いているときにも引き寄せる力を加える。(上を向いているときにも少しは下に引っ張れるようにするため)。
-		m_forcePullFish += m_getRotation->nowFrameRotationQuantity/* * 200*/ * 2 * 0.05;
+		m_forcePullFish += m_getRotation->nowFrameRotationQuantity/* * 200*/ * 0.05* m_fishingRodHP->GetPullPowerBuff();
 	}
 	else {
-		m_forcePullFish += m_getRotation->nowFrameRotationQuantity /** 200*/ * 0.1;
+		m_forcePullFish += m_getRotation->nowFrameRotationQuantity /** 200*/ * 0.05* m_fishingRodHP->GetPullPowerBuff();
 	}
 
-	m_sum_current_fish_range_and_max_range_rate = -m_forcePullFish + m_fishEscapePower;
+	m_sum_current_fish_range_and_max_range_rate = -(m_forcePullFish) + m_fishEscapePower;
 
 }
 
@@ -119,52 +119,56 @@ void FightFishState::SetFishDirection()
 /// </summary>
 void FightFishState::FishDirectionChange()
 {
-	if (m_frameCount % 30 == 0) {//1０フレームに一回方向を変えるかどうか抽選をする。
+	if (m_frameCount % 30 == 0) {//3０フレームに一回方向を変えるかどうか抽選をする。
 		std::random_device rd;
-		int randum = rd() % 2;
-		if (randum == 0)//ゼロが出たら向く方向を変える。
-		{
+		int randum = rd() % 100;
+		//if (randum == 0)//ゼロが出たら向く方向を変える。
+		//{
 			switch (m_fishFacing)
 			{
 
 			case Upward:
-				SetFishDownward();
+				if (randum < m_fishData.downwardBias) {
+					SetFishDownward();
+				}
 				break;
 
 			case Downward:
-				SetFishUpward();
+				if (randum < m_fishData.upwardBias) {
+					SetFishUpward();
+				}
 				break;
 
 			default:
 				break;
-			}
+			/*}*/
 			m_fishChange_in_DirectionTimes++;//方向転換した数を数える。
 		}
 	}
 }
 
-void FightFishState::InitFishDirection()
-{
-	std::random_device rd;
-	int randum = rd() % 2;
-
-
-	switch (randum)
-	{
-
-	case 0:
-		SetFishDownward();
-		break;
-
-	case 1:
-		SetFishUpward();
-		break;
-
-	default:
-		break;
-	}
-	m_fishChange_in_DirectionTimes++;//方向転換した数を数える。
-}
+//void FightFishState::InitFishDirection()
+//{
+//	std::random_device rd;
+//	int randum = rd() % 2;
+//
+//
+//	switch (randum)
+//	{
+//
+//	case 0:
+//		SetFishDownward();
+//		break;
+//
+//	case 1:
+//		SetFishUpward();
+//		break;
+//
+//	default:
+//		break;
+//	}
+//	m_fishChange_in_DirectionTimes++;//方向転換した数を数える。
+//}
 
 /// <summary>
 /// 失敗
