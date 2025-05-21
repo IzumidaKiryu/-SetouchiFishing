@@ -19,6 +19,9 @@
 #include "FightFishState.h"
 #include "FishingAnimationState.h"
 #include "HitUIState.h"
+#include "FishDetectionRadius.h"
+
+
 
 
 
@@ -63,6 +66,7 @@ PlayFishing::~PlayFishing()
 	//DeleteGO(m_fishManager);
 	DeleteGO(m_tensionGauge);
 	m_positionSelection = FindGO<PositionSelection>("positionSelection");
+	
 
 }
 
@@ -78,6 +82,7 @@ void PlayFishing::Init()
 
 	/*m_tensionGauge->SetFishUI_Position(m_fishData.initPos);*/
 	StatusManager();
+	
 }
 
 void PlayFishing::Update()
@@ -90,6 +95,12 @@ void PlayFishing::Update()
 	}
 	/*StatusManager();*/
 	//SetRodFloatModalePosition();
+}
+
+bool PlayFishing::Start()
+{
+	//m_fishDetectionRadius = NewGO<FishDetectionRadius>(0, "fishDetectionRadius");
+	return true;
 }
 
 /// <summary>

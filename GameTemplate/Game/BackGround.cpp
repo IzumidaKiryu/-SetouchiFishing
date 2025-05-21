@@ -6,7 +6,7 @@ BackGround::BackGround()
 	//コメントアウトする。
 	/*PhysicsWorld::GetInstance()->EnableDrawDebugWireFrame();*/
 	modelRender.SetPosition(m_shipPosition);
-	modelRender.SetScale(Vector3{ 1.0f,1.0f,1.0f }*2.0f);
+	modelRender.SetScale(Vector3{ 1.0f,1.0f,1.0f }*1.5f);
 	modelRender.Init("Assets/modelData/2Dship.tkm");
 	//modelRender.Init("Assets/material/stera.tkm");
 	modelRender.Update();

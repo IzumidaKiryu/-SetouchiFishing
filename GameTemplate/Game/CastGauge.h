@@ -44,7 +44,7 @@ public:
 
 	//void SetRodFloatPositon();//
 
-
+	Vector3 m_initGaugePos{ -500.0f,0.0f,0.0f };
 	float m_arrowPosition = -237.0f;//矢印のポジション（初期設定は-237）
 	bool upState = true;//上がっているかのステート
 	void Render(RenderContext& rc);
@@ -65,7 +65,7 @@ public:
 
 	SpriteRender m_castGaugeOutside;
 	SpriteRender m_castGaugeInside;
-	SpriteRender m_castGaugeArrow;
+	SpriteRender m_Arrow;
 	/*GaugeCastSuccessful* m_gaugeCastSuccessful = nullptr;*/
 	FishingGauge* m_fishingGauge;
 	TensionGauge* tensionGauge = nullptr;
