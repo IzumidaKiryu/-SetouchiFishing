@@ -43,6 +43,8 @@ TensionGauge::TensionGauge()
 	m_rodFloatUI.SetPosition(Vector3(650.0f, 0.0f, 0.0f));
 	m_rodFloatUI.SetScale(Vector3{ 1.0f, 1.0f, 1.0f });
 	m_rodFloatUI.Update();
+
+
 }
 
 TensionGauge::~TensionGauge()
@@ -62,6 +64,7 @@ void TensionGauge::Update()
 	/*SetFishUI_Position();*/
 }
 
+
 void TensionGauge::RightAndLeftManagement()
 {
 
@@ -69,7 +72,8 @@ void TensionGauge::RightAndLeftManagement()
 
 void TensionGauge::SetFishUI_Position(float current_fish_range_and_max_range_rate)
 {
-	m_signs_of_Fish.SetPosition(Vector3(650.0f, m_bar_length * current_fish_range_and_max_range_rate + m_barBottom, 0.0f));
+	m_fishUIPos = Vector3(650.0f, m_bar_length * current_fish_range_and_max_range_rate + m_barBottom, 0.0f);
+	m_signs_of_Fish.SetPosition(m_fishUIPos);
 	m_signs_of_Fish.Update();
 }
 void TensionGauge::SetFloatUI_Position(float current_float_range_max_range_rate)
@@ -89,6 +93,12 @@ void TensionGauge::SetScale()
 	if (m_rodFloatMove != nullptr) {//ウキが作成されていない場合は行わない。
 		m_rodFloatUI.SetScale(Vector3{ 1.0f, 1.0f, 1.0f }*(1 + (m_rodFloatMove->m_position.y / 300)));
 	}
+}
+
+Vector3 TensionGauge::GetFishUIPosition()
+{
+
+	return m_fishUIPos;
 }
 
 //void TensionGauge::Set_signs_of_Fish_UI()

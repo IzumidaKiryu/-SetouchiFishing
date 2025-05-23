@@ -94,7 +94,7 @@ void PositionSelection::Update()
 	Timer();
 	//m_timeLimitUI->DisplayTimeLimitUI(m_int_time);//タイムリミットを表示する。エラーが出るのでコメントアウト！！！！！！！
 	IsWith_any_Position();//今どこのポジションにいるか判定する。
-
+	SetFishTimeUntilEscapeUISize();
 
 	if (m_shouldPartiallyDeactivate == false) {//アクティブかどうか判断する。
 		SetFishUI();
@@ -135,6 +135,7 @@ void PositionSelection::Render(RenderContext& rc)
 	if (m_shouldPartiallyDeactivate == false) {
 		for (int i = 0; i < 6; i++) {
 			m_fishDisplayInside[i].Draw(rc);
+			m_fishTimeUntilEscapeUI[i].Draw(rc);
 			m_fishDisplayOutside[i].Draw(rc);
 			m_fishUI[i]->Draw(rc);
 		}
@@ -159,8 +160,22 @@ void PositionSelection::SetDisplayiUI()
 		m_fishDisplayOutside[i].SetPivot(Vector2(0.5f, 0.5f));
 		m_fishDisplayOutside[i].SetPosition(m_fishDisplayPosition[i]);
 		m_fishDisplayOutside[i].SetScale(Vector3{ 1.0f, 1.0f, 1.0f });
+		
+		m_fishTimeUntilEscapeUI[i].Init("Assets/modelData/fishTimeUntilEscapeUI.DDS", 130, 130);
+		m_fishTimeUntilEscapeUI[i].SetPivot(Vector2(0.5f, 1.0f));
+		m_fishTimeUntilEscapeUI[i].SetPosition(m_fishDisplayPosition[i]+Vector3{0.0f,130/2.0f,0.0f});
+		m_fishTimeUntilEscapeUI[i].SetScale(Vector3{ 1.0f, 1.0f, 1.0f });
 
 	}
+}
+
+void PositionSelection::SetFishUI()
+{
+	for (int i = 0; i < 6; i++) {
+		m_fishUI[i] = m_fishManager[i]->m_ui;
+	}
+	SetFishUIPosition();
+
 }
 
 void PositionSelection::SetFishDisplayPosition()
@@ -242,10 +257,10 @@ void PositionSelection::SetActivate()
 /// </summary>
 void PositionSelection::Timer()
 {
-	m_int_time = m_timelimit - m_stopwatch.GetElapsed();
+	m_float_time = m_timelimit - m_stopwatch.GetElapsed();
 	m_stopwatch.Stop();
-	m_timeLimitUI->SetTime(m_int_time);
-	if (m_int_time <= 0)
+	m_timeLimitUI->SetTime(m_float_time);
+	if (m_float_time <= 0)
 	{
 		m_is_time_up = true;
 		m_stopwatch.Stop();
@@ -256,19 +271,12 @@ void PositionSelection::Timer()
 	OutputDebugStringA(text);*/
 }
 
-int PositionSelection::GetTime()
+float PositionSelection::GetTime()
 {
-	return m_int_time;
+	return m_float_time;
 }
 
-void PositionSelection::SetFishUI()
-{
-	for (int i = 0; i < 6; i++) {
-		m_fishUI[i] = m_fishManager[i]->m_ui;
-	}
-	SetFishUIPosition();
 
-}
 
 
 void PositionSelection::SetFishUIPosition()
@@ -430,6 +438,14 @@ void PositionSelection::SetCameraPosition()
 
 	m_gameCamera->SetPosition(m_backGround->m_shipPosition + Vector3{ 0.0f,1500.0f,-50.0f }/*Vector3{ 0.0f,0.0f,1000.0f }*/);
 	m_gameCamera->SetTarget(m_backGround->m_shipPosition + Vector3{ 0.0f,0.0f,100.0f });
+}
+
+void PositionSelection::SetFishTimeUntilEscapeUISize()
+{
+	for (int i = 0; i < 6; i++) {
+		m_fishTimeUntilEscapeUI[i].SetScale(Vector3{ 1.0f,1.0f * m_fishManager[i]->GetTimeRatio(),1.0f});
+		m_fishTimeUntilEscapeUI[i].Update();
+	}
 }
 
 

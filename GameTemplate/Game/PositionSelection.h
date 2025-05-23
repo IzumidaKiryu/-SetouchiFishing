@@ -43,7 +43,7 @@ public:
 	void SetDeactivate();//非アクティブにする。
 	void SetActivate();
 	void Timer();
-	int GetTime();
+	float GetTime();
 	void SetFishUIPosition();
 	void FishChange();//魚を変える。
 	void SelectPosition();
@@ -52,6 +52,7 @@ public:
 	void IsWith_any_Position();
 	void SetFishDisplayOutside_to_Green(Position positon);
 	void SetCameraPosition();
+	void SetFishTimeUntilEscapeUISize();
 
 
 	float setFish = 0.0f;
@@ -63,6 +64,7 @@ public:
 	//double m_double_time=0.0f;//時間(double型)
 	float m_timelimit = 240;//時間制限
 	int m_int_time = m_timelimit;//時間(Int型)
+	float m_float_time= m_timelimit;
 	float m_totalScore = 0.0f;//スコアの合計。
 	bool m_is_time_up;//タイムアップしているかどうか。
 
@@ -102,6 +104,7 @@ public:
 	FishManager* m_fishManager[6];
 	PlayFishing* m_playFishing;
 	SpriteRender* m_fishUI[6];
+	SpriteRender m_fishTimeUntilEscapeUI[6];
 	TimeLimitUI* m_timeLimitUI;
 	//ModelRender m_rodFloatModel;
 	StealPositionBar* m_stealPositionBar;

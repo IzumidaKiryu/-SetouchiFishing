@@ -35,7 +35,7 @@ void Enemy::SetMoveSpeed()
 	/*if (m_position.x <= enemyFishingPosition[m_positionSelection->enemy_position].x - 10.0f || m_position.y <= enemyFishingPosition[m_positionSelection->enemy_position].y) {*/
 
 	Vector3 range_of_enemy_and_position= enemyFishingPosition[m_positionSelection->enemy_position] - m_position;//敵ポジションと選んでいるポジションの距離。
-	if (range_of_enemy_and_position.Length() >=5.0f ) {
+	if (range_of_enemy_and_position.Length() >=10.0f ) {
 		moveSpeed += range_of_enemy_and_position/*(enemyFishingPosition[m_positionSelection->enemy_position] - m_position)*/;
 		moveSpeed.Normalize();
 		moveSpeed *= 700.0f;

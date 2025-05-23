@@ -38,6 +38,7 @@ class WaitForFishState;
 class FightFishState;
 class FishingAnimationState;
 class HitUIState;
+class FishDetectionRadius;
 
 
 
@@ -49,7 +50,7 @@ public:
 	~PlayFishing();
 	void Init();
 	void Update();
-
+	bool Start();
 
 
 
@@ -138,4 +139,6 @@ public:
 	FightFishState* m_fightFishState;
 	FishingAnimationState* m_fishingAnimationState;
 	HitUIState* m_hitUIState;
+	FishDetectionRadius* m_fishDetectionRadius;
+
 };

@@ -24,7 +24,7 @@ void FishingRodHP::Update()
 	m_RodHPBar.SetScale(Vector3{ m_Hp * 2 / m_MaxHp, 1.0f, 1.0f });
 	m_RodHPBar.Update();
 	/*}*/
-
+	SetPullPowerBuff();
 	failure();//失敗したかどうか。
 	m_previousFrameHP = m_Hp;
 }
@@ -35,21 +35,22 @@ void FishingRodHP::SetFishingRodHP()
 
 
 	if (m_fightFishState->m_fishFacing == Upward) {
-		//魚の向きが左なら。
+		//魚の向きが上なら。
 		//コントローラーを回した分だけ竿のHPが減る。
 		m_Hp -= m_fightFishState->GetRotationPower() * 100.0f;
 	}
 	if (m_fightFishState->m_fishFacing == Downward) {
-		//魚の向きが左なら。
-		//コントローラーを回した分だけ竿のHPが減る。
-		m_Hp += 0.1;
+		//魚の向きが下なら。
+		//コントローラーを回した分だけ竿のHP少しが減る。
+		/*m_Hp += 0.1;*/
+		m_Hp -= m_fightFishState->GetRotationPower() * 10.0f;
 	}
 
 
 	float m_rotationPower = m_fightFishState->GetRotationPower();
 	//コントローラーが回ってないときはHPを回復する。
 	if (m_rotationPower <= 0.0000f) {
-		m_Hp += 3;
+		m_Hp += 0.5;
 	}
 
 
@@ -105,4 +106,15 @@ void FishingRodHP::AddStealPositionPoint()
 	/*m_positionSelection = NewGO<PositionSelection>(0, "m_PositionSelection");*/
 	m_positionSelection = FindGO<PositionSelection>("m_PositionSelection");
 	/*m_positionSelection->m_stealPositionPoint += m_Hp;*/
+}
+
+void FishingRodHP::SetPullPowerBuff()
+{
+	//1倍から6倍の範囲で魚を引く力を大きくする。
+	m_pullPowerBuff = ((m_Hp / m_MaxHp)*6)+1;
+}
+
+float FishingRodHP::GetPullPowerBuff()
+{
+	return m_pullPowerBuff;
 }

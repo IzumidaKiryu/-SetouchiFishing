@@ -4,7 +4,7 @@
 Hirame::Hirame()
 {
 	SetUI();
-	SetParameter(15.0f, 10.0f, 120.0f, 0.7);
+	SetParameter(15.0f, 10.0f, 120.0f, 0.7,40,60);
 }
 
 Hirame::~Hirame()
