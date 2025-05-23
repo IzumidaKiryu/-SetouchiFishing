@@ -4,22 +4,100 @@
 
 nsK2EngineLow::ModelRender::ModelRender()
 {
-	m_light = NewGO<Light>(0, "light");
-	m_light->Init();
+	/*m_light = NewGO<Light>(0, "light");
+	m_light->Init();*/
 }
 
 nsK2EngineLow::ModelRender::~ModelRender()
 {
 }
 
-void nsK2EngineLow::ModelRender::Init(const char* filePath, AnimationClip* animationClips, int numAnimationClips, EnModelUpAxis enModelUpAxis)
+void nsK2EngineLow::ModelRender::Init(const char* filePath,bool m_shadowDrop, AnimationClip* animationClips, int numAnimationClips, EnModelUpAxis enModelUpAxis)
 {
 	// スケルトンを初期化。
 	InitSkeleton(filePath);
 	// アニメーションを初期化。
 	InitAnimation(animationClips, numAnimationClips, enModelUpAxis);
-	InitModel(filePath, enModelUpAxis);
+	ModelInitDataFR modelInitData;
+	//影を落とすか落とされるかでシェーダーを変える。
+	if (m_shadowDrop == true) {
+		modelInitData.m_tkmFilePath = filePath;
+		modelInitData.m_fxFilePath = "Assets/shader/model.fx";
+		modelInitData.m_expandConstantBuffer = &g_renderingEngine->GetLightCB();
+		modelInitData.m_expandConstantBufferSize = sizeof(g_renderingEngine->GetLightCB());
+		modelInitData.m_modelUpAxis = enModelUpAxis;
 
+		//輪郭線の処理。
+		modelInitData.m_expandShaderResoruceView[0] = &g_renderingEngine->GetZPrepassDepthTexture();
+		//ZPrepassの初期化。
+		InitCommon(filePath, animationClips);
+
+		//シャドウマップに描画するモデルを初期化。
+		ModelInitData shadowModelInitData;
+		shadowModelInitData.m_tkmFilePath = filePath;
+		shadowModelInitData.m_fxFilePath = "Assets/shader/model.fx";
+		shadowModelInitData.m_psEntryPointFunc = "PSShadowMain";
+		shadowModelInitData.m_modelUpAxis = enModelUpAxis;
+		// カラーバッファーのフォーマットに変更が入ったので、こちらも変更する
+		shadowModelInitData.m_colorBufferFormat[0] = DXGI_FORMAT_R32_FLOAT;
+
+		//アニメーション有無でエントリーポイントを変える
+		if (animationClips != nullptr) {
+			shadowModelInitData.m_skeleton = &m_skeleton;
+			shadowModelInitData.m_vsSkinEntryPointFunc = "VSSkinMain";
+		}
+		else {
+			shadowModelInitData.m_vsEntryPointFunc = "VSMain";
+		}
+
+		m_shadowModel.Init(shadowModelInitData);
+	}
+	else {
+		// 影を受ける背景モデルを初期化
+		modelInitData.m_tkmFilePath = filePath;
+		// シャドウレシーバー(影が落とされるモデル)用のシェーダーを指定する
+		modelInitData.m_fxFilePath = "Assets/shader/shadowReciever.fx";
+		// シャドウマップを拡張SRVに設定する
+		modelInitData.m_expandShaderResoruceView[1] = &g_renderingEngine->GetShadowTarget().GetRenderTargetTexture();
+		// ライトビュープロジェクション行列を拡張定数バッファーに設定する
+		modelInitData.m_expandConstantBuffer = &g_renderingEngine->GetLightCB();
+		modelInitData.m_expandConstantBufferSize = sizeof(g_renderingEngine->GetLightCB());
+		modelInitData.m_modelUpAxis = enModelUpAxis;
+	}
+
+	//アニメーション有無でエントリーポイントを変える
+	if (animationClips != nullptr) {
+		modelInitData.m_skeleton = &m_skeleton;
+		modelInitData.m_vsSkinEntryPointFunc = "VSSkinMain";
+	}
+	else {
+		modelInitData.m_vsEntryPointFunc = "VSMain";
+	}
+
+	m_model.Init(modelInitData);
+	
+	//InitModel(filePath, enModelUpAxis);
+
+}
+
+void nsK2EngineLow::ModelRender::InitCommon(const char* tkmFilePath, AnimationClip* animationClips)
+{
+	// ZPrepass描画用のモデルを初期化
+	ModelInitData modelInitData;
+	modelInitData.m_tkmFilePath = tkmFilePath;
+	modelInitData.m_fxFilePath = "Assets/shader/ZPrepass.fx";
+	modelInitData.m_colorBufferFormat[0] = DXGI_FORMAT_R32G32_FLOAT;
+
+	//アニメーション有無でエントリーポイントを変える
+	if (animationClips != nullptr) {
+		modelInitData.m_skeleton = &m_skeleton;
+		modelInitData.m_vsSkinEntryPointFunc = "VSSkinMain";
+	}
+	else {
+		modelInitData.m_vsEntryPointFunc = "VSMain";
+	}
+
+	m_zprepassModel.Init(modelInitData);
 }
 
 void nsK2EngineLow::ModelRender::InitSkyCubeModel(ModelInitData& initData)
@@ -78,11 +156,17 @@ void nsK2EngineLow::ModelRender::InitModel(const char* filePath, EnModelUpAxis e
 void nsK2EngineLow::ModelRender::Update()
 {
 	//スケルトンを更新。
-	m_skeleton.Update(m_model.GetWorldMatrix());
+	if (m_skeleton.IsInited())
+	{
+		m_skeleton.Update(m_model.GetWorldMatrix());
+	}
 
 	//モデルの更新。
 	m_model.UpdateWorldMatrix(m_position, m_rotation, m_scale);
-
+	//影のモデルに移動回転拡大を渡す
+	m_shadowModel.UpdateWorldMatrix(m_position, m_rotation, m_scale);
+	//輪郭線に移動回転拡大を渡す
+	m_zprepassModel.UpdateWorldMatrix(m_position, m_rotation, m_scale);
 	//アニメーションを進める。
 	m_animation.Progress(g_gameTime->GetFrameDeltaTime());
 
@@ -97,32 +181,32 @@ void nsK2EngineLow::ModelRender::Update()
 	//}
 	
 
-	////コントローラーでスポットライトライトを動かす。（確認用の実装のため、コメントアウト）。
-	m_light->m_SceneLight.spotLig.m_position.x -= g_pad[0]->GetLStickXF();
-	if (g_pad[0]->IsPress(enButtonB)) {
-		m_light->m_SceneLight.spotLig.m_position.y += g_pad[0]->GetLStickYF();
-	}
-	else {
-		m_light->m_SceneLight.spotLig.m_position.z -= g_pad[0]->GetLStickYF();
-	}
+	//////コントローラーでスポットライトライトを動かす。（確認用の実装のため、コメントアウト）。
+	//m_light->m_SceneLight.spotLig.m_position.x -= g_pad[0]->GetLStickXF();
+	//if (g_pad[0]->IsPress(enButtonB)) {
+	//	m_light->m_SceneLight.spotLig.m_position.y += g_pad[0]->GetLStickYF();
+	//}
+	//else {
+	//	m_light->m_SceneLight.spotLig.m_position.z -= g_pad[0]->GetLStickYF();
+	//}
 
 
 	//コントローラー右スティックでスポットライトを回転させる。
-	//Y軸周りのクオータニオンを計算する。
-	Quaternion qRotY;
-	qRotY.SetRotationY(g_pad[0]->GetRStickXF() * 0.01f);
+	////Y軸周りのクオータニオンを計算する。
+	//Quaternion qRotY;
+	//qRotY.SetRotationY(g_pad[0]->GetRStickXF() * 0.01f);
 
-	//計算したクオータニオンでライトのほうこうをまわす。
-	qRotY.Apply(m_light->m_SceneLight.spotLig.m_direction);
+	////計算したクオータニオンでライトのほうこうをまわす。
+	//qRotY.Apply(m_light->m_SceneLight.spotLig.m_direction);
 
-	//X軸周りのクオータニオンを計算する。
-	Vector3 rotAxis;
-	rotAxis.Cross(g_vec3AxisY, m_light->m_SceneLight.spotLig.m_direction);
-	Quaternion qRotX;
-	qRotX.SetRotation(rotAxis, g_pad[0]->GetRStickYF() * 0.01f);
+	////X軸周りのクオータニオンを計算する。
+	//Vector3 rotAxis;
+	//rotAxis.Cross(g_vec3AxisY, m_light->m_SceneLight.spotLig.m_direction);
+	//Quaternion qRotX;
+	//qRotX.SetRotation(rotAxis, g_pad[0]->GetRStickYF() * 0.01f);
 
-	//計算したクオータニオンでライトの方向を回す。
-	qRotX.Apply(m_light->m_SceneLight.spotLig.m_direction);
+	////計算したクオータニオンでライトの方向を回す。
+	//qRotX.Apply(m_light->m_SceneLight.spotLig.m_direction);
 
 	
 }
@@ -130,7 +214,11 @@ void nsK2EngineLow::ModelRender::Update()
 void nsK2EngineLow::ModelRender::Draw(RenderContext& rc)
 {
 	g_renderingEngine->AddModelRenderObject(this);
-	
+	if (m_zprepassModel.IsInited())
+	{
+		g_renderingEngine->Add3DModelToZPrepass(m_zprepassModel);
+	}
+
 }
 void nsK2EngineLow::ModelRender::IniTranslucent(
 	const char* filePath,

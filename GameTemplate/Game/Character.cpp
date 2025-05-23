@@ -41,10 +41,10 @@ void Character::Update()
 	modelRender.Update();
 }
 
-void Character::SetModel(const char* filePath, AnimationClip* animationClips, int numAnimationClips, EnModelUpAxis enModelUpAxis)
+void Character::SetModel(const char* filePath, bool shadowDrop,AnimationClip* animationClips, int numAnimationClips, EnModelUpAxis enModelUpAxis)
 {
 	//ユニティちゃんのモデルを読み込む。
-	modelRender.Init(filePath, animationClips, numAnimationClips, enModelUpAxis);
+	modelRender.Init(filePath, shadowDrop, animationClips, numAnimationClips, enModelUpAxis);
 	modelRender.SetScale(Vector3{ 2.0f,2.0f,2.0f });
 }
 

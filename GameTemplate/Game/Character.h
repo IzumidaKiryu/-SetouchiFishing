@@ -9,6 +9,7 @@ public:
 	void Update();
 	//モデルの設定。
 	void SetModel(const char* filePath,
+		bool shadowDrop,
 		AnimationClip* animationClips,
 		int numAnimationClips,
 		EnModelUpAxis enModelUpAxis);

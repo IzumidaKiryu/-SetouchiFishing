@@ -162,6 +162,14 @@ SPSIn VSSkinMain( SVSIn vsIn )
 {
 	return VSMainCore(vsIn, true);
 }
+
+// シャドウモデルのピクセルシェーダーのエントリー関数
+float4 PSShadowMain(SPSIn psIn) : SV_Target0
+{
+    // シャドウマップにZ値を描き込む
+    return float4(psIn.pos.z, psIn.pos.z, psIn.pos.z, 1.0f);
+}
+
 /// <summary>
 /// 繝斐け繧ｻ繝ｫ繧ｷ繧ｧ繝ｼ繝繝ｼ縺ｮ繧ｨ繝ｳ繝医Μ繝ｼ髢｢謨ｰ縲・
 /// </summary>
