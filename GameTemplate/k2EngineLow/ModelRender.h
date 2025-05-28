@@ -1,6 +1,15 @@
 #pragma once
 
+#include "RenderingEngine.h";
 namespace nsK2EngineLow {
+	struct ModelInitDataFR :public ModelInitData
+	{
+		ModelInitDataFR()
+		{
+			m_colorBufferFormat[0] = DXGI_FORMAT_R32G32B32A32_FLOAT;
+		}
+	};
+
 	class Light;
 	class ModelRender
 	{
@@ -9,9 +18,12 @@ namespace nsK2EngineLow {
 		~ModelRender();
 
 		void Init(const char* filePath,
+			bool m_shadowdrop=true,
 			AnimationClip* animationClips = nullptr,
 			int numAnimationCrips = 0,
 			EnModelUpAxis enModelUpAxis = enModelUpAxisZ);
+
+		void InitCommon(const char* tkmFilePath, AnimationClip* animationClips);
 
 		void InitSkyCubeModel(ModelInitData& initData);
 
@@ -24,6 +36,14 @@ namespace nsK2EngineLow {
 		void OnDraw(RenderContext& rc)
 		{
 			m_model.Draw(rc, 1);
+		}
+		void OnShadowDraw(RenderContext& rc)
+		{
+			if (m_shadowModel.IsInited())
+			{
+				m_shadowModel.Draw(rc, g_renderingEngine->GetLightCamera());
+
+			}
 		}
 		void PlayAnimation(int animNo, float interpolateTime = 0.0f)
 		{
@@ -140,16 +160,17 @@ namespace nsK2EngineLow {
 		Model						m_translucentModel;					// 半透明モデル。
 		Model						m_renderToGBufferModel;				// RenderToGBufferで描画されるモデル
 		Model						m_model;
+		Model						m_shadowModel;
 		//Model						m_shadowModels[MAX_DIRECTIONAL_LIGHT][NUM_SHADOW_MAP];	// シャドウマップに描画するモデル
 		//ConstantBuffer				m_drawShadowMapCameraParamCB[MAX_DIRECTIONAL_LIGHT][NUM_SHADOW_MAP];		// シャドウマップ作成時に必要なカメラパラメータ用の定数バッファ。
 		bool						m_isUpdateAnimation = true;			// アニメーションを更新する？
 		Skeleton					m_skeleton;							// 骨。
 		bool						m_isShadowCaster = true;			// シャドウキャスターフラグ
 		float						m_animationSpeed = 1.0f;
-		int							m_numInstance = 0;					// インスタンスの数。
-		int							m_maxInstance = 1;					// 最大インスタンス数。
-		bool						m_isEnableInstancingDraw = false;	// インスタンシング描画が有効？
-		bool						m_isRaytracingWorld = true;			//レイトレワールドに登録する？
+		//int							m_numInstance = 0;					// インスタンスの数。
+		//int							m_maxInstance = 1;					// 最大インスタンス数。
+		//bool						m_isEnableInstancingDraw = false;	// インスタンシング描画が有効？
+		//bool						m_isRaytracingWorld = true;			//レイトレワールドに登録する？
 		std::unique_ptr<Matrix[]>	m_worldMatrixArray;					// ワールド行列の配列。
 		StructuredBuffer			m_worldMatrixArraySB;				// ワールド行列の配列のストラクチャードバッファ。
 		//std::vector< GemometryData > m_geometryDatas;					// ジオメトリ情報。

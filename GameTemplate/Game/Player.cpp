@@ -11,7 +11,7 @@ Player::Player()
 		"Assets/animData/Player/FishingCast.tka"
 	);
 
-	SetModel("Assets/modelData/Player/Player.tkm", animationClips, enAnimationClip_Num, enModelUpAxisZ);
+	SetModel("Assets/modelData/Player/Player.tkm", true,animationClips, enAnimationClip_Num, enModelUpAxisZ);
 	
 
 }
@@ -25,7 +25,7 @@ Player::~Player()
 void Player::SetMoveSpeed()
 {
 	if (m_is_moveActive) {
-		m_position;
+		
 		Vector3 forward = Vector3{ 0.0f,0.0f,1.0f };
 		Vector3 right = Vector3{ 1.0f,0.0f,0.0f };
 
@@ -40,7 +40,7 @@ void Player::SetMoveSpeed()
 
 		//移動速度にスティックの入力量を加算する。
 		moveSpeed += right + forward;
-		m_position;
+		
 	}
 
 }

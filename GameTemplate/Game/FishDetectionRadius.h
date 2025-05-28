@@ -8,8 +8,8 @@ public:
 	FishDetectionRadius();
 	~FishDetectionRadius();
 	void Update();
-	void SetFishDetectionRadius();
-	void Render(RenderContext& rc);
+	void CalculateDetectionRange();
+	void CalculateDetectionRangePos();
 	//void SetFishDetectionRadiusPosition(Vector3 position);
 	//Vector3 GetFishDetectionRadiusPosition();
 	//float GetFishDetectionRadius();
@@ -17,13 +17,17 @@ public:
 
 	//void SetFishDetectionRadiusRotation(Vector3 rotation);
 
-	void SetFishDetectionRadiusUIScale();
-
+	void CalculateFishDetectionRadiusUIScale();
+	float GetFishDetectionRadius();
+	float GetPos();
+	void DeletThis();
+	SpriteRender& GetUI();
 
 	void SetFishDetectionRadiusUIPosition();
 	Vector3 m_uiScale = { 1.0f, 1.0f, 1.0f };
 	float m_fishDetectionRadius = 0.0f;//青いバーの長さを基準に0.0f～1.0fの間で設定する。
-	Vector3 m_fishDetectionRadiusUIPosition = { 0.0f, 0.0f, 0.0f };
+	float m_fishDetectionRadiusPos = 0.0f;
+	Vector3 m_fishDetectionRadiusUIPos = { 0.0f, 0.0f, 0.0f };
 
 	SpriteRender m_fishDetectionRadiusUI;
 	PlayFishing* m_playFishing;

@@ -45,8 +45,8 @@ bool CastState::Start()
 	//ウキを作成。
 	m_rodFloatMove = NewGO<RodFloatMove>(0, "rodFloatMove");
 
-	m_initCameraPos = m_cameraPos;
-	m_initCameraTarget = m_cameraTarget;
+	m_initCameraPos = m_rodFloatMove->m_position + Vector3{ 300.0f,300.0f,-500.0f };;
+	m_initCameraTarget = m_rodFloatMove->GetPosition();
 	m_endCameraTarget = m_rodFloatMove->GetPosition();
 	return true;
 }

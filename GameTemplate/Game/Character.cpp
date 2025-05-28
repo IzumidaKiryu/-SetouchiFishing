@@ -41,10 +41,10 @@ void Character::Update()
 	modelRender.Update();
 }
 
-void Character::SetModel(const char* filePath, AnimationClip* animationClips, int numAnimationClips, EnModelUpAxis enModelUpAxis)
+void Character::SetModel(const char* filePath, bool shadowDrop,AnimationClip* animationClips, int numAnimationClips, EnModelUpAxis enModelUpAxis)
 {
 	//ユニティちゃんのモデルを読み込む。
-	modelRender.Init(filePath, animationClips, numAnimationClips, enModelUpAxis);
+	modelRender.Init(filePath, shadowDrop, animationClips, numAnimationClips, enModelUpAxis);
 	modelRender.SetScale(Vector3{ 2.0f,2.0f,2.0f });
 }
 
@@ -115,7 +115,7 @@ void Character::ManageState()
 	m_castAnimationState = FindGO<FishingAnimationState>("fishingAnimationState");
 
 	//キャストアニメーションクラスが実行されていたら。
-	if (m_is_cast) {
+	if (m_is_cast) {	
 		playerState = enAnimationClip_Cast;
 		return;
 	}
@@ -174,6 +174,10 @@ bool Character::SetChastAnimation()
 	m_is_cast = true;
 	return modelRender.IsPlayingAnimation();
 }
+void Character::EndCastAnimation()
+{
+	m_is_cast = false;
+}
 Vector3 Character::GetPos()
 {
 	return m_position;
@@ -181,6 +185,11 @@ Vector3 Character::GetPos()
 float Character::GetAnimationRatio()
 {
 	return modelRender.GetAnimationRatio();
+}
+void Character::SetIdleAnimation()
+{
+	playerState = enAnimationClip_Idle;
+	modelRender.PlayAnimation(enAnimationClip_Idle);
 }
 ////描画処理。
 //void Character::Render(RenderContext & rc)

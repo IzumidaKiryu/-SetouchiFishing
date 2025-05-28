@@ -86,31 +86,29 @@ public:
 	void NewGOCastGauge();
 	void NewGOFishingGauge();
 	void NewGOSceneFightFish();
+	void ChangeScene();
 
 
 	float m_current_fish_range_and_max_range_rate;//今の魚の距離と最大の魚の距離の割合（それぞれのクラスで船と魚の最大距離とこの割合を掛けて場所を表現する。）
 	float m_current_float_range_max_range_rate;//今のウキの距離と最大のウキの距離の割合。
 	float m_floating_t;
 	float m_casting_t;
+
+
 	Vector3 m_floating;
 	Vector3 m_gameCameraTarget;
 
 
-	//キャストメソッド用変数
-	Vector3 g{ 0.0f,-30.0f,0.0f };//重力。
-	Vector3 m_float_initPos{ 0.0f,500.0f,10.0f };
-	Vector3 m_rodFloatPosition = m_float_initPos;
-	float water_surface_position_y = 0;//うみのy軸での場所。
 	float m_castStrength;//キャストの強さ（ウキのとび具合が変わる）
-	float first_velocity_vector_z = 2;//初速ベクトルｚの値（ｙとｚの比率）。
-	Vector3 first_velocity_vector{ 0.0f,1.0f,first_velocity_vector_z };//初速ベクトル（ｙは必ず1にしておく）。
-	float m_z_axis_value_drop_float;//ウキを落とすｚ軸の値。
 
 	Vector3 m_rodFloatModelPos;
 	Vector3 m_fishModelPos;
 
 	Vector3 m_cameraPos{0.0f,0.0f,0.0f};
 	Vector3 m_cameraTarget{0.0f,0.0f,0.0f};
+
+	bool m_shouldChangeScene = false;
+
 
 
 	PlayFishingStatus m_playFishingStatus = playCastGauge;

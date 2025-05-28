@@ -9,6 +9,7 @@ public:
 	void Update();
 	//モデルの設定。
 	void SetModel(const char* filePath,
+		bool shadowDrop,
 		AnimationClip* animationClips,
 		int numAnimationClips,
 		EnModelUpAxis enModelUpAxis);
@@ -29,10 +30,12 @@ public:
 	void PlayAnimation();
 	//void Render(RenderContext& rc);
 	bool SetChastAnimation();
+	void EndCastAnimation();
 	//void SetIdleAnimation();
 	bool m_is_cast = false;
 	Vector3 GetPos();
 	float GetAnimationRatio();
+	void SetIdleAnimation();
 
 
 	//メンバ変数。

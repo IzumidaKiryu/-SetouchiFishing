@@ -7,6 +7,7 @@
 Fish::Fish()
 {
 	srand(time(NULL));
+	SetScore();
 }
 
 Fish::~Fish()
@@ -33,8 +34,7 @@ bool Fish::Start()
 void Fish::SetScore()
 {
 	std::random_device rd;
-	//????X?R?A???????o???B
-	//????X?R?A????X?R?A?~?i0.8????1.2????????_??????j??v?Z?????B
+	//個体値の倍率をランダムに決める。0.4%~1.2%の間で決まる。
 	float individualValueMagnification = (0.4f / 100) * (rd() % 100 + 1);//??????{??
 	individualValueMagnification += 0.8;
 
@@ -95,21 +95,30 @@ void Fish::SetDownwardBias(float bias)
 void Fish::SetFishDetectionRadius(float fishDetectionRadius)
 {
 	
-	//範囲を超えた値が入ったら0以上100以下にする。
 	if (fishDetectionRadius < 0) {
 		fishDetectionRadius = 0;
 	}
 
-	if (fishDetectionRadius > 1) {
-		fishDetectionRadius = 1;
+	if (fishDetectionRadius > 0.5) {
+		fishDetectionRadius = 0.5;
 	}
 	m_fishData.fishDetectionRadius = fishDetectionRadius;
 }
 
-void Fish::SetParameter(float timeUntilEscape, float arrowspeed, 
-	float baseScore, float initpos,
-	float upwardBias,float downwardBias,
-	float fishDetectionRadius)
+void Fish::SetEscapeForce(float escapeForce)
+{
+	m_fishData.escapeForce = escapeForce;
+}
+
+void Fish::SetParameter(
+	float timeUntilEscape,
+	float arrowspeed, 
+	float baseScore,
+	float initpos,
+	float upwardBias,
+	float downwardBias,
+	float fishDetectionRadius,
+	float escapeForce)
 {
 	SetTimeUntilEscape(timeUntilEscape);
 	SetArrowSpeed(arrowspeed);
@@ -118,6 +127,7 @@ void Fish::SetParameter(float timeUntilEscape, float arrowspeed,
 	SetUpWardBias(upwardBias);
 	SetDownwardBias(downwardBias);
 	SetFishDetectionRadius(fishDetectionRadius);
+	SetEscapeForce(escapeForce);
 }
 
 /// <summary>
