@@ -5,6 +5,8 @@ class GameStateBase : public IGameObject
 public:
 	GameStateBase() = default;
 	virtual ~GameStateBase() = default;
+	bool Start()override;
+
 	void Render(RenderContext& rc)override;
 	virtual bool ShouldChangeState() = 0; // 状態を変更すべきかどうかを決定する純粋仮想関数
 	virtual void Update() final;//派生クラスではいじれない

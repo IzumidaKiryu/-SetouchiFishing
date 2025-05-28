@@ -24,46 +24,53 @@ PositionSelection::PositionSelection()
 	
 
 	srand(time(NULL));
-
+	
 
 
 }
 
 PositionSelection::~PositionSelection()
 {
-	//m_gameCamera = FindGO<GameCamera>("gamecamera");
 	//横取りゲージを削除する。
 	DeleteGO(m_stealPositionBar);
 	//プレイヤーを削除する。
 	DeleteGO(m_player);
-	////ゲームカメラを削除する。
-	//DeleteGO(m_gameCamera);
-	////背景を削除する。
-	//DeleteGO(m_backGround);
 	
 }
 
+bool PositionSelection::Start()
+{
+	FindGameObjects();
+	//m_enemy->SetCountdownFinished(true);//カウントダウンが終わったことを伝える。
+	SetCameraPosition();
+	return true;
+}
 void PositionSelection::Update()
 {
 	if (m_isCountdownFinished==true)
 	{
 
-		//時間をはかる。
+		//時間計測。
 		Timer();
-		//m_timeLimitUI->DisplayTimeLimitUI(m_int_time);//タイムリミットを表示する。エラーが出るのでコメントアウト！！！！！！！
-		UpdatePlayerArea();//今どこのポジションにいるか判定する。
 
-		if (m_shouldPartiallyDeactivate == false) {//アクティブかどうか判断する。
+		//プレイヤーの現在エリアを更新。
+		UpdatePlayerArea();
+
+		//アクティブ？。
+		if (m_shouldPartiallyDeactivate == false) {
 
 			if (g_pad[0]->IsTrigger(enButtonA)) {
 				ChangeSceneToPlayFishing();
 				m_gameCamera->Activate();
 			}
-			SetCameraPosition();
+			/*SetCameraPosition();*/
 		}
 		else {
 			m_gameCamera->Deactivate();
 		}
+
+
+
 		for (int i = 0; i < 6; i++) {
 			//フィッシュマネージャーの生成。
 			if (m_fishManager[i]->GetShouldFishChange() == true) {
@@ -80,12 +87,7 @@ void PositionSelection::Update()
 	}
 }
 
-bool PositionSelection::Start()
-{
-	FindGameObjects();
-	//m_enemy->SetCountdownFinished(true);//カウントダウンが終わったことを伝える。
-	return true;
-}
+
 
 void PositionSelection::Init()
 {
@@ -388,8 +390,8 @@ void PositionSelection::UpdateSlotFrameVisibility(Area position)
 /// </summary>
 void PositionSelection::SetCameraPosition()
 {
-	m_gameCamera->SetPosition(m_backGround->m_shipPosition + Vector3{ 0.0f,1500.0f,0.0f }/*Vector3{ 0.0f,0.0f,1000.0f }*/);
-	m_gameCamera->SetTarget(m_backGround->m_shipPosition + Vector3{ 0.0f,0.0f,100.0f });
+	//m_gameCamera->SetPosition(m_backGround->m_shipPosition + Vector3{ 0.0f,1500.0f,0.0f }/*Vector3{ 0.0f,0.0f,1000.0f }*/);
+	//m_gameCamera->SetTarget(m_backGround->m_shipPosition + Vector3{ 0.0f,0.0f,100.0f });
 }
 
 SpriteRender& PositionSelection::GetFishUI(int num)

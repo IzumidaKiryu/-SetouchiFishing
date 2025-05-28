@@ -14,8 +14,9 @@
     
 GameStartCountdown::GameStartCountdown()
 {
-	SetInitCameraRotation();
+	FindGameObjects();
 	SetCameraTarget();
+
 	SetInitCameraPos();
 	SetEndCameraPos();
 	//カメラと船の間の距離を初期化。
@@ -34,18 +35,14 @@ GameStartCountdown::~GameStartCountdown()
 
 bool GameStartCountdown::Start()
 {
-	FindGameObjects();
+
     return true;
 }
 
-bool GameStartCountdown::ShouldChangeState()
-{
-	return false;
-}
 
-void GameStartCountdown::OnUpdate()
+
+void GameStartCountdown::Update()
 {
-	m_camera = FindGO<GameCamera>("gameCamera");
 	CountStart();
 
 	//カウントダウンの時間を取得する。
@@ -65,17 +62,12 @@ void GameStartCountdown::OnUpdate()
 
 }
 
-void GameStartCountdown::OnEnter()
-{
-}
-
-void GameStartCountdown::OnExit()
-{
-}
 
 void GameStartCountdown::FindGameObjects()
 {
 	m_positionSelection = FindGO<PositionSelection>("positionSelection");
+	m_backGround = FindGO<BackGround>("backGround");
+	m_camera = FindGO<GameCamera>("gameCamera");
 
 }
 
@@ -98,7 +90,6 @@ void GameStartCountdown::CountStart()
 
 void GameStartCountdown::SetInitCameraToShipDistance()
 {
-	m_backGround = FindGO<BackGround>("backGround");
 	Vector2 initCameraToShipDistance2D;
 	Vector2 shipPos2D= Vector2(m_backGround->m_shipPosition.x, m_backGround->m_shipPosition.z);
 	Vector2 cameraPos2D= Vector2(m_initCameraPos.z, m_initCameraPos.x);
@@ -180,7 +171,7 @@ void GameStartCountdown::SetUIScale(Vector3 scale)
 
 void GameStartCountdown::SetCameraPosition(Vector3 pos)
 {
-	m_camera = FindGO<GameCamera>("gameCamera");
+	
 	m_camera->SetPosition(UpdateCameraPostion());
 }
 
@@ -188,8 +179,8 @@ Vector3 GameStartCountdown::UpdateCameraPostion()
 {
 	float thita;//回転度
 	thita = GetCameraRatios()*2*3.1415926534;
-	m_cameraPos.x = -(cos(thita))* UpdateCameraToShipDistance();
-	m_cameraPos.z = sin(thita)* UpdateCameraToShipDistance();
+	//m_cameraPos.x = (cos(thita))* UpdateCameraToShipDistance();
+	//m_cameraPos.z = sin(thita)* UpdateCameraToShipDistance();
 	m_cameraPos.y = Lerp(GetCameraRatios(), m_initCameraPos.y, m_endCameraPos.y);
 
 	return m_cameraPos;
@@ -237,6 +228,9 @@ float GameStartCountdown::GetCameraRatios()
 {
 	int intTime = m_stopwatch.GetElapsed();
 	float ratio = m_stopwatch.GetElapsed()/ static_cast<int>(CountdownState::NextScene);
+	if (ratio > 1) {
+		ratio = 1;
+	}
 
 	return ratio;
 }
@@ -250,28 +244,23 @@ float GameStartCountdown::GetCameraToShipDistance()
 
 void GameStartCountdown::SetCameraTarget()
 {
-	m_backGround = FindGO<BackGround>("backGround");
-	m_cameraTarget = m_backGround->m_shipPosition;
+	m_cameraTarget = m_backGround->m_shipPosition + Vector3{0.0f,0.0f,10.0f};
 	m_camera->SetTarget(m_cameraTarget);
 }
 
 void GameStartCountdown::SetInitCameraPos()
 {
-	m_backGround = FindGO<BackGround>("backGround");
-	m_initCameraPos = m_backGround->m_shipPosition + Vector3{ 0.0f,200.0f,1500.0f };
+	m_initCameraPos = m_backGround->m_shipPosition + Vector3{ 0.0f,200.0f,1500.0f } + Vector3{0.0f,0.0f,300.0f};
 
 }
 
 void GameStartCountdown::SetEndCameraPos()
 {
-	m_backGround = FindGO<BackGround>("backGround");
 	m_endCameraPos = m_backGround->m_shipPosition + Vector3{ 0.0f,1500.0f,0.0f };
 }
 
 void GameStartCountdown::SetInitCameraRotation()
 {
-	m_camera = FindGO<GameCamera>("gameCamera");
-
 	Quaternion rot;
 	rot.AddRotationDegZ(180);
 	m_camera->RotateOriginTarget(rot);

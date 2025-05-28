@@ -2,15 +2,20 @@
 #include "GameStateBase.h"
 #include< memory >
 
+bool GameStateBase::Start()
+{
+		return true;
+}
+
 void GameStateBase::Render(RenderContext& rc)
 {
 }
 
 void GameStateBase::Update()
 {
-	if (am_isActive) {
-		OnUpdate();
-	}
+		if (am_isActive) {
+			OnUpdate();
+		}
 }
 
 void GameStateBase::OnUpdate()

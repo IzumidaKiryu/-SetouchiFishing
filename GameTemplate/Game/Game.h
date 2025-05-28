@@ -46,7 +46,6 @@ public:
 	Vector3 m_InsideScale{ 1.02f,1.0f,1.0f };
 
 	SpriteRender hpBarInSide;
-	Player* player;
 	GameCamera* gameCamera;
 	BackGround* backGround;
 	/*SoundSource* gameBGM;*/

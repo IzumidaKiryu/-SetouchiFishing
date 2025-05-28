@@ -250,6 +250,7 @@
     <ClCompile Include="GetRotation.cpp" />
     <ClCompile Include="Hirame.cpp" />
     <ClCompile Include="HitUIState.cpp" />
+    <ClCompile Include="InGameState.cpp" />
     <ClCompile Include="Jakoten.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="PlayCastGaugeState.cpp" />
@@ -296,13 +297,12 @@
     <ClInclude Include="GameCamera.h" />
     <ClInclude Include="GameResult.h" />
     <ClInclude Include="GameStartCountdown.h" />
-
     <ClInclude Include="GameStateBase.h" />
-
     <ClInclude Include="GaugeCastSuccessful.h" />
     <ClInclude Include="GetRotation.h" />
     <ClInclude Include="Hirame.h" />
     <ClInclude Include="HitUIState.h" />
+    <ClInclude Include="InGameState.h" />
     <ClInclude Include="Jakoten.h" />
     <ClInclude Include="PlayCastGaugeState.h" />
     <ClInclude Include="Player.h" />

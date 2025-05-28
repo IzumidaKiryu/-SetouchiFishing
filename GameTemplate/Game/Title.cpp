@@ -3,11 +3,12 @@
 #include "Game.h"
 #include "GameStartCountdown.h"
 #include "sound/SoundEngine.h"
+#include"InGameState.h"
 
 
 Title::Title()
 {
-	spriteRender.Init("Assets/sprite/yattabe.DDS", 1920.0f, 1080.0f);
+		spriteRender.Init("Assets/sprite/yattabe.DDS", 1920.0f, 1080.0f);
 
 
 
@@ -21,7 +22,12 @@ Title::Title()
 
 Title::~Title()
 {
-	//DeleteGO(titleBGM);
+	/*DeleteGO(titleBGM);*/
+}
+
+bool Title::Start()
+{
+	return true;
 }
 
 void Title::OnUpdate()
@@ -30,10 +36,11 @@ void Title::OnUpdate()
 
 bool Title::ShouldChangeState()
 {
+
 	if (g_pad[0]->IsTrigger(enButtonA))
 	{
 
-		SetNextState(std::make_unique<GameStartCountdown>());
+		SetNextState(std::make_unique<InGameState>());
 		return true; // Aボタンが押されたら状態を変更する
 	}
 	return false; // タイトル状態では状態を変更しない
@@ -49,5 +56,6 @@ void Title::OnExit()
 
 void Title::Render(RenderContext& rc)
 {
+	//なぜかm_isStartがfalseになっているから描画されない。
 	spriteRender.Draw(rc);
 }

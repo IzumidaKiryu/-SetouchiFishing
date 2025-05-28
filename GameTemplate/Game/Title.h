@@ -3,12 +3,12 @@
 #include "GameStateBase.h"
 
 //タイトル。
-class GameStartCountdown;
 class Title :public GameStateBase
 {
 public:
 	Title();
 	~Title();
+	bool Start()override;
 	void OnUpdate();
 	bool ShouldChangeState(); // 状態を変更すべきかどうかを決定する純粋仮想関数
 	void OnEnter();
@@ -18,7 +18,6 @@ public:
 
 	SpriteRender spriteRender ;
 	//SoundSource* titleBGM;			//タイトルのBGM。
-
-	GameStartCountdown* m_gameStartCountdown; // ゲームスタートカウントダウンのポインタ
+ // ゲームスタートカウントダウンのポインタ
 };
 
