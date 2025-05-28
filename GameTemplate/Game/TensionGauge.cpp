@@ -6,6 +6,7 @@
 #include"RodFloatMove.h";
 #include "SceneFightFish.h"
 #include "FightFishState.h"
+#include "FishDetectionRadius.h"
 #include <numbers>
 
 
@@ -271,11 +272,18 @@ void TensionGauge::SetDownwardFishUI()
 
 void TensionGauge::Render(RenderContext& rc)
 {
+
+
 	m_tensionGaugeInside.Draw(rc);
+	m_fishDetectionRadius = FindGO<FishDetectionRadius>("fishDetectionRadius");
+	if (m_fishDetectionRadius != nullptr) {//魚の検知半径が作られていない時は表示しない。
+		m_fishDetectionRadius->GetUI().Draw(rc);
+	}
 	m_tensionGaugeOutside.Draw(rc);
 	m_signs_of_Fish.Draw(rc);
 	m_rodFloatMove = FindGO<RodFloatMove>("rodFloatMove");
 	if (m_rodFloatMove != nullptr) {//ウキが作られていなに時は表示しない。
 		m_rodFloatUI.Draw(rc);
 	}
+
 }
