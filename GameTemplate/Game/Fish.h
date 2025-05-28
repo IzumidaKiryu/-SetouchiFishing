@@ -16,6 +16,7 @@ struct FishData
 	//なので100と書いてもずっと下を向くわけではない。
 	int downwardBias=50;
 	float fishDetectionRadius=0;
+	float escapeForce = 1.0f;//逃げる力。
 };
 class PositionSelection;
 class Fish : public IGameObject
@@ -34,6 +35,7 @@ public:
 	void SetUpWardBias(float bias);
 	void SetDownwardBias(float bias);
 	void SetFishDetectionRadius(float fishDetectionRadius);
+	void SetEscapeForce(float escapeForce);
 	
 	void SetParameter(float timeUntilEscape, 
 		float spead,
@@ -41,7 +43,8 @@ public:
 		float initpos,
 		float upwardBias,
 		float downwardBias,
-		float fishDetectionRadius=0.3f
+		float fishDetectionRadius=0.2f,
+		float escapeForce = 0.005f
 	);
 
 

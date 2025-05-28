@@ -1,14 +1,15 @@
 #pragma once
 #include "sound/SoundSource.h"
 #include <string>
+#include< memory >
 
-enum Position {
-	POSITION_A,
-	POSITION_B,
-	POSITION_C,
-	POSITION_D,
-	POSITION_E,
-	POSITION_F,
+enum class Area {
+	A,
+	B,
+	C,
+	D,
+	E,
+	F,
 	INITIALSTATE,//初期状態
 	ENEMY_SAME_POSITION,//エネミーと同じ場所。
 };
@@ -22,17 +23,27 @@ class PlayFishing;
 class TimeLimitUI;
 class Enemy;
 class StealPositionBar;
+class FishSlot;
+class GameStartCountdown;
 
 class PositionSelection : public IGameObject
 {
 public:
 
-
+	
 	PositionSelection();
 	~PositionSelection();
 	void Update();
+	bool Start();
+	void Init();
+	void FindGameObjects();
+	bool ShouldChangeState(); // 状態を変更すべきかどうかを決定する純粋仮想関数
+	void OnUpdate();//毎フレームの処理はここに書く。
+
+
+
+
 	void Render(RenderContext& rc);
-	void SetDisplayiUI();
 	//void SetStealPositionBarUI();
 	void SetFishUI();//魚のUIをセット。
 	void SetFishDisplayPosition();//ディスプレイUIの場所を設定。
@@ -44,15 +55,18 @@ public:
 	void SetActivate();
 	void Timer();
 	float GetTime();
-	void SetFishUIPosition();
 	void FishChange();//魚を変える。
-	void SelectPosition();
+	void SelectArea();
 	void SetTotalValue(float score);
 	void FindFishHighScore();//スコアが高い魚を探す。
-	void IsWith_any_Position();
-	void SetFishDisplayOutside_to_Green(Position positon);
+	void UpdatePlayerArea();
+	void UpdateSlotFrameVisibility(Area positon);
 	void SetCameraPosition();
 	void SetFishTimeUntilEscapeUISize();
+	SpriteRender& GetFishUI(int num);
+	float GerFishTimeRatio(int index);
+	void SetCountdownFinished(bool countdownFinished);
+
 
 
 	float setFish = 0.0f;
@@ -68,20 +82,25 @@ public:
 	float m_totalScore = 0.0f;//スコアの合計。
 	bool m_is_time_up;//タイムアップしているかどうか。
 
+	bool m_isCountdownFinished = false; //カウントダウンが終わったかどうか。
+
+
 	//int m_isSetFishDisplayOutside_to_Green=0;//フレームのUIを緑色にするか。
-	Position m_currentFramePlayerPositionState;//今のフレームのポジション
-	Position m_previousFramePlayerPositionState = INITIALSTATE;
-	Position m_positionStateArray[6]{
-	POSITION_A,
-	POSITION_B,
-	POSITION_C,
-	POSITION_D,
-	POSITION_E,
-	POSITION_F,
+	Area m_currentFramePlayerPositionState;//今のフレームのポジション
+	Area m_currentFrameEnemyPositionState ;//今のフレームのエネミーのポジション。
+	Area m_previousFramePlayerPositionState = Area::INITIALSTATE;
+	Area m_previousFrameEnemyPositionState = Area::INITIALSTATE;//前のフレームのエネミーのポジション。
+	Area m_positionStateArray[6]{
+	Area::A,
+	Area::B,
+	Area::C,
+	Area::D,
+	Area::E,
+	Area::F,
 	};
 	int a = 0;
 	std::string fishHighScorePosition;//出ている魚の中で一番スコアが高い魚がいるポジション。
-	std::string PositionName[6] = {
+	std::string AreaName[6] = {
 		"positionA",
 		"positionB",
 		"positionC",
@@ -92,15 +111,13 @@ public:
 	;
 	std::string select_by_with_position;
 	char* objectName[6];
-	Position position_with_now;
-	Position enemy_position = INITIALSTATE;//初期状態;
+	Area m_currentArea;
+	Area m_enemyArea = Area::INITIALSTATE;//初期状態;
 	Player* m_player;			//プレイヤー。
 	GameCamera* m_gameCamera;			//ゲームカメラ。
 	BackGround* m_backGround;
 	//SoundSource* gameBGM;		//ゲーム中のBGM。
 	FontRender m_fontRender;
-	SpriteRender m_fishDisplayInside[6];
-	SpriteRender m_fishDisplayOutside[6];
 	FishManager* m_fishManager[6];
 	PlayFishing* m_playFishing;
 	SpriteRender* m_fishUI[6];
@@ -110,6 +127,11 @@ public:
 	StealPositionBar* m_stealPositionBar;
 	Stopwatch m_stopwatch;
 	Enemy* m_enemy;
+	FishSlot* m_fishSlot; // 魚のスロットUIを管理するクラス。
+	GameStartCountdown* m_gameStartCountdown; // ゲーム開始カウントダウンを管理するクラス。
 
+	//エリアを区切るための定数
+	const float FRONT_BACK_Z_BORDER = -175.0f;
+	const float COLUMN_LEFT_BORDER = -281.3f;
+	const float COLUMN_RIGHT_BORDER = 353.0f;
 };
-

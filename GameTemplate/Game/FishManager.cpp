@@ -18,7 +18,7 @@ FishManager::FishManager()
 
 FishManager::~FishManager()
 {
-	//DeleteFish();
+	DeleteFish();
 }
 
 void FishManager::Update()

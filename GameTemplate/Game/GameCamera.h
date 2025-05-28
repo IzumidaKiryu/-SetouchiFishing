@@ -11,6 +11,7 @@ public:
 	void Update();
 	void SetTarget(Vector3 targetPos);
 	void SetPosition(Vector3 pos);
+	void RotateOriginTarget(Quaternion rot);
 	/////////////////////////////////////
 	//メンバ変数
 	/////////////////////////////////////

@@ -49,6 +49,10 @@ namespace nsK2EngineLow {
 			float v[2];
 		};
 
+		float GetLength() {
+			return std::sqrt(vec.x * vec.x + vec.y * vec.y);
+		}
+
 		/// <summary>
 		/// 線形補完。
 		/// </summary>

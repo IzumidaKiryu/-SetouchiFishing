@@ -99,7 +99,7 @@ void PlayFishing::Update()
 
 bool PlayFishing::Start()
 {
-	//m_fishDetectionRadius = NewGO<FishDetectionRadius>(0, "fishDetectionRadius");
+	m_fishDetectionRadius = NewGO<FishDetectionRadius>(0, "fishDetectionRadius");
 	return true;
 }
 
@@ -262,29 +262,48 @@ void PlayFishing::Success()
 
 void PlayFishing::Failure()
 {
+
 	switch (m_playFishingStatus)
 	{
 	case playCastGauge:
 		DeleteGO(m_castGauge);
+		m_shouldChangeScene = true;
 		break;
 	case castAnimasion:
 		break;
 	case cast:
 		break;
+	case wait_for_fish:
+		m_rodFloatMove = FindGO<RodFloatMove>("rodFloatMove");
+		m_rodFloatMove->DeleteThisClass();
+		m_playCastGaugeState=NewGO<PlayCastGaugeState>(0, "playCastGaugeState");
+		DeleteGO(m_waitForFishState);
+		m_playFishingStatus = playCastGauge;
+		break;
 	case sceneFightFish:
 		DeleteGO(m_fightFishState);
+		m_shouldChangeScene = true;
+
 		break;
 	default:
 
 		break;
 	}
+	
+	if (m_shouldChangeScene)
+	{
+		ChangeScene();
+	}
+}
+void PlayFishing::ChangeScene()
+{
 	m_positionSelection = FindGO<PositionSelection>("positionSelection");
 	m_positionSelection->SetisDisplayingTrue();
 	//ポジションセレクトクラスのオブジェクトをアクティブにする
 	m_positionSelection->SetActivate();
 	DeleteThisClass();
-
 }
+
 
 
 
@@ -349,6 +368,7 @@ void PlayFishing::NewGOSceneFightFish()
 {
 	m_sceneFightFish = NewGO<SceneFightFish>(0, "sceneFightFish");
 }
+
 
 
 void PlayFishing::FindeFishManager()

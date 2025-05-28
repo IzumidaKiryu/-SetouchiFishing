@@ -41,6 +41,7 @@ public:
 	void Render(RenderContext& rc);
 	//bool IsCastEnd();//キャストが終わっているか。
 	Vector3 GetPosition();
+	void DeleteThisClass();
 
 
 	float m_scalar_multiply_in_first_velocity_vector;//初速度に掛けるスカラー

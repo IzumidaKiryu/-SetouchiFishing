@@ -7,6 +7,7 @@ FishingAnimationState::FishingAnimationState()
 {
 	m_fishModel = FindGO<FishModel>("fishModel");
 	m_player = FindGO<Player>("player_Playfishing");
+	m_player->SetChastAnimation();
 	m_initCameraPos= m_player->GetPos() + Vector3{0.0f,100.0f,100.0f};
 	m_endCameraPos= m_player->GetPos()+ Vector3{ 500.0f,500.0f,500.0f };
 
@@ -17,6 +18,8 @@ FishingAnimationState::FishingAnimationState()
 
 FishingAnimationState::~FishingAnimationState()
 {
+	m_player = FindGO<Player>("player_Playfishing");
+	m_player->EndCastAnimation();
 }
 
 void FishingAnimationState::CameraManagement()
