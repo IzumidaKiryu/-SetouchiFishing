@@ -82,6 +82,11 @@ namespace nsK2EngineLow {
 		{
 			return m_pivot;
 		}
+
+		void SetisDrawShadow(bool isDrawShadow)
+		{
+			m_font.SetIsDrawShadow(isDrawShadow);
+		}
 	
 		void Draw(RenderContext& rc);
 
