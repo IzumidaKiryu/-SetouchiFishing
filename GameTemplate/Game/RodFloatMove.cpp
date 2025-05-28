@@ -205,6 +205,11 @@ Vector3 RodFloatMove::GetPosition()
 	return m_position;
 }
 
+void RodFloatMove::DeleteThisClass()
+{
+	DeleteGO(this);	
+}
+
 
 //bool RodFloatMove::IsCastEnd()
 //{
