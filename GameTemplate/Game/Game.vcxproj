@@ -243,6 +243,7 @@
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameCamera.cpp" />
     <ClCompile Include="GameResult.cpp" />
+    <ClCompile Include="GameStartCountdown.cpp" />
     <ClCompile Include="GaugeCastSuccessful.cpp" />
     <ClCompile Include="GetRotation.cpp" />
     <ClCompile Include="Hirame.cpp" />
@@ -291,6 +292,7 @@
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameCamera.h" />
     <ClInclude Include="GameResult.h" />
+    <ClInclude Include="GameStartCountdown.h" />
     <ClInclude Include="GaugeCastSuccessful.h" />
     <ClInclude Include="GetRotation.h" />
     <ClInclude Include="Hirame.h" />
