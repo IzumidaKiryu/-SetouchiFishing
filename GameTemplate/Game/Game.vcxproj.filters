@@ -51,6 +51,7 @@
     <ClCompile Include="HitUIState.cpp" />
     <ClCompile Include="FishDetectionRadius.cpp" />
     <ClCompile Include="GameStartCountdown.cpp" />
+
     <ClCompile Include="FishSlot.cpp" />
     <ClCompile Include="GameStateBase.cpp" />
 

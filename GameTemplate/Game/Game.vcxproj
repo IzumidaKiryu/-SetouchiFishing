@@ -296,7 +296,9 @@
     <ClInclude Include="GameCamera.h" />
     <ClInclude Include="GameResult.h" />
     <ClInclude Include="GameStartCountdown.h" />
+
     <ClInclude Include="GameStateBase.h" />
+
     <ClInclude Include="GaugeCastSuccessful.h" />
     <ClInclude Include="GetRotation.h" />
     <ClInclude Include="Hirame.h" />
