@@ -4,7 +4,15 @@
 Jakoten::Jakoten()
 {
 	SetUI();
-	SetParameter(12.0f, 5.0f, 120.0f, 0.7,80,30,0.5f);
+	SetParameter(
+		12.0f, 
+		5.0f, 
+		120.0f, 
+		0.7,
+		80,
+		30,
+		0.3f
+	);
 }
 
 Jakoten::~Jakoten()
