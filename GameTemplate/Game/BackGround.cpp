@@ -5,19 +5,24 @@ BackGround::BackGround()
 {
 	//コメントアウトする。
 	/*PhysicsWorld::GetInstance()->EnableDrawDebugWireFrame();*/
-	modelRender.SetPosition(m_shipPosition);
-	modelRender.SetScale(Vector3{ 1.0f,1.0f,1.0f }*1.5f);
-	modelRender.Init("Assets/modelData/2Dship.tkm");
+	m_ship.SetPosition(m_shipPosition);
+	m_ship.SetScale(Vector3{ 1.0f,1.0f,1.0f }*1.5f);
+	m_ship.Init("Assets/modelData/2Dship.tkm");
 	//modelRender.Init("Assets/material/stera.tkm");
-	modelRender.Update();
+	m_ship.Update();
 
-	physicsStaticObject.CreateFromModel(modelRender.GetModel(), modelRender.GetModel().GetWorldMatrix());
+	physicsStaticObject.CreateFromModel(m_ship.GetModel(), m_ship.GetModel().GetWorldMatrix());
 
 
 	m_sea.SetPosition(/*m_positio*/Vector3{ 1.0f,1.0f,1.0f });
 	m_sea.SetScale(Vector3{ 1.0f,1.0f,1.0f }*10.0f);
 	m_sea.Init("Assets/modelData/sea_kari.tkm");
 	m_sea.Update();
+
+	m_isrand.Init("Assets/modelData/stage/shima.tkm");
+	m_isrand.SetPosition(m_israndPosition);
+	m_isrand.SetScale(Vector3(10.0f, 10.0f, 10.0f));
+	m_isrand.Update();
 }
 
 BackGround::~BackGround()
@@ -28,8 +33,8 @@ BackGround::~BackGround()
 void BackGround::Update()
 {
 	Float();
-	modelRender.SetPosition(m_floating + m_shipPosition);
-	modelRender.Update();
+	m_ship.SetPosition(m_floating + m_shipPosition);
+	m_ship.Update();
 
 }
 
@@ -49,7 +54,7 @@ void BackGround::BackGroundDeactive()
 
 void BackGround::BackGroundActive()
 {
-	physicsStaticObject.CreateFromModel(modelRender.GetModel(), modelRender.GetModel().GetWorldMatrix());
+	physicsStaticObject.CreateFromModel(m_ship.GetModel(), m_ship.GetModel().GetWorldMatrix());
 
 }
 
@@ -57,6 +62,7 @@ void BackGround::BackGroundActive()
 
 void BackGround::Render(RenderContext& rc)
 {
-	modelRender.Draw(rc);
+	m_ship.Draw(rc);
 	m_sea.Draw(rc);
+	m_isrand.Draw(rc);
 }

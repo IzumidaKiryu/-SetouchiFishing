@@ -1,16 +1,24 @@
 #pragma once
 #include "sound/SoundSource.h"
+#include "GameStateBase.h"
 
 //タイトル。
-class Title :public IGameObject
+class GameStartCountdown;
+class Title :public GameStateBase
 {
 public:
 	Title();
 	~Title();
-	void Update();
-	void Render(RenderContext& rc);
+	void OnUpdate();
+	bool ShouldChangeState(); // 状態を変更すべきかどうかを決定する純粋仮想関数
+	void OnEnter();
+	void OnExit();
 
-	SpriteRender spriteRender;
-	SoundSource* titleBGM;			//タイトルのBGM。
+	void Render(RenderContext& rc)override;
+
+	SpriteRender spriteRender ;
+	//SoundSource* titleBGM;			//タイトルのBGM。
+
+	GameStartCountdown* m_gameStartCountdown; // ゲームスタートカウントダウンのポインタ
 };
 
