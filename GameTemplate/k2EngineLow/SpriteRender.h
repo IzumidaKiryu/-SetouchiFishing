@@ -87,10 +87,12 @@ namespace nsK2EngineLow {
 		/// </summary>
 		void Update()
 		{
-			m_sprite.Update(m_position,
-				m_rotation,
-				m_scale,
-				m_pivot);
+			if (m_isActive) {
+				m_sprite.Update(m_position,
+					m_rotation,
+					m_scale,
+					m_pivot);
+			}
 		}
 		/// <summary>
 		/// 描画
@@ -100,9 +102,21 @@ namespace nsK2EngineLow {
 
 		void OnDraw(RenderContext& rc)
 		{
-			m_sprite.Draw(rc);
+			if (m_isActive) {
+				m_sprite.Draw(rc);
+			}
+		}
+		void SetActive(bool isActive)
+		{
+			m_isActive = isActive;
+		}
+
+		bool GetActive()
+		{
+			return m_isActive;
 		}
 	private:
+		bool			m_isActive = true;
 		Sprite			m_sprite;								//スプライトクラスの参照
 		Vector3			m_position;								//座標
 		Quaternion		m_rotation = Quaternion::Identity;		//向き
