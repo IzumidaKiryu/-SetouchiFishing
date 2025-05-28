@@ -91,9 +91,9 @@ void FishingRodHP::SetUI()
 	m_RodHPGaugeInside.SetScale(Vector3{ 2.0f, 1.0f, 1.0f });
 	m_RodHPGaugeInside.Update();
 
-	m_RodHPGaugeOutside.Init("Assets/modelData/castGauge_Outside.DDS", 500, 100);
-	m_RodHPGaugeOutside.SetPivot(Vector2(0.5f, 0.5f));
-	m_RodHPGaugeOutside.SetPosition(Vector3(-300.0f, -300.0f, 0.0f));
+	m_RodHPGaugeOutside.Init("Assets/modelData/landscape_gauge_outer.DDS", 510, 110);
+	m_RodHPGaugeOutside.SetPivot(Vector2(0.0f, 0.5f));
+	m_RodHPGaugeOutside.SetPosition(Vector3(-470.0f, -300.0f, 0.0f));
 	m_RodHPGaugeOutside.SetScale(Vector3{ 2.0f, 1.0f, 1.0f });
 	m_RodHPGaugeOutside.Update();
 
@@ -107,8 +107,8 @@ void FishingRodHP::SetUI()
 void FishingRodHP::Render(RenderContext& rc)
 {
 	m_RodHPGaugeInside.Draw(rc);
-	//m_RodHPGaugeOutside.Draw(rc);
 	m_RodHPBar.Draw(rc);
+	m_RodHPGaugeOutside.Draw(rc);
 }
 
 void FishingRodHP::failure()
