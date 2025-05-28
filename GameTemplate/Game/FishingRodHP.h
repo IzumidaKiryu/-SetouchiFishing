@@ -22,8 +22,10 @@ public:
 	void failure();//失敗。
 	void SetIs_playFishingFinishedTrue();
 	void AddStealPositionPoint();
-	void SetPullPowerBuff();//HPの割合の分引く力にバフを掛ける。
-	float GetPullPowerBuff();
+
+
+	void CalculatePowerMultiplier();
+	float GetPowerMultiplier();
 
 
 	float m_MaxHp = 200.0f;//HPの上限。

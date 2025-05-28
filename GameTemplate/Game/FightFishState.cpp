@@ -47,32 +47,26 @@ void FightFishState::Update()
 	FishDirectionChange();
 
 	//魚が逃げていく力を計算する。
-	SetFishEscapePower();
+	CalculateFishEscapePower();
 
-	//魚影の位置を決める。
-	SetSigns_of_Fish_Position();
+	//魚を引っ張る力を計算する。
+	CalculateCalculateFishPullForce();
 
-	SetRangeRate();
+	//魚の移動距離を計算する。
+	CalculateFishDisplacement();
 
 
 
-	
-	/*m_playFishing->m_current_float_range_max_range_rate = m_playFishing->m_current_fish_range_and_max_range_rate;
-	m_playFishing->m_current_fish_range_and_max_range_rate = m_playFishing->m_current_float_range_max_range_rate;*/
-	//m_tensionGauge->SetFishUI_Position(m_playFishing->m_current_fish_range_and_max_range_rate);
-	// 
-	// 
-	// 
-	//m_playFishing->SetFailure();
+	SumFishModelPosition(m_current_fish_range_and_max_range_rate);
+	m_sum_current_float_range_max_range_rate = m_current_fish_range_and_max_range_rate;
 
-	SumFishModelPosition(m_sum_current_fish_range_and_max_range_rate);
-	SetFish();
-	m_sum_current_float_range_max_range_rate = m_sum_current_fish_range_and_max_range_rate;
 	SumRodFloatPosition(m_sum_current_float_range_max_range_rate);
+
+	SetFish();
+	SetFloat();
+
 	CheckFailure();//成功したかどうか.
 	CheckSuccess();//失敗したかどうか。
-
-	SetFloat();
 }
 
 
@@ -81,9 +75,12 @@ void FightFishState::Update()
 //	return false;
 //}
 
-void FightFishState::RightAndLeftManagement()
-{
 
+void FightFishState::CalculateDistanceMultiplier()
+{
+	//1倍から0.5倍の範囲で魚が逃げる力を小さくする。
+	//遠ければ低い値、近ければ高い値になる。
+	m_distanceMultiplier = 1 - ((m_current_fish_range_and_max_range_rate) * 0.5);
 }
 
 void FightFishState::CalculateCalculateFishPullForce()
@@ -113,19 +110,38 @@ void FightFishState::CalculateCalculateFishPullForce()
 
 }
 
-void FightFishState::SetFishEscapePower()
+
+/// <summary>
+/// 魚が逃げる力を計算するための関数。
+/// </summary> 
+void FightFishState::CalculateFishEscapePower()
 {
+
+	//距離による逃げる力を計算する。
+	CalculateDistanceMultiplier();
+
+	//魚が上を向いているときだけ逃げる力を加える。
 	if (m_fishFacing == Upward) {
-		m_fishEscapePower += 0.002;
+		m_fishEscapePower += m_fishData.escapeForce * m_distanceMultiplier;
 	}
 
 }
 
-void FightFishState::SetFishDirection()
+
+/// <summary>
+/// 魚の移動距離を計算する。
+/// </summary>
+void FightFishState::CalculateFishDisplacement()
 {
 
+	float fishDisplacement;
+	//逃げる力＋引く力。
+	fishDisplacement=(m_forcePullFish)+m_fishEscapePower;
 
+
+	m_current_fish_range_and_max_range_rate = fishDisplacement;
 }
+
 
 /// <summary>
 /// 魚の向く方向を変更するための関数。
@@ -372,12 +388,6 @@ void FightFishState::Set3DFishPosition()
 	m_playFishing->m_current_fish_range_and_max_range_rate;
 }
 
-void FightFishState::SetRangeRate()
-{
-	//m_range_rate = m_initRangeRate;
-	//m_total_by_fish_advanced_distance+=m_this_frame_by_fish_advanced_distance;
-	//m_range_rate += m_total_by_fish_advanced_distance;
-}
 
 void FightFishState::CameraManagement()
 {
@@ -385,6 +395,7 @@ void FightFishState::CameraManagement()
 	m_cameraTarget = GetFishModelPos();
 	SetCamera(m_cameraPos, m_cameraTarget);
 }
+
 
 
 //void TensionGauge::AnnounceChangeFishState()
