@@ -9,7 +9,7 @@ Enemy::Enemy()
 		"Assets/animData/Player/FishingCast.tka"
 	);
 	//ユニティちゃんのモデルを読み込む。
-	SetModel("Assets/modelData/Enemy/Enemy.tkm", animationClips, enAnimationClip_Num, enModelUpAxisZ);
+	SetModel("Assets/modelData/Enemy/Enemy.tkm", true,animationClips, enAnimationClip_Num, enModelUpAxisZ);
 }
 
 Enemy::~Enemy()
