@@ -86,17 +86,30 @@ void FightFishState::RightAndLeftManagement()
 
 }
 
-void FightFishState::SetSigns_of_Fish_Position()
+void FightFishState::CalculateCalculateFishPullForce()
 {
 	//SetFishEscapePower();
-	if (m_fishFacing == Upward) {//魚が上を向いているときにも引き寄せる力を加える。(上を向いているときにも少しは下に引っ張れるようにするため)。
-		m_forcePullFish += m_getRotation->nowFrameRotationQuantity/* * 200*/ * 0.05* m_fishingRodHP->GetPullPowerBuff();
-	}
-	else {
-		m_forcePullFish += m_getRotation->nowFrameRotationQuantity /** 200*/ * 0.05* m_fishingRodHP->GetPullPowerBuff();
+	float basePullForce = 0.0f;
+
+
+	//コントローラーの回転量からベースの魚を引っ張る力を計算する。
+	switch (m_fishFacing)
+	{
+		//回転量×体力率
+	case Upward:
+		basePullForce = GetRotationPower() * m_upwardBiasPullForce;
+		break;
+	case Downward:
+		basePullForce = GetRotationPower() * m_downwardBiasPullForce;
+		break;
+	default:
+		break;
 	}
 
-	m_sum_current_fish_range_and_max_range_rate = -(m_forcePullFish) + m_fishEscapePower;
+	//プレイヤーの体力を考慮する。
+	m_forcePullFish -= basePullForce * m_fishingRodHP->GetPowerMultiplier();
+
+	/*m_current_fish_range_and_max_range_rate = -(m_forcePullFish) + m_fishEscapePower;*/
 
 }
 

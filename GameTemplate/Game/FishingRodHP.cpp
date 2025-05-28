@@ -24,7 +24,7 @@ void FishingRodHP::Update()
 	m_RodHPBar.SetScale(Vector3{ m_Hp * 2 / m_MaxHp, 1.0f, 1.0f });
 	m_RodHPBar.Update();
 	/*}*/
-	SetPullPowerBuff();
+	CalculatePowerMultiplier();
 	failure();//失敗したかどうか。
 	m_previousFrameHP = m_Hp;
 }
@@ -114,8 +114,8 @@ void FishingRodHP::Render(RenderContext& rc)
 void FishingRodHP::failure()
 {
 	if (m_Hp <= 0.0f) {
-		m_playFishing = FindGO<PlayFishing>("playFishing");
-		m_playFishing->SetFailure();
+		/*m_playFishing = FindGO<PlayFishing>("playFishing");
+		m_playFishing->SetFailure();*/
 	}
 }
 
@@ -131,13 +131,27 @@ void FishingRodHP::AddStealPositionPoint()
 	/*m_positionSelection->m_stealPositionPoint += m_Hp;*/
 }
 
-void FishingRodHP::SetPullPowerBuff()
+/// <summary>
+/// プレイヤーのパワーに比例して引く力を変える。
+/// </summary>
+void FishingRodHP::CalculatePowerMultiplier()
 {
-	//1倍から6倍の範囲で魚を引く力を大きくする。
-	m_pullPowerBuff = ((m_Hp / m_MaxHp)*6)+1;
+	//値が増えるスピードがなだらかすぎず速すぎない
+	//この式を描かづにするとHPマックスの時と、HP半分の時で差が大きい（２倍）。
+	//0.6乗することで、急に増える量が大きくなったり（X^2）、
+	// 途中であまり増えなくなった(ln(x))りせずにちょうどいい値を返してくれる。
+	m_powerMultiplier = pow((m_Hp / m_MaxHp),0.4);
+	//0倍から15倍の範囲にする。
+	m_powerMultiplier *= 15;
 }
 
-float FishingRodHP::GetPullPowerBuff()
+
+
+/// <summary>
+/// HPの割合に比例して魚が引く力を変える。
+/// </summary>
+/// <returns></returns>
+float FishingRodHP::GetPowerMultiplier()
 {
-	return m_pullPowerBuff;
+	return m_powerMultiplier;
 }
