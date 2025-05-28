@@ -14,6 +14,8 @@ public:
 	~FishingRodHP();
 
 	void Update();
+	float CalculateRecoveryAmount();
+	void RecoverPower();
 	void SetFishingRodHP();
 	void SetUI();
 	void Render(RenderContext& rc);

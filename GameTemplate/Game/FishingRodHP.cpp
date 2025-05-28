@@ -29,6 +29,27 @@ void FishingRodHP::Update()
 	m_previousFrameHP = m_Hp;
 }
 
+float FishingRodHP::CalculateRecoveryAmount()
+{
+
+	//今のスタミナの割合によって回復量を決める。
+	float recoveryMultiplier;
+	recoveryMultiplier=std::pow((m_Hp / m_MaxHp),1.5);
+
+	return recoveryMultiplier;
+}
+
+void FishingRodHP::RecoverPower()
+{
+	//回転量を取得。
+	float m_rotationPower = m_fightFishState->GetRotationPower();
+
+	//コントローラーが回ってないときはHPを回復する。
+	if (m_rotationPower <= 0.0f) {
+		m_Hp += m_baseRecovery* CalculateRecoveryAmount();
+	}
+}
+
 void FishingRodHP::SetFishingRodHP()
 {
 	m_fightFishState = FindGO<FightFishState>("fightFishState");
@@ -46,12 +67,14 @@ void FishingRodHP::SetFishingRodHP()
 		m_Hp -= m_fightFishState->GetRotationPower() * 10.0f;
 	}
 
+	if (m_Hp<0) {
+		m_Hp = 0.0f;
+	}
+
 
 	float m_rotationPower = m_fightFishState->GetRotationPower();
-	//コントローラーが回ってないときはHPを回復する。
-	if (m_rotationPower <= 0.0000f) {
-		m_Hp += 0.5;
-	}
+	//回復。
+	RecoverPower();
 
 
 	//HPがMAXを超えていたら、MAXの値にする。
