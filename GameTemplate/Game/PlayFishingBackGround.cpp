@@ -34,5 +34,5 @@ void PlayFishingBackGround::Render(RenderContext& rc)
 {
 	/*modelRender.Draw(rc);*/
 	/*m_ship.Draw(rc);*/
-	m_isrand.Draw(rc);
+	//m_isrand.Draw(rc);
 }

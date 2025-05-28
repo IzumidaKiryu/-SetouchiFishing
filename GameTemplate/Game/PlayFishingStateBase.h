@@ -91,7 +91,7 @@ public:
 	Vector3 m_cameraPos;
 	Vector3 m_cameraTarget;
 
-	float m_sum_current_fish_range_and_max_range_rate;//今の魚の距離と最大の魚の距離の割合（それぞれのクラスで船と魚の最大距離とこの割合を掛けて場所を表現する。）
+	float m_current_fish_range_and_max_range_rate;//今の魚の距離と最大の魚の距離の割合（それぞれのクラスで船と魚の最大距離とこの割合を掛けて場所を表現する。）
 	float m_sum_current_float_range_max_range_rate;//今のウキの距離と最大のウキの距離の割合。
 	bool m_isChengeState = false;
 

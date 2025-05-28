@@ -11,56 +11,85 @@
 #include "ScoreDisplay.h"
 #include "GameResult.h"
 #include "SkyCube.h"
+#include "FishSlot.h"
+#include "GameStartCountdown.h"
+#include "Enemy.h"
+#include "Player.h"
+#include"PositionSelection.h"
+#include"GameStateBase.h"
+#include"Title.h"
+#include< memory >
+#include <iostream>
 
 Game::Game()
 {
-	m_skyCube = NewGO<SkyCube>(0, "skyCube");
-	m_skyCube->SetLuminance(1.0f);
-	m_skyCube->SetScale(400.0f);//4000倍にすると描画がなくなるかも。
 
-	//m_rul = NewGO<GameResult>(0, "rusut");
-	positionSelection = NewGO<PositionSelection>(0, "positionSelection");
-	//m_scoreDisplay = NewGO<ScoreDisplay>(0, "scoreDisplay");
-	//m_playFishing = NewGO<PlayFishing>(0, "playFishing");
-	//////HP�o�[�i����j
-	//hpBarInSide.Init("Assets/modelData/HPbar.DDS", 1024, 128);
-	//hpBarInSide.SetPivot(Vector2(0.0f, 0.5f));
-	//hpBarInSide.SetPosition(Vector3(-850.0f, 450.0f, 0.0f));
-	//hpBarInSide.SetScale(Vector3{ 0.35f, 0.5f, 1.0f });
-	//
-	//getRotation= NewGO<GetRotation>(0, "getRotation");
-	////�v���C���[�̃I�u�W�F�N�g����B
-	//player = NewGO<Player>(0, "player");
-
-	////�Q�[���J�����̃I�u�W�F�N�g����B
-	//gameCamera = NewGO<GameCamera>(0, "gamecamera");
-
-	////�w�i�̃I�u�W�F�N�g����B
-	//backGround = NewGO<BackGround>(0);
-	
+	currentState = move(std::make_unique<Title>());
+	NewGOGameObjects();
+	DeactivateGameObjects();
 }
 
 Game::~Game()
 {
 	DeleteGO(positionSelection);
-	DeleteGO(player);
+	DeleteGO(m_backGround);
+	DeleteGO(m_skyCube);
+	//DeleteGO(player);
 	DeleteGO(gameCamera);
 	
-	DeleteGO(backGround);
+	//DeleteGO(backGround);
+}
+
+bool Game::Start()
+{
+	return true;
 }
 
 
 void Game::Update()
 {
-	//rotationQuantity = { getRotation->rotationQuantity*0.15f/*5.0f*/,2.0f,0.0f};
+	if (currentState->ShouldChangeState())
+	{
+		currentState->Exit();
 
-
-	/*hpBarInSide.SetScale(m_rotationQuantity);
-
-	hpBarInSide.Update();*/
+		currentState = currentState->NextState();
+		if (currentState)
+		{
+			currentState->Enter();
+		}
+	}
 }
 void Game::Render(RenderContext& rc)
 {
-	////m_fontRender.Draw(rc);
-	//hpBarInSide.Draw(rc);
+}
+
+void Game::NewGOGameObjects()
+{
+	m_skyCube = NewGO<SkyCube>(0, "skyCube");
+	m_skyCube->SetLuminance(1.0f);
+	m_skyCube->SetScale(600.0f);//4000倍にすると描画がなくなるかも。
+
+	//背景のオブジェクトを作る。
+	m_backGround = NewGO<BackGround>(0, "backGround");
+	//カウントダウン
+	m_gameStartCountdown = NewGO<GameStartCountdown>(0, "gameStartCountdown");
+	//カメラ
+	gameCamera = NewGO<GameCamera>(0, "gamecamera");
+	//ポジション選択シーンのオブジェクトを作る。
+	m_positionSelection = NewGO<PositionSelection>(0, "positionSelection");
+	//プレイヤーのオブジェクトを作る。
+	m_player = NewGO<Player>(0, "player");
+	//エネミーのオブジェクトを作る。
+	m_enemy = NewGO<Enemy>(0, "enemy");
+
+}
+
+void Game::DeactivateGameObjects()
+{
+	m_enemy->Deactivate();
+	m_player->Deactivate();
+	m_positionSelection->Deactivate();
+	m_gameStartCountdown->Deactivate();
+	m_backGround->Deactivate();
+	m_skyCube->Deactivate();
 }

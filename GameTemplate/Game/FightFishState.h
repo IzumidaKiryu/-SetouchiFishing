@@ -26,14 +26,18 @@ public:
 	~FightFishState();
 
 	void Update();
-	void RightAndLeftManagement();
-	void SetSigns_of_Fish_Position();
-	void SetFishEscapePower();
-	void SetFishDirection();//魚が向いている方向を変えるかどうか。
+
 	void FishDirectionChange();//魚が向いている方向を変える。
-	void InitFishDirection();//魚の最初の向き
+
+	void CalculateDistanceMultiplier();//距離による魚の力の倍率を計算する。
+	void CalculateCalculateFishPullForce();//魚を引っ張る力を計算する。
+	void CalculateFishEscapePower();//魚が逃げようとする力を計算する。
+	void CalculateFishDisplacement();//魚の移動距離を計算する。
+
+	
 	void CheckFailure();//失敗。
 	void CheckSuccess();//成功。
+
 	float GetRotationPower();
 
 	void SetWhen_State_Announce_Should_State();
@@ -49,12 +53,13 @@ public:
 	void Set3DFishPosition();
 	void SetRangeRate();
 	void CameraManagement()override;
+	void GetDistanceMultiplier();
 
 
 	float m_forcePullFish;//魚を引っ張る力。
 	//bool is_fish_suited_for_upper_side = true;//魚が上側を向いているかどうか。
 	float m_initRangeRate;
-	float m_fishEscapePower = 0.0f;//魚が逃げようとする力。（矢印を左右に引っ張る力）。
+	float m_fishEscapePower = 0.0f;//魚が逃げようとする力。
 	int m_fishChange_in_DirectionTimes = 0;//魚が方向転換した数。
 	int m_when_state_announce_should = 0;//いつステートをアナウンスに変えるか。（この数字23なら方向転換回数が23回目の時にステートをアナウンスにする。）
 	int m_when_State_Angry_or_exhausted_Should;//いつステートをAngryかexhaustedに変えるか。
@@ -65,6 +70,9 @@ public:
 	int m_frameCount = 0;
 	float m_this_frame_by_fish_advanced_distance;//このフレームで魚が進んだ距離（割合で表す）
 	float m_total_by_fish_advanced_distance;//トータルで魚が進んだ距離。
+	float m_distanceMultiplier;//距離によりる魚の力の倍率。
+	float m_upwardBiasPullForce = 0.04f;//魚が上を向いているときの引っ張るベースの力。
+	float m_downwardBiasPullForce = 0.02f;//魚が下を向いているときの引っ張るベースの力。
 
 	Vector3 fish3DPos;
 

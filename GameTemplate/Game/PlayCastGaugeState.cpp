@@ -23,7 +23,7 @@ void PlayCastGaugeState::Update()
 	//カメラを管理する。
 	CameraManagement();
 	//魚の場所を決める。
-	SumFishModelPosition(m_sum_current_fish_range_and_max_range_rate);
+	SumFishModelPosition(m_current_fish_range_and_max_range_rate);
 	//場所を反映させる。
 	SetFish();
 	if (m_castGauge->GetIsThisClasEnd()) {
@@ -33,8 +33,8 @@ void PlayCastGaugeState::Update()
 
 void PlayCastGaugeState::CameraManagement()
 {
-	m_cameraPos = m_player->m_position + Vector3{ 0.0f,100.0f,100.0f } + Floating(CameraPattern);
-	m_cameraTarget = GetFishModelPosition();
+	m_cameraPos = m_player->m_position + Vector3{ 0.0f,100.0f,100.0f };
+	m_cameraTarget = GetFishModelPosition() + Floating(CameraPattern);
 
 	SetCamera(
 		m_cameraPos,

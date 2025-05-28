@@ -24,9 +24,30 @@ void FishingRodHP::Update()
 	m_RodHPBar.SetScale(Vector3{ m_Hp * 2 / m_MaxHp, 1.0f, 1.0f });
 	m_RodHPBar.Update();
 	/*}*/
-	SetPullPowerBuff();
+	CalculatePowerMultiplier();
 	failure();//失敗したかどうか。
 	m_previousFrameHP = m_Hp;
+}
+
+float FishingRodHP::CalculateRecoveryAmount()
+{
+
+	//今のスタミナの割合によって回復量を決める。
+	float recoveryMultiplier;
+	recoveryMultiplier=std::pow((m_Hp / m_MaxHp),1.5);
+
+	return recoveryMultiplier;
+}
+
+void FishingRodHP::RecoverPower()
+{
+	//回転量を取得。
+	float m_rotationPower = m_fightFishState->GetRotationPower();
+
+	//コントローラーが回ってないときはHPを回復する。
+	if (m_rotationPower <= 0.0f) {
+		m_Hp += m_baseRecovery* CalculateRecoveryAmount();
+	}
 }
 
 void FishingRodHP::SetFishingRodHP()
@@ -46,12 +67,14 @@ void FishingRodHP::SetFishingRodHP()
 		m_Hp -= m_fightFishState->GetRotationPower() * 10.0f;
 	}
 
+	if (m_Hp<0) {
+		m_Hp = 0.0f;
+	}
+
 
 	float m_rotationPower = m_fightFishState->GetRotationPower();
-	//コントローラーが回ってないときはHPを回復する。
-	if (m_rotationPower <= 0.0000f) {
-		m_Hp += 0.5;
-	}
+	//回復。
+	RecoverPower();
 
 
 	//HPがMAXを超えていたら、MAXの値にする。
@@ -68,9 +91,9 @@ void FishingRodHP::SetUI()
 	m_RodHPGaugeInside.SetScale(Vector3{ 2.0f, 1.0f, 1.0f });
 	m_RodHPGaugeInside.Update();
 
-	m_RodHPGaugeOutside.Init("Assets/modelData/castGauge_Outside.DDS", 500, 100);
-	m_RodHPGaugeOutside.SetPivot(Vector2(0.5f, 0.5f));
-	m_RodHPGaugeOutside.SetPosition(Vector3(-300.0f, -300.0f, 0.0f));
+	m_RodHPGaugeOutside.Init("Assets/modelData/landscape_gauge_outer.DDS", 510, 110);
+	m_RodHPGaugeOutside.SetPivot(Vector2(0.0f, 0.5f));
+	m_RodHPGaugeOutside.SetPosition(Vector3(-470.0f, -300.0f, 0.0f));
 	m_RodHPGaugeOutside.SetScale(Vector3{ 2.0f, 1.0f, 1.0f });
 	m_RodHPGaugeOutside.Update();
 
@@ -84,15 +107,15 @@ void FishingRodHP::SetUI()
 void FishingRodHP::Render(RenderContext& rc)
 {
 	m_RodHPGaugeInside.Draw(rc);
-	//m_RodHPGaugeOutside.Draw(rc);
 	m_RodHPBar.Draw(rc);
+	m_RodHPGaugeOutside.Draw(rc);
 }
 
 void FishingRodHP::failure()
 {
 	if (m_Hp <= 0.0f) {
-		m_playFishing = FindGO<PlayFishing>("playFishing");
-		m_playFishing->SetFailure();
+		/*m_playFishing = FindGO<PlayFishing>("playFishing");
+		m_playFishing->SetFailure();*/
 	}
 }
 
@@ -108,13 +131,27 @@ void FishingRodHP::AddStealPositionPoint()
 	/*m_positionSelection->m_stealPositionPoint += m_Hp;*/
 }
 
-void FishingRodHP::SetPullPowerBuff()
+/// <summary>
+/// プレイヤーのパワーに比例して引く力を変える。
+/// </summary>
+void FishingRodHP::CalculatePowerMultiplier()
 {
-	//1倍から6倍の範囲で魚を引く力を大きくする。
-	m_pullPowerBuff = ((m_Hp / m_MaxHp)*6)+1;
+	//値が増えるスピードがなだらかすぎず速すぎない
+	//この式を描かづにするとHPマックスの時と、HP半分の時で差が大きい（２倍）。
+	//0.6乗することで、急に増える量が大きくなったり（X^2）、
+	// 途中であまり増えなくなった(ln(x))りせずにちょうどいい値を返してくれる。
+	m_powerMultiplier = pow((m_Hp / m_MaxHp),0.4);
+	//0倍から15倍の範囲にする。
+	m_powerMultiplier *= 15;
 }
 
-float FishingRodHP::GetPullPowerBuff()
+
+
+/// <summary>
+/// HPの割合に比例して魚が引く力を変える。
+/// </summary>
+/// <returns></returns>
+float FishingRodHP::GetPowerMultiplier()
 {
-	return m_pullPowerBuff;
+	return m_powerMultiplier;
 }

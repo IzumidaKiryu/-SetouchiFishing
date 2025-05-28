@@ -41,6 +41,11 @@ namespace nsK2EngineLow {
 			*@param[in]	shadowColor			影の色。
 			*/
 		
+		void SetIsDrawShadow(bool isDrawShadow)
+		{
+			m_isDrawShadow = isDrawShadow;
+		}
+
 		/// <summary>
 		/// 影のパラメータを設定
 		/// </summary>

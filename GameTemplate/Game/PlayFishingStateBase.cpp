@@ -178,7 +178,7 @@ void PlayFishingStateBase::SetFloatUIPosition(float current_float_range_max_rang
 
 void PlayFishingStateBase::SetCurrentFishRangeAndMaxRangeRate(float current_fish_range_and_max_range_rate)
 {
-	m_sum_current_fish_range_and_max_range_rate = current_fish_range_and_max_range_rate;
+	m_current_fish_range_and_max_range_rate = current_fish_range_and_max_range_rate;
 }
 
 Vector3 PlayFishingStateBase::GetRodPosition()
@@ -207,7 +207,7 @@ void PlayFishingStateBase::Failure()
 
 void PlayFishingStateBase::Pass_Current_Fish_Range_And_Max_Range_Rate()
 {
-	m_playFishing->m_current_fish_range_and_max_range_rate = m_sum_current_fish_range_and_max_range_rate;
+	m_playFishing->m_current_fish_range_and_max_range_rate = m_current_fish_range_and_max_range_rate;
 }
 
 void PlayFishingStateBase::Pass_Current_Float_Range_And_Max_Range_Rate()
@@ -239,7 +239,7 @@ void PlayFishingStateBase::Pass_CameraTarget()
 void PlayFishingStateBase::Set_Init_Current_Fish_Range_And_Max_Range_Rate()
 {
 
-	m_sum_current_fish_range_and_max_range_rate = m_playFishing->m_current_fish_range_and_max_range_rate;
+	m_current_fish_range_and_max_range_rate = m_playFishing->m_current_fish_range_and_max_range_rate;
 }
 
 void PlayFishingStateBase::Set_Init_Current_Float_Range_And_Max_Range_Rate()
@@ -315,7 +315,7 @@ float PlayFishingStateBase::GetCurrentFishRangeAndMaxRangeRate()
 float PlayFishingStateBase::GetCurrent_Float_Range_Max_Range_Rate()
 {
 	m_rodFloatMove = FindGO<RodFloatMove>("rodFloatMove");
-;	return m_rodFloatMove->GetCurrent_Float_Range_Max_Range_Rate(m_rodFloatMove->m_position.z);
+	return m_rodFloatMove->GetCurrent_Float_Range_Max_Range_Rate(m_rodFloatMove->m_position.z);
 }
 
 Vector3 PlayFishingStateBase::GetPlayerPos()

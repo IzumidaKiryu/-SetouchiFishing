@@ -52,9 +52,9 @@ public:
 	FishData m_fishData;//魚のデータ。
 
 	FishType m_fishType;
+	SpriteRender* m_ui;
 	Buri* m_buri;
 	Tatiuo* m_tatiuo;
-	SpriteRender* m_ui;
 	Jakoten* m_jakoten;
 	Hirame* m_hirame;
 	Tai* m_tai;
