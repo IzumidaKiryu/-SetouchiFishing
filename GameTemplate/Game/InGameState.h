@@ -31,7 +31,7 @@ public:
 	SpriteRender& GetFishUI(int index);
 	float GetFishScore(int index);
 
-
+	void SetScore(float score);
 
 	GameStartCountdown* m_gameStartCountdown;
 	Player* m_player;
@@ -45,7 +45,7 @@ public:
 
 
 
-	float m_timelimit = 30;//時間制限
+	float m_timelimit = 240;//時間制限
 	float m_time = m_timelimit;//時間
 	float m_totalScore = 0.0f;//スコアの合計。
 	TimeLimitUI* m_timeLimitUI;

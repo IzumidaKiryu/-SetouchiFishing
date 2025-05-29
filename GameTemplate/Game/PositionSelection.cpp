@@ -254,19 +254,6 @@ float PositionSelection::GetTime()
 
 
 
-void PositionSelection::FishChange()
-{
-	//for (int i = 0; i < 6; i++) {
-	//	if (m_fishManager[i]->GetShouldFishChange()) {
-	//		DeleteGO(m_fishManager[i]);
-
-	//		//フィッシュマネージャーの生成。
-	//		m_fishManager[i] = NewGO<FishManager>(0, objectName[i]);
-	//	}
-
-	//}
-}
-
 void PositionSelection::SelectArea()
 {
 	m_playFishing->SetFishManagerObjectName(AreaName[static_cast<int>(m_currentArea)]);
@@ -277,6 +264,9 @@ void PositionSelection::SetTotalValue(float individualValue)
 	m_totalScore += individualValue;
 }
 
+/// <summary>
+/// 一番スコアが高い魚を探す。
+/// </summary>
 void PositionSelection::FindFishHighScore()
 {
 	//一番スコアが高い魚がいる場所を探すアルゴリズム。
@@ -371,16 +361,6 @@ void PositionSelection::SetCameraPosition()
 	//m_gameCamera->SetTarget(m_backGround->m_shipPosition + Vector3{ 0.0f,0.0f,100.0f });
 }
 
-//SpriteRender& PositionSelection::GetFishUI(int num)
-//{
-//	m_fishUI[num] = m_fishManager[num]->m_ui;
-//		return *m_fishUI[num];
-//}
-//
-//float PositionSelection::GerFishTimeRatio(int index)
-//{
-//	return m_fishManager[index]->GetTimeRatio();
-//}
 
 void PositionSelection::SetCountdownFinished(bool countdownFinished)
 {

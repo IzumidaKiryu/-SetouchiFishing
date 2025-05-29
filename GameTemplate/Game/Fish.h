@@ -17,6 +17,7 @@ struct FishData
 	int downwardBias=50;
 	float fishDetectionRadius=0;
 	float escapeForce = 1.0f;//逃げる力。
+
 };
 class PositionSelection;
 class InGameState;

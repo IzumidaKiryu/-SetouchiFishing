@@ -165,3 +165,8 @@ float InGameState::GetFishScore(int index)
 {
 	return m_fishManager[index]->GetScore();
 }
+
+void InGameState::SetScore(float score)
+{
+
+}
