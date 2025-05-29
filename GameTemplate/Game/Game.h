@@ -15,7 +15,8 @@ class GameStartCountdown;
 class Enemy;
 class Player;
 class GameStateBase;
-
+class Title;
+class InGameState;
 class GameResult;
 
 enum class GameState
@@ -35,11 +36,11 @@ public:
 	//�X�V�����B
 	void Update();
 	void Render(RenderContext& rc);
-	void NewGOGameObjects();
+	void NewGOStateObjects();
 	void DeactivateGameObjects();
 
 
-	std::unique_ptr<GameStateBase> currentState;
+	GameStateBase* currentState;
 
 
 	Vector3 m_rotationQuantity;
@@ -52,7 +53,6 @@ public:
 	FontRender m_fontRender;
 	PositionSelection* positionSelection;//場所を選ぶ画面のクラス。
 	PlayFishing* m_playFishing;
-	GameResult* m_rul;
 	/*ScoreDisplay* m_scoreDisplay;*/
 	SkyCube* m_skyCube = nullptr;
 	BackGround* m_backGround;
@@ -62,4 +62,9 @@ public:
 	Enemy* m_enemy;
 	PositionSelection* m_positionSelection;
 	GameState m_gameState = GameState::GameStartCountdown; //ゲームの状態を管理する変数
-};
+
+	Title* m_title;
+	InGameState* m_inGameState;
+	GameResult* m_gameResult;
+
+	};
