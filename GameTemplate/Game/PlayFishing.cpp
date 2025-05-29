@@ -215,7 +215,7 @@ void PlayFishing::Success()
 		DeleteGO(m_fightFishState);
 		DeleteThisClass();
 		m_positionSelection = FindGO<PositionSelection>("positionSelection");
-		m_positionSelection->SetTotalValue(m_fishData.score);
+		m_inGameState->SetScore(m_fishData.score);
 		m_scoreDisplay = NewGO<ScoreDisplay>(0, "scoreDisplay");
 
 		break;
