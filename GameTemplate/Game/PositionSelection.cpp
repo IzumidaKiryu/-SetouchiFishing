@@ -14,6 +14,7 @@
 #include "StealPositionBar.h"
 #include "FishSlot.h"
 #include "GameStartCountdown.h"
+#include"InGameState.h"
 #include< memory >
 
 
@@ -25,7 +26,6 @@ PositionSelection::PositionSelection()
 
 	srand(time(NULL));
 	
-
 
 }
 
@@ -41,8 +41,10 @@ PositionSelection::~PositionSelection()
 bool PositionSelection::Start()
 {
 	FindGameObjects();
+	m_inGameState->SetInitFishManagers();
+
 	//m_enemy->SetCountdownFinished(true);//カウントダウンが終わったことを伝える。
-	SetCameraPosition();
+
 	return true;
 }
 void PositionSelection::Update()
@@ -51,7 +53,7 @@ void PositionSelection::Update()
 	{
 
 		//時間計測。
-		Timer();
+		//Timer();
 
 		//プレイヤーの現在エリアを更新。
 		UpdatePlayerArea();
@@ -71,14 +73,14 @@ void PositionSelection::Update()
 
 
 
-		for (int i = 0; i < 6; i++) {
-			//フィッシュマネージャーの生成。
-			if (m_fishManager[i]->GetShouldFishChange() == true) {
-				DeleteGO(m_fishManager[i]);
-				m_fishManager[i] = NewGO<FishManager>(0, objectName[i]);
-			}
+		//for (int i = 0; i < 6; i++) {
+		//	//フィッシュマネージャーの生成。
+		//	if (m_fishManager[i]->GetShouldFishChange() == true) {
+		//		DeleteGO(m_fishManager[i]);
+		//		m_fishManager[i] = NewGO<FishManager>(0, objectName[i]);
+		//	}
 
-		}
+		//}
 
 		FindFishHighScore();
 		/*for (int i = 0; i < 6; i++) {
@@ -91,11 +93,6 @@ void PositionSelection::Update()
 
 void PositionSelection::Init()
 {
-	m_stopwatch.Start();
-
-	//制限時間のUIを作る。
-	m_timeLimitUI = NewGO<TimeLimitUI>(0, "timelimitUI");
-
 	//横取りゲージを作る。
 	m_stealPositionBar = NewGO<StealPositionBar>(0, "stealPositionBar");
 
@@ -114,17 +111,17 @@ void PositionSelection::Init()
 	SetFishDisplayPosition();
 
 
-	for (int i = 0; i < 6; i++) {
+	//for (int i = 0; i < 6; i++) {
 
-		objectName[i] = new char[AreaName[i].size() + 1];
+	//	objectName[i] = new char[AreaName[i].size() + 1];
 
 
-		//フィッシュマネージャーにつけるオブジェクトネームの設定。
-		std::char_traits<char>::copy(objectName[i], AreaName[i].c_str(), AreaName[i].size() + 1);
+	//	//フィッシュマネージャーにつけるオブジェクトネームの設定。
+	//	std::char_traits<char>::copy(objectName[i], AreaName[i].c_str(), AreaName[i].size() + 1);
 
-		//フィッシュマネージャーの生成。
-		m_fishManager[i] = NewGO<FishManager>(0, objectName[i]);
-	}
+	//	//フィッシュマネージャーの生成。
+	//	m_fishManager[i] = NewGO<FishManager>(0, objectName[i]);
+	//}
 
 
 	//フィッシュスロットのオブジェクトを作る。
@@ -143,6 +140,7 @@ void PositionSelection::FindGameObjects()
 	m_enemy = FindGO<Enemy>("enemy");
 	m_gameCamera = FindGO<GameCamera>("gamecamera");
 	m_backGround = FindGO<BackGround>("backGround");
+	m_inGameState = FindGO<InGameState>("inGameState");
 
 	//m_fishSlot = FindGO<FishSlot>("fishSlot");
 	//m_fishSlot->ThiscClassInit();
@@ -165,7 +163,6 @@ void PositionSelection::Render(RenderContext& rc)
 	//m_timeLimitUI->GetTensPlacUI().Draw(rc);
 	//m_timeLimitUI->GetHundredsPlacUI().Draw(rc);
 	if (m_isCountdownFinished == true) {
-		m_timeLimitUI->m_timeFont.Draw(rc);
 		m_stealPositionBar->DisplayUI(rc);
 		if (m_shouldPartiallyDeactivate == false) {
 
@@ -249,27 +246,6 @@ void PositionSelection::SetActivate()
 	m_shouldPartiallyDeactivate = false;
 }
 
-/// <summary>
-/// 制限時間をはかる。
-/// </summary>
-void PositionSelection::Timer()
-{
-	m_float_time = m_timelimit - m_stopwatch.GetElapsed();
-	m_stopwatch.Stop();
-	m_timeLimitUI->SetTime(m_float_time);
-	if (m_float_time <= 0)
-	{
-		m_is_time_up = true;
-		if (m_is_time_up == false) {
-			m_stopwatch.Stop();
-		}
-
-	}
-	/*char text[256];
-	sprintf_s(text, "m_int_time = %d, com = %d\n", m_int_time);
-	OutputDebugStringA(text);*/
-}
-
 float PositionSelection::GetTime()
 {
 	return m_float_time;
@@ -280,15 +256,15 @@ float PositionSelection::GetTime()
 
 void PositionSelection::FishChange()
 {
-	for (int i = 0; i < 6; i++) {
-		if (m_fishManager[i]->GetShouldFishChange()) {
-			DeleteGO(m_fishManager[i]);
+	//for (int i = 0; i < 6; i++) {
+	//	if (m_fishManager[i]->GetShouldFishChange()) {
+	//		DeleteGO(m_fishManager[i]);
 
-			//フィッシュマネージャーの生成。
-			m_fishManager[i] = NewGO<FishManager>(0, objectName[i]);
-		}
+	//		//フィッシュマネージャーの生成。
+	//		m_fishManager[i] = NewGO<FishManager>(0, objectName[i]);
+	//	}
 
-	}
+	//}
 }
 
 void PositionSelection::SelectArea()
@@ -307,13 +283,14 @@ void PositionSelection::FindFishHighScore()
 	Area compare;//比べる。
 	m_enemyArea = Area::A;
 	for (int i = 0; i < 4; i++) {
-		if (m_fishManager[i]->GetScore() >= m_fishManager[i + 1]->GetScore()) {
+		if (m_inGameState->GetFishScore(i) >= m_inGameState->GetFishScore(i+1)) {
 			compare = m_positionStateArray[i];
 		}
 		else {
 			compare = m_positionStateArray[i + 1];
 		}
-		if (m_fishManager[static_cast<int>(m_enemyArea)]->GetScore() <= m_fishManager[static_cast<int>(compare)]->GetScore()) {
+		if (m_inGameState->GetFishScore(static_cast<int>(m_enemyArea)) <= m_inGameState->GetFishScore(static_cast<int>(compare)))
+		{
 			m_enemyArea = compare;
 		}
 
@@ -394,16 +371,16 @@ void PositionSelection::SetCameraPosition()
 	//m_gameCamera->SetTarget(m_backGround->m_shipPosition + Vector3{ 0.0f,0.0f,100.0f });
 }
 
-SpriteRender& PositionSelection::GetFishUI(int num)
-{
-	m_fishUI[num] = m_fishManager[num]->m_ui;
-		return *m_fishUI[num];
-}
-
-float PositionSelection::GerFishTimeRatio(int index)
-{
-	return m_fishManager[index]->GetTimeRatio();
-}
+//SpriteRender& PositionSelection::GetFishUI(int num)
+//{
+//	m_fishUI[num] = m_fishManager[num]->m_ui;
+//		return *m_fishUI[num];
+//}
+//
+//float PositionSelection::GerFishTimeRatio(int index)
+//{
+//	return m_fishManager[index]->GetTimeRatio();
+//}
 
 void PositionSelection::SetCountdownFinished(bool countdownFinished)
 {

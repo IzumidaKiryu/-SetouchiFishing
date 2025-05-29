@@ -25,6 +25,7 @@ class Enemy;
 class StealPositionBar;
 class FishSlot;
 class GameStartCountdown;
+class InGameState;
 
 class PositionSelection : public IGameObject
 {
@@ -76,7 +77,7 @@ public:
 	bool m_is_displaying;//表示するかどうか。
 	bool m_shouldPartiallyDeactivate = false;//部分的に非アクティブにするべきか。
 	//double m_double_time=0.0f;//時間(double型)
-	float m_timelimit = 240;//時間制限
+	float m_timelimit = 5;//時間制限
 	int m_int_time = m_timelimit;//時間(Int型)
 	float m_float_time= m_timelimit;
 	float m_totalScore = 0.0f;//スコアの合計。
@@ -118,17 +119,15 @@ public:
 	BackGround* m_backGround;
 	//SoundSource* gameBGM;		//ゲーム中のBGM。
 	FontRender m_fontRender;
-	FishManager* m_fishManager[6];
+	//FishManager* m_fishManager[6];
 	PlayFishing* m_playFishing;
 	SpriteRender* m_fishUI[6];
-	SpriteRender m_fishTimeUntilEscapeUI[6];
-	TimeLimitUI* m_timeLimitUI;
 	//ModelRender m_rodFloatModel;
 	StealPositionBar* m_stealPositionBar;
-	Stopwatch m_stopwatch;
 	Enemy* m_enemy;
 	FishSlot* m_fishSlot; // 魚のスロットUIを管理するクラス。
 	GameStartCountdown* m_gameStartCountdown; // ゲーム開始カウントダウンを管理するクラス。
+	InGameState* m_inGameState;
 
 	//エリアを区切るための定数
 	const float FRONT_BACK_Z_BORDER = -175.0f;

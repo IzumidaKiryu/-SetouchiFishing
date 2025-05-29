@@ -22,7 +22,6 @@ Title::Title()
 
 Title::~Title()
 {
-	/*DeleteGO(titleBGM);*/
 }
 
 bool Title::Start()
@@ -40,7 +39,7 @@ bool Title::ShouldChangeState()
 	if (g_pad[0]->IsTrigger(enButtonA))
 	{
 
-		SetNextState(std::make_unique<InGameState>());
+		SetNextName("inGameState");
 		return true; // Aボタンが押されたら状態を変更する
 	}
 	return false; // タイトル状態では状態を変更しない

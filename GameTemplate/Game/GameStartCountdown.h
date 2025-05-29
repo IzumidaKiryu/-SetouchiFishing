@@ -17,6 +17,8 @@ class PositionSelection;
 class FishSlot;
 class BackGround;
 class GameCamera; 
+class InGameState;
+
 class GameStartCountdown : public IGameObject
 {
 public:
@@ -34,6 +36,7 @@ private:
 
 
 	void SetInitCameraToShipDistance();
+	void InitCamera();
 	CountdownState ConvertTimeToCountdownState(int time);
 	void UpdateCountdownState();
 
@@ -117,5 +120,7 @@ private:
 	FishSlot* m_fishSlot;
 	BackGround* m_backGround;
 	GameCamera* m_camera;
+	InGameState* m_inGameState;
+
 };
 

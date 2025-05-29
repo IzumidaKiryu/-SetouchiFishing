@@ -1,5 +1,7 @@
 #pragma once
 class PositionSelection;
+class InGameState;
+class FishManager;
 class FishSlot : public IGameObject
 {
 public:
@@ -47,5 +49,7 @@ public:
 	SpriteRender* m_fishUI[6];
 	SpriteRender m_fishTimeUntilEscapeUI[6];
 	PositionSelection* m_positionSelection;
+	InGameState* m_inGameState;
+	FishManager* m_fishManager;
 };
 

@@ -3,6 +3,7 @@
 #include "GameStateBase.h"
 
 //タイトル。
+class InGameState;
 class Title :public GameStateBase
 {
 public:
@@ -17,6 +18,7 @@ public:
 	void Render(RenderContext& rc)override;
 
 	SpriteRender spriteRender ;
+	InGameState* m_inGameState;
 	//SoundSource* titleBGM;			//タイトルのBGM。
  // ゲームスタートカウントダウンのポインタ
 };

@@ -19,6 +19,7 @@ struct FishData
 	float escapeForce = 1.0f;//逃げる力。
 };
 class PositionSelection;
+class InGameState;
 class Fish : public IGameObject
 {
 public:
@@ -28,6 +29,7 @@ public:
 	void Update();
 	bool Start();
 	void SetScore();//フィッシュデータのスコアを設定する。
+	void FindGameObjects();
 	void SetTimeUntilEscape(float timeUntilEscape);//逃げるまでの時間の設定。
 	void SetArrowSpeed(float spead);
 	void SetBaseScore(float baseScore);//基準になるスコア。
@@ -76,6 +78,7 @@ public:
 	float m_timeRatio = 0.0f;
 	SpriteRender m_ui;
 	PositionSelection* m_positionSelection;
+	InGameState* m_inGameState;
 	FishData m_fishData;
 
 
