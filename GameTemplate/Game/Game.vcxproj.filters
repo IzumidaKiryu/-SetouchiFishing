@@ -54,6 +54,7 @@
     <ClCompile Include="FishSlot.cpp" />
     <ClCompile Include="GameStateBase.cpp" />
     <ClCompile Include="InGameState.cpp" />
+    <ClCompile Include="FishCatchEffectState.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -103,5 +104,6 @@
     <ClInclude Include="FishSlot.h" />
     <ClInclude Include="GameStateBase.h" />
     <ClInclude Include="InGameState.h" />
+    <ClInclude Include="FishCatchEffectState.h" />
   </ItemGroup>
 </Project>
