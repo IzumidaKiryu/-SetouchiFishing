@@ -55,14 +55,13 @@ public:
 	bool m_hasCountdownClassFinished=false;//ゲームスタートカウントダウンクラスが終わったか。
 	bool m_hasCountdownClassJustFinished=false;//ゲームスタートカウンダウンクラスが終わった瞬間か。
 
-	char* objectName[6];
 	std::string AreaName[6] = {
-	"positionA",
-	"positionB",
-	"positionC",
-	"positionD",
-	"positionE",
-	"positionF"
+	"A",
+	"B",
+	"C",
+	"D",
+	"E",
+	"F"
 	}
 	;
 };

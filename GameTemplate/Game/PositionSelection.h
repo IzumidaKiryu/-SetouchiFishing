@@ -57,7 +57,7 @@ public:
 	void Timer();
 	float GetTime();
 	void FishChange();//魚を変える。
-	void SelectArea();
+	void NotifyCurrentArea();
 	void SetTotalValue(float score);
 	void FindFishHighScore();//スコアが高い魚を探す。
 	void UpdatePlayerArea();
@@ -101,15 +101,6 @@ public:
 	};
 	int a = 0;
 	std::string fishHighScorePosition;//出ている魚の中で一番スコアが高い魚がいるポジション。
-	std::string AreaName[6] = {
-		"positionA",
-		"positionB",
-		"positionC",
-		"positionD",
-		"positionE",
-		"positionF"
-	}
-	;
 	std::string select_by_with_position;
 	char* objectName[6];
 	Area m_currentArea;
@@ -130,7 +121,7 @@ public:
 	InGameState* m_inGameState;
 
 	//エリアを区切るための定数
-	const float FRONT_BACK_Z_BORDER = -175.0f;
-	const float COLUMN_LEFT_BORDER = -281.3f;
-	const float COLUMN_RIGHT_BORDER = 353.0f;
+	const float FRONT_BACK_Z_BORDER = -388.0f;
+	const float COLUMN_LEFT_BORDER = -279.3f;
+	const float COLUMN_RIGHT_BORDER = 348.0f;
 };

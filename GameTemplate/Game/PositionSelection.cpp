@@ -297,7 +297,7 @@ void PositionSelection::UpdatePlayerArea()
 
 
 	// 仮想的に画面を 2 行 × 3 列のグリッドに分けている
-	bool isFrontRow = playerPos.z >= -175.0f;
+	bool isFrontRow = playerPos.z >= FRONT_BACK_Z_BORDER;
 
 
 	if (isFrontRow)
@@ -308,7 +308,7 @@ void PositionSelection::UpdatePlayerArea()
 			m_currentArea = Area::A;
 		}
 
-		else if (playerPos.x <= 353.0f)
+		else if (playerPos.x <= COLUMN_RIGHT_BORDER)
 		{
 			m_currentArea = Area::B;
 		}
@@ -325,7 +325,7 @@ void PositionSelection::UpdatePlayerArea()
 		{
 			m_currentArea = Area::D;
 		}
-		else if (playerPos.x <= 353.0f) {
+		else if (playerPos.x <= COLUMN_RIGHT_BORDER) {
 			m_currentArea = Area::E;
 		}
 		else
