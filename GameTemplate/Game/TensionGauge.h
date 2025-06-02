@@ -23,7 +23,8 @@ public:
 	void RightAndLeftManagement();
 	void SetFishUI_Position(float current_fish_range_and_max_range_rate);
 	void SetFloatUI_Position(float current_float_range_max_range_rate);
-	void SetScale();
+	void SetFloatScale();
+	void SetFishUIScaleByIndividualFactor(float scale);
 
 	Vector3 GetFishUIPosition();
 	//void AnnounceChangeFishState();
@@ -38,6 +39,8 @@ public:
 
 	//円周率
 	double pie = 3.141592653589793;
+
+	Vector3 m_baseSigns_of_FishUiSize = Vector3::One;
 	FIshState m_fishState;
 	SpriteRender m_tensionGaugeInside;
 	SpriteRender m_tensionGaugeOutside;
