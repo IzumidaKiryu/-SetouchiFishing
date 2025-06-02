@@ -18,7 +18,7 @@ BackGround::BackGround()
 
 	m_sea.SetPosition(/*m_positio*/Vector3{ 1.0f,1.0f,1.0f });
 	m_sea.SetScale(Vector3{ 1.0f,1.0f,1.0f }*10.0f);
-	m_sea.Init("Assets/modelData/sea_kari.tkm",false);
+	m_sea.Init("Assets/modelData/sea_kari.tkm");
 	m_sea.Update();
 
 	m_isrand.Init("Assets/modelData/stage/shima.tkm");

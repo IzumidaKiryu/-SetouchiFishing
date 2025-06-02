@@ -2,46 +2,33 @@
 
 #include "RenderingEngine.h";
 namespace nsK2EngineLow {
-	struct ModelInitDataFR :public ModelInitData
-	{
-		ModelInitDataFR()
-		{
-			m_colorBufferFormat[0] = DXGI_FORMAT_R32G32B32A32_FLOAT;
-		}
-	};
-
-	class Light;
-	class ModelRender
+	class ModelRender:public IRender
 	{
 	public:
-		ModelRender();
-		~ModelRender();
-
 		void Init(const char* filePath,
-			bool m_shadowdrop=true,
 			AnimationClip* animationClips = nullptr,
 			int numAnimationCrips = 0,
-			EnModelUpAxis enModelUpAxis = enModelUpAxisZ);
-
-		void InitCommon(const char* tkmFilePath, AnimationClip* animationClips);
-
+			EnModelUpAxis enModelUpAxis = enModelUpAxisZ,
+			bool shadowdrop = true,
+			bool shadowCast = true
+		);
+		
+		void InitShadowCasterDrawing(const char* filePath, EnModelUpAxis enModelUpAxis);
 		void InitSkyCubeModel(ModelInitData& initData);
 
-		void InitModel(const char* filePath, EnModelUpAxis enModelUpAxis);
+		void InitModel(const char* filePath, EnModelUpAxis enModelUpAxis,bool shadowDrop=true);
 
 		void Update();
 
 		void Draw(RenderContext& rc);
 
-		void OnDraw(RenderContext& rc)
-		{
-			m_model.Draw(rc, 1);
-		}
-		void OnShadowDraw(RenderContext& rc)
+		//void OnDraw(RenderContext& rc) override;
+		void OnRenderModel(RenderContext& rc) override;
+		void OnShadowDraw(RenderContext& rc,Camera&came)
 		{
 			if (m_shadowModel.IsInited())
 			{
-				m_shadowModel.Draw(rc, g_renderingEngine->GetLightCamera());
+				m_shadowModel.Draw(rc, came,1);
 
 			}
 		}
@@ -129,14 +116,10 @@ namespace nsK2EngineLow {
 			int numAnimationClips,
 			EnModelUpAxis enModelUpAxis);
 
-		void IniTranslucent(
-			const char* filePath,
-			AnimationClip* animationClips = nullptr,
-			int numAnimationClips = 0,
-			EnModelUpAxis enModelUpAxis = enModelUpAxisZ);
+		
 		float GetAnimationRatio();
 
-
+		
 		//座標拡大回転全てを設定
 		void SetTRS(const Vector3& pos, const Quaternion& rotation, const Vector3& scale)
 		{
@@ -146,36 +129,19 @@ namespace nsK2EngineLow {
 		}
 
 
-		AnimationClip* m_animationClips = nullptr;			// アニメーションクリップ。
-		int							m_numAnimationClips = 0;			// アニメーションクリップの数。
-		Vector3 					m_position = Vector3::Zero;			// 座標。
-		Quaternion	 				m_rotation = Quaternion::Identity;	// 回転。
-		Vector3						m_scale = Vector3::One;				// 拡大率。
-		EnModelUpAxis				m_enFbxUpAxis = enModelUpAxisZ;		// FBXの上方向。
-		Animation					m_animation;						// アニメーション。
-		//ComputeAnimationVertexBuffer m_computeAnimationVertexBuffer;	// アニメーション済み頂点バッファの計算処理。
-		Model* m_addRaytracingWorldModel = nullptr;// レイトレワールドに登録したモデル。				
-		Model						m_zprepassModel;					// ZPrepassで描画されるモデル
-		Model						m_forwardRenderModel;				// フォワードレンダリングの描画パスで描画されるモデル
-		Model						m_translucentModel;					// 半透明モデル。
-		Model						m_renderToGBufferModel;				// RenderToGBufferで描画されるモデル
-		Model						m_model;
-		Model						m_shadowModel;
-		//Model						m_shadowModels[MAX_DIRECTIONAL_LIGHT][NUM_SHADOW_MAP];	// シャドウマップに描画するモデル
-		//ConstantBuffer				m_drawShadowMapCameraParamCB[MAX_DIRECTIONAL_LIGHT][NUM_SHADOW_MAP];		// シャドウマップ作成時に必要なカメラパラメータ用の定数バッファ。
-		bool						m_isUpdateAnimation = true;			// アニメーションを更新する？
-		Skeleton					m_skeleton;							// 骨。
-		bool						m_isShadowCaster = true;			// シャドウキャスターフラグ
-		float						m_animationSpeed = 1.0f;
-		//int							m_numInstance = 0;					// インスタンスの数。
-		//int							m_maxInstance = 1;					// 最大インスタンス数。
-		//bool						m_isEnableInstancingDraw = false;	// インスタンシング描画が有効？
-		//bool						m_isRaytracingWorld = true;			//レイトレワールドに登録する？
-		std::unique_ptr<Matrix[]>	m_worldMatrixArray;					// ワールド行列の配列。
-		StructuredBuffer			m_worldMatrixArraySB;				// ワールド行列の配列のストラクチャードバッファ。
-		//std::vector< GemometryData > m_geometryDatas;					// ジオメトリ情報。
-		std::unique_ptr<int[]>		m_instanceNoToWorldMatrixArrayIndexTable;	// インスタンス番号からワールド行列の配列のインデックスに変換するテーブル。
-		Light* m_light;
-	};
+		AnimationClip* m_animationClips = nullptr;		//アニメーションクリップ
+		int m_numAnimationClips = 0;					//アニメーションの数
+		Vector3 m_position = Vector3::Zero;				//座標
+		Quaternion m_rotation = Quaternion::Identity;	//回転
+		Vector3 m_scale = Vector3::One;					//拡大率
+		EnModelUpAxis m_modelUpAxis = enModelUpAxisZ;	//モデルの上方向
+		Animation m_animation;							//アニメーション	
+		Model m_model;									//モデル
+		Model m_shadowModel;							//影描画用モデル
+		bool m_isUpdateAnimation = true;				//アニメーションを更新する？
+		Skeleton m_skeleton;							//骨
+		float m_animationSpeed = 1.0f;		//アニメーション再生速度
+		float m_alpha = 1.0f;
+};
 }
 
