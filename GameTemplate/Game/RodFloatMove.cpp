@@ -3,21 +3,39 @@
 #include "GameCamera.h"
 #include"SceneFightFish.h";
 #include"PlayFishing.h"
+#include"TensionGauge.h"
 #include <cmath>  // sqrt関数を使うために必要
 #include <complex>   // 複素数ライブラリ
 
 RodFloatMove::RodFloatMove()
+{
+}
+
+RodFloatMove::~RodFloatMove()
+{
+}
+
+bool RodFloatMove::Init()
 {
 	//PhysicsWorld::GetInstance()->EnableDrawDebugWireFrame();
 	m_rodFloatModel.SetPosition(Vector3{ 0.0f,0.0f,0.0f });
 	m_rodFloatModel.SetScale(Vector3{ 1.0f,1.0f,1.0f });
 	m_rodFloatModel.Init("Assets/modelData/uki.tkm");
 	m_rodFloatModel.Update();
+	return true;
 }
 
-RodFloatMove::~RodFloatMove()
+
+bool RodFloatMove::Start()
 {
+	m_playFishing = FindGO<PlayFishing>("playFishing");
+
+	m_tensionGauge = FindGO<TensionGauge>("tensionGauge");
+	m_tensionGauge->FindGORodFloatMove();
+
+	return true;
 }
+
 
 void RodFloatMove::Update()
 {
@@ -161,7 +179,6 @@ void RodFloatMove::SetRotation(Quaternion rot)
 
 void RodFloatMove::SetPosition()
 {
-	m_playFishing = FindGO<PlayFishing>("playFishing");
 
 	if (m_playFishing->m_playFishingStatus != cast/*, m_playFishing->m_playFishingStatus != wait_castGauge*/) {
 		Float();

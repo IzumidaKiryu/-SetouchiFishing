@@ -33,6 +33,7 @@ public:
 	Game();
 	~Game();
 	bool Start();
+	bool Init();
 	//�X�V�����B
 	void Update();
 	void Render(RenderContext& rc);

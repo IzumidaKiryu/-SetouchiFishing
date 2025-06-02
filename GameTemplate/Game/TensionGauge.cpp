@@ -16,6 +16,18 @@
 TensionGauge::TensionGauge()
 {
 
+	
+
+
+}
+
+TensionGauge::~TensionGauge()
+{
+
+}
+
+bool TensionGauge::Init()
+{
 	srand(time(nullptr));
 	//１８０度回すための変数を初期化。
 	m_upward.SetRotationDegZ(0.0);
@@ -44,17 +56,17 @@ TensionGauge::TensionGauge()
 	m_rodFloatUI.SetScale(m_baseSigns_of_FishUiSize);
 	m_rodFloatUI.Update();
 
-
+	return true;
 }
 
-TensionGauge::~TensionGauge()
+bool TensionGauge::Start()
 {
-
+	FindGOGameObject();
+	return true;
 }
 
 void TensionGauge::Update()
 {
-	m_fightFishState = FindGO<FightFishState>("fightFishState");
 	//if (m_fightFishState != nullptr) {
 	//	Set_signs_of_Fish_UI();
 	//}
@@ -62,6 +74,15 @@ void TensionGauge::Update()
 	/*SetFishUI_Position();*/
 	SetFloatScale();
 	/*SetFishUI_Position();*/
+}
+
+void TensionGauge::FindGOGameObject()
+{
+	m_fightFishState = FindGO<FightFishState>("fightFishState");
+
+	m_rodFloatMove = FindGO<RodFloatMove>("rodFloatMove");
+
+	m_playFishing = FindGO<PlayFishing>("playFishing");
 }
 
 
@@ -88,8 +109,6 @@ void TensionGauge::SetFloatScale()
 {
 
 	//時間があれば影も合わせたい。
-	m_rodFloatMove = FindGO<RodFloatMove>("rodFloatMove");
-
 	if (m_rodFloatMove != nullptr) {//ウキが作成されていない場合は行わない。
 		m_rodFloatUI.SetScale(Vector3{ 1.0f, 1.0f, 1.0f }*(1 + (m_rodFloatMove->m_position.y / 300)));
 	}
@@ -107,6 +126,16 @@ Vector3 TensionGauge::GetFishUIPosition()
 {
 
 	return m_fishUIPos;
+}
+
+void TensionGauge::FindGOFishDetectionRadius()
+{
+	m_fishDetectionRadius = FindGO<FishDetectionRadius>("fishDetectionRadius");
+}
+
+void TensionGauge::FindGORodFloatMove()
+{
+	m_rodFloatMove = FindGO<RodFloatMove>("rodFloatMove");
 }
 
 //void TensionGauge::Set_signs_of_Fish_UI()
@@ -282,15 +311,22 @@ void TensionGauge::Render(RenderContext& rc)
 
 
 	m_tensionGaugeInside.Draw(rc);
-	m_fishDetectionRadius = FindGO<FishDetectionRadius>("fishDetectionRadius");
-	if (m_fishDetectionRadius != nullptr) {//魚の検知半径が作られていない時は表示しない。
+	if (m_playFishing->m_playFishingStatus < PlayFishingStatus::wait_for_fish) {
 		m_fishDetectionRadius->GetUI().Draw(rc);
 	}
+
 	m_tensionGaugeOutside.Draw(rc);
+
 	m_signs_of_Fish.Draw(rc);
-	m_rodFloatMove = FindGO<RodFloatMove>("rodFloatMove");
+
+
+	if (m_playFishing->m_playFishingStatus >= PlayFishingStatus::cast) {
+
+			m_rodFloatUI.Draw(rc);
+
+	}
+
 	if (m_rodFloatMove != nullptr) {//ウキが作られていなに時は表示しない。
-		m_rodFloatUI.Draw(rc);
 	}
 
 }

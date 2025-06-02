@@ -49,7 +49,7 @@ public:
 
 	PlayFishing();
 	~PlayFishing();
-	void Init();
+	bool Init();
 	void Update();
 	bool Start();
 
@@ -116,23 +116,23 @@ public:
 	PlayFishingBackGround* m_playFishingBackGround;
 	PositionSelection* m_positionSelection;
 	FishManager* m_fishManager;
-	FishingGauge* m_fishingGauge;
-	TensionGauge* m_tensionGauge;
-	FishingRodHP* m_fishingRodHP;
-	ScoreDisplay* m_scoreDisplay;
-	Player* m_player;
-	SceneFightFish* m_sceneFightFish;
-	FishModel* m_fshModel;
-	RodFloatMove* m_rodFloatMove;
-	PlayCastGaugeState* m_playCastGaugeState;
-	CastState* m_castState;
-	WaitForFishState* m_waitForFishState;
-	FightFishState* m_fightFishState;
-	FishingAnimationState* m_fishingAnimationState;
-	HitUIState* m_hitUIState;
-	FishDetectionRadius* m_fishDetectionRadius;
-	InGameState* m_inGameState;
-	BackGround* m_backGround;
-	ScoreManager* m_scoreManager;
+	FishingGauge* m_fishingGauge = nullptr;
+	TensionGauge* m_tensionGauge = nullptr;
+	FishingRodHP* m_fishingRodHP = nullptr;
+	ScoreDisplay* m_scoreDisplay = nullptr;
+	Player* m_player = nullptr;
+	SceneFightFish* m_sceneFightFish = nullptr;
+	FishModel* m_fshModel = nullptr;
+	RodFloatMove* m_rodFloatMove = nullptr;
+	PlayCastGaugeState* m_playCastGaugeState = nullptr;
+	CastState* m_castState = nullptr;
+	WaitForFishState* m_waitForFishState = nullptr;
+	FightFishState* m_fightFishState = nullptr;
+	FishingAnimationState* m_fishingAnimationState = nullptr;
+	HitUIState* m_hitUIState = nullptr;
+	FishDetectionRadius* m_fishDetectionRadius = nullptr;
+	InGameState* m_inGameState = nullptr;
+	BackGround* m_backGround = nullptr;
+	ScoreManager* m_scoreManager=nullptr;
 
 };

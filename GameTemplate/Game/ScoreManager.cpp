@@ -8,6 +8,26 @@ ScoreManager::ScoreManager()
 ScoreManager::~ScoreManager()
 {
 }
+bool ScoreManager::Start()
+{
+	//ここにはゲームオブジェクト（ここの基底クラス）に依存する初期化をかいてね。
+	//（NewGOやFindGO）
+
+
+
+	return true;
+}
+bool ScoreManager::Init()
+{
+	//ここではNewGOやFindGO以外のオブジェクトの初期化をしてね。
+	
+	//このクラスをNewGOしているコードのしたでこの関数を呼び出してね。
+
+
+
+
+	return true;
+}
 /// <summary>
 /// 指定されたキャラクターと魚の種類に対するスコアをセットする。
 /// </summary>

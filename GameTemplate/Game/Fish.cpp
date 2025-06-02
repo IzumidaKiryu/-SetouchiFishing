@@ -19,6 +19,11 @@ void Fish::Update()
 	TimeCount();
 }
 
+bool Fish::Init()
+{
+	return true;
+}
+
 bool Fish::Start()
 {
 
@@ -120,6 +125,14 @@ void Fish::SetFishDetectionRadius(float fishDetectionRadius)
 void Fish::SetEscapeForce(float escapeForce)
 {
 	m_fishData.escapeForce = escapeForce;
+}
+
+void Fish::SetUI(std::string filePath,Vector3 scale)
+{
+	m_ui.Init(filePath.c_str(), 150, 150);
+	m_ui.SetPivot(Vector2(0.5f, 0.5f));
+	m_ui.SetScale(scale);
+	m_ui.Update();
 }
 
 void Fish::SetParameter(

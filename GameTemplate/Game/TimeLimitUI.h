@@ -4,6 +4,8 @@ class TimeLimitUI : public IGameObject
 public:
 	TimeLimitUI();
 	~TimeLimitUI();
+	bool Init();
+	bool Start();
 	void Update();
 	void DisplayTimeLimitUI(int time);
 	void SetTime(int time);

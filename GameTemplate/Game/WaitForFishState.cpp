@@ -14,6 +14,7 @@ WaitForFishState::~WaitForFishState()
 bool WaitForFishState::Start()
 {
 	PlayFishingStateBase::Start();
+	//m_rodFloatMove = FindGO<RodFloatMove>("rodFloatMove");
 
 	m_initCameraPos = m_cameraPos;
 	m_endCameraPos = m_init_floatModelPos + Vector3{ 200.0f,200.0f,200.0f };

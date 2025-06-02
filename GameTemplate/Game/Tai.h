@@ -6,6 +6,6 @@ public:
 
 	Tai();
 	~Tai();
-void SetUI();
+	bool Init();
 };
 

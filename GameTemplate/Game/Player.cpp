@@ -7,16 +7,8 @@
 
 Player::Player()
 {
-	m_backGround = FindGO<BackGround>("backGround");
-
 	SetInitPosition(Vector3{0.0f,0.0f,0});
 
-	SetAnimationClipsLoad("Assets/animData/Player/Idle.tka",
-		"Assets/animData/Player/Walking.tka",
-		"Assets/animData/Player/FishingCast.tka"
-	);
-
-	SetModel("Assets/modelData/Player/Player.tkm", true,animationClips, enAnimationClip_Num, enModelUpAxisZ);
 	
 
 }
@@ -26,6 +18,28 @@ Player::~Player()
 
 }
 
+
+bool Player::Init()
+{
+	//アニメーションをセット。
+	SetAnimationClipsLoad(
+		"Assets/animData/Player/Idle.tka",
+		"Assets/animData/Player/Walking.tka",
+		"Assets/animData/Player/FishingCast.tka"
+	);
+
+	//モデルを初期化。
+	SetModel("Assets/modelData/Player/Player.tkm", true, animationClips, enAnimationClip_Num, enModelUpAxisZ);
+
+	return true;
+}
+
+bool Player::Start()
+{
+	m_backGround = FindGO<BackGround>("backGround");
+
+	return true;
+}
 
 void Player::SetMoveSpeed()
 {

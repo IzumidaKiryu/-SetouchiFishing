@@ -16,11 +16,14 @@ enum BuoyancyState {
 class GameCamera;
 class SceneFightFish;
 class PlayFishing;
+class TensionGauge;
 class RodFloatMove :public IGameObject
 {
 public:
 	RodFloatMove();
 	~RodFloatMove();
+	bool Start()override;
+	bool Init();
 	void Update();
 	void ModelUpdate();
 	/*void Buoyancy();
@@ -78,6 +81,7 @@ public:
 	BuoyancyState m_buoyancyState;
 	SceneFightFish* m_sceneFightFish;
 	PlayFishing* m_playFishing;
+	TensionGauge* m_tensionGauge;
 
 };
 

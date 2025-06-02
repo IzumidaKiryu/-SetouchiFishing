@@ -7,6 +7,7 @@ class GameCamera : public IGameObject
 public:
 	GameCamera();
 	~GameCamera();
+	bool Init();
 	bool Start();
 	void Update();
 	void SetTarget(Vector3 targetPos);

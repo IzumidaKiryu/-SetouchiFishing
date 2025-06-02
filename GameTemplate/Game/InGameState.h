@@ -15,6 +15,7 @@ class InGameState :public GameStateBase
 public:
 	InGameState();
 	bool Start()override;
+	bool Init();
 	void OnUpdate();
 	bool ShouldChangeState(); // 状態を変更すべきかどうかを決定する純粋仮想関数
 	void OnEnter();
@@ -54,7 +55,7 @@ public:
 
 
 
-	float m_timelimit = 240;//時間制限
+	float m_timelimit = 2;//時間制限
 	float m_time = m_timelimit;//時間
 	float m_totalScore = 0.0f;//スコアの合計。
 	TimeLimitUI* m_timeLimitUI;

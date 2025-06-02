@@ -18,28 +18,42 @@
 
 InGameState::InGameState()
 {
-	//背景のオブジェクトを作る。
-	m_backGround = NewGO<BackGround>(0, "backGround");
-	//カメラ
-	m_gameCamera = NewGO<GameCamera>(0, "gamecamera");
-	//ポジション選択シーンのオブジェクトを作る。
-	m_positionSelection = NewGO<PositionSelection>(0, "positionSelection");
-	//プレイヤーのオブジェクトを作る。
-	m_player = NewGO<Player>(0, "player");
-	//エネミーのオブジェクトを作る。
-	m_enemy = NewGO<Enemy>(0, "enemy");
-
-	//
-	m_timeLimitUI = NewGO<TimeLimitUI>(0,"timeLimitUI");
-
-
-	m_scoreManager= NewGO<ScoreManager>(0, "scoreManager");
 }
 
 bool InGameState::Start()
 {
+	//背景のオブジェクトを作る。
+	m_backGround = NewGO<BackGround>(0, "backGround");
+	m_backGround->Init();
+	//カメラ
+	m_gameCamera = NewGO<GameCamera>(0, "gamecamera");
+	m_gameCamera->Init();
 
+
+	//ポジション選択シーンのオブジェクトを作る。
+	m_positionSelection = NewGO<PositionSelection>(0, "positionSelection");
+
+	//プレイヤーのオブジェクトを作る。
+	m_player = NewGO<Player>(0, "player");
+	m_player->Init();
+
+	//エネミーのオブジェクトを作る。
+	m_enemy = NewGO<Enemy>(0, "enemy");
+	m_enemy->Init();
+	//
+	m_timeLimitUI = NewGO<TimeLimitUI>(0, "timeLimitUI");
+	m_timeLimitUI->Init();
+
+	m_scoreManager = NewGO<ScoreManager>(0, "scoreManager");
+	m_scoreManager->Init();
     return true;
+}
+
+bool InGameState::Init()
+{
+	
+
+	return true;
 }
 
 void InGameState::OnUpdate()

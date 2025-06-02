@@ -35,13 +35,7 @@
 
 PlayFishing::PlayFishing()
 {
-	NewGOGameObjects();
 
-	//ゲームカメラのオブジェクトを作る。
-
-
-	//プレイヤーがコントローラーで動かないようにする。
-	m_player->SetMoveDeActive();
 
 
 
@@ -60,19 +54,11 @@ PlayFishing::~PlayFishing()
 
 }
 
-void PlayFishing::Init()
+bool PlayFishing::Init()
 {
-	
-	InitNewGOGameObjects();
-
-	SetFishData();
 
 
-	m_current_fish_range_and_max_range_rate = m_fishData.initPos;
-
-	/*m_tensionGauge->SetFishUI_Position(m_fishData.initPos);*/
-	StatusManager();
-	
+	return true;
 }
 
 void PlayFishing::Update()
@@ -90,14 +76,38 @@ void PlayFishing::Update()
 bool PlayFishing::Start()
 {
 	FindGameObjects();
+	SetFishData();
+	NewGOGameObjects();
+
+
+
+	//プレイヤーがコントローラーで動かないようにする。
+	m_player->SetMoveDeActive();
+
+	m_current_fish_range_and_max_range_rate = m_fishData.initPos;
+
+	//ステートマネージャーを動かす。
+	StatusManager();
+
 	return true;
 }
 
 void PlayFishing::NewGOGameObjects()
 {
+
+	m_tensionGauge = NewGO<TensionGauge>(0, "tensionGauge");
+	m_tensionGauge->Init();
+
+	m_fishDetectionRadius = NewGO<FishDetectionRadius>(0, "fishDetectionRadius");
+	m_fishDetectionRadius->Init();
+
 	//魚のモデルを作成。
 	m_fshModel = NewGO<FishModel>(0, "fishModel");
+	m_fshModel->Init();
+
 	m_player = NewGO<Player>(0, "player_Playfishing");
+	m_player->Init();
+
 	m_player->m_position = Vector3{ 0.0f,100.0f,250 };
 
 
@@ -106,10 +116,7 @@ void PlayFishing::NewGOGameObjects()
 
 void PlayFishing::InitNewGOGameObjects()
 {
-	//フィッシュマネージャーを探す。
-	m_fishManager = FindGO<FishManager>(m_currentFishManagerobjectName.c_str());
-	m_tensionGauge = NewGO<TensionGauge>(0, "tensionGauge");
-	m_fishDetectionRadius = NewGO<FishDetectionRadius>(0, "fishDetectionRadius");
+
 
 
 }
@@ -117,9 +124,9 @@ void PlayFishing::InitNewGOGameObjects()
 
 void PlayFishing::FindGameObjects()
 {
+	m_fishManager = FindGO<FishManager>(m_currentFishManagerobjectName.c_str());
 	m_positionSelection = FindGO<PositionSelection>("positionSelection");
 	m_backGround = FindGO<BackGround>("backGround");
-	m_rodFloatMove = FindGO<RodFloatMove>("rodFloatMove");
 	m_gameCamera = FindGO<GameCamera>("PlayFishing");
 	m_scoreManager = FindGO<ScoreManager>("scoreManager");
 }
@@ -218,6 +225,7 @@ void PlayFishing::Failure()
 	case wait_for_fish:
 		m_rodFloatMove = FindGO<RodFloatMove>("rodFloatMove");
 		m_rodFloatMove->DeleteThisClass();
+		m_rodFloatMove = nullptr;
 		m_playCastGaugeState=NewGO<PlayCastGaugeState>(0, "playCastGaugeState");
 		DeleteGO(m_waitForFishState);
 		m_playFishingStatus = playCastGauge;

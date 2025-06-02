@@ -3,6 +3,16 @@
 
 TimeLimitUI::TimeLimitUI()
 {
+
+
+}
+
+TimeLimitUI::~TimeLimitUI()
+{
+}
+
+bool TimeLimitUI::Init()
+{
 	m_clockUI.Init("Assets/modelData/timelimit_clock.DDS", 60, 100);
 	m_clockUI.SetPivot(Vector2(0.5f, 0.5f));
 	m_clockUI.SetPosition(m_clockUIPos);
@@ -16,11 +26,12 @@ TimeLimitUI::TimeLimitUI()
 	m_hundredsPlaceUI.SetScale(Vector3{ 1.0f, 1.0f, 1.0f });
 	m_hundredsPlaceUI.Update();
 
-
+	return true;
 }
 
-TimeLimitUI::~TimeLimitUI()
+bool TimeLimitUI::Start()
 {
+	return true;
 }
 
 void TimeLimitUI::Update()

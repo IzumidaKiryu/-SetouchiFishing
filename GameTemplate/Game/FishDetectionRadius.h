@@ -7,6 +7,8 @@ public:
 	float t = 0.0f;
 	FishDetectionRadius();
 	~FishDetectionRadius();
+	bool Init();
+	bool Start() override;
 	void Update();
 	void CalculateDetectionRange();
 	void CalculateDetectionRangePos();
