@@ -8,12 +8,10 @@
 Fish::Fish()
 {
 	srand(time(NULL));
-	SetScore();
 }
 
 Fish::~Fish()
 {
-
 }
 
 void Fish::Update()
@@ -27,6 +25,11 @@ bool Fish::Start()
 	FindGameObjects();
 	m_initialTime = m_inGameState->GetTime();
 	return true;
+}
+
+void Fish::SetFishType(FishType fishtype)
+{
+	fishtype=m_fishData.fishType;
 }
 
 void Fish::FindGameObjects()
@@ -43,10 +46,10 @@ void Fish::SetScore()
 {
 	std::random_device rd;
 	//個体値の倍率をランダムに決める。0.4%~1.2%の間で決まる。
-	float individualValueMagnification = (0.4f / 100) * (rd() % 100 + 1);//??????{??
-	individualValueMagnification += 0.8;
+	m_fishData.individualFactor = (0.4f / 100) * (rd() % 100 + 1);//??????{??
+	m_fishData.individualFactor += 0.8;
 
-	m_fishData.score = m_baseScore * individualValueMagnification;//???X?R?A?~??????{???B
+	m_fishData.score = m_baseScore * m_fishData.individualFactor;//???X?R?A?~??????{???B
 }
 
 
@@ -132,6 +135,7 @@ void Fish::SetParameter(
 	SetTimeUntilEscape(timeUntilEscape);
 	SetArrowSpeed(arrowspeed);
 	SetBaseScore(baseScore);
+	SetScore();
 	SetInitPos(initpos);
 	SetUpWardBias(upwardBias);
 	SetDownwardBias(downwardBias);

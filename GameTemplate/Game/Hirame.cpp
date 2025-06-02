@@ -3,7 +3,11 @@
 
 Hirame::Hirame()
 {
+
+	SetFishType(FishType::HIRAME);
+
 	SetUI();
+	SetBaseScore(180);
 	SetParameter(
 		15.0f,
 		10.0f,

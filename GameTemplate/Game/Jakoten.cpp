@@ -3,6 +3,9 @@
 
 Jakoten::Jakoten()
 {
+
+	SetFishType(FishType::JAKOTENN);
+
 	SetUI();
 	SetParameter(
 		12.0f, 

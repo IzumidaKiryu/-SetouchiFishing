@@ -38,6 +38,7 @@ public:
 	void Render(RenderContext& rc);
 	void NewGOStateObjects();
 	void DeactivateGameObjects();
+	void ResetInGame();//リザルト画面が終わったら呼ばれる。
 
 
 	GameStateBase* currentState;

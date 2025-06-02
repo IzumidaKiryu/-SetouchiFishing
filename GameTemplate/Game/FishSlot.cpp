@@ -7,9 +7,6 @@
 
 FishSlot::FishSlot()
 {
-	
-
-	
 }
 
 FishSlot::~FishSlot()

@@ -1,10 +1,20 @@
 #pragma once
+enum class FishType {
+	TAI,
+	BURI,
+	TATIUO,
+	HIRAME,
+	JAKOTENN,
+	SINJU,
+};
 
 struct FishData
 {
+	FishType fishType;
 	float timeUntilEscape=0.5;//魚が逃げるまでの時間
 	float arrowSpeed = 5.0f;
 	float score = 0.0f;//個体値
+	float individualFactor = 0.0f; // 個体ごとのスコアやサイズに影響を与える補正係数（例：1.0 なら標準、1.2 なら20%増）
 	float initPos=1;
 
 	//上を向いている時下向きに変える確率。(0～100の範囲の整数値)。
@@ -29,6 +39,7 @@ public:
 	//更新処理。
 	void Update();
 	bool Start();
+	void SetFishType(FishType fishtype);
 	void SetScore();//フィッシュデータのスコアを設定する。
 	void FindGameObjects();
 	void SetTimeUntilEscape(float timeUntilEscape);//逃げるまでの時間の設定。

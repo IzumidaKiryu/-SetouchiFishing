@@ -38,16 +38,16 @@ void FishManager::SelectFishType()
 	int randum = rd() % 100;
 	m_randum = randum;
 	if (0 <= randum && randum <= 20) {
-		m_fishType = BURI;
+		m_fishType = FishType::BURI;
 	}
 	if (21 <= randum && randum <=30 ) {
-		m_fishType = TATIUO;
+		m_fishType = FishType:: TATIUO;
 	}
 	if (31 <= randum && randum <= 50){
-		m_fishType = JAKOTENN;
+		m_fishType = FishType::JAKOTENN;
 	}
 	if (51 <= randum && randum <= 90) {
-		m_fishType = HIRAME;
+		m_fishType = FishType::HIRAME;
 	}
 	if (91 <= randum && randum <= 100) {
 

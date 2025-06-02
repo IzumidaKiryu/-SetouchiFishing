@@ -8,6 +8,8 @@ class Player;
 class GameStartCountdown;
 class TimeLimitUI;
 class FishManager;
+class ScoreManager;
+class FishSlot;
 class InGameState :public GameStateBase
 {
 public:
@@ -24,14 +26,19 @@ public:
 
 	void SetHasCountdownClassFinished(bool flag);
 	void SetHasCountdownClassJustFinished(bool flag);
-	void SetInitFishManagers();
 	void ChangeFish();
+	void CreateInitialFish();
 	float GerFishTimeRatio(int index);
 	void SetFishUI(int num);
 	SpriteRender& GetFishUI(int index);
 	float GetFishScore(int index);
 
 	void SetScore(float score);
+
+	void DeleteGameObjects();
+	void OnCountdownFinished();
+	std::string GetAreaName(int index);
+
 
 	GameStartCountdown* m_gameStartCountdown;
 	Player* m_player;
@@ -42,6 +49,8 @@ public:
 	Stopwatch m_stopwatch;
 	FishManager* m_fishManager[6];
 	SpriteRender* m_fishUI[6];
+	ScoreManager* m_scoreManager;
+	FishSlot* m_fishSlot;
 
 
 

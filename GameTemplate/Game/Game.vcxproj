@@ -263,6 +263,7 @@
     <ClCompile Include="RodFloatMove.cpp" />
     <ClCompile Include="SceneFightFish.cpp" />
     <ClCompile Include="ScoreDisplay.cpp" />
+    <ClCompile Include="ScoreManager.cpp" />
     <ClCompile Include="Star.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
@@ -315,6 +316,7 @@
     <ClInclude Include="RodFloatMove.h" />
     <ClInclude Include="SceneFightFish.h" />
     <ClInclude Include="ScoreDisplay.h" />
+    <ClInclude Include="ScoreManager.h" />
     <ClInclude Include="Star.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="StealPositionBar.h" />
