@@ -270,21 +270,20 @@ void PositionSelection::SetTotalValue(float individualValue)
 void PositionSelection::FindFishHighScore()
 {
 	//一番スコアが高い魚がいる場所を探すアルゴリズム。
-	Area compare;//比べる。
-	m_enemyArea = Area::A;
-	for (int i = 0; i < 4; i++) {
-		if (m_inGameState->GetFishScore(i) >= m_inGameState->GetFishScore(i+1)) {
-			compare = m_positionStateArray[i];
-		}
-		else {
-			compare = m_positionStateArray[i + 1];
-		}
-		if (m_inGameState->GetFishScore(static_cast<int>(m_enemyArea)) <= m_inGameState->GetFishScore(static_cast<int>(compare)))
-		{
-			m_enemyArea = compare;
-		}
+	Area bestArea=Area::A;
 
+	float maxScore = -1.0f;
+
+
+	for (int i = 0; i < 6; ++i) {
+		float score = m_inGameState->GetFishScore(i);
+		if (score > maxScore) {
+			maxScore = score;
+			bestArea = m_positionStateArray[i];
+		}
 	}
+
+	m_enemyArea = bestArea;
 
 }
 
