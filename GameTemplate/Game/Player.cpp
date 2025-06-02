@@ -2,10 +2,15 @@
 #include "Player.h"
 #include "Enemy.h"
 #include "PositionSelection.h"
+#include"BackGround.h"
 
 
 Player::Player()
 {
+	m_backGround = FindGO<BackGround>("backGround");
+
+	SetInitPosition(Vector3{0.0f,0.0f,0});
+
 	SetAnimationClipsLoad("Assets/animData/Player/Idle.tka",
 		"Assets/animData/Player/Walking.tka",
 		"Assets/animData/Player/FishingCast.tka"
@@ -24,6 +29,7 @@ Player::~Player()
 
 void Player::SetMoveSpeed()
 {
+	m_position;
 	if (m_is_moveActive) {
 		
 		Vector3 forward = Vector3{ 0.0f,0.0f,1.0f };

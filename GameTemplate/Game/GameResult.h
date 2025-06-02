@@ -1,5 +1,10 @@
 #pragma once
-class GameResult :public IGameObject
+#include< memory >
+#include"InGameState.h"
+
+class InGameState;
+class Game;
+class GameResult :public GameStateBase
 {
 public:
 	enum FishName {
@@ -14,7 +19,14 @@ public:
 	GameResult();
 	~GameResult();
 	bool Start();
-	void Update();
+	void OnUpdate();
+	void OnEnter();
+	void OnExit();
+
+
+
+
+	virtual bool ShouldChangeState(); // 状態を変更すべきかどうかを決定する純粋仮想関数
 	void SetFastPos();//各配列の初期化
 	void Render(RenderContext& rc);
 	void Easing(FishName name, Vector3 fastPos, Vector3 endPos);
@@ -44,4 +56,6 @@ public:
 	SpriteRender m_back;//リザルト画面の背景用スプライトレンダー。
 
 	int nowFishName = FishName::Hamachi;//イージングさせる魚のUI(初期設定はハマチ)。
+	InGameState* m_inGameState;
+	Game* m_game;
 };

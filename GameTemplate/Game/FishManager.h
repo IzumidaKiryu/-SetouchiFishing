@@ -1,45 +1,31 @@
 #pragma once
 #include "Fish.h"
 class PositionSelection;
-enum FishType {
-	TAI,
-	BURI,
-	TATIUO,
-	HIRAME,
-	JAKOTENN,
-	SINJU,
-};
+
 
 class Buri;
 class Tatiuo;
 class Jakoten;
 class Hirame;
 class Tai;
+class Fish;
 class FishManager :public IGameObject
 {
 public:
 
 	FishManager();
 	~FishManager();
+	void Init();
 	void Update();
 	void SelectFishType();
-	void NewGOBuri();
-	void NewGOTatiuo();
-	void NewGOJakoten();
-	void NewGOHirame();
-	void NewGOTai();
-	void SetUI();
-	void FishNewGO();
-	void SetShouldFishChange();
+	Fish* CreateFish(FishType type);
+
 	bool GetShouldFishChange();
-	void SetFishData();//フィッシュデータを設定する。
 	void UIPopIn();
 	FishData& GetFishData();//フィッシュデータを得るための関数。
 	float GetScore();
-	void Timer();
-	void DeleteFish();
-	void SetTimeRatio();
 	float GetTimeRatio();
+
 
 	Vector3 m_uiScale{1.0f,1.0f,1.0f};
 	float m_uiPopIn_t=0;
@@ -53,10 +39,12 @@ public:
 
 	FishType m_fishType;
 	SpriteRender* m_ui;
-	Buri* m_buri;
-	Tatiuo* m_tatiuo;
-	Jakoten* m_jakoten;
-	Hirame* m_hirame;
-	Tai* m_tai;
+
+	Fish* m_fish;
+	//Buri* m_buri;
+	//Tatiuo* m_tatiuo;
+	//Jakoten* m_jakoten;
+	//Hirame* m_hirame;
+	//Tai* m_tai;
 };
 

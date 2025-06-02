@@ -25,6 +25,7 @@ class Enemy;
 class StealPositionBar;
 class FishSlot;
 class GameStartCountdown;
+class InGameState;
 
 class PositionSelection : public IGameObject
 {
@@ -56,8 +57,7 @@ public:
 	void Timer();
 	float GetTime();
 	void FishChange();//魚を変える。
-	void SelectArea();
-	void SetTotalValue(float score);
+	void NotifyCurrentArea();
 	void FindFishHighScore();//スコアが高い魚を探す。
 	void UpdatePlayerArea();
 	void UpdateSlotFrameVisibility(Area positon);
@@ -76,10 +76,9 @@ public:
 	bool m_is_displaying;//表示するかどうか。
 	bool m_shouldPartiallyDeactivate = false;//部分的に非アクティブにするべきか。
 	//double m_double_time=0.0f;//時間(double型)
-	float m_timelimit = 240;//時間制限
+	float m_timelimit = 5;//時間制限
 	int m_int_time = m_timelimit;//時間(Int型)
 	float m_float_time= m_timelimit;
-	float m_totalScore = 0.0f;//スコアの合計。
 	bool m_is_time_up;//タイムアップしているかどうか。
 
 	bool m_isCountdownFinished = false; //カウントダウンが終わったかどうか。
@@ -100,15 +99,6 @@ public:
 	};
 	int a = 0;
 	std::string fishHighScorePosition;//出ている魚の中で一番スコアが高い魚がいるポジション。
-	std::string AreaName[6] = {
-		"positionA",
-		"positionB",
-		"positionC",
-		"positionD",
-		"positionE",
-		"positionF"
-	}
-	;
 	std::string select_by_with_position;
 	char* objectName[6];
 	Area m_currentArea;
@@ -118,20 +108,18 @@ public:
 	BackGround* m_backGround;
 	//SoundSource* gameBGM;		//ゲーム中のBGM。
 	FontRender m_fontRender;
-	FishManager* m_fishManager[6];
+	//FishManager* m_fishManager[6];
 	PlayFishing* m_playFishing;
 	SpriteRender* m_fishUI[6];
-	SpriteRender m_fishTimeUntilEscapeUI[6];
-	TimeLimitUI* m_timeLimitUI;
 	//ModelRender m_rodFloatModel;
 	StealPositionBar* m_stealPositionBar;
-	Stopwatch m_stopwatch;
 	Enemy* m_enemy;
 	FishSlot* m_fishSlot; // 魚のスロットUIを管理するクラス。
 	GameStartCountdown* m_gameStartCountdown; // ゲーム開始カウントダウンを管理するクラス。
+	InGameState* m_inGameState;
 
 	//エリアを区切るための定数
-	const float FRONT_BACK_Z_BORDER = -175.0f;
-	const float COLUMN_LEFT_BORDER = -281.3f;
-	const float COLUMN_RIGHT_BORDER = 353.0f;
+	const float FRONT_BACK_Z_BORDER = -388.0f;
+	const float COLUMN_LEFT_BORDER = -279.3f;
+	const float COLUMN_RIGHT_BORDER = 348.0f;
 };

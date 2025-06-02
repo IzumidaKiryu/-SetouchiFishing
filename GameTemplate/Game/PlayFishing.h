@@ -24,7 +24,6 @@ class GameCamera;
 class PlayFishingBackGround;
 class PositionSelection;
 class FishManager;
-class FishingGauge;
 class TensionGauge;
 class FishingRodHP;
 class ScoreDisplay;
@@ -39,7 +38,9 @@ class FightFishState;
 class FishingAnimationState;
 class HitUIState;
 class FishDetectionRadius;
-
+class InGameState;
+class BackGround;
+class ScoreManager;
 
 
 class PlayFishing :public IGameObject
@@ -53,40 +54,32 @@ public:
 	bool Start();
 
 
-
-	void SetFishManagerObjectName(std::string string_objectName);
-	void FindeFishManager();//フィッシュマネージャーを探して魚の情報を取得する。　
-	char* m_objectName;
+	void NewGOGameObjects();
+	void InitNewGOGameObjects();
+	void SetCurrentFishManagerObjectName(std::string string_objectName);
+	std::string m_currentFishManagerobjectName;
 	void StatusManager();
-	void NewGOFishingRodHP();
+	void FindGameObjects();
 	bool canNewGOFishingRodHP = true;//釣り竿のHPクラスをNewGO可能か。
 	void SetSuccess();
 	void SetFailure();
 	void Success();
 	void Failure();
-	void SetPlayFishingStatus_FishingGsauge();//プレイフィッシングステートをフィッシングゲージにする。
 	void SetFishData();
 	FishData& GetFishData();
 	float GetFIshScore();//スコアディスプレイクラスにスコアを渡す関数。
 	void SetCurrent_range_and_max_range_rate(float range_of_fish_and_ship);//魚と船の距離を設定
-	float GetRange_of_fish_and_ship();
 	void SetRange_of_fish_and_float(float range_of_fish_and_float);//ウキと船の距離を設定
-	float GetRange_of_fish_and_float();
 	void SetCastStrength(float scalar_multiply_in_first_velocity_vector);
-	void Cast();
-	void WaitForFish();
-	//void SetRodFloatModalePosition();
 	void float_to_water();
-	void CalculateCurrent_float_range_and_max_range_rate();//ウキとの距離の割合を計算する
+	void SetFishScaleByIndividualFactor();
 
 	//クラスを削除。
 	void DeleteThisClass();
 
-	//クラスを作成。
-	void NewGOCastGauge();
-	void NewGOFishingGauge();
-	void NewGOSceneFightFish();
 	void ChangeScene();
+
+	void ReturnToPositionSelectCamera();
 
 
 	float m_current_fish_range_and_max_range_rate;//今の魚の距離と最大の魚の距離の割合（それぞれのクラスで船と魚の最大距離とこの割合を掛けて場所を表現する。）
@@ -119,7 +112,7 @@ public:
 
 
 	CastGauge* m_castGauge;
-	GameCamera* gameCamera;			//�Q�[���J�����B
+	GameCamera* m_gameCamera;			//�Q�[���J�����B
 	PlayFishingBackGround* m_playFishingBackGround;
 	PositionSelection* m_positionSelection;
 	FishManager* m_fishManager;
@@ -138,5 +131,8 @@ public:
 	FishingAnimationState* m_fishingAnimationState;
 	HitUIState* m_hitUIState;
 	FishDetectionRadius* m_fishDetectionRadius;
+	InGameState* m_inGameState;
+	BackGround* m_backGround;
+	ScoreManager* m_scoreManager;
 
 };

@@ -2,14 +2,15 @@
 #include "Tai.h"
 
 
+
 Tai::Tai()
 {
-
+	SetFishType(FishType::TAI);
 	SetUI();
-	SetParameter(10.0f, 5.0f, 100.0f, 0.6, 50, 50);
-	SetBaseScore(100.0f);//基準になるスコア。
+	SetParameter(10.0f, 5.0f, 10000.0f, 0.6, 50, 50);
 	SetTimeUntilEscape(5.0f);
 	SetInitPos(0.6f);
+	SetScore();
 }
 
 Tai::~Tai()

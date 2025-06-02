@@ -3,8 +3,10 @@
 
 Buri::Buri()
 {
-	SetUI();
 
+	SetFishType(FishType::BURI);
+
+	SetUI();
 	SetParameter(10.0f, 5.0f, 100.0f, 0.6,50,50);
 }
 

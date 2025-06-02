@@ -17,20 +17,18 @@ class PositionSelection;
 class FishSlot;
 class BackGround;
 class GameCamera; 
-class GameStartCountdown : public GameStateBase
+class InGameState;
+
+class GameStartCountdown : public IGameObject
 {
 public:
 
 	GameStartCountdown();
 	~GameStartCountdown();
 
+	void Update();
 	bool Start();
 	void FindGameObjects();
-
-	bool ShouldChangeState(); // 状態を変更すべきかどうかを決定する純粋仮想関数
-	void OnUpdate();//毎フレームの処理はここに書く。
-	void OnEnter() override;
-	void OnExit() override;
 
 private:
 
@@ -38,6 +36,7 @@ private:
 
 
 	void SetInitCameraToShipDistance();
+	void InitCamera();
 	CountdownState ConvertTimeToCountdownState(int time);
 	void UpdateCountdownState();
 
@@ -121,5 +120,7 @@ private:
 	FishSlot* m_fishSlot;
 	BackGround* m_backGround;
 	GameCamera* m_camera;
+	InGameState* m_inGameState;
+
 };
 

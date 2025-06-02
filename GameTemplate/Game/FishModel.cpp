@@ -9,7 +9,7 @@ FishModel::FishModel()
 	SetAnimationClipsLoad();
 	m_fishModel.Init("Assets/modelData/fishShadow.tkm"/*, m_animationClips,1, enModelUpAxisY*/);
 	m_fishModel.SetPosition(Vector3{ 0.0f,0.0f,0.0f });
-	m_fishModel.SetScale(Vector3{ 0.5f,0.5f,0.5f });
+	m_fishModel.SetScale(m_scale);
 
 
 	Quaternion upward;
@@ -138,4 +138,13 @@ void FishModel::SetISTurningUpwardTrue()
 void FishModel::SetISTurningDownwardTrue()
 {
 	m_is_TurningDownward = true;
+}
+
+/// <summary>
+/// 個体値に基づいてスケールを設定
+/// </summary>
+/// <param name="scale"></param>
+void FishModel::SetScaleByIndividualFactor(float scale)
+{
+	m_fishModel.SetScale(m_scale*scale);
 }

@@ -6,7 +6,6 @@
 #include "Star.h"
 #include "sound/SoundEngine.h"
 #include "GetRotation.h"
-#include "PositionSelection.h"
 #include "PlayFishing.h"
 #include "ScoreDisplay.h"
 #include "GameResult.h"
@@ -18,14 +17,18 @@
 #include"PositionSelection.h"
 #include"GameStateBase.h"
 #include"Title.h"
+#include"GameResult.h"
+#include"InGameState.h"
 #include< memory >
 #include <iostream>
 
 Game::Game()
 {
+	m_skyCube = NewGO<SkyCube>(0, "skyCube");
+	m_skyCube->SetLuminance(1.0f);
+	m_skyCube->SetScale(600.0f);//4000倍にすると描画がなくなるかも。
 
-	currentState = move(std::make_unique<Title>());
-	NewGOGameObjects();
+	NewGOStateObjects();
 	DeactivateGameObjects();
 }
 
@@ -42,6 +45,8 @@ Game::~Game()
 
 bool Game::Start()
 {
+	currentState = FindGO<Title>("title");
+
 	return true;
 }
 
@@ -50,9 +55,11 @@ void Game::Update()
 {
 	if (currentState->ShouldChangeState())
 	{
+
 		currentState->Exit();
 
-		currentState = currentState->NextState();
+		currentState = currentState->ChangeState();
+
 		if (currentState)
 		{
 			currentState->Enter();
@@ -63,33 +70,26 @@ void Game::Render(RenderContext& rc)
 {
 }
 
-void Game::NewGOGameObjects()
+void Game::NewGOStateObjects()
 {
-	m_skyCube = NewGO<SkyCube>(0, "skyCube");
-	m_skyCube->SetLuminance(1.0f);
-	m_skyCube->SetScale(600.0f);//4000倍にすると描画がなくなるかも。
+	m_title = NewGO<Title>(0, "title");
+	m_inGameState = NewGO<InGameState>(0, "inGameState");
+	m_gameResult = NewGO<GameResult>(0,"gameResult");
 
-	//背景のオブジェクトを作る。
-	m_backGround = NewGO<BackGround>(0, "backGround");
-	//カウントダウン
-	m_gameStartCountdown = NewGO<GameStartCountdown>(0, "gameStartCountdown");
-	//カメラ
-	gameCamera = NewGO<GameCamera>(0, "gamecamera");
-	//ポジション選択シーンのオブジェクトを作る。
-	m_positionSelection = NewGO<PositionSelection>(0, "positionSelection");
-	//プレイヤーのオブジェクトを作る。
-	m_player = NewGO<Player>(0, "player");
-	//エネミーのオブジェクトを作る。
-	m_enemy = NewGO<Enemy>(0, "enemy");
+
 
 }
 
 void Game::DeactivateGameObjects()
 {
-	m_enemy->Deactivate();
-	m_player->Deactivate();
-	m_positionSelection->Deactivate();
-	m_gameStartCountdown->Deactivate();
-	m_backGround->Deactivate();
-	m_skyCube->Deactivate();
+	m_inGameState->Deactivate();
+	m_gameResult->Deactivate();
+}
+
+void Game::ResetInGame()
+{
+	DeleteGO(m_inGameState);
+	m_inGameState = NewGO<InGameState>(0, "inGameState");
+	m_inGameState->Deactivate();
+
 }

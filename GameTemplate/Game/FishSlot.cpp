@@ -1,12 +1,12 @@
 #include "stdafx.h"
 #include "FishSlot.h"
 #include"PositionSelection.h"
+#include"InGameState.h"
+#include"FishManager.h"
+
 
 FishSlot::FishSlot()
 {
-	
-
-	
 }
 
 FishSlot::~FishSlot()
@@ -30,6 +30,8 @@ bool FishSlot::Start()
 void FishSlot::FindGameObjects()
 {
 	m_positionSelection = FindGO<PositionSelection>("positionSelection");
+	m_inGameState = FindGO<InGameState>("inGameState");
+	m_fishManager = FindGO<FishManager>("fishManager");
 }
 
 void FishSlot::ThiscClassInit()
@@ -110,9 +112,10 @@ void FishSlot::UIUpdate(int i)
 
 void FishSlot::SetFishUI()
 {
-	m_positionSelection = FindGO<PositionSelection>("positionSelection");
+	m_inGameState = FindGO<InGameState>("inGameState");
+
 	for (int i = 0; i < 6; i++) {
-		m_fishUI[i] = &m_positionSelection->GetFishUI(i);
+		m_fishUI[i] = &m_inGameState->GetFishUI(i);
 		SetFishUIPosition(i, m_fishDisplayPosition[i]);
 	}
 }
@@ -268,7 +271,8 @@ void FishSlot::DisableAllFrameUI()
 void FishSlot::UpdateFishTimeUntilEscapeUISize()
 {
 	for (int i = 0; i < 6; i++) {
-		float scale = m_positionSelection->GerFishTimeRatio(i);
+		//float scale = m_positionSelection->GerFishTimeRatio(i);
+		float scale = m_inGameState->GerFishTimeRatio(i);
 			m_fishTimeUntilEscapeUI[i].SetScale(Vector3{ 1.0,scale, 1.0f });
 			m_fishTimeUntilEscapeUI[i].Update();
 	}

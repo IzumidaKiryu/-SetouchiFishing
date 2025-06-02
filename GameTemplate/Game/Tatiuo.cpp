@@ -3,6 +3,9 @@
 
 Tatiuo::Tatiuo()
 {
+
+	SetFishType(FishType::TATIUO);
+
 	SetUI();
 	SetBaseScore(120.0f);
 	SetScore();

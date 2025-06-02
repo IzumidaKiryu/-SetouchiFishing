@@ -21,7 +21,6 @@ TensionGauge::TensionGauge()
 	m_upward.SetRotationDegZ(0.0);
 	m_downward.SetRotationDegZ(180);
 
-	//m_tensionGaugeInside.Init("Assets/modelData/tensionGauge.DDS", 500, 100);
 	m_tensionGaugeInside.Init("Assets/modelData/new_sea_gauge.DDS", 100, 700);
 	m_tensionGaugeInside.SetPivot(Vector2(0.5f, 0.5f));
 	m_tensionGaugeInside.SetPosition(Vector3(650.0f, 0.0f, 0.0f));
@@ -42,7 +41,7 @@ TensionGauge::TensionGauge()
 	m_rodFloatUI.Init("Assets/modelData/rod_float.DDS", 50, 50);
 	m_rodFloatUI.SetPivot(Vector2(0.5f, 0.5f));
 	m_rodFloatUI.SetPosition(Vector3(650.0f, 0.0f, 0.0f));
-	m_rodFloatUI.SetScale(Vector3{ 1.0f, 1.0f, 1.0f });
+	m_rodFloatUI.SetScale(m_baseSigns_of_FishUiSize);
 	m_rodFloatUI.Update();
 
 
@@ -61,7 +60,7 @@ void TensionGauge::Update()
 	//}
 
 	/*SetFishUI_Position();*/
-	SetScale();
+	SetFloatScale();
 	/*SetFishUI_Position();*/
 }
 
@@ -85,7 +84,7 @@ void TensionGauge::SetFloatUI_Position(float current_float_range_max_range_rate)
 /// <summary>
 /// 大きさを変更。
 /// </summary>
-void TensionGauge::SetScale()
+void TensionGauge::SetFloatScale()
 {
 
 	//時間があれば影も合わせたい。
@@ -94,6 +93,14 @@ void TensionGauge::SetScale()
 	if (m_rodFloatMove != nullptr) {//ウキが作成されていない場合は行わない。
 		m_rodFloatUI.SetScale(Vector3{ 1.0f, 1.0f, 1.0f }*(1 + (m_rodFloatMove->m_position.y / 300)));
 	}
+}
+/// <summary>
+/// 魚の個体値に基づいて魚のスケールを設定
+/// </summary>
+/// <param name="scale"></param>
+void TensionGauge::SetFishUIScaleByIndividualFactor(float scale)
+{
+	m_signs_of_Fish.SetScale(m_baseSigns_of_FishUiSize*scale);
 }
 
 Vector3 TensionGauge::GetFishUIPosition()

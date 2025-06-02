@@ -1,9 +1,14 @@
 #include "stdafx.h"
 #include "Enemy.h"
 #include "PositionSelection.h"
+#include"BackGround.h"
+
 
 Enemy::Enemy()
 {
+	m_backGround = FindGO<BackGround>("backGround");
+
+
 	SetAnimationClipsLoad("Assets/animData/Enemy/EnamyIdle.tka",
 		"Assets/animData/Enemy/EnamyWalking.tka",
 		"Assets/animData/Player/FishingCast.tka"

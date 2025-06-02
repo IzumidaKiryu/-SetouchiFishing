@@ -1,18 +1,17 @@
 #include "stdafx.h"
 #include "Fish.h"
 #include "PositionSelection.h"
+#include "InGameState.h"
 #include <random>
 
 
 Fish::Fish()
 {
 	srand(time(NULL));
-	SetScore();
 }
 
 Fish::~Fish()
 {
-
 }
 
 void Fish::Update()
@@ -22,10 +21,22 @@ void Fish::Update()
 
 bool Fish::Start()
 {
-	m_positionSelection = FindGO<PositionSelection>("positionSelection");
-	m_initialTime = m_positionSelection->GetTime();
+
+	FindGameObjects();
+	m_initialTime = m_inGameState->GetTime();
 	return true;
 }
+
+void Fish::SetFishType(FishType fishtype)
+{
+	fishtype=m_fishData.fishType;
+}
+
+void Fish::FindGameObjects()
+{
+	m_inGameState = FindGO<InGameState>("inGameState");
+}
+
 
 /// <summary>
 /// ???l??????B
@@ -35,11 +46,12 @@ void Fish::SetScore()
 {
 	std::random_device rd;
 	//個体値の倍率をランダムに決める。0.4%~1.2%の間で決まる。
-	float individualValueMagnification = (0.4f / 100) * (rd() % 100 + 1);//??????{??
-	individualValueMagnification += 0.8;
+	m_fishData.individualFactor = (0.4f / 100) * (rd() % 100 + 1);//??????{??
+	m_fishData.individualFactor += 0.8;
 
-	m_fishData.score = m_baseScore * individualValueMagnification;//???X?R?A?~??????{???B
+	m_fishData.score = m_baseScore * m_fishData.individualFactor;//???X?R?A?~??????{???B
 }
+
 
 /// <summary>
 /// 逃げるまでの時間を設定する。
@@ -123,6 +135,7 @@ void Fish::SetParameter(
 	SetTimeUntilEscape(timeUntilEscape);
 	SetArrowSpeed(arrowspeed);
 	SetBaseScore(baseScore);
+	SetScore();
 	SetInitPos(initpos);
 	SetUpWardBias(upwardBias);
 	SetDownwardBias(downwardBias);
@@ -136,8 +149,7 @@ void Fish::SetParameter(
 /// <returns></returns>
 bool Fish::TimeCount()
 {
-	m_positionSelection = FindGO<PositionSelection>("positionSelection");
-	m_nowTime = m_positionSelection->GetTime();
+	m_nowTime = m_inGameState->GetTime();
 
 	//魚が逃げるまでの残り時間を計算する。
 	m_timeRatio = ((m_initialTime-m_nowTime)/m_fishData.timeUntilEscape);
