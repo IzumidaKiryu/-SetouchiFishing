@@ -5,11 +5,16 @@ namespace nsK2EngineLow {
 	public:
 		Bloom();
 		~Bloom();
+		//初期化
 		void Init(RenderTarget& renderTarget);
 		void Update();
+		//描画。
 		void Render(RenderContext& rc, RenderTarget&renderTarget);
 
-		RenderTarget* mainRenderTarget;
+
+
+
+		//RenderTarget* mainRenderTarget;
 		RenderTarget luminanceRenderTarget;
 		
 		SpriteInitData luminanceSpriteInitData;
