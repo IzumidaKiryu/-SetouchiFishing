@@ -1,6 +1,5 @@
 #include "stdafx.h"
 #include "PlayFishing.h"
-#include"PlayFishingBackGround.h"
 #include "GameCamera.h"
 #include "CastGauge.h"
 #include "PositionSelection.h"
@@ -20,6 +19,12 @@
 #include "FishingAnimationState.h"
 #include "HitUIState.h"
 #include "FishDetectionRadius.h"
+#include "InGameState.h"
+#include"BackGround.h"
+#include"FishModel.h"
+#include "ScoreManager.h"
+
+
 
 
 
@@ -30,54 +35,39 @@
 
 PlayFishing::PlayFishing()
 {
-	
+	NewGOGameObjects();
 
-	m_objectName = new char[6];// フィッシュマネージャーのオブジェクトネームのメモリ確保
-
-	m_playFishingBackGround = NewGO< PlayFishingBackGround>(0, "playFishingBackGround");
 	//ゲームカメラのオブジェクトを作る。
-	gameCamera = NewGO<GameCamera>(0, "PlayFishing_GameCamera");
-
-	//魚のモデルを作成。
-	m_fshModel = NewGO<FishModel>(0, "fishModel");
-
-	////ウキを作成。
-	//m_rodFloatMove = NewGO<RodFloatMove>(0, "rodFloatMove");
 
 
-	m_player = NewGO<Player>(0, "player_Playfishing");
-	m_player->m_position = Vector3{ 0.0f,100.0f,250 };
 	//プレイヤーがコントローラーで動かないようにする。
 	m_player->SetMoveDeActive();
 
-	//m_playFishingStatus = sceneFightFish;
 
-	//StatusManager();
-	/*m_rodFloatMove->SetPosition(m_rodFloatPosition);*/
 
 }
 
 PlayFishing::~PlayFishing()
 {
+	//カメラをもとに戻す。
+	ReturnToPositionSelectCamera();
+
 	DeleteGO(m_player);
 	DeleteGO(m_fshModel);
-	DeleteGO(m_playFishingBackGround);
-	DeleteGO(gameCamera);
-	//DeleteGO(m_fishManager);
+	DeleteGO(m_gameCamera);
 	DeleteGO(m_tensionGauge);
-	m_positionSelection = FindGO<PositionSelection>("positionSelection");
-	
+
 
 }
 
 void PlayFishing::Init()
 {
-	//フィッシュマネージャーを探す。
-	FindeFishManager();
+	
+	InitNewGOGameObjects();
 
 	SetFishData();
 
-	m_tensionGauge = NewGO<TensionGauge>(0, "tensionGauge");
+
 	m_current_fish_range_and_max_range_rate = m_fishData.initPos;
 
 	/*m_tensionGauge->SetFishUI_Position(m_fishData.initPos);*/
@@ -87,20 +77,51 @@ void PlayFishing::Init()
 
 void PlayFishing::Update()
 {
-	if (m_playCastGaugeState != nullptr) {
-		if (m_playCastGaugeState->GetSuccessful_or_Failure() == success) {
-			m_castState = NewGO<CastState>(0, "castState");
-			DeleteGO(m_playCastGaugeState);
-		};
-	}
+	//if (m_playCastGaugeState != nullptr) {
+	//	if (m_playCastGaugeState->GetSuccessful_or_Failure() == success) {
+	//		m_castState = NewGO<CastState>(0, "castState");
+	//		DeleteGO(m_playCastGaugeState);
+	//	};
+	//}
 	/*StatusManager();*/
 	//SetRodFloatModalePosition();
 }
 
 bool PlayFishing::Start()
 {
-	m_fishDetectionRadius = NewGO<FishDetectionRadius>(0, "fishDetectionRadius");
+	FindGameObjects();
 	return true;
+}
+
+void PlayFishing::NewGOGameObjects()
+{
+	//魚のモデルを作成。
+	m_fshModel = NewGO<FishModel>(0, "fishModel");
+	m_player = NewGO<Player>(0, "player_Playfishing");
+	m_player->m_position = Vector3{ 0.0f,100.0f,250 };
+
+
+
+}
+
+void PlayFishing::InitNewGOGameObjects()
+{
+	//フィッシュマネージャーを探す。
+	m_fishManager = FindGO<FishManager>(m_currentFishManagerobjectName.c_str());
+	m_tensionGauge = NewGO<TensionGauge>(0, "tensionGauge");
+	m_fishDetectionRadius = NewGO<FishDetectionRadius>(0, "fishDetectionRadius");
+
+
+}
+
+
+void PlayFishing::FindGameObjects()
+{
+	m_positionSelection = FindGO<PositionSelection>("positionSelection");
+	m_backGround = FindGO<BackGround>("backGround");
+	m_rodFloatMove = FindGO<RodFloatMove>("rodFloatMove");
+	m_gameCamera = FindGO<GameCamera>("PlayFishing");
+	m_scoreManager = FindGO<ScoreManager>("scoreManager");
 }
 
 /// <summary>
@@ -135,48 +156,6 @@ void PlayFishing::StatusManager()
 	default:
 		break;
 	}
-	//switch (m_playFishingStatus)
-	//{
-	//case castGauge:
-	//	NewGOCastGauge();
-	//	m_playFishingStatus = wait_castGauge;
-	//case wait_castGauge:
-	//	float_to_water();
-	//	m_rodFloatMove->SetSumPosition(Vector3 {0.0f,500.0f,0.0f});
-	//	gameCamera->SetTarget(/*m_rodFloatMove->m_rodFloatPosition*/Vector3{0.0f,0.0f,500.0f}+ m_floating);
-	//	//gameCamera->SetPosition(m_player->m_position+Vector3{0.0f,100.0f,100.0f});
-
-	//	break;
-	//case cast:
-	//	Cast();
-	//	/*SetRodFloatModalePosition();*/
-	//	gameCamera->SetTarget(m_rodFloatMove->m_position);
-	//	break;
-	//case wait_for_fish:
-	//	
-	//	/*float_to_water();*/
-	//	gameCamera->SetTarget(m_rodFloatMove->m_position);
-	//	WaitForFish();
-	//	/*SetRodFloatModalePosition();*/
-	//	break;
-	//	//case fishingGsauge:
-	//	//	/*DeleteGO(m_castGauge);*/
-	//	//	NewGOFishingGauge();
-	//	//	break;
-	//case sceneFightFish:
-	//	m_rodFloatMove = FindGO<RodFloatMove>("rodFloatMove");
-
-	//	NewGOSceneFightFish();
-	//	NewGOFishingRodHP();
-	//	m_playFishingStatus = wait_ceneFightFish;
-	//case wait_ceneFightFish:
-	//	m_rodFloatMove = FindGO<RodFloatMove>("rodFloatMove");
-	//	m_sceneFightFish = FindGO<SceneFightFish>("sceneFightFish");
-
-	//	//m_rodFloatMove->SetCurrent_range_and_max_range_rate(m_current_fish_range_and_max_range_rate);
-	//default:
-	//	break;
-	//}
 }
 
 void PlayFishing::Success()
@@ -214,50 +193,13 @@ void PlayFishing::Success()
 	case sceneFightFish:
 		DeleteGO(m_fightFishState);
 		DeleteThisClass();
-		m_positionSelection = FindGO<PositionSelection>("positionSelection");
-		m_positionSelection->SetTotalValue(m_fishData.score);
 		m_scoreDisplay = NewGO<ScoreDisplay>(0, "scoreDisplay");
 
 		break;
 	default:
 		break;
 	}
-	//if (m_successful_or_failure == success) {
-	//	switch (m_playFishingStatus)
-	//	{
-	//	case wait_castGauge:
-	//		DeleteGO(m_castGauge);
-	//		m_playFishingStatus = /*fishingGsauge*/cast;
-	//		m_successful_or_failure = unfixed;//成功か失敗かどうかを未確定にする。
-	//		StatusManager();//ステータスマネージャーを動かす。
-	//		break;
-	//	case castAnimasion:
-	//		m_successful_or_failure = unfixed;
-	//		m_playFishingStatus = cast;
-	//		StatusManager();
-	//		break;
-	//	case cast:
-	//		m_successful_or_failure = unfixed;//成功か失敗かどうかを未確定にする。
-	//		/*m_playFishingStatus = wait_for_fish;*/
-	//		m_playFishingStatus = wait_for_fish;
-	//		break;
-	//	case wait_for_fish:
-	//		m_successful_or_failure = unfixed;//成功か失敗かどうかを未確定にする。
-	//		m_playFishingStatus = sceneFightFish;
-	//		break;
-	//	case wait_ceneFightFish:
-	//		DeleteGO(m_sceneFightFish);
-	//		DeleteGO(m_fishingRodHP);
-	//		m_positionSelection = FindGO<PositionSelection>("positionSelection");
-	//		m_positionSelection->SetTotalValue(m_fishData.score);
-	//		//スコアディスプレイに移動する。
-	//		m_scoreDisplay = NewGO<ScoreDisplay>(0, "scoreDisplay");
-	//		DeleteGO(this);
-	//		break;
-	//	default:
-	//		break;
-	//	}
-	//}
+
 }
 
 void PlayFishing::Failure()
@@ -297,11 +239,20 @@ void PlayFishing::Failure()
 }
 void PlayFishing::ChangeScene()
 {
-	m_positionSelection = FindGO<PositionSelection>("positionSelection");
 	m_positionSelection->SetisDisplayingTrue();
 	//ポジションセレクトクラスのオブジェクトをアクティブにする
 	m_positionSelection->SetActivate();
 	DeleteThisClass();
+}
+
+/// <summary>
+/// ポジションセレクト画面のカメラの位置と
+/// ターゲットにリセット。
+/// </summary>
+void PlayFishing::ReturnToPositionSelectCamera()
+{
+	m_gameCamera->SetPosition(m_backGround->m_shipPosition + Vector3{ 0.0f,1500.0f,0.0f });
+	m_gameCamera->SetTarget(m_backGround->m_shipPosition + Vector3{ 0.0f,0.0f,100.0f });
 }
 
 
@@ -329,52 +280,17 @@ void PlayFishing::float_to_water()
 	/*m_rodFloatPosition = m_rodFloatPosition + m_floating;*/
 }
 
-///// <summary>
-///// ウキの距離と最大距離の割合を計算。
-///// ウキモデルのポジションからウキの距離と最大距離の割合を求める。
-///// </summary>
-//void PlayFishing::CalculateCurrent_float_range_and_max_range_rate()
-//{
-//	m_rodFloatMove = FindGO<RodFloatMove>("rodFloatMove");
-//
-//	//割合を求める
-//	 m_current_float_range_max_range_rate=m_rodFloatMove->m_position.z / m_rodFloatMove->m_limit_range_with_ship;
-//}
-
-
-
-//
-//
-//void PlayFishing::NewGOFishingRodHP()
-//{
-//	if (canNewGOFishingRodHP == true) {
-//		m_fishingRodHP = NewGO<FishingRodHP>(0, "fishingRodHP");
-//
-//	}
-//	canNewGOFishingRodHP = false;
-//}
-void PlayFishing::NewGOCastGauge()
+/// <summary>
+/// 魚の個体値に基づいて魚のスケールを設定
+/// </summary>
+/// <param name="scale"></param>
+void PlayFishing::SetFishScaleByIndividualFactor()
 {
-	m_castGauge = NewGO<CastGauge>(0, "CastGauge");
-}
-
-void PlayFishing::NewGOFishingGauge()
-{
-	m_fishingGauge = NewGO< FishingGauge>(0, "fishingGauge");
+	m_fshModel->SetScaleByIndividualFactor(m_fishData.individualFactor);
+	m_tensionGauge->SetFishUIScaleByIndividualFactor(m_fishData.individualFactor);
 
 }
 
-void PlayFishing::NewGOSceneFightFish()
-{
-	m_sceneFightFish = NewGO<SceneFightFish>(0, "sceneFightFish");
-}
-
-
-
-void PlayFishing::FindeFishManager()
-{
-	m_fishManager = FindGO<FishManager>(m_objectName);
-}
 
 
 
@@ -389,10 +305,11 @@ void PlayFishing::DeleteThisClass()
 
 
 
-void PlayFishing::SetFishManagerObjectName(std::string string_objectName)
+
+void PlayFishing::SetCurrentFishManagerObjectName(std::string string_objectName)
 {
 	//フィッシュマネージャーにつけるオブジェクトネームの設定。
-	std::char_traits<char>::copy(m_objectName, string_objectName.c_str(), string_objectName.size() + 1);
+	m_currentFishManagerobjectName= string_objectName;
 }
 
 
@@ -434,6 +351,10 @@ void PlayFishing::SetRange_of_fish_and_float(float range_of_fish_and_float)
 }
 
 
+/// <summary>
+/// キャストの強さを設定。
+/// </summary>
+/// <param name="castStrength"></param>
 void PlayFishing::SetCastStrength(float castStrength)
 {
 	m_castStrength = castStrength;

@@ -36,11 +36,13 @@ public:
 	Vector3 GetPos();
 	float GetAnimationRatio();
 	void SetIdleAnimation();
+	virtual void SetInitPosition(Vector3 pos)final;
 
+	Vector3 m_initpos=Vector3::Zero;
 
 	//メンバ変数。
 	ModelRender modelRender;	//モデルレンダ―。
-	Vector3 m_position = { 0.0f,100.0f,-100.0f };			//座標。
+	Vector3 m_position = { 0.0f,100.0f,-300.0f };			//座標。
 	enum EnAnimationClip {		//アニメーション。
 		enAnimationClip_Idle,
 		enAnimationClip_Walk,

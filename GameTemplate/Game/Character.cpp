@@ -91,7 +91,7 @@ void Character::Move()
 	}
 
 	//キャラクターコントローラーを使って座標を移動させる。
-	m_position = characterController.Execute(moveSpeed, 1.0f / 60.0f);
+	m_position = m_initpos +characterController.Execute(moveSpeed, 1.0f / 60.0f);
 
 	//絵描きさんに座標を教える。
 	modelRender.SetPosition(m_position);
@@ -191,6 +191,12 @@ void Character::SetIdleAnimation()
 	playerState = enAnimationClip_Idle;
 	modelRender.PlayAnimation(enAnimationClip_Idle);
 }
+void Character::SetInitPosition(Vector3 pos)
+{
+	m_initpos = pos;
+}
+
+
 ////描画処理。
 //void Character::Render(RenderContext & rc)
 //{

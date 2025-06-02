@@ -5,6 +5,7 @@
 #include"FishSlot.h"
 #include"BackGround.h"
 #include "GameCamera.h"
+#include "InGameState.h"
 #include <iostream>
 #include <cmath>
 #include< memory >
@@ -14,38 +15,33 @@
     
 GameStartCountdown::GameStartCountdown()
 {
-	SetInitCameraRotation();
-	SetCameraTarget();
-	SetInitCameraPos();
-	SetEndCameraPos();
+	
 	//カメラと船の間の距離を初期化。
-	SetInitCameraToShipDistance();
-	InitUI();
 	//DeleteGO(this);
 }
 GameStartCountdown::~GameStartCountdown()
 {
+	m_inGameState = FindGO<InGameState>("inGameState");
+	m_inGameState->SetHasCountdownClassFinished(true);
+	m_inGameState->OnCountdownFinished();
+
+
 	m_stopwatch.Stop();
 	m_positionSelection->Init();
-
-	m_fishSlot = FindGO<FishSlot>("fishSlot");
-	m_fishSlot->ThiscClassInit();
 }
 
 bool GameStartCountdown::Start()
 {
 	FindGameObjects();
+	InitCamera();
+	InitUI();
     return true;
 }
 
-bool GameStartCountdown::ShouldChangeState()
-{
-	return false;
-}
 
-void GameStartCountdown::OnUpdate()
+
+void GameStartCountdown::Update()
 {
-	m_camera = FindGO<GameCamera>("gameCamera");
 	CountStart();
 
 	//カウントダウンの時間を取得する。
@@ -65,20 +61,20 @@ void GameStartCountdown::OnUpdate()
 
 }
 
-void GameStartCountdown::OnEnter()
-{
-}
-
-void GameStartCountdown::OnExit()
-{
-}
 
 void GameStartCountdown::FindGameObjects()
 {
 	m_positionSelection = FindGO<PositionSelection>("positionSelection");
+	m_backGround = FindGO<BackGround>("backGround");
+	m_camera = FindGO<GameCamera>("gameCamera");
+	m_inGameState = FindGO<InGameState>("inGameState");
+
 
 }
 
+/// <summary>
+/// カウントダウンステートを更新
+/// </summary>
 void GameStartCountdown::UpdateCountdownState()
 {
 	int time = m_stopwatch.GetElapsed();
@@ -87,29 +83,11 @@ void GameStartCountdown::UpdateCountdownState()
 	m_countdownState = ConvertTimeToCountdownState(time);
 
 }
-
-void GameStartCountdown::CountStart()
-{
-	if (isCountStart) {
-		m_stopwatch.Start();
-		isCountStart = false;
-	}
-}
-
-void GameStartCountdown::SetInitCameraToShipDistance()
-{
-	m_backGround = FindGO<BackGround>("backGround");
-	Vector2 initCameraToShipDistance2D;
-	Vector2 shipPos2D= Vector2(m_backGround->m_shipPosition.x, m_backGround->m_shipPosition.z);
-	Vector2 cameraPos2D= Vector2(m_initCameraPos.z, m_initCameraPos.x);
-
-	//船とカメラの間のベクトル
-	initCameraToShipDistance2D = Subtract(shipPos2D,cameraPos2D);
-
-	//長さを取得
-	m_initCameraToShipDistance=initCameraToShipDistance2D.GetLength();
-}
-
+/// <summary>
+/// カウントダウンの状態を決める
+/// </summary>
+/// <param name="time"></param>
+/// <returns></returns>
 CountdownState GameStartCountdown::ConvertTimeToCountdownState(int time) {
 	switch (time) {
 	case 0: return CountdownState::Three;
@@ -119,6 +97,17 @@ CountdownState GameStartCountdown::ConvertTimeToCountdownState(int time) {
 	case 4:return CountdownState::NextScene;
 	}
 }
+
+
+void GameStartCountdown::CountStart()
+{
+	if (isCountStart) {
+		m_stopwatch.Start();
+		isCountStart = false;
+	}
+}
+
+
 
 
 void GameStartCountdown::InitUI()
@@ -180,19 +169,33 @@ void GameStartCountdown::SetUIScale(Vector3 scale)
 
 void GameStartCountdown::SetCameraPosition(Vector3 pos)
 {
-	m_camera = FindGO<GameCamera>("gameCamera");
+	
 	m_camera->SetPosition(UpdateCameraPostion());
 }
 
-Vector3 GameStartCountdown::UpdateCameraPostion()
+/// <summary>
+/// 最初の船とカメラの間の長さを設定する
+/// </summary>
+void GameStartCountdown::SetInitCameraToShipDistance()
 {
-	float thita;//回転度
-	thita = GetCameraRatios()*2*3.1415926534;
-	m_cameraPos.x = -(cos(thita))* UpdateCameraToShipDistance();
-	m_cameraPos.z = sin(thita)* UpdateCameraToShipDistance();
-	m_cameraPos.y = Lerp(GetCameraRatios(), m_initCameraPos.y, m_endCameraPos.y);
 
-	return m_cameraPos;
+	Vector2 shipPos2D = Vector2(m_backGround->m_shipPosition.x, m_backGround->m_shipPosition.z);
+	Vector2 cameraPos2D = Vector2(m_initCameraPos.z, m_initCameraPos.x);
+
+	//最初の船とカメラの間のベクトル
+	Vector2 initCameraToShipDistance2D = Subtract(shipPos2D, cameraPos2D);
+
+	//長さを取得
+	m_initCameraToShipDistance = initCameraToShipDistance2D.GetLength();
+}
+
+void GameStartCountdown::InitCamera()
+{
+	SetCameraTarget();
+	SetInitCameraPos();
+	SetEndCameraPos();
+	SetInitCameraToShipDistance();
+
 }
 
 float GameStartCountdown::UpdateCameraToShipDistance()
@@ -200,6 +203,25 @@ float GameStartCountdown::UpdateCameraToShipDistance()
 	m_CameraToShipDistance = Lerp(GetCameraRatios(), m_initCameraToShipDistance, m_endCameraToShipDistance);
 	return m_CameraToShipDistance;
 }
+
+/// <summary>
+/// カメラポジションの更新
+/// </summary>
+/// <returns></returns>
+Vector3 GameStartCountdown::UpdateCameraPostion()
+{
+	float thita;//回転度
+	thita = GetCameraRatios()*2*3.1415926534;
+
+
+	m_cameraPos.x = (cos(thita))* UpdateCameraToShipDistance()+ m_endCameraPos.x;
+	m_cameraPos.z = sin(thita)* UpdateCameraToShipDistance()+ m_endCameraPos.z;
+
+	m_cameraPos.y = Lerp(GetCameraRatios(), m_initCameraPos.y, m_endCameraPos.y);
+
+	return m_cameraPos;
+}
+
 
 
 void GameStartCountdown::UpdateCamera()
@@ -237,6 +259,9 @@ float GameStartCountdown::GetCameraRatios()
 {
 	int intTime = m_stopwatch.GetElapsed();
 	float ratio = m_stopwatch.GetElapsed()/ static_cast<int>(CountdownState::NextScene);
+	if (ratio > 1) {
+		ratio = 1;
+	}
 
 	return ratio;
 }
@@ -250,28 +275,24 @@ float GameStartCountdown::GetCameraToShipDistance()
 
 void GameStartCountdown::SetCameraTarget()
 {
-	m_backGround = FindGO<BackGround>("backGround");
-	m_cameraTarget = m_backGround->m_shipPosition;
+	m_cameraTarget = m_backGround->m_shipPosition + Vector3{0.0f,0.0f,10.0f};
 	m_camera->SetTarget(m_cameraTarget);
 }
 
 void GameStartCountdown::SetInitCameraPos()
 {
-	m_backGround = FindGO<BackGround>("backGround");
-	m_initCameraPos = m_backGround->m_shipPosition + Vector3{ 0.0f,200.0f,1500.0f };
+	m_initCameraPos = m_backGround->m_shipPosition + Vector3{ 0.0f,200.0f,-2500.0f };
+	SetCameraPosition(m_initCameraPos);
 
 }
 
 void GameStartCountdown::SetEndCameraPos()
 {
-	m_backGround = FindGO<BackGround>("backGround");
-	m_endCameraPos = m_backGround->m_shipPosition + Vector3{ 0.0f,1500.0f,0.0f };
+	m_endCameraPos = m_backGround->m_shipPosition + Vector3{ 0.0f,1500.0f,-100.0f };
 }
 
 void GameStartCountdown::SetInitCameraRotation()
 {
-	m_camera = FindGO<GameCamera>("gameCamera");
-
 	Quaternion rot;
 	rot.AddRotationDegZ(180);
 	m_camera->RotateOriginTarget(rot);

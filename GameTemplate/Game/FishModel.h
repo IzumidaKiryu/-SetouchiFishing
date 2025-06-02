@@ -21,7 +21,9 @@ public:
 	void TurnDownward();
 	void SetISTurningUpwardTrue();
 	void SetISTurningDownwardTrue();
+	void SetScaleByIndividualFactor(float scale);
 
+	Vector3 m_scale=Vector3::One*0.5;
 	float m_limit_range_with_ship = 2010.1f;
 	Vector3 m_position;
 	AnimationClip m_animationClips;

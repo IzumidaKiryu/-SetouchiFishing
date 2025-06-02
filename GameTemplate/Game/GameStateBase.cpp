@@ -2,15 +2,36 @@
 #include "GameStateBase.h"
 #include< memory >
 
+bool GameStateBase::Start()
+{
+	Deactivate();
+		return true;
+}
+
 void GameStateBase::Render(RenderContext& rc)
 {
 }
 
+GameStateBase* GameStateBase::ChangeState()
+{
+	SetActive(false);
+	GameStateBase* nextState = FindGO<GameStateBase>(m_nextStateName);
+	if (nextState) {
+		nextState->SetActive(true);
+	}
+	//K2_ASSERT(nextState != nullptr, "持つからない");
+	return nextState;
+}
+void GameStateBase::SetNextName(const char* nextStateName)
+{
+	m_nextStateName = nextStateName;
+}
+
 void GameStateBase::Update()
 {
-	if (am_isActive) {
-		OnUpdate();
-	}
+		if (m_isActive) {
+			OnUpdate();
+		}
 }
 
 void GameStateBase::OnUpdate()
@@ -23,21 +44,18 @@ void GameStateBase::OnUpdate()
 
 void GameStateBase::Enter()
 {
-	am_isActive = true;
+	 Activate();
 	OnEnter();
 }
 
 void GameStateBase::Exit()
 {
-	am_isActive = false;
+	Deactivate();
 	OnExit();
 }
 
 
-void GameStateBase::SetNextState(std::unique_ptr<GameStateBase> nextState)
-{
-	m_nextState = std::move(nextState);
-}
+
 
 std::unique_ptr<GameStateBase> GameStateBase::NextState()
 {
@@ -50,5 +68,5 @@ std::unique_ptr<GameStateBase> GameStateBase::NextState()
 
 void GameStateBase::SetActive(bool flag)
 {
-	am_isActive = flag;
+	m_isActive = flag;
 }

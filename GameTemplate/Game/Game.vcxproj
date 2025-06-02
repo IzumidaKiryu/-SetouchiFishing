@@ -234,6 +234,7 @@
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="FightFishState.cpp" />
     <ClCompile Include="Fish.cpp" />
+    <ClCompile Include="FishCatchEffectState.cpp" />
     <ClCompile Include="FishDetectionRadius.cpp" />
     <ClCompile Include="FishingAnimationState.cpp" />
     <ClCompile Include="FishingGauge.cpp" />
@@ -250,6 +251,7 @@
     <ClCompile Include="GetRotation.cpp" />
     <ClCompile Include="Hirame.cpp" />
     <ClCompile Include="HitUIState.cpp" />
+    <ClCompile Include="InGameState.cpp" />
     <ClCompile Include="Jakoten.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="PlayCastGaugeState.cpp" />
@@ -261,6 +263,7 @@
     <ClCompile Include="RodFloatMove.cpp" />
     <ClCompile Include="SceneFightFish.cpp" />
     <ClCompile Include="ScoreDisplay.cpp" />
+    <ClCompile Include="ScoreManager.cpp" />
     <ClCompile Include="Star.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
@@ -285,6 +288,7 @@
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="FightFishState.h" />
     <ClInclude Include="Fish.h" />
+    <ClInclude Include="FishCatchEffectState.h" />
     <ClInclude Include="FishDetectionRadius.h" />
     <ClInclude Include="FishingAnimationState.h" />
     <ClInclude Include="FishingGauge.h" />
@@ -296,13 +300,12 @@
     <ClInclude Include="GameCamera.h" />
     <ClInclude Include="GameResult.h" />
     <ClInclude Include="GameStartCountdown.h" />
-
     <ClInclude Include="GameStateBase.h" />
-
     <ClInclude Include="GaugeCastSuccessful.h" />
     <ClInclude Include="GetRotation.h" />
     <ClInclude Include="Hirame.h" />
     <ClInclude Include="HitUIState.h" />
+    <ClInclude Include="InGameState.h" />
     <ClInclude Include="Jakoten.h" />
     <ClInclude Include="PlayCastGaugeState.h" />
     <ClInclude Include="Player.h" />
@@ -313,6 +316,7 @@
     <ClInclude Include="RodFloatMove.h" />
     <ClInclude Include="SceneFightFish.h" />
     <ClInclude Include="ScoreDisplay.h" />
+    <ClInclude Include="ScoreManager.h" />
     <ClInclude Include="Star.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="StealPositionBar.h" />

@@ -1,6 +1,7 @@
 #pragma once
 #include"Character.h";
 //プレイヤークラス。
+class BackGround;
 class Player : public Character
 {
 public:
@@ -14,5 +15,7 @@ public:
 	void SetMoveActive();
 	bool m_is_moveActive=true;
 
+
 	void Render(RenderContext& rc);
+	BackGround* m_backGround;
 };

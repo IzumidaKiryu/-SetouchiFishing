@@ -78,7 +78,7 @@ Successful_or_Failure PlayFishingStateBase::GetSuccessful_or_Failure()
 
 void PlayFishingStateBase::SetCamera(Vector3 position, Vector3 targete)
 {
-	m_gameCamera = FindGO<GameCamera>("PlayFishing_GameCamera");
+	m_gameCamera = FindGO<GameCamera>("PlayFishing");
 	m_gameCamera->SetPosition(position);
 	m_gameCamera->SetTarget(targete);
 }
