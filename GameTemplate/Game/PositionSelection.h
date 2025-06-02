@@ -58,7 +58,6 @@ public:
 	float GetTime();
 	void FishChange();//魚を変える。
 	void NotifyCurrentArea();
-	void SetTotalValue(float score);
 	void FindFishHighScore();//スコアが高い魚を探す。
 	void UpdatePlayerArea();
 	void UpdateSlotFrameVisibility(Area positon);
@@ -80,7 +79,6 @@ public:
 	float m_timelimit = 5;//時間制限
 	int m_int_time = m_timelimit;//時間(Int型)
 	float m_float_time= m_timelimit;
-	float m_totalScore = 0.0f;//スコアの合計。
 	bool m_is_time_up;//タイムアップしているかどうか。
 
 	bool m_isCountdownFinished = false; //カウントダウンが終わったかどうか。

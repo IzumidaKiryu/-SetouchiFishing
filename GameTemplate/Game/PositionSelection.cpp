@@ -223,11 +223,6 @@ void PositionSelection::NotifyCurrentArea()
 	m_playFishing->SetCurrentFishManagerObjectName(m_inGameState->GetAreaName(static_cast<int>(m_currentArea)));
 }
 
-void PositionSelection::SetTotalValue(float individualValue)
-{
-	m_totalScore += individualValue;
-}
-
 /// <summary>
 /// 一番スコアが高い魚を探す。
 /// </summary>
