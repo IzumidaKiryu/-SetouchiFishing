@@ -6,27 +6,37 @@
 #include "Jakoten.h"
 #include "Hirame.h"
 #include "Tai.h"
+#include"Fish.h"
 #include <random>
 
 FishManager::FishManager()
 {
 	SelectFishType();
-	FishNewGO();
-	SetFishData();
-	SetUI();
 }
 
 FishManager::~FishManager()
 {
-	DeleteFish();
+	if (m_fish) {
+		DeleteGO(m_fish);
+		m_fish = nullptr;
+	}
+}
+
+void FishManager::Init()
+{
+	SelectFishType();                // ランダムに種類決定
+	m_fish = CreateFish(m_fishType); // 生成
+	m_ui = &m_fish->GetUI();         // UI取得
+	p_fishData = &m_fish->GetFishData();
+	m_fishData = *p_fishData;
 }
 
 void FishManager::Update()
 {
-	SetShouldFishChange();
-	Timer();
+	m_shouldFishChange = m_fish->GetShouldFishChange();
+	m_fish->TimeCount();
+	m_timeRatio = m_fish->GetTimeRatio();
 	UIPopIn();
-	SetTimeRatio();
 }
 
 /// <summary>
@@ -54,150 +64,27 @@ void FishManager::SelectFishType()
 	}
 }
 
-void FishManager::NewGOBuri()
+Fish* FishManager::CreateFish(FishType type)
 {
-	m_buri = NewGO<Buri>(0, "buri");
-}
-
-void FishManager::NewGOTatiuo()
-{
-	m_tatiuo = NewGO<Tatiuo>(0, "tatiuo");
-}
-
-void FishManager::NewGOJakoten()
-{
-	m_jakoten = NewGO<Jakoten>(0, "jakoten");
-}
-
-void FishManager::NewGOHirame()
-{
-	m_hirame=NewGO<Hirame>(0, "hirame");
-}
-
-void FishManager::NewGOTai()
-{
-	m_tai = NewGO<Tai>(0,"tai");
-}
-
-
-/// <summary>
-/// UIを取得する。
-/// </summary>
-void FishManager::SetUI()
-{
-	switch (m_fishType)
+	switch (type)
 	{
-	case TAI:
-		m_ui = &(m_tai->GetUI());
-		break;
-	case BURI:
-		m_ui = &(m_buri->GetUI());
-		break;
-	case TATIUO:
-		m_ui = &(m_tatiuo->GetUI());
-		break;
-	case HIRAME:
-		m_ui = &(m_hirame->GetUI());
-		break;
-	case JAKOTENN:
-		m_ui = &(m_jakoten->GetUI());
-		break;
-	case SINJU:
-		break;
-	default:
-		break;
+	case FishType::TAI:     return NewGO<Tai>(0, "tai");
+	case FishType::BURI:    return NewGO<Buri>(0, "buri");
+	case FishType::TATIUO:  return NewGO<Tatiuo>(0, "tatiuo");
+	case FishType::HIRAME:  return NewGO<Hirame>(0, "hirame");
+	case FishType::JAKOTENN:return NewGO<Jakoten>(0, "jakoten");
+	default:      return nullptr;
 	}
 }
 
-/// <summary>
-/// 魚を生成する
-/// </summary>
-void FishManager::FishNewGO()
-{
-	switch (m_fishType)
-	{
-	case TAI:
-		NewGOTai();
-		break;
-	case BURI:
-		NewGOBuri();
-		break;
-	case TATIUO:
-		NewGOTatiuo();
-		break;
-	case HIRAME:
-		NewGOHirame();
-		break;
-	case JAKOTENN:
-		NewGOJakoten();
-		break;
-	case SINJU:
-		break;
-	default:
-		break;
-	}
-}
 
-/// <summary>
-/// 魚を変えるかどうか判断する変数を設定する。
-/// </summary>
-void FishManager::SetShouldFishChange()
-{
-	switch (m_fishType)
-	{
-	case TAI:
-		m_shouldFishChange = m_tai->GetShouldFishChange();
-		break;
-	case BURI:
-		m_shouldFishChange = m_buri->GetShouldFishChange();
-		break;
-	case TATIUO:
-		m_shouldFishChange = m_tatiuo->GetShouldFishChange();
-		break;
-	case HIRAME:
-		m_shouldFishChange = m_hirame->GetShouldFishChange();
-		break;
-	case JAKOTENN:
-		m_shouldFishChange = m_jakoten->GetShouldFishChange();
-		break;
-	case SINJU:
-		break;
-	default:
-		break;
-	}
-}
+
 
 bool FishManager::GetShouldFishChange()
 {
 	return m_shouldFishChange;
 }
 
-void FishManager::SetFishData()
-{
-	switch (m_fishType)
-	{
-	case TAI:
-		p_fishData = &(m_tai->GetFishData());
-		break;
-	case BURI:
-		p_fishData = &(m_buri->GetFishData());
-		break;
-	case TATIUO:
-		p_fishData = &(m_tatiuo->GetFishData());
-		break;
-	case HIRAME:
-		p_fishData = &(m_hirame->GetFishData());
-		break;
-	case JAKOTENN:
-		p_fishData = &(m_jakoten->GetFishData());
-		break;
-	case SINJU:
-		break;
-	default:
-		break;
-	}
-	m_fishData = *p_fishData;
-}
 
 void FishManager::UIPopIn()
 {
@@ -223,83 +110,6 @@ float FishManager::GetScore()
 	return m_fishData.score;
 }
 
-void FishManager::Timer()
-{
-	switch (m_fishType)
-	{
-	case TAI:
-		m_tai->TimeCount();
-		break;
-	case BURI:
-		m_buri->TimeCount();
-		break;
-	case TATIUO:
-		m_tatiuo->TimeCount();
-		break;
-	case HIRAME:
-		m_hirame->TimeCount();
-		break;
-	case JAKOTENN:
-		m_jakoten->TimeCount();
-		break;
-	case SINJU:
-		break;
-	default:
-		break;
-	}
-}
-
-void FishManager::DeleteFish()
-{
-	switch (m_fishType)
-	{
-	case TAI:
-		DeleteGO(m_tai);
-		break;
-	case BURI:
-		DeleteGO(m_buri);
-		break;
-	case TATIUO:
-		DeleteGO(m_tatiuo);
-		break;
-	case HIRAME:
-		DeleteGO(m_hirame);
-		break;
-	case JAKOTENN:
-		DeleteGO(m_jakoten);
-		break;
-	case SINJU:
-		break;
-	default:
-		break;
-	}
-}
-
-void FishManager::SetTimeRatio()
-{
-	switch (m_fishType)
-	{
-	case TAI:
-		m_timeRatio=m_tai->GetTimeRatio();
-		break;
-	case BURI:
-		m_timeRatio = m_buri->GetTimeRatio();
-		break;
-	case TATIUO:
-		m_timeRatio = m_tatiuo->GetTimeRatio();
-		break;
-	case HIRAME:
-		m_timeRatio = m_hirame->GetTimeRatio();
-		break;
-	case JAKOTENN:
-		m_timeRatio = m_jakoten->GetTimeRatio();
-		break;
-	case SINJU:
-		break;
-	default:
-		break;
-	}
-}
 
 float FishManager::GetTimeRatio()
 {
