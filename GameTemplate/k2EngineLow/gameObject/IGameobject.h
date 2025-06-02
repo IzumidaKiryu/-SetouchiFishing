@@ -42,8 +42,9 @@ namespace nsK2EngineLow {
 		*/
 		virtual void Render(RenderContext& renderContext)
 		{
-			
+			if (m_isActive == true) {
 				(void)renderContext;
+			}
 			
 		}
 

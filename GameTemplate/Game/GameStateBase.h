@@ -9,7 +9,7 @@ public:
 
 	void Render(RenderContext& rc)override;
 	virtual bool ShouldChangeState() = 0; // 状態を変更すべきかどうかを決定する純粋仮想関数
-	virtual GameStateBase* ChangeState();
+	virtual GameStateBase* ChangeState()final;
 	virtual void Update() final;//派生クラスではいじれない
 	virtual void OnUpdate()=0;//毎フレームの処理はここに書く。
 	virtual void Enter() final;	//派生クラスからはいじれない

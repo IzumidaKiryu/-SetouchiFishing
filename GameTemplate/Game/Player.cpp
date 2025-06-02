@@ -9,7 +9,7 @@ Player::Player()
 {
 	m_backGround = FindGO<BackGround>("backGround");
 
-	SetInitPosition(m_backGround->m_shipPosition + Vector3{0.0f,50.0f,300});
+	SetInitPosition(Vector3{0.0f,0.0f,0});
 
 	SetAnimationClipsLoad("Assets/animData/Player/Idle.tka",
 		"Assets/animData/Player/Walking.tka",

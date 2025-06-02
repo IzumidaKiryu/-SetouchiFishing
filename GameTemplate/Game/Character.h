@@ -42,7 +42,7 @@ public:
 
 	//メンバ変数。
 	ModelRender modelRender;	//モデルレンダ―。
-	Vector3 m_position = { 400.0f,100.0f,-300.0f };			//座標。
+	Vector3 m_position = { 0.0f,100.0f,-300.0f };			//座標。
 	enum EnAnimationClip {		//アニメーション。
 		enAnimationClip_Idle,
 		enAnimationClip_Walk,

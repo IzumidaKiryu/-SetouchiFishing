@@ -85,3 +85,11 @@ void Game::DeactivateGameObjects()
 	m_inGameState->Deactivate();
 	m_gameResult->Deactivate();
 }
+
+void Game::ResetInGame()
+{
+	DeleteGO(m_inGameState);
+	m_inGameState = NewGO<InGameState>(0, "inGameState");
+	m_inGameState->Deactivate();
+
+}

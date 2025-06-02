@@ -21,16 +21,13 @@ GameStartCountdown::GameStartCountdown()
 }
 GameStartCountdown::~GameStartCountdown()
 {
-	m_stopwatch.Stop();
-	m_positionSelection->Init();
-
-	m_fishSlot = FindGO<FishSlot>("fishSlot");
-	m_fishSlot->ThiscClassInit();
 	m_inGameState = FindGO<InGameState>("inGameState");
 	m_inGameState->SetHasCountdownClassFinished(true);
-	m_inGameState->SetHasCountdownClassJustFinished(true);
+	m_inGameState->OnCountdownFinished();
 
 
+	m_stopwatch.Stop();
+	m_positionSelection->Init();
 }
 
 bool GameStartCountdown::Start()

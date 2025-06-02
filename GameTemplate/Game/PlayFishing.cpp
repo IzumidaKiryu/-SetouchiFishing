@@ -49,14 +49,14 @@ PlayFishing::PlayFishing()
 
 PlayFishing::~PlayFishing()
 {
+	//カメラをもとに戻す。
+	ReturnToPositionSelectCamera();
+
 	DeleteGO(m_player);
 	DeleteGO(m_fshModel);
-	DeleteGO(m_playFishingBackGround);
-	DeleteGO(gameCamera);
-	//DeleteGO(m_fishManager);
+	DeleteGO(m_gameCamera);
 	DeleteGO(m_tensionGauge);
-	m_positionSelection = FindGO<PositionSelection>("positionSelection");
-	
+
 
 }
 

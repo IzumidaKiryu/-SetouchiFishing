@@ -1,5 +1,7 @@
 #include "stdafx.h"
 #include "GameResult.h"
+#include"InGameState.h"
+#include"Game.h"
 //namespace {
 //	const float EASINGSTATE_PLAYER_X = -350.0f;
 //	const float EASINGSTATE_ENAMY_X = 0.0f;
@@ -34,7 +36,7 @@ bool GameResult::Start()
 	return true;
 }
 
-void GameResult::Update()
+void GameResult::OnUpdate()
 {
 	switch (nowFishName)
 	{
@@ -70,6 +72,27 @@ void GameResult::Update()
 	m_fishUI[Pearl].Update();
 	m_fishUI[Jakoten].Update();
 	m_back.Update();
+}
+
+void GameResult::OnEnter()
+{
+}
+
+void GameResult::OnExit()
+{
+	m_game = FindGO<Game>("game");
+	m_game->ResetInGame();
+}
+
+
+bool GameResult::ShouldChangeState()
+{
+	if (g_pad[0]->IsTrigger(enButtonA))
+	{
+		SetNextName("title");
+		return true;
+	}
+	return false;
 }
 
 void GameResult::SetFastPos()
