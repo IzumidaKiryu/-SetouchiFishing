@@ -32,30 +32,15 @@
 
 PlayFishing::PlayFishing()
 {
-	
+	NewGOGameObjects();
 
-	m_objectName = new char[6];// フィッシュマネージャーのオブジェクトネームのメモリ確保
-
-	m_playFishingBackGround = NewGO< PlayFishingBackGround>(0, "playFishingBackGround");
 	//ゲームカメラのオブジェクトを作る。
-	gameCamera = NewGO<GameCamera>(0, "PlayFishing_GameCamera");
-
-	//魚のモデルを作成。
-	m_fshModel = NewGO<FishModel>(0, "fishModel");
-
-	////ウキを作成。
-	//m_rodFloatMove = NewGO<RodFloatMove>(0, "rodFloatMove");
 
 
-	m_player = NewGO<Player>(0, "player_Playfishing");
-	m_player->m_position = Vector3{ 0.0f,100.0f,250 };
 	//プレイヤーがコントローラーで動かないようにする。
 	m_player->SetMoveDeActive();
 
-	//m_playFishingStatus = sceneFightFish;
 
-	//StatusManager();
-	/*m_rodFloatMove->SetPosition(m_rodFloatPosition);*/
 
 }
 

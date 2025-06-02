@@ -10,6 +10,8 @@
 #include"PositionSelection.h"
 #include"TimeLimitUI.h"
 #include "FishManager.h"
+#include "ScoreManager.h"
+#include"FishSlot.h"
 
 
 
@@ -26,7 +28,12 @@ InGameState::InGameState()
 	m_player = NewGO<Player>(0, "player");
 	//エネミーのオブジェクトを作る。
 	m_enemy = NewGO<Enemy>(0, "enemy");
+
+	//
 	m_timeLimitUI = NewGO<TimeLimitUI>(0,"timeLimitUI");
+
+
+	m_scoreManager= NewGO<ScoreManager>(0, "scoreManager");
 }
 
 bool InGameState::Start()
@@ -37,19 +44,13 @@ bool InGameState::Start()
 
 void InGameState::OnUpdate()
 {
-
-	//ポジションセレクトに入った瞬間にタイマーをスタート。
-	if (m_hasCountdownClassJustFinished) {
-		m_stopwatch.Start();
-		m_hasCountdownClassJustFinished = false;
-	}
-
 	//一度でもポジションセレクトに入ったら。
-	//タイマーを動かす。
 	if (m_hasCountdownClassFinished)
 	{
+		//タイマーを動かす。
 		Timer();
 
+		//魚を生成
 		ChangeFish();
 	}
 }
@@ -70,6 +71,10 @@ void InGameState::OnEnter()
 
 void InGameState::OnExit()
 {
+
+	//ここにリアル画面にスコアを渡す関数を書く。
+
+	DeleteGameObjects();
 
 }
 
@@ -109,25 +114,6 @@ void InGameState::SetHasCountdownClassJustFinished(bool flag)
 	m_hasCountdownClassJustFinished = flag;
 }
 
-void InGameState::SetInitFishManagers()
-{
-	for (int i = 0; i < 6; i++) {
-
-		objectName[i] = new char[AreaName[i].size() + 1];
-
-
-		//フィッシュマネージャーにつけるオブジェクトネームの設定。
-		std::char_traits<char>::copy(objectName[i], AreaName[i].c_str(), AreaName[i].size() + 1);
-
-		//フィッシュマネージャーの生成。
-		m_fishManager[i] = NewGO<FishManager>(0, objectName[i]);
-
-		SetFishUI(i);
-	}
-
-
-}
-
 void InGameState::ChangeFish()
 {
 	for (int i = 0; i < 6; i++) {
@@ -137,11 +123,27 @@ void InGameState::ChangeFish()
 			DeleteGO(m_fishManager[i]);
 
 			//フィッシュマネージャーの生成。
-			m_fishManager[i] = NewGO<FishManager>(0, objectName[i]);
+			m_fishManager[i] = NewGO<FishManager>(0, AreaName[i].c_str());
+
+			m_fishManager[i]->Init();
+
 
 			SetFishUI(i);
 		}
 
+	}
+}
+
+void InGameState::CreateInitialFish()
+{
+	for (int i = 0; i < 6; i++) 
+	{
+
+		//フィッシュマネージャーの生成。
+		m_fishManager[i] = NewGO<FishManager>(0, AreaName[i].c_str());
+		m_fishManager[i]->Init();
+
+		SetFishUI(i);
 	}
 }
 
@@ -169,4 +171,32 @@ float InGameState::GetFishScore(int index)
 void InGameState::SetScore(float score)
 {
 
+}
+
+void InGameState::DeleteGameObjects()
+{
+	DeleteGO(m_positionSelection);
+	DeleteGO(m_backGround);
+	DeleteGO(m_gameCamera);
+	DeleteGO(m_player);
+	DeleteGO(m_enemy);
+	DeleteGO(m_timeLimitUI);
+}
+
+/// <summary>
+/// カウントダウンが終わった瞬間カウントダウンクラスで呼ばれる。
+/// </summary>
+void InGameState::OnCountdownFinished()
+{
+	m_stopwatch.Start();
+
+	CreateInitialFish();
+
+	m_hasCountdownClassJustFinished = false;
+
+}
+
+std::string InGameState::GetAreaName(int index)
+{
+	return AreaName[index];
 }
