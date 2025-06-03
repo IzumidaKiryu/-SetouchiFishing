@@ -5,8 +5,6 @@ Hirame::Hirame()
 {
 
 	SetFishType(FishType::HIRAME);
-
-	SetUI();
 	SetBaseScore(180);
 	SetParameter(
 		15.0f,
@@ -22,15 +20,11 @@ Hirame::~Hirame()
 
 }
 
-/// <summary>
-/// UIの設定
-/// </summary>
-void Hirame::SetUI()
+bool Hirame::Init()
 {
-	m_ui.Init("Assets/modelData/hirameUI.DDS", 150, 150);
-	/*m_ui.SetPivot(Vector2(0.5f, 0.5f));
-	m_ui.SetScale(Vector3{ 1.0f, 1.0f, 1.0f });
-	m_ui.Update();*/
+	SetUI("Assets/modelData/hirameUI.DDS");
+
+	return true;
 }
 
 void Hirame::Effect()

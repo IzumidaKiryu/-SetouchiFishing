@@ -15,6 +15,7 @@ class InGameState :public GameStateBase
 public:
 	InGameState();
 	bool Start()override;
+	bool Init();
 	void OnUpdate();
 	bool ShouldChangeState(); // 状態を変更すべきかどうかを決定する純粋仮想関数
 	void OnEnter();

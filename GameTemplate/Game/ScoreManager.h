@@ -11,6 +11,9 @@ public:
 	ScoreManager();
 	~ScoreManager();
 
+	bool Start();
+	bool Init();
+
 	void SetScore(float score,FishType fishType, CharacterType characterType);
 
 	float GetFishTotalScore(FishType fishType, CharacterType characterType);

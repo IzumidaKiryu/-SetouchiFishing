@@ -6,6 +6,7 @@ public:
 
 	Tatiuo();
 	~Tatiuo();
-	void SetUI();
+
+	bool Init()override;
 };
 

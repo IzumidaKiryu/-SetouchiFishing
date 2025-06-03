@@ -1,6 +1,6 @@
 #include "k2EngineLowPreCompile.h"
 #include "SpriteRender.h"
-#include"RenderingEngine.h"
+
 using namespace nsK2EngineLow;
 
 void nsK2EngineLow::SpriteRender::Init(const char* filePath, const float w, const float h, AlphaBlendMode alphaBlendMode)
@@ -20,7 +20,14 @@ void nsK2EngineLow::SpriteRender::Init(const char* filePath, const float w, cons
 
 void nsK2EngineLow::SpriteRender::Draw(RenderContext& rc)
 {
-	g_renderingEngine->AddSpriteRenderObject(this);
+	g_renderingEngine->AddRenderObject(this);
 
 }
+
+//void nsK2EngineLow::SpriteRender::OnDraw(RenderContext& rc)
+//{
+//	if (m_isActive) {
+//		m_sprite.Draw(rc);
+//	}
+//}
 

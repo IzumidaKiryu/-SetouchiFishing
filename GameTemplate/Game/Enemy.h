@@ -17,6 +17,7 @@ class Enemy :public Character
 public:
 	Enemy();
 	~Enemy();
+	bool Init();
 	bool Start() override;
 	void SetInitPos();
 

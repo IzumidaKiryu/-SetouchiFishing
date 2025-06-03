@@ -16,6 +16,7 @@ public:
 	FishManager();
 	~FishManager();
 	void Init();
+	bool Start() override;
 	void Update();
 	void SelectFishType();
 	Fish* CreateFish(FishType type);

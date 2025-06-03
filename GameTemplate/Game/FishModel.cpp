@@ -5,7 +5,15 @@
 
 FishModel::FishModel()
 {
+}
 
+FishModel::~FishModel()
+{
+
+}
+
+bool FishModel::Init()
+{
 	SetAnimationClipsLoad();
 	m_fishModel.Init("Assets/modelData/fishShadow.tkm"/*, m_animationClips,1, enModelUpAxisY*/);
 	m_fishModel.SetPosition(Vector3{ 0.0f,0.0f,0.0f });
@@ -17,16 +25,18 @@ FishModel::FishModel()
 	m_fishModel.SetRotation(upward);
 	m_fishModel.Update();
 
+	return true;
 }
 
-FishModel::~FishModel()
+bool FishModel::Start()
 {
+	m_playFishing = FindGO<PlayFishing>("playFishing");
 
+	return true;
 }
 
 void FishModel::Update()
 {
-	m_playFishing = FindGO<PlayFishing>("playFishing");
 
 	//ポジションを設定。
 	SetPosition();

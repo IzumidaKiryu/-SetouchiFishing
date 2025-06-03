@@ -7,7 +7,6 @@ public:
 
 	Buri();
 	~Buri();
-	void SetUI();
-
+	bool Init();
 };
 

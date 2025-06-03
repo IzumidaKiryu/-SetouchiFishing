@@ -14,6 +14,6 @@ void nsK2EngineLow::FontRender::OnDraw(RenderContext& rc)
 
 void nsK2EngineLow::FontRender::Draw(RenderContext& rc)
 {
-	g_renderingEngine->AddFontRenderObject(this);
+	g_renderingEngine->AddRenderObject(this);
 
 }

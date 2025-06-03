@@ -18,8 +18,7 @@ void nsK2EngineLow::Bloom::Init(RenderTarget& renderTarget)
 		renderTarget.GetHeight(),
 		1,
 		1,
-		renderTarget.GetColorBufferFormat(),
-		//DXGI_FORMAT_R32G32B32A32_FLOAT,
+		DXGI_FORMAT_R32G32B32A32_FLOAT,
 		DXGI_FORMAT_D32_FLOAT
 	);
 	
@@ -72,6 +71,7 @@ void nsK2EngineLow::Bloom::Render(RenderContext& rc, RenderTarget&renderTarget)
 	rc.ClearRenderTargetView(luminanceRenderTarget);
 	//描画し終わるまで待つ。
 	m_luminanceSprite.Draw(rc);
+	
 	rc.WaitUntilFinishDrawingToRenderTarget(luminanceRenderTarget);
 	//luminanceRenderTarget終了。
 

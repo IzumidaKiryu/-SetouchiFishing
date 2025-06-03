@@ -1,118 +1,90 @@
 #pragma once
 #include "Bloom.h"
 #include "Light.h"
+#include "IRender.h"
+#include "Shadow.h"
 
 namespace nsK2EngineLow {
-
-	class FontRender;
-	class ModelRender;
-	class SpriteRender;
-	class Bloom;
 
 	class RenderingEngine :public Noncopyable
 	{
 	public:
-		RenderingEngine();
-		bool Start();
-		void InitFinalSprite();
-		void Init2DSprite();
-		void Execute(RenderContext&rc);
-		void ModelDraw(RenderContext& rc);
-		void SpriteFontDraw(RenderContext& rc);
-		void CopyMainRenderTargetToFrameBuffer(RenderContext& rc);
-
-		void InitShadowMap();//シャドウマップ描画用のレンダリングターゲットの作成。
-		void InitZPrepassRenderTarget();
-		void ZPrepass(RenderContext& rc);
-		void ShadowDraw(RenderContext& rc);
-
-		void AddModelRenderObject(ModelRender* modelRender)
+		//初期化。
+		void Init();
+		//描画処理の実行。
+		void Execute(RenderContext& rc);
+		// レンダリングオブジェクトを追加する関数
+		void AddRenderObject(IRender* renderObject)
 		{
-			ModelRenderObject.push_back(modelRender);
+			m_renderObjects.push_back(renderObject);
+		}
+		//ディレクションライトの設定。
+		void SetDirectionalLight(Vector3 direction,Vector3 color)
+		{
+			m_light.SetDirectionLight(direction,color);
 		}
 
-		void AddSpriteRenderObject(SpriteRender* spriteRender)
+		//環境光の設定。
+		void SetAmbientLight(Vector3 ambient)
 		{
-			SpriteRenderObject.push_back(spriteRender);
+			m_light.SetAmbient(ambient);
 		}
 
-		void AddFontRenderObject(FontRender* fontRender)
+		//ポイントライトの設定
+		void SetPointLight(int num, Vector3 position, Vector3 color, float range)
 		{
-			FontRenderObject.push_back(fontRender);
+			m_light.SetPointLight(num, position, color, range);
 		}
 
-
-		//ZPrepassの描画パスにモデルを追加
-		void Add3DModelToZPrepass(Model& model)
+		//スポットライトの設定。
+		void SetSpotLight(int num, Vector3 position, Vector3 color, float range, Vector3 direction, float angle)
 		{
-			m_zprepassModelsObject.push_back(&model);
+			m_light.SetSpotLight(num, position, color, range, direction, angle);
+		}
+		//半球ライトの設定。
+		void SetHemLight(Vector3 groundColor, Vector3 skyColor, Vector3 groundNormal)
+		{
+			m_light.SetHemLight(groundColor, skyColor, groundNormal);
+		}
+
+		void SetLightCameraTarget(Vector3 target)
+		{
+			m_light.SetLightCameraTarget(target);
+		}
+
+		RenderTarget& GetShadow()
+		{
+			return m_shadow.GetShadowTarget();
+		}
+		SceneLight& GetLight()
+		{
+			return m_light.GetLight();
 		}
 
 		Camera& GetLightCamera()
 		{
-			return lightCamera;
-		}
-
-		Light* GetLightingCB()
-		{
-			return m_light;
-		}
-
-		SceneLight& GetLightCB()
-		{
-			return m_light->GetLight();
-		}
-		
-		//ZPrepassで作成された深度テクスチャを取得
-		Texture& GetZPrepassDepthTexture()
-		{
-			return m_zprepassRenderTarget.GetRenderTargetTexture();
-		}
-
-		RenderTarget& GetShadowTarget()
-		{
-			return shadowMapTarget;
-		}
-
-		
-		//ライトビュースクリーンの設定
-		void SetLVP(Matrix mat)
-		{
-			// 正射影の設定
-			lightCamera.SetWidth(50.0f);   // 表示領域の幅
-			lightCamera.SetHeight(50.0f);  // 表示領域の高さ
-			lightCamera.SetNear(1.0f);
-			lightCamera.SetFar(100.0f);
-			lightCamera.SetUpdateProjMatrixFunc(Camera::enUpdateProjMatrixFunc_Ortho);
-
-			// Update でビュー・プロジェクション行列を作成
-			lightCamera.Update();
-
+			return m_light.GetLightCamera();
 		}
 	private:
-		//このクラスでライトの初期化をできるように変更したあとModelRenderのコンストラクタ内のNewGOを消す。
-
+		void InitMainRenderTarget();
+		void Init2DSprite();
+		void InitFinalSprite();
+		//モデルの描画。
+		void ModelDraw(RenderContext& rc);
+		void SpriteFontDraw(RenderContext& rc);
+		void CopyMainRenderTargetToFrameBuffer(RenderContext& rc);
+		
+		Light m_light;
 		Bloom m_bloom;
-		Light *m_light;
-
+		Shadow m_shadow;
+		
 		RenderTarget m_mainRenderingTarget;
 		RenderTarget m_2DRenderTarget;
 		Sprite m_mainSprite;
 		Sprite m_2DSprite;
-		SpriteInitData m_spriteInitData;
 		Sprite m_copyToframeBufferSprite;
-		RenderTarget m_zprepassRenderTarget;
-
-		//シャドウ用
-		RenderTarget shadowMapTarget;
-		Camera lightCamera;
-		float clearColor[4] = { 1.0f,1.0f,1.0f,1.0f };	//カラーバッファーは真っ白
-
-		std::vector<ModelRender*> ModelRenderObject;
-		std::vector<SpriteRender*> SpriteRenderObject;
-		std::vector<FontRender*> FontRenderObject;
-		std::vector<Model* >		m_zprepassModelsObject;	// ZPrepassの描画パスで描画されるモデルのリスト
-
+			
+		std::vector<IRender*> m_renderObjects;	// すべてのレンダリングオブジェクトを格納するリスト
 
 	};
 }

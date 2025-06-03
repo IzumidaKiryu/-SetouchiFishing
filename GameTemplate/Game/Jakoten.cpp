@@ -5,8 +5,6 @@ Jakoten::Jakoten()
 {
 
 	SetFishType(FishType::JAKOTENN);
-
-	SetUI();
 	SetParameter(
 		12.0f, 
 		5.0f, 
@@ -23,13 +21,8 @@ Jakoten::~Jakoten()
 
 }
 
-/// <summary>
-/// UIの設定
-/// </summary>
-void Jakoten::SetUI()
+bool Jakoten::Init()
 {
-	m_ui.Init("Assets/modelData/jakotenUI.DDS", 150, 150);
-	/*m_ui.SetPivot(Vector2(0.5f, 0.5f));
-	m_ui.SetScale(Vector3{ 1.0f, 1.0f, 1.0f });
-	m_ui.Update();*/
+	SetUI("Assets/modelData/jakotenUI.DDS");
+	return true;
 }
