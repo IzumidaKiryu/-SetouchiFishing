@@ -6,15 +6,6 @@
 
 Enemy::Enemy()
 {
-	m_backGround = FindGO<BackGround>("backGround");
-
-
-	SetAnimationClipsLoad("Assets/animData/Enemy/EnamyIdle.tka",
-		"Assets/animData/Enemy/EnamyWalking.tka",
-		"Assets/animData/Player/FishingCast.tka"
-	);
-	//ユニティちゃんのモデルを読み込む。
-	SetModel("Assets/modelData/Enemy/Enemy.tkm", animationClips, enAnimationClip_Num, enModelUpAxisZ, true,false);
 }
 
 Enemy::~Enemy()
@@ -24,13 +15,15 @@ Enemy::~Enemy()
 
 bool Enemy::Init()
 {
+	m_backGround = FindGO<BackGround>("backGround");
+
+
 	SetAnimationClipsLoad("Assets/animData/Enemy/EnamyIdle.tka",
 		"Assets/animData/Enemy/EnamyWalking.tka",
 		"Assets/animData/Player/FishingCast.tka"
 	);
 	//ユニティちゃんのモデルを読み込む。
-	SetModel("Assets/modelData/Enemy/Enemy.tkm", true, animationClips, enAnimationClip_Num, enModelUpAxisZ);
-
+	SetModel("Assets/modelData/Enemy/Enemy.tkm", animationClips, enAnimationClip_Num, enModelUpAxisZ, true, false);
 
 	return true;
 }
