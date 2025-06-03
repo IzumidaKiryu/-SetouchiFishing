@@ -73,7 +73,7 @@ void nsK2EngineLow::ModelRender::InitModel(const char* filePath, EnModelUpAxis e
 	initData.m_vsEntryPointFunc = "VSMain";
 
 	//影を描画するか？
-	if (shadowReceiver==false) {
+	if (shadowReceiver==true) {
 		//影用のシェーダー。
 		initData.m_psEntryPointFunc = "PSShadowRecieverMain";
 		//シャドウマップを取得。
@@ -142,5 +142,14 @@ void nsK2EngineLow::ModelRender::OnRenderModel(RenderContext& rc)
 	{
 		//モデルの描画
 		m_model.Draw(rc, 1);
+	}
+}
+
+void nsK2EngineLow::ModelRender::OnRenderShadowMap(RenderContext&rc,Camera&came) 
+{
+	if (m_shadowModel.IsInited())
+	{
+		m_shadowModel.Draw(rc, came, 1);
+
 	}
 }

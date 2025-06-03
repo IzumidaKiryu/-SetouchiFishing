@@ -9,10 +9,11 @@ public:
 	void Update();
 	//モデルの設定。
 	void SetModel(const char* filePath,
-		bool shadowDrop,
 		AnimationClip* animationClips,
 		int numAnimationClips,
-		EnModelUpAxis enModelUpAxis);
+		EnModelUpAxis enModelUpAxis,
+		bool shadowCast,
+		bool shadowDrop);
 	void SetAnimationClipsLoad(
 		const char* animationClip_Idle,
 		const char* animationClip_Walk,

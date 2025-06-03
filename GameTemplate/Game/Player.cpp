@@ -28,8 +28,8 @@ bool Player::Init()
 		"Assets/animData/Player/FishingCast.tka"
 	);
 
-	//モデルを初期化。
-	SetModel("Assets/modelData/Player/Player.tkm", true, animationClips, enAnimationClip_Num, enModelUpAxisZ);
+	SetModel("Assets/modelData/Player/Player.tkm", animationClips, enAnimationClip_Num, enModelUpAxisZ, true, false);
+	
 
 	return true;
 }
