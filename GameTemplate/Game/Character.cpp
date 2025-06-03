@@ -40,11 +40,19 @@ void Character::Update()
 	//絵描きさんの更新処理。
 	modelRender.Update();
 }
-
-void Character::SetModel(const char* filePath, bool shadowDrop,AnimationClip* animationClips, int numAnimationClips, EnModelUpAxis enModelUpAxis)
+/// <summary>
+		/// 通常描画用の初期化
+		/// </summary>
+		/// <param name="filePath">ファイルパス</param>
+		/// <param name="animationClips">アニメーションクリップ</param>
+		/// <param name="numAnimationClips">アニメーションクリップの数</param>
+		/// <param name="enModelUpAxis">モデルの上方向</param>
+		/// <param name="shadowCast">trueなら影を描画する</param>
+		/// <param name="ShadowDrop">trueなら影を受ける</param>
+void Character::SetModel(const char* filePath, AnimationClip* animationClips, int numAnimationClips, EnModelUpAxis enModelUpAxis, bool shadowCast,bool shadowDrop)
 {
 	//ユニティちゃんのモデルを読み込む。
-	modelRender.Init(filePath, shadowDrop, animationClips, numAnimationClips, enModelUpAxis);
+	modelRender.Init(filePath, animationClips, numAnimationClips, enModelUpAxis,shadowCast, shadowDrop);
 	modelRender.SetScale(Vector3{ 2.0f,2.0f,2.0f });
 }
 

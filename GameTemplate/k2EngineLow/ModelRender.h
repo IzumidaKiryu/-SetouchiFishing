@@ -5,12 +5,21 @@ namespace nsK2EngineLow {
 	class ModelRender:public IRender
 	{
 	public:
+		/// <summary>
+		/// 通常描画用の初期化
+		/// </summary>
+		/// <param name="filePath">ファイルパス</param>
+		/// <param name="animationClips">アニメーションクリップ</param>
+		/// <param name="numAnimationClips">アニメーションクリップの数</param>
+		/// <param name="enModelUpAxis">モデルの上方向</param>
+		/// <param name="shadowCast">trueなら影を描画する</param>
+		/// <param name="Shadowdrop">trueなら影を受ける</param>
 		void Init(const char* filePath,
 			AnimationClip* animationClips = nullptr,
 			int numAnimationCrips = 0,
 			EnModelUpAxis enModelUpAxis = enModelUpAxisZ,
-			bool shadowdrop = true,
-			bool shadowCast = true
+			bool shadowCast = false,
+			bool shadowdrop = false
 		);
 		
 		void InitShadowCasterDrawing(const char* filePath, EnModelUpAxis enModelUpAxis);
@@ -24,14 +33,7 @@ namespace nsK2EngineLow {
 
 		//void OnDraw(RenderContext& rc) override;
 		void OnRenderModel(RenderContext& rc) override;
-		void OnShadowDraw(RenderContext& rc,Camera&came)
-		{
-			if (m_shadowModel.IsInited())
-			{
-				m_shadowModel.Draw(rc, came,1);
-
-			}
-		}
+		void OnRenderShadowMap(RenderContext& rc, Camera& came);
 		void PlayAnimation(int animNo, float interpolateTime = 0.0f)
 		{
 			m_animation.Play(animNo, interpolateTime);
