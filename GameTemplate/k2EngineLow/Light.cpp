@@ -54,9 +54,9 @@ void nsK2EngineLow::Light::Init()
 void nsK2EngineLow::Light::LightCameraUpdate()
 {
 	//カメラの位置を設定
-	m_lightCamera.SetPosition(GetLightCamera().GetTarget() + Vector3(0, 600, -300));
+	m_lightCamera.SetPosition(g_camera3D->GetTarget() + Vector3(0, 600, -300));
 	//カメラの注視点を設定
-	m_lightCamera.SetTarget(GetLightCamera().GetTarget());
+	m_lightCamera.SetTarget(g_camera3D->GetTarget());
 	//ライトビュープロジェクション行列の計算
 	m_lightCamera.Update();
 	m_SceneLight.mLVP = m_lightCamera.GetViewProjectionMatrix();
