@@ -49,7 +49,7 @@ void Character::Update()
 		/// <param name="enModelUpAxis">モデルの上方向</param>
 		/// <param name="shadowCast">trueなら影を描画する</param>
 		/// <param name="ShadowDrop">trueなら影を受ける</param>
-void Character::SetModel(const char* filePath, AnimationClip* animationClips, int numAnimationClips, EnModelUpAxis enModelUpAxis, bool shadowCast,bool shadowDrop)
+void Character::SetModel(const char* filePath, AnimationClip* animationClips, int numAnimationClips, EnModelUpAxis enModelUpAxis, bool shadowCast=true,bool shadowDrop=false)
 {
 	//ユニティちゃんのモデルを読み込む。
 	modelRender.Init(filePath, animationClips, numAnimationClips, enModelUpAxis,shadowCast, shadowDrop);
