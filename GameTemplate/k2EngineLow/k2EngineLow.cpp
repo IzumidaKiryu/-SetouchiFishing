@@ -13,7 +13,7 @@ namespace nsK2EngineLow {
 		// グローバルなアクセスポイントにnullptrを代入。
 		g_graphicsEngine = nullptr;
 		g_gameTime = nullptr;
-		
+		g_renderingEngine = nullptr;
 		delete m_graphicsEngine;
 		
 		//ゲームオブジェクトマネージャーを削除。
@@ -39,11 +39,14 @@ namespace nsK2EngineLow {
 		GameObjectManager::CreateInstance();
 		PhysicsWorld::CreateInstance();
 		g_soundEngine = new SoundEngine();
-		g_renderingEngine = new RenderingEngine;
+		
 		if (m_graphicsEngine) {
 			//エフェクトエンジンの初期化。
 			EffectEngine::CreateInstance();
 		}
+		g_renderingEngine = new RenderingEngine;
+		g_renderingEngine->Init();
+		
 #ifdef K2_DEBUG
 		if (m_graphicsEngine) {
 			m_fpsFont = std::make_unique<Font>();

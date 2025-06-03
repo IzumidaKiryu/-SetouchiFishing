@@ -5,7 +5,7 @@
 /// �X�v���C�g�������[�B
 /// </summary>
 namespace nsK2EngineLow {
-	class SpriteRender
+	class SpriteRender:public IRender
 	{
 	public:
 		/// <summary>
@@ -100,12 +100,8 @@ namespace nsK2EngineLow {
 		/// <param name="rc">RenderContext</param>
 		void Draw(RenderContext& rc);
 
-		void OnDraw(RenderContext& rc)
-		{
-			if (m_isActive) {
-				m_sprite.Draw(rc);
-			}
-		}
+		//void OnDraw(RenderContext& rc) override;
+		
 		void SetActive(bool isActive)
 		{
 			m_isActive = isActive;
@@ -115,7 +111,13 @@ namespace nsK2EngineLow {
 		{
 			return m_isActive;
 		}
+
+
 	private:
+		void OnRender2D(RenderContext& rc) override
+		{
+			m_sprite.Draw(rc);
+		}
 		bool			m_isActive = true;
 		Sprite			m_sprite;								//スプライトクラスの参照
 		Vector3			m_position;								//座標
