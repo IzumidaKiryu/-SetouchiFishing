@@ -24,12 +24,6 @@
 
 Game::Game()
 {
-	m_skyCube = NewGO<SkyCube>(0, "skyCube");
-	m_skyCube->SetLuminance(1.0f);
-	m_skyCube->SetScale(600.0f);//4000倍にすると描画がなくなるかも。
-
-	NewGOStateObjects();
-	DeactivateGameObjects();
 }
 
 Game::~Game()
@@ -45,7 +39,18 @@ Game::~Game()
 
 bool Game::Start()
 {
+
+	NewGOStateObjects();
+	DeactivateGameObjects();
+
+	//現在のステートを初期化。
 	currentState = FindGO<Title>("title");
+
+	return true;
+}
+
+bool Game::Init()
+{
 
 	return true;
 }
@@ -72,9 +77,19 @@ void Game::Render(RenderContext& rc)
 
 void Game::NewGOStateObjects()
 {
+	m_skyCube = NewGO<SkyCube>(0, "skyCube");
+	m_skyCube->SetLuminance(1.0f);
+	m_skyCube->SetScale(700.0f);//4000倍にすると描画がなくなるかも。
+
+
 	m_title = NewGO<Title>(0, "title");
+	m_title->Init();
+
 	m_inGameState = NewGO<InGameState>(0, "inGameState");
+	m_inGameState->Init();
+
 	m_gameResult = NewGO<GameResult>(0,"gameResult");
+	m_gameResult->Init();
 
 
 

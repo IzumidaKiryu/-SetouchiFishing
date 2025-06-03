@@ -7,100 +7,87 @@
 #include "FishManager.h"
 #include "PlayFishing.h"
 #include "TimeLimitUI.h"
-#include <Time.h>
-#include <string>
-#include "stdafx.h"
 #include "Enemy.h"
 #include "StealPositionBar.h"
 #include "FishSlot.h"
 #include "GameStartCountdown.h"
-#include"InGameState.h"
-#include< memory >
+#include "InGameState.h"
+#include <ctime>
+#include <string>
+#include <memory>
 
-
-
-
-PositionSelection::PositionSelection()
-{
-	
-
-	srand(time(NULL));
-	
-
+/// <summary>
+/// コンストラクタ。乱数の初期化。
+/// </summary>
+PositionSelection::PositionSelection() {
+	srand(static_cast<unsigned>(time(nullptr)));
 }
 
-PositionSelection::~PositionSelection()
-{
-	//横取りゲージを削除する。
+/// <summary>
+/// デストラクタ。生成したオブジェクトを削除。
+/// </summary>
+PositionSelection::~PositionSelection() {
 	DeleteGO(m_stealPositionBar);
-	//プレイヤーを削除する。
 	DeleteGO(m_player);
-
 	DeleteGO(m_playFishing);
 	DeleteGO(m_fishSlot);
 }
 
-bool PositionSelection::Start()
-{
+/// <summary>
+/// 初期化処理。BGMやUIの設定。
+/// </summary>
+void PositionSelection::Init() {
+	m_stealPositionBar = NewGO<StealPositionBar>(0, "stealPositionBar");
+	g_soundEngine->ResistWaveFileBank(1, "Assets/sound/gamebgm.wav");
+	SetFishDisplayPosition();
+	m_fishSlot = NewGO<FishSlot>(0, "fishSlot");
+	m_fishSlot->ThiscClassInit();
+	SetCountdownFinished(true);
+	m_enemy->SetCountdownFinished(true);
+}
+
+/// <summary>
+/// Start。ゲームオブジェクトの取得。
+/// </summary>
+bool PositionSelection::Start() {
 	FindGameObjects();
-
-
-	//m_enemy->SetCountdownFinished(true);//カウントダウンが終わったことを伝える。
 	return true;
 }
-void PositionSelection::Update()
-{
-	if (m_isCountdownFinished==true)
-	{
 
-		//プレイヤーの現在エリアを更新。
-		UpdatePlayerArea();
+/// <summary>
+/// 毎フレーム更新処理。
+/// </summary>
+void PositionSelection::Update() {
+	if (!m_isCountdownFinished) return;
 
-		//アクティブ？。
-		if (m_shouldPartiallyDeactivate == false) {
+	UpdatePlayerArea();
+	if (!m_shouldPartiallyDeactivate && g_pad[0]->IsTrigger(enButtonA)) {
+		ChangeSceneToPlayFishing();
+		m_gameCamera->Activate();
+	}
+	else {
+		m_gameCamera->Deactivate();
+	}
 
-			if (g_pad[0]->IsTrigger(enButtonA)) {
-				ChangeSceneToPlayFishing();
-				m_gameCamera->Activate();
-			}
-		}
-		else {
-			m_gameCamera->Deactivate();
-		}
+	FindFishHighScore();
+}
 
-		FindFishHighScore();
+/// <summary>
+/// UIの描画処理。
+/// </summary>
+void PositionSelection::Render(RenderContext& rc) {
+	if (!m_isCountdownFinished) return;
 
+	m_stealPositionBar->DisplayUI(rc);
+	if (!m_shouldPartiallyDeactivate) {
+		m_fishSlot->ShowUI(rc);
 	}
 }
 
-
-
-void PositionSelection::Init()
-{
-	//横取りゲージを作る。
-	m_stealPositionBar = NewGO<StealPositionBar>(0, "stealPositionBar");
-
-	//ゲーム中のBGMを読み込む。
-	g_soundEngine->ResistWaveFileBank(1, "Assets/sound/gamebgm.wav");
-
-
-
-	//UIの場所を決める。
-	SetFishDisplayPosition();
-
-
-	//フィッシュスロットのオブジェクトを作る。
-	m_fishSlot = NewGO<FishSlot>(0, "fishSlot");
-	m_fishSlot->ThiscClassInit();
-
-	SetCountdownFinished(true);
-
-	m_enemy->SetCountdownFinished(true);//カウントダウンが終わったことを伝える。
-
-}
-
-void PositionSelection::FindGameObjects()
-{
+/// <summary>
+/// 必要なゲームオブジェクトをFindGOで取得。
+/// </summary>
+void PositionSelection::FindGameObjects() {
 	m_player = FindGO<Player>("player");
 	m_enemy = FindGO<Enemy>("enemy");
 	m_gameCamera = FindGO<GameCamera>("gamecamera");
@@ -108,132 +95,75 @@ void PositionSelection::FindGameObjects()
 	m_inGameState = FindGO<InGameState>("inGameState");
 }
 
-
-bool PositionSelection::ShouldChangeState()
-{
-	return false;
-}
-
-void PositionSelection::OnUpdate()
-{
-}
-
-void PositionSelection::Render(RenderContext& rc)
-{
-
-	if (m_isCountdownFinished == true) {
-		m_stealPositionBar->DisplayUI(rc);
-		if (m_shouldPartiallyDeactivate == false) {
-
-			m_fishSlot->ShowUI(rc);
-		}
-	}
-}
-
-
-void PositionSelection::SetFishDisplayPosition()
-{
+/// <summary>
+/// 魚のUIの表示位置を設定。
+/// </summary>
+void PositionSelection::SetFishDisplayPosition() {
 	for (int i = 0; i < 6; i++) {
 		if (i < 3) {
-			m_fishDisplayPosition[i] = { m_fishDisplayPositionXcriteria + m_fishDisplayPositionXinterval * (i), 230.0f, 0.0f };
+			m_fishDisplayPosition[i] = { m_fishDisplayPositionXcriteria + m_fishDisplayPositionXinterval * i, 230.0f, 0.0f };
 		}
-		if (2 < i) {
+		else {
 			m_fishDisplayPosition[i] = { m_fishDisplayPositionXcriteria + m_fishDisplayPositionXinterval * (i - 3), -300.0f, 0.0f };
 		}
 	}
 }
 
-void PositionSelection::SetisDisplayingTrue()
-{
-	m_is_displaying = true;
-}
-
-void PositionSelection::SetisDisplayingFalse()
-{
-	m_is_displaying = false;
-}
+void PositionSelection::SetisDisplayingTrue() { m_is_displaying = true; }
+void PositionSelection::SetisDisplayingFalse() { m_is_displaying = false; }
+bool PositionSelection::GetisDisplaying() { return m_is_displaying; }
 
 /// <summary>
-/// シーンをプレイフィッシングに変える。
+/// 関連オブジェクトを非アクティブにする。
 /// </summary>
-void PositionSelection::ChangeSceneToPlayFishing()
-{
-	if (m_currentArea != Area::ENEMY_SAME_POSITION) {//敵とポジションがかぶっていないとき。
-		SetisDisplayingFalse();
-
-		// インスタンス生成→ポジション設定→初期設定(内部でポジション設定の情報を使っている)
-		m_playFishing = NewGO<PlayFishing>(0, "playFishing");
-		//プレイフィッシングクラスにいまの
-		// エリアの魚の情報知らせる。
-
-		NotifyCurrentArea();
-		m_playFishing->Init();
-
-		SetDeactivate();
-	}
-}
-
-bool PositionSelection::GetisDisplaying()
-{
-	return m_is_displaying;
-}
-
-void PositionSelection::SetDeactivate()
-{
-	//プレイヤーを非アクティブにする。
+void PositionSelection::SetDeactivate() {
 	m_player->Deactivate();
-	//エネミーを非アクティブ。
 	m_enemy->Deactivate();
-	//ゲームカメラを非アクティブにする。
 	m_gameCamera->Deactivate();
-	//背景を非アクティブにする。
-	/*backGround->Deactivate();*/
-	/*backGround->BackGroundDeactive();*/
-	//Uiを表示しない。
 	m_shouldPartiallyDeactivate = true;
 }
 
-void PositionSelection::SetActivate()
-{
-	//プレイヤーをアクティブにする。
+/// <summary>
+/// 関連オブジェクトをアクティブにする。
+/// </summary>
+void PositionSelection::SetActivate() {
 	m_player->Activate();
-	//エネミーをアクティブ。
 	m_enemy->Activate();
-	//ゲームカメラをアクティブにする。
 	m_gameCamera->Activate();
-	//背景をアクティブにする。
-	/*backGround->Activate();*/
-	/*backGround->BackGroundActive();*/
-	//UIを表示する。
 	m_shouldPartiallyDeactivate = false;
 }
 
-float PositionSelection::GetTime()
-{
-	return m_float_time;
-}
-
-
+/// <summary>
+/// 経過時間を取得。
+/// </summary>
+float PositionSelection::GetTime() { return m_float_time; }
 
 /// <summary>
-/// 今のエリアを、プレイフィッシングに知らせる。
+/// プレイフィッシングシーンへ遷移。
 /// </summary>
-void PositionSelection::NotifyCurrentArea()
-{
+void PositionSelection::ChangeSceneToPlayFishing() {
+	if (m_currentArea == Area::ENEMY_SAME_POSITION) return;
+
+	SetisDisplayingFalse();
+	m_playFishing = NewGO<PlayFishing>(0, "playFishing");
+	NotifyCurrentArea();
+	m_playFishing->Init();
+	SetDeactivate();
+}
+
+/// <summary>
+/// 現在のエリア名をプレイフィッシングに通知。
+/// </summary>
+void PositionSelection::NotifyCurrentArea() {
 	m_playFishing->SetCurrentFishManagerObjectName(m_inGameState->GetAreaName(static_cast<int>(m_currentArea)));
 }
 
 /// <summary>
-/// 一番スコアが高い魚を探す。
+/// スコアの高い魚のいるエリアを探索し、敵のエリアとして記録。
 /// </summary>
-void PositionSelection::FindFishHighScore()
-{
-	//一番スコアが高い魚がいる場所を探すアルゴリズム。
-	Area bestArea=Area::A;
-
+void PositionSelection::FindFishHighScore() {
+	Area bestArea = Area::A;
 	float maxScore = -1.0f;
-
-
 	for (int i = 0; i < 6; ++i) {
 		float score = m_inGameState->GetFishScore(i);
 		if (score > maxScore) {
@@ -241,94 +171,56 @@ void PositionSelection::FindFishHighScore()
 			bestArea = m_positionStateArray[i];
 		}
 	}
-
 	m_enemyArea = bestArea;
-
 }
 
 /// <summary>
-/// プレイヤーが現在どのエリアにいるかを判定し、更新する。
+/// プレイヤーの位置に応じてエリアを更新。
+/// 敵と同じ位置なら特殊状態に。
 /// </summary>
-void PositionSelection::UpdatePlayerArea()
-{
+void PositionSelection::UpdatePlayerArea() {
 	const Vector3& playerPos = m_player->m_position;
-
-
-	// 仮想的に画面を 2 行 × 3 列のグリッドに分けている
 	bool isFrontRow = playerPos.z >= FRONT_BACK_Z_BORDER;
 
-
-	if (isFrontRow)
-	{
-
+	if (isFrontRow) {
 		if (playerPos.x < COLUMN_LEFT_BORDER)
-		{
 			m_currentArea = Area::A;
-		}
-
 		else if (playerPos.x <= COLUMN_RIGHT_BORDER)
-		{
 			m_currentArea = Area::B;
-		}
-
 		else
-		{
 			m_currentArea = Area::C;
-		}
 	}
-
-	else
-	{
+	else {
 		if (playerPos.x < COLUMN_LEFT_BORDER)
-		{
 			m_currentArea = Area::D;
-		}
-		else if (playerPos.x <= COLUMN_RIGHT_BORDER) {
+		else if (playerPos.x <= COLUMN_RIGHT_BORDER)
 			m_currentArea = Area::E;
-		}
 		else
-		{
 			m_currentArea = Area::F;
-		}
 	}
 
-	// 敵と同じエリアにいる場合の特別処理
-	if (m_currentArea == m_enemyArea) {
+	if (m_currentArea == m_enemyArea)
 		m_currentArea = Area::ENEMY_SAME_POSITION;
-	}
+
 	UpdateSlotFrameVisibility(m_currentArea);
 }
 
 /// <summary>
-/// 魚を表示するフレームの色をそこにいるキャラクターによって変える。
+/// スロットUIの枠の色変更などを行う。
 /// </summary>
-/// <param name="position"></param>
-void PositionSelection::UpdateSlotFrameVisibility(Area position)
-{
-	
+void PositionSelection::UpdateSlotFrameVisibility(Area position) {
 	m_fishSlot->UpdateSlotFrameVisibility(static_cast<int>(position), static_cast<int>(m_enemyArea));
-
 }
+
 
 /// <summary>
-/// カメラのポジションをセットする。
+/// カウントダウン終了フラグを設定。
 /// </summary>
-void PositionSelection::SetCameraPosition()
-{
-	//m_gameCamera->SetPosition(m_backGround->m_shipPosition + Vector3{ 0.0f,1500.0f,0.0f }/*Vector3{ 0.0f,0.0f,1000.0f }*/);
-	//m_gameCamera->SetTarget(m_backGround->m_shipPosition + Vector3{ 0.0f,0.0f,100.0f });
-}
-
-
-void PositionSelection::SetCountdownFinished(bool countdownFinished)
-{
+void PositionSelection::SetCountdownFinished(bool countdownFinished) {
 	m_isCountdownFinished = countdownFinished;
 }
 
-
-
-
-//void PositionSelection::fishingPositionA_SetFish()
-//{
-//
-//}
+Area PositionSelection::GetEnemyArea()
+{
+	return m_enemyArea;
+}

@@ -9,6 +9,9 @@ public:
 	~Player();
 	//更新処理。
 	/*void Update();*/
+	
+	bool Init();
+	bool Start()override;
 	//ムーブスピードを設定。
 	void SetMoveSpeed() override;
 	void SetMoveDeActive();

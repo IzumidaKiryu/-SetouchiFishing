@@ -4,15 +4,29 @@
 #include "PlayFishing.h"
 
 FishDetectionRadius::FishDetectionRadius()
-{
-	m_fishDetectionRadiusUI.Init("Assets/modelData/FishDetectionRadiusUI.DDS",500, 500);
-	m_fishDetectionRadiusUI.SetPivot(Vector2(0.5f, 0.5f));
-	m_fishDetectionRadiusUI.Update();
-	
-	
+{	
 }
 FishDetectionRadius::~FishDetectionRadius()
 {
+}
+
+bool FishDetectionRadius::Init()
+{
+	m_fishDetectionRadiusUI.Init("Assets/modelData/FishDetectionRadiusUI.DDS", 500, 500);
+	m_fishDetectionRadiusUI.SetPivot(Vector2(0.5f, 0.5f));
+	m_fishDetectionRadiusUI.Update();
+
+	return true;
+}
+
+bool FishDetectionRadius::Start()
+{
+	m_tensionGauge = FindGO<TensionGauge>("tensionGauge");
+
+	m_playFishing = FindGO<PlayFishing>("playFishing");
+
+	m_tensionGauge->FindGOFishDetectionRadius();
+	return true;
 }
 
 void FishDetectionRadius::Update()
@@ -68,9 +82,6 @@ SpriteRender& FishDetectionRadius::GetUI()
 
 void FishDetectionRadius::CalculateDetectionRangePos()
 {
-	m_tensionGauge = FindGO<TensionGauge>("tensionGauge");
-	m_playFishing = FindGO<PlayFishing>("playFishing");
-
 	m_fishDetectionRadiusPos= m_playFishing->m_current_fish_range_and_max_range_rate;
 	
 	SetFishDetectionRadiusUIPosition();

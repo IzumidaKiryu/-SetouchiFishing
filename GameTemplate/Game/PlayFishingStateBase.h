@@ -105,15 +105,15 @@ public:
 	Vector3 m_initCameraTarget;
 	Vector3 m_endCameraTarget;
 
-	GameCamera* m_gameCamera;
-	FishModel* m_fishModel;
-	RodFloatMove* m_rodFloatMove;
-	PlayFishing* m_playFishing;
-	TensionGauge* m_tensionGauge;
+	GameCamera* m_gameCamera = nullptr;
+	FishModel* m_fishModel = nullptr;
+	RodFloatMove* m_rodFloatMove=nullptr;
+	PlayFishing* m_playFishing = nullptr;
+	TensionGauge* m_tensionGauge = nullptr;
 
 	FishData m_fishData;
 	Successful_or_Failure m_successful_or_Failure = unfixed;
-	Player* m_player;
+	Player* m_player = nullptr;
 	FishFacing m_fishFacing;
 
 //private:

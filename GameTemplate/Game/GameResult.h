@@ -19,6 +19,7 @@ public:
 	GameResult();
 	~GameResult();
 	bool Start();
+	bool Init();
 	void OnUpdate();
 	void OnEnter();
 	void OnExit();

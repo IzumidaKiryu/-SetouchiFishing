@@ -4,6 +4,7 @@ class BackGround : public IGameObject
 public:
 	BackGround();
 	~BackGround();
+	bool Init();
 	void Update();
 	void Float();
 	void BackGroundDeactive();

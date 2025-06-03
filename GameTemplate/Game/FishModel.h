@@ -6,6 +6,8 @@ public:
 
 	FishModel();
 	~FishModel();
+	bool Init();
+	bool Start()override;
 	void Update();
 	ModelRender m_fishModel;
 	void Render(RenderContext& rc);

@@ -16,7 +16,10 @@ public:
 
 	TensionGauge();
 	~TensionGauge();
+	bool Init();
+	bool Start()override;
 	void Update();
+	void FindGOGameObject();
 	void Set_signs_of_Fish_UI();
 	void SetUpwardFishUI();
 	void SetDownwardFishUI();
@@ -27,6 +30,13 @@ public:
 	void SetFishUIScaleByIndividualFactor(float scale);
 
 	Vector3 GetFishUIPosition();
+
+	//途中でNewGOされるクラスのオブジェクトがNewGOされた
+	// 瞬間にこの関数を呼びFindGOする。
+	void FindGOFishDetectionRadius();
+	void FindGORodFloatMove();
+
+
 	//void AnnounceChangeFishState();
 
 
@@ -46,12 +56,12 @@ public:
 	SpriteRender m_tensionGaugeOutside;
 	SpriteRender m_signs_of_Fish;//魚影
 	SpriteRender m_rodFloatUI;
-	PlayFishing* m_playFishing;
-	FightFishState* m_fightFishState;
-	RodFloatMove* m_rodFloatMove;
+	PlayFishing* m_playFishing = nullptr;
+	FightFishState* m_fightFishState = nullptr;
+	RodFloatMove* m_rodFloatMove=nullptr;
 	Quaternion m_upward;
 	Quaternion m_downward;
-	FishDetectionRadius* m_fishDetectionRadius;
+	FishDetectionRadius* m_fishDetectionRadius = nullptr;
 
 	void Render(RenderContext& rc);
 };

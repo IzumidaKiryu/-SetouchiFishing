@@ -38,6 +38,7 @@ public:
 	~Fish();
 	//更新処理。
 	void Update();
+	virtual bool Init();
 	bool Start();
 	void SetFishType(FishType fishtype);
 	void SetScore();//フィッシュデータのスコアを設定する。
@@ -50,7 +51,8 @@ public:
 	void SetDownwardBias(float bias);
 	void SetFishDetectionRadius(float fishDetectionRadius);
 	void SetEscapeForce(float escapeForce);
-	
+	virtual void SetUI(std::string filePath, Vector3 scale=Vector3::One)final;
+
 	void SetParameter(float timeUntilEscape, 
 		float spead,
 		float baseScore,

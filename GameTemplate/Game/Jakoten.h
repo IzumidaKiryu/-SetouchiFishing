@@ -7,6 +7,6 @@ public:
 
 	Jakoten();
 	~ Jakoten();
-	void SetUI();
+	bool Init()override;
 };
 

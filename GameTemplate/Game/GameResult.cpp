@@ -10,13 +10,6 @@
 
 GameResult::GameResult()
 {
-	m_fishUI[Hamachi].Init("Assets/modelData/score/hamachiPoint.DDS", 530, 80);
-	m_fishUI[Tachiuo].Init("Assets/modelData/score/tachiuoPoint.DDS", 530, 80);
-	m_fishUI[Tai].Init("Assets/modelData/score/taiPoint.DDS", 530, 80);
-	m_fishUI[Hirame].Init("Assets/modelData/score/hiramePoint.DDS", 530, 80);
-	m_fishUI[Pearl].Init("Assets/modelData/score/pearlPoint.DDS", 530, 80);
-	m_fishUI[Jakoten].Init("Assets/modelData/score/jyakotenPoint.DDS", 530, 80);
-	m_back.Init("Assets/modelData/score/fishResult.DDS", 1320, 780);
 }
 
 GameResult::~GameResult()
@@ -32,6 +25,19 @@ bool GameResult::Start()
 		m_t[i] = 0.0f;
 		m_fishUI[i].SetPosition(m_vec[i]);
 	}
+
+	return true;
+}
+
+bool GameResult::Init()
+{
+	m_fishUI[Hamachi].Init("Assets/modelData/score/hamachiPoint.DDS", 530, 80);
+	m_fishUI[Tachiuo].Init("Assets/modelData/score/tachiuoPoint.DDS", 530, 80);
+	m_fishUI[Tai].Init("Assets/modelData/score/taiPoint.DDS", 530, 80);
+	m_fishUI[Hirame].Init("Assets/modelData/score/hiramePoint.DDS", 530, 80);
+	m_fishUI[Pearl].Init("Assets/modelData/score/pearlPoint.DDS", 530, 80);
+	m_fishUI[Jakoten].Init("Assets/modelData/score/jyakotenPoint.DDS", 530, 80);
+	m_back.Init("Assets/modelData/score/fishResult.DDS", 1320, 780);
 
 	return true;
 }

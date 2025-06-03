@@ -11,7 +11,6 @@
 
 FishManager::FishManager()
 {
-	SelectFishType();
 }
 
 FishManager::~FishManager()
@@ -26,9 +25,17 @@ void FishManager::Init()
 {
 	SelectFishType();                // ランダムに種類決定
 	m_fish = CreateFish(m_fishType); // 生成
+	m_fish->Init();
+
 	m_ui = &m_fish->GetUI();         // UI取得
 	p_fishData = &m_fish->GetFishData();
 	m_fishData = *p_fishData;
+}
+
+bool FishManager::Start()
+{
+
+	return true;
 }
 
 void FishManager::Update()

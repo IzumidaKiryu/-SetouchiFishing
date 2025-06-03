@@ -10,16 +10,20 @@ GameCamera::GameCamera()
 GameCamera::~GameCamera()
 {
 }
+bool GameCamera::Init()
+{
+	//カメラのニアクリップとファークリップを設定する。
+	g_camera3D->SetNear(1.0f);
+	g_camera3D->SetFar(10000.0f);
+
+	return true;
+}
 bool GameCamera::Start()
 {
 	//注視点から視点までのベクトルを設定。
 	/*m_toCameraPos.Set(0.0f, 125.0f, -250.0f);*/
 	//プレイヤーのインスタンスを探す。
 	m_player = FindGO<Player>("player");
-
-	//カメラのニアクリップとファークリップを設定する。
-	g_camera3D->SetNear(1.0f);
-	g_camera3D->SetFar(10000.0f);
 
 	return true;
 }

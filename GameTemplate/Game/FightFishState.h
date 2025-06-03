@@ -77,7 +77,6 @@ public:
 	Vector3 fish3DPos;
 
 	FIshState m_fishState;
-	SpriteRender m_tensionGaugeInside;
 	SpriteRender m_tensionGaugeOutside;
 	SpriteRender m_signs_of_Fish;//魚影
 	GetRotation* m_getRotation;
