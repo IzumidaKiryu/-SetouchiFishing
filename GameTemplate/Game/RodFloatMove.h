@@ -59,7 +59,7 @@ public:
 	Vector3 m_sumPosition;
 	ModelRender m_rodFloatModel;
 	//void SetRodFloatPositon();
-	GameCamera* m_gameCamera;
+	GameCamera* m_gameCamera = nullptr;
 	//RodFloatState m_floatState;
 	float m_float_t;
 	float water_surface_position_y;
@@ -79,9 +79,9 @@ public:
 
 
 	BuoyancyState m_buoyancyState;
-	SceneFightFish* m_sceneFightFish;
-	PlayFishing* m_playFishing;
-	TensionGauge* m_tensionGauge;
+	SceneFightFish* m_sceneFightFish = nullptr;
+	PlayFishing* m_playFishing = nullptr;
+	TensionGauge* m_tensionGauge = nullptr;
 
 };
 

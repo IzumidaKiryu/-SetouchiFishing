@@ -79,7 +79,7 @@ void Game::NewGOStateObjects()
 {
 	m_skyCube = NewGO<SkyCube>(0, "skyCube");
 	m_skyCube->SetLuminance(1.0f);
-	m_skyCube->SetScale(600.0f);//4000倍にすると描画がなくなるかも。
+	m_skyCube->SetScale(700.0f);//4000倍にすると描画がなくなるかも。
 
 
 	m_title = NewGO<Title>(0, "title");

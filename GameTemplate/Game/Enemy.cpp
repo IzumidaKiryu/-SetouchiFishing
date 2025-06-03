@@ -56,7 +56,7 @@ void Enemy::SetMoveSpeed()
 		m_positionSelection->FindFishHighScore();
 		/*if (m_position.x <= enemyFishingPosition[m_positionSelection->enemy_position].x - 10.0f || m_position.y <= enemyFishingPosition[m_positionSelection->enemy_position].y) {*/
 
-		Vector3 range_of_enemy_and_position = enemyFishingPosition[static_cast<int>(m_positionSelection->m_enemyArea)] - m_position;//敵ポジションと選んでいるポジションの距離。
+		Vector3 range_of_enemy_and_position = enemyFishingPosition[static_cast<int>(m_positionSelection->GetEnemyArea())] - m_position;//敵ポジションと選んでいるポジションの距離。
 		if (range_of_enemy_and_position.Length() >= 10.0f) {
 			moveSpeed += range_of_enemy_and_position/*(enemyFishingPosition[m_positionSelection->enemy_position] - m_position)*/;
 			moveSpeed.Normalize();

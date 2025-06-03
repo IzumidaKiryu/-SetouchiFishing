@@ -1,6 +1,9 @@
 #pragma once
 #include "Fish.h"
 
+// ==============================
+// ステートと成功/失敗状態
+// ==============================
 enum PlayFishingStatus {
 	playCastGauge,
 	wait_castGauge,
@@ -12,12 +15,15 @@ enum PlayFishingStatus {
 	wait_ceneFightFish
 };
 
-enum  Successful_or_Failure {
-	unfixed,//未確定
-	success,//成功
-	failure//失敗
+enum Successful_or_Failure {
+	unfixed,  // 未確定
+	success,  // 成功
+	failure   // 失敗
 };
 
+// ==============================
+// 前日設定
+// ==============================
 class CastGauge;
 class FishingGauge;
 class GameCamera;
@@ -42,80 +48,80 @@ class InGameState;
 class BackGround;
 class ScoreManager;
 
-
-class PlayFishing :public IGameObject
+class PlayFishing : public IGameObject
 {
 public:
-
 	PlayFishing();
 	~PlayFishing();
+
 	bool Init();
-	void Update();
 	bool Start();
+	void Update();
 
-
-	void NewGOGameObjects();
-	void InitNewGOGameObjects();
-	void SetCurrentFishManagerObjectName(std::string string_objectName);
-	std::string m_currentFishManagerobjectName;
-	void StatusManager();
-	void FindGameObjects();
-	bool canNewGOFishingRodHP = true;//釣り竿のHPクラスをNewGO可能か。
+	// ==============================
+	// 外部から呼ばれるインターフェース
+	// ==============================
 	void SetSuccess();
 	void SetFailure();
-	void Success();
-	void Failure();
 	void SetFishData();
-	FishData& GetFishData();
-	float GetFIshScore();//スコアディスプレイクラスにスコアを渡す関数。
-	void SetCurrent_range_and_max_range_rate(float range_of_fish_and_ship);//魚と船の距離を設定
-	void SetRange_of_fish_and_float(float range_of_fish_and_float);//ウキと船の距離を設定
+	void SetCurrentFishManagerObjectName(std::string string_objectName);
+	void SetCurrent_range_and_max_range_rate(float range_of_fish_and_ship);
+	void SetRange_of_fish_and_float(float range_of_fish_and_float);
 	void SetCastStrength(float scalar_multiply_in_first_velocity_vector);
-	void float_to_water();
 	void SetFishScaleByIndividualFactor();
-
-	//クラスを削除。
+	void ReturnToPositionSelectCamera();
+	void ChangeScene();
 	void DeleteThisClass();
 
-	void ChangeScene();
+	FishData& GetFishData();
+	float GetFIshScore();
 
-	void ReturnToPositionSelectCamera();
+	bool canNewGOFishingRodHP = true; // RodHPのNewGOを許可するか
 
+	// ==============================
+	// 内部ロジック管理
+	// ==============================
+	void Success();
+	void Failure();
 
-	float m_current_fish_range_and_max_range_rate;//今の魚の距離と最大の魚の距離の割合（それぞれのクラスで船と魚の最大距離とこの割合を掛けて場所を表現する。）
-	float m_current_float_range_max_range_rate;//今のウキの距離と最大のウキの距離の割合。
-	float m_floating_t;
-	float m_casting_t;
-
+	// パラメータ/ビジュアル
+	float m_current_fish_range_and_max_range_rate = 0.0f;
+	float m_current_float_range_max_range_rate = 0.0f;
+	float m_castStrength = 0.0f;
 
 	Vector3 m_floating;
 	Vector3 m_gameCameraTarget;
-
-
-	float m_castStrength;//キャストの強さ（ウキのとび具合が変わる）
-
 	Vector3 m_rodFloatModelPos;
+	Vector3 m_cameraPos{ 0.0f,0.0f,0.0f };
+	Vector3 m_cameraTarget{ 0.0f,0.0f,0.0f };
 	Vector3 m_fishModelPos;
 
-	Vector3 m_cameraPos{0.0f,0.0f,0.0f};
-	Vector3 m_cameraTarget{0.0f,0.0f,0.0f};
+	PlayFishingStatus m_playFishingStatus = playCastGauge;
+	FishData m_fishData;
 
+private:
+	void FindGameObjects();
+	void NewGOGameObjects();
+	// void InitNewGOGameObjects(); // 未使用
+	void StatusManager();
+	void float_to_water(); // 潮に浮かぶ動き
+
+	Successful_or_Failure m_successful_or_failure = unfixed;
+	FishData* p_fishData = &m_fishData;
+	std::string m_currentFishManagerobjectName;
+
+	float m_floating_t = 0.0f;
+	float m_casting_t = 0.0f;
 	bool m_shouldChangeScene = false;
 
-
-
-	PlayFishingStatus m_playFishingStatus = playCastGauge;
-	Successful_or_Failure m_successful_or_failure = unfixed;
-
-	FishData m_fishData;//魚のデータ。
-	FishData* p_fishData = &m_fishData;//フィッシュデータのポインタ
-
-
-	CastGauge* m_castGauge;
-	GameCamera* m_gameCamera;			//�Q�[���J�����B
-	PlayFishingBackGround* m_playFishingBackGround;
-	PositionSelection* m_positionSelection;
-	FishManager* m_fishManager;
+	// ==============================
+	// 関係クラス管理
+	// ==============================
+	CastGauge* m_castGauge = nullptr;
+	GameCamera* m_gameCamera = nullptr;
+	// PlayFishingBackGround* m_playFishingBackGround = nullptr; // 未使用
+	PositionSelection* m_positionSelection = nullptr;
+	FishManager* m_fishManager = nullptr;
 	FishingGauge* m_fishingGauge = nullptr;
 	TensionGauge* m_tensionGauge = nullptr;
 	FishingRodHP* m_fishingRodHP = nullptr;
@@ -133,6 +139,5 @@ public:
 	FishDetectionRadius* m_fishDetectionRadius = nullptr;
 	InGameState* m_inGameState = nullptr;
 	BackGround* m_backGround = nullptr;
-	ScoreManager* m_scoreManager=nullptr;
-
+	ScoreManager* m_scoreManager = nullptr;
 };
