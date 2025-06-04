@@ -38,7 +38,7 @@ bool BackGround::Init()
 	m_isrand.Update();
 
 	//船に当たり判定を反映。
-	physicsStaticObject.CreateFromModel(m_ship.GetModel(), m_ship.GetModel().GetWorldMatrix());
+	//physicsStaticObject.CreateFromModel(m_ship.GetModel(), m_ship.GetModel().GetWorldMatrix());
 
 	return true;
 }
