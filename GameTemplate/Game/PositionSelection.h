@@ -57,6 +57,7 @@ public:
 	void SetActivate();               ///< 関連オブジェクトをアクティブにする
 	float GetTime();
 	void NotifyCurrentArea();         ///< プレイシーンへエリア通知
+	void DecideEnemyTargetAreaIfNotFishing();
 	void FindFishHighScore();         ///< 高スコア魚の検出
 	void UpdatePlayerArea();          ///< プレイヤーの現在エリア更新
 	void UpdateSlotFrameVisibility(Area positon);

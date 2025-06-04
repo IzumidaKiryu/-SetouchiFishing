@@ -25,6 +25,9 @@ public:
 	FightFishState();
 	~FightFishState();
 
+	bool OnInit();
+	bool OnStart();
+
 	void Update();
 
 	void FishDirectionChange();//魚が向いている方向を変える。
@@ -79,11 +82,8 @@ public:
 	FIshState m_fishState;
 	SpriteRender m_tensionGaugeOutside;
 	SpriteRender m_signs_of_Fish;//魚影
-	GetRotation* m_getRotation;
-	PlayFishing* m_playFishing;
-	FishingRodHP* m_fishingRodHP;
-	TensionGauge* m_tensionGauge;
-	GameCamera* m_gameCamera;
+	GetRotation* m_getRotation=nullptr;
+	FishingRodHP* m_fishingRodHP=nullptr;
 	PositionSelection* m_positionSelection;
 	FishFacing m_previous_fishFacing = Upward;//前のフレームで魚が上を向いていたかどうか。
 

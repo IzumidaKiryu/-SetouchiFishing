@@ -13,13 +13,21 @@ Character::Character()
 	////ユニティちゃんのモデルを読み込む。
 	//modelRender.Init("Assets/modelData/unityChan.tkm", animationClips, enAnimationClip_Num, enModelUpAxisY);
 
-	//キャラコンを初期化する。
-	characterController.Init(25.0f, 75.0f, m_position);
 }
 
 Character::~Character()
 {
 
+}
+
+bool Character::Init()
+{
+	
+	//キャラコンを初期化する。
+	characterController.Init(25.0f, 75.0f, m_position);
+
+	
+	return true;
 }
 
 //更新処理。

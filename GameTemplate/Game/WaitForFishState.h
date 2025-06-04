@@ -9,10 +9,11 @@ public:
 		up,
 		down,
 	};
-	bool Start();
 
 	WaitForFishState();
 	~WaitForFishState();
+	bool OnInit();
+	bool OnStart();
 	/*bool Start();*/
 	void IsFloatInDetectionRange();
 	void SetGoFishInWhich();

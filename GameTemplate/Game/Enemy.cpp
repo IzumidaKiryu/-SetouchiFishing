@@ -15,6 +15,7 @@ Enemy::~Enemy()
 
 bool Enemy::Init()
 {
+	Character::Init();
 	m_backGround = FindGO<BackGround>("backGround");
 
 

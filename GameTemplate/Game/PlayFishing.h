@@ -117,7 +117,6 @@ private:
 	// ==============================
 	// 関係クラス管理
 	// ==============================
-	CastGauge* m_castGauge = nullptr;
 	GameCamera* m_gameCamera = nullptr;
 	// PlayFishingBackGround* m_playFishingBackGround = nullptr; // 未使用
 	PositionSelection* m_positionSelection = nullptr;

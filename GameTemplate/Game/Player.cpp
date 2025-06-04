@@ -21,6 +21,8 @@ Player::~Player()
 
 bool Player::Init()
 {
+	Character::Init();
+
 	//アニメーションをセット。
 	SetAnimationClipsLoad(
 		"Assets/animData/Player/Idle.tka",

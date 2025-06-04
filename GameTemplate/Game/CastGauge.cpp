@@ -18,6 +18,16 @@ CastGauge::CastGauge()
 {
 
 
+
+}
+
+
+CastGauge::~CastGauge()
+{
+}
+
+bool CastGauge::Init()
+{
 	m_castGaugeOutside.Init("Assets/modelData/castGauge_Outside.DDS", 100, 500);
 	m_castGaugeOutside.SetPivot(Vector2(0.0f, 0.5f));
 	m_castGaugeOutside.SetPosition(m_initGaugePos);
@@ -34,19 +44,17 @@ CastGauge::CastGauge()
 	m_Arrow.SetPivot(Vector2(0.0f, 0.5f));
 	m_Arrow.SetScale(Vector3{ 1.0f, 1.0f, 1.0f });
 
-	//m_gaugeCastSuccessful = NewGO<GaugeCastSuccessful>(0, "gaugeCastSuccessful");
-	//m_gaugeCastSuccessful->Init(10.0f, 10.0f);
+
+	return true;
+}
+
+bool CastGauge::Start()
+{
 
 	m_positionSelection = FindGO<PositionSelection>("positionSelection");
 
-	/*SetArrowSpead();*/
 
-}
-
-
-CastGauge::~CastGauge()
-{
-	//DeleteGO(m_gaugeCastSuccessful);
+	return true;
 }
 
 void CastGauge::Update()

@@ -3,19 +3,7 @@
 
 HitUIState::HitUIState()
 {
-	
 
-	m_hitUI.Init("Assets/modelData/Hit!_UI.DDS", 500, 200);
-	m_hitUI.SetPivot(Vector2(0.5f, 0.5f));
-	m_hitUI.SetScale(Vector3{ 1.0f, 1.0f, 1.0f });
-	m_hitUI.Update();
-
-	m_hitUI_Bar.Init("Assets/modelData/Hit!_UI_Bar.DDS", 1500, 300);
-	m_hitUI_Bar.SetPivot(Vector2(0.5f, 0.5f));
-	m_hitUI_Bar.SetScale(Vector3{ 1.0f, 1.0f, 1.0f });
-	m_hitUI_Bar.Update();
-
-	
 }
 
 void HitUIState::Update()
@@ -28,13 +16,29 @@ void HitUIState::Update()
 	
 }
 
-bool HitUIState::Start()
+bool HitUIState::OnInit()
 {
-	PlayFishingStateBase::Start();
-	m_initCameraPos = { m_cameraPos};
-	m_endCameraPos = { GetPlayerPos() + Vector3 {0.0f,100.0f,100.0f}};
+
+	m_hitUI.Init("Assets/modelData/Hit!_UI.DDS", 500, 200);
+	m_hitUI.SetPivot(Vector2(0.5f, 0.5f));
+	m_hitUI.SetScale(Vector3{ 1.0f, 1.0f, 1.0f });
+	m_hitUI.Update();
+
+	m_hitUI_Bar.Init("Assets/modelData/Hit!_UI_Bar.DDS", 1500, 300);
+	m_hitUI_Bar.SetPivot(Vector2(0.5f, 0.5f));
+	m_hitUI_Bar.SetScale(Vector3{ 1.0f, 1.0f, 1.0f });
+	m_hitUI_Bar.Update();
+
+	return true;
+}
+
+bool HitUIState::OnStart()
+{
+	m_initCameraPos = { m_cameraPos };
 	m_initCameraTarget = { m_cameraTarget };
 	m_endCameraTarget = { m_init_fishModelPos };
+	m_endCameraPos = { GetPlayerPos() + Vector3 {0.0f,100.0f,100.0f} };
+
 	return true;
 }
 

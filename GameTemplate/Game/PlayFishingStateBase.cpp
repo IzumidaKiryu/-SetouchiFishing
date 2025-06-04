@@ -38,7 +38,14 @@ bool PlayFishingStateBase::Start()
 	m_tensionGauge = FindGO<TensionGauge>("tensionGauge");
 	m_player = FindGO<Player>("player_Playfishing");
 
-	if (m_playFishing->m_playFishingStatus >= PlayFishingStatus::cast)
+
+	if (m_playFishing->m_playFishingStatus == PlayFishingStatus::cast) {
+		//ウキを作成。
+		m_rodFloatMove = NewGO<RodFloatMove>(0, "rodFloatMove");
+		m_rodFloatMove->Init();
+	}
+
+	if (m_playFishing->m_playFishingStatus >= PlayFishingStatus::wait_for_fish)
 	{
 		m_rodFloatMove = FindGO<RodFloatMove>("rodFloatMove");
 
@@ -55,6 +62,14 @@ bool PlayFishingStateBase::Start()
 	Set_Init_CameraPos();
 	Set_Init_CameraTarget();
 
+	OnStart();
+	return true;
+}
+
+
+bool PlayFishingStateBase::Init()
+{
+	OnInit();
 	return true;
 }
 
@@ -106,13 +121,11 @@ void PlayFishingStateBase::SumFishModelPosition(float current_fish_range_and_max
 
 void PlayFishingStateBase::SumRodFloatPosition(Vector3 position)
 {
-	m_rodFloatMove = FindGO<RodFloatMove>("rodFloatMove");
 	m_sum_floatModelPos += position;
 }
 
 void PlayFishingStateBase::SumRodFloatPosition(float current_float_range_max_range_rate)
 {
-	m_rodFloatMove = FindGO<RodFloatMove>("rodFloatMove");
 	m_sum_floatModelPos += Vector3{ 0.0f,0.0f,m_rodFloatMove->ChangePosition_Z(current_float_range_max_range_rate) };
 }
 
@@ -326,6 +339,11 @@ Vector3 PlayFishingStateBase::GetFishModelPos()
 Vector3 PlayFishingStateBase::GetFloatModelPos()
 {
 	return m_floatModelPos;
+}
+
+void PlayFishingStateBase::SetFloatGameObject(RodFloatMove* rodfloatmove)
+{
+	m_rodFloatMove = rodfloatmove;
 }
 
 

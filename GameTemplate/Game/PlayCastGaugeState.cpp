@@ -6,14 +6,31 @@
 
 PlayCastGaugeState::PlayCastGaugeState()
 {
-	m_castGauge = NewGO<CastGauge>(0, "castGauge");
-	SetCurrentFishRangeAndMaxRangeRate(m_fishData.initPos);
-	SetArrowSpead();
 }
 
 PlayCastGaugeState::~PlayCastGaugeState()
 {
 	DeleteGO(m_castGauge);
+}
+
+bool PlayCastGaugeState::OnInit()
+{
+	SetCurrentFishRangeAndMaxRangeRate(m_fishData.initPos);
+
+	return true;
+}
+
+bool PlayCastGaugeState::OnStart()
+{
+
+
+	m_castGauge = NewGO<CastGauge>(0, "castGauge");
+	m_castGauge->Init();
+
+
+	SetArrowSpead();
+
+	return true;
 }
 
 void PlayCastGaugeState::Update()

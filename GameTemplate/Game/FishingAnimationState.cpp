@@ -5,21 +5,31 @@
 
 FishingAnimationState::FishingAnimationState()
 {
-	m_fishModel = FindGO<FishModel>("fishModel");
-	m_player = FindGO<Player>("player_Playfishing");
-	m_player->SetChastAnimation();
-	m_initCameraPos= m_player->GetPos() + Vector3{0.0f,100.0f,100.0f};
-	m_endCameraPos= m_player->GetPos()+ Vector3{ 500.0f,500.0f,500.0f };
-
-	m_initCameraTarget= m_fishModel->m_position;
-	m_endCameraTarget=m_player->GetPos() + Vector3{ 0.0f,100.0f,0.0f };
-
 }
 
 FishingAnimationState::~FishingAnimationState()
 {
-	m_player = FindGO<Player>("player_Playfishing");
 	m_player->EndCastAnimation();
+}
+
+bool FishingAnimationState::OnInit()
+{
+	return true;
+}
+
+
+
+bool FishingAnimationState::OnStart()
+{
+	/*m_player = FindGO<Player>("player_Playfishing");*/
+	m_player->SetChastAnimation();
+	m_initCameraPos = m_player->GetPos() + Vector3{ 0.0f,100.0f,100.0f };
+	m_endCameraPos = m_player->GetPos() + Vector3{ 500.0f,500.0f,500.0f };
+
+	m_initCameraTarget = m_fishModel->m_position;
+	m_endCameraTarget = m_player->GetPos() + Vector3{ 0.0f,100.0f,0.0f };
+
+	return true;
 }
 
 void FishingAnimationState::CameraManagement()

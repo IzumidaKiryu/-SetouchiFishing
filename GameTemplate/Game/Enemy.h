@@ -44,5 +44,6 @@ public:
 	bool m_isCountdownFinished = false; //カウントダウンが終わったかどうか。
 	PositionSelection* m_positionSelection;
 	BackGround* m_backGround;
+	Alea
 };
 

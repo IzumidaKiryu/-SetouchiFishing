@@ -38,13 +38,18 @@ void CastState::Update()
 
 }
 
-bool CastState::Start()
+bool CastState::OnInit()
 {
-	//ウキを作成。
-	m_rodFloatMove = NewGO<RodFloatMove>(0, "rodFloatMove");
-	m_rodFloatMove->Init();
 
-	PlayFishingStateBase::Start();
+	return true;
+}
+
+bool CastState::OnStart()
+{
+
+
+
+	//PlayFishingStateBase::Start();
 
 
 	m_initCameraPos = m_rodFloatMove->m_position + Vector3{ 300.0f,300.0f,-500.0f };;

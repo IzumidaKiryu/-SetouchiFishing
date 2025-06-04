@@ -8,11 +8,11 @@ public:
 
 	FishingAnimationState();
 	~FishingAnimationState();
+	bool OnInit();
+	bool OnStart();
 	void CameraManagement()override;
 	void Update();
 	void Count();
 	bool SetCastAnimation();
-	Player* m_player;
-	FishModel* m_fishModel;
 };
 

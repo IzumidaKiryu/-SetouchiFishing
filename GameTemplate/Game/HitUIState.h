@@ -13,7 +13,8 @@ public:
 
 	HitUIState();
 	void Update();
-	bool Start();
+	bool OnInit();
+	bool OnStart();
 	void UIMoveStateManager();
 	void SetPosition();
 	void In();
