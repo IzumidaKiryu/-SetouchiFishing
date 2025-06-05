@@ -134,6 +134,10 @@ void InGameState::ChangeFish()
 		//フィッシュマネージャーの生成。
 		if (m_fishManager[i]->GetShouldFishChange() == true) {
 
+			/// ★ UIポインタを先に無効化する！！
+			m_fishUI[i] = nullptr;
+
+
 			DeleteGO(m_fishManager[i]);
 
 			//フィッシュマネージャーの生成。
@@ -169,7 +173,7 @@ float InGameState::GerFishTimeRatio(int index)
 
 void InGameState::SetFishUI(int index)
 {
-	m_fishUI[index] = m_fishManager[index]->m_ui;
+	m_fishUI[index] = m_fishManager[index]->GetUI();
 }
 
 SpriteRender& InGameState::GetFishUI(int index)

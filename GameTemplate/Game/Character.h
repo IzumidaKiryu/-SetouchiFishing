@@ -8,6 +8,7 @@ public:
 	virtual bool Init();
 	//更新処理。
 	void Update();
+
 	//モデルの設定。
 	void SetModel(const char* filePath,
 		AnimationClip* animationClips,
@@ -54,7 +55,7 @@ public:
 	};
 	AnimationClip animationClips[enAnimationClip_Num];		//アニメーションクリップ。
 	CharacterController characterController;  //キャラクターコントローラー。
-	Vector3 moveSpeed;		//移動速度。
+	Vector3 moveSpeed = Vector3::Zero;		//移動速度。
 	Quaternion rotation;  //クォータニオン。
 	EnAnimationClip playerState;	//プレイヤーのステート(状態)を表す変数。
 	FishingAnimationState* m_castAnimationState;
