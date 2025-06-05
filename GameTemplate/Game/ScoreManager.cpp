@@ -43,7 +43,7 @@ void ScoreManager::SetScore(float score, FishType fishType, CharacterType charac
 	m_fishTotalScore[characterType][fishType] += score;
 
 	//合計スコアに加算。
-	m_totalScore += score;
+	//m_totalScore += score;
 }
 /// <summary>
 /// 指定されたキャラクターと魚の種類に対する合計スコアを返す。
@@ -53,14 +53,21 @@ void ScoreManager::SetScore(float score, FishType fishType, CharacterType charac
 /// <returns>魚のスコアの合計</returns>
 float ScoreManager::GetFishTotalScore(FishType fishType, CharacterType characterType)
 {
-	return m_fishCount[characterType][fishType];
+	return m_fishTotalScore[characterType][fishType];//指定されたキャラクターと魚の種類に対する合計スコアを返す。
 }
 
 /// <summary>
 /// 全種類の魚の合計スコアを渡す。
 /// </summary>
 /// <returns>全種の魚の合計スコア</returns>
-float ScoreManager::GetTotalScore()
+float ScoreManager::GetTotalScore(CharacterType characterType)
 {
-	return m_totalScore;
+	float totalScore=0;
+	for (int i=0; i < 6; i++) {
+		totalScore += m_fishTotalScore[characterType][static_cast<FishType>(i)];
+	}
+
+
+
+	return totalScore;
 }
