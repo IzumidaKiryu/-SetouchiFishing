@@ -97,7 +97,8 @@ public:
 	Vector3 m_fishModelPos;
 
 	PlayFishingStatus m_playFishingStatus = playCastGauge;
-	FishData m_fishData;
+
+	
 
 private:
 	void FindGameObjects();
@@ -106,6 +107,7 @@ private:
 	void StatusManager();
 	void float_to_water(); // 潮に浮かぶ動き
 
+	FishData m_fishData;
 	Successful_or_Failure m_successful_or_failure = unfixed;
 	FishData* p_fishData = &m_fishData;
 	std::string m_currentFishManagerobjectName;

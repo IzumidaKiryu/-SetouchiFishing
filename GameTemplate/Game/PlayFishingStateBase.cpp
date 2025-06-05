@@ -131,7 +131,7 @@ void PlayFishingStateBase::SumRodFloatPosition(float current_float_range_max_ran
 
 void PlayFishingStateBase::SetFishData()
 {
-	m_fishData = m_playFishing->m_fishData;
+	m_fishData = m_playFishing->GetFishData();
 }
 
 void PlayFishingStateBase::SetFish()

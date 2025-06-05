@@ -214,3 +214,8 @@ std::string InGameState::GetAreaName(int index)
 {
 	return AreaName[index];
 }
+
+FishData InGameState::GetFishData(int index)
+{
+	return m_fishManager[index]->GetFishData();
+}

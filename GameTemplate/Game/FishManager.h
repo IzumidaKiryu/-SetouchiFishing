@@ -35,8 +35,7 @@ public:
 	const double e = 2.718281828459045;
 	float m_timeRatio=0;
 
-	FishData* p_fishData = &m_fishData;//フィッシュデータのポインタ
-	FishData m_fishData;//魚のデータ。
+	FishData m_fishData;//フィッシュデータのポインタ
 
 	FishType m_fishType;
 	SpriteRender* m_ui;
