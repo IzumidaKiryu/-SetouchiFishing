@@ -157,9 +157,17 @@ void PositionSelection::ChangeSceneToPlayFishing() {
 void PositionSelection::NotifyCurrentArea() {
 	m_playFishing->SetCurrentFishManagerObjectName(m_inGameState->GetAreaName(static_cast<int>(m_currentArea)));
 }
+/// <summary>
+/// 敵が釣っていないときだけ、敵のターゲットエリアを決める
+/// </summary>
+void PositionSelection::DecideEnemyTargetAreaIfNotFishing()
+{
+
+
+}
 
 /// <summary>
-/// スコアの高い魚のいるエリアを探索し、敵のエリアとして記録。
+/// スコアの高い魚のいるエリアを探索する。
 /// </summary>
 Area PositionSelection::FindFishHighScore() {
 	Area bestArea = Area::A;

@@ -62,6 +62,7 @@ private:
 	{ Area::F,false },
 	};
 	bool m_isCountdownFinished = false; //カウントダウンが終わったかどうか。
+
 	PositionSelection* m_positionSelection=nullptr;
 	BackGround* m_backGround=nullptr;
 	Area m_targetFishingArea= Area::INITIALSTATE;
@@ -72,5 +73,6 @@ private:
 	InGameState* m_inGameState;
 	std::map<FishType, float> m_fishingBaseTimes;
 	Stopwatch m_stopwatch;
+
 };
 

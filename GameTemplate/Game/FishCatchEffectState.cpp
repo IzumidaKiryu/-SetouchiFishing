@@ -8,9 +8,3 @@ FishCatchEffectState::FishCatchEffectState()
 FishCatchEffectState::~FishCatchEffectState()
 {
 }
-
-bool FishCatchEffectState::Start()
-{
-
-	return true;
-}

@@ -47,7 +47,7 @@ void FishDetectionRadius::CalculateDetectionRange()
 	m_playFishing = FindGO<PlayFishing>("playFishing"); 
 
 		//魚の検知半径を設定する。
-		m_fishDetectionRadius = m_playFishing->m_fishData.fishDetectionRadius;
+		m_fishDetectionRadius = m_playFishing->GetFishData().fishDetectionRadius;
 		CalculateFishDetectionRadiusUIScale();
 }
 

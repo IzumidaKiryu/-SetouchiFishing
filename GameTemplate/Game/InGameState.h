@@ -1,5 +1,6 @@
 #pragma once
 #include "GameStateBase.h"
+#include"Fish.h"
 class GameCamera;
 class BackGround;
 class PositionSelection;
@@ -39,8 +40,12 @@ public:
 	void DeleteGameObjects();
 	void OnCountdownFinished();
 	std::string GetAreaName(int index);
+	FishData GetFishData(int index);
 
 
+
+private:
+	
 	GameStartCountdown* m_gameStartCountdown;
 	Player* m_player;
 	GameCamera* m_gameCamera;
@@ -64,15 +69,16 @@ public:
 
 	bool m_hasCountdownClassFinished=false;//ゲームスタートカウントダウンクラスが終わったか。
 	bool m_hasCountdownClassJustFinished=false;//ゲームスタートカウンダウンクラスが終わった瞬間か。
-
 	std::string AreaName[6] = {
-	"A",
-	"B",
-	"C",
-	"D",
-	"E",
-	"F"
+"A",
+"B",
+"C",
+"D",
+"E",
+"F"
 	}
 	;
+
+
 };
 

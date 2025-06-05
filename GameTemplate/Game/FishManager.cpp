@@ -15,6 +15,8 @@ FishManager::FishManager()
 
 FishManager::~FishManager()
 {
+	m_ui = nullptr; // 先に無効化
+
 	if (m_fish) {
 		DeleteGO(m_fish);
 		m_fish = nullptr;
@@ -28,8 +30,7 @@ void FishManager::Init()
 	m_fish->Init();
 
 	m_ui = &m_fish->GetUI();         // UI取得
-	p_fishData = &m_fish->GetFishData();
-	m_fishData = *p_fishData;
+	m_fishData = m_fish->GetFishData();
 }
 
 bool FishManager::Start()
@@ -109,7 +110,7 @@ void FishManager::UIPopIn()
 FishData& FishManager::GetFishData()
 {
 	/*FishData &a=*p_fishData;*/
-	return *p_fishData;
+	return m_fishData;
 }
 
 float FishManager::GetScore()
@@ -121,5 +122,10 @@ float FishManager::GetScore()
 float FishManager::GetTimeRatio()
 {
 	return m_timeRatio;
+}
+
+SpriteRender* FishManager::GetUI()
+{
+	return m_ui;
 }
 

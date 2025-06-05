@@ -21,7 +21,9 @@ bool Enemy::Init()
 {
 	Character::Init();
 
+
 	InitFishingBaseTimes();
+
 
 	m_backGround = FindGO<BackGround>("backGround");
 

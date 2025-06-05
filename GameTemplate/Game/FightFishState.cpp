@@ -14,10 +14,6 @@
 FightFishState::FightFishState()
 {
 	srand(time(nullptr));
-	m_fishingRodHP = NewGO<FishingRodHP>(0, "fishingRodHP");
-	m_getRotation = NewGO<GetRotation>(0, "getRotation");
-	//m_playFishing = FindGO<PlayFishing>("playFishing");
-	//InitFishDirection();
 }
 
 FightFishState::~FightFishState()
@@ -29,6 +25,21 @@ FightFishState::~FightFishState()
 	DeleteGO(m_rodFloatMove);
 	m_fishingRodHP->SetIs_playFishingFinishedTrue();
 }
+
+bool FightFishState::OnInit()
+{
+	return true;
+}
+
+bool FightFishState::OnStart()
+{
+	m_fishingRodHP = NewGO<FishingRodHP>(0, "fishingRodHP");
+	m_getRotation = NewGO<GetRotation>(0, "getRotation");
+
+	return true;
+}
+
+
 
 void FightFishState::Update()
 {
@@ -68,6 +79,7 @@ void FightFishState::Update()
 	CheckFailure();//成功したかどうか.
 	CheckSuccess();//失敗したかどうか。
 }
+
 
 
 //bool SceneFightFish::Start()

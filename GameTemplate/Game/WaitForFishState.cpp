@@ -4,21 +4,25 @@
 
 WaitForFishState::WaitForFishState()
 {
-	
 }
 
 WaitForFishState::~WaitForFishState()
 {
 }
 
-bool WaitForFishState::Start()
+bool WaitForFishState::OnInit()
 {
-	PlayFishingStateBase::Start();
-	//m_rodFloatMove = FindGO<RodFloatMove>("rodFloatMove");
+	return true;
+}
 
+
+bool WaitForFishState::OnStart()
+{
 	m_initCameraPos = m_cameraPos;
-	m_endCameraPos = m_init_floatModelPos + Vector3{ 200.0f,200.0f,200.0f };
 	m_initCameraTarget = m_cameraTarget;
+	m_fishDetectionRadius = FindGO<FishDetectionRadius>("fishDetectionRadius");
+	m_endCameraPos = m_init_floatModelPos + Vector3{ 200.0f,200.0f,200.0f };
+
 
 	SetGoFishInWhich();
 	IsFloatInDetectionRange();
@@ -38,8 +42,6 @@ bool WaitForFishState::Start()
 
 void WaitForFishState::IsFloatInDetectionRange()
 {
-
-	m_fishDetectionRadius = FindGO<FishDetectionRadius>("fishDetectionRadius");
 
 
 	//ウキが魚の検知範囲に入っているかどうかを調べる。

@@ -5,6 +5,7 @@ class Character : public IGameObject
 public:
 	Character();
 	~Character();
+	virtual bool Init();
 	//更新処理。
 	void Update();
 

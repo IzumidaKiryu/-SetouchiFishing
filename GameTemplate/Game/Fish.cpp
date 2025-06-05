@@ -34,7 +34,7 @@ bool Fish::Start()
 
 void Fish::SetFishType(FishType fishtype)
 {
-	fishtype=m_fishData.fishType;
+	m_fishData.fishType = fishtype;;
 }
 
 void Fish::FindGameObjects()

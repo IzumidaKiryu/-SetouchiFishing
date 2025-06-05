@@ -152,21 +152,27 @@ void PlayFishing::StatusManager() {
 	switch (m_playFishingStatus) {
 	case playCastGauge:
 		m_playCastGaugeState = NewGO<PlayCastGaugeState>(0, "playCastGaugeState");
+		m_playCastGaugeState->Init();
 		break;
 	case castAnimasion:
 		m_fishingAnimationState = NewGO<FishingAnimationState>(0, "fishingAnimationState");
+		m_fishingAnimationState->Init();
 		break;
 	case cast:
 		m_castState = NewGO<CastState>(0, "castState");
+		m_castState->Init();
 		break;
 	case wait_for_fish:
 		m_waitForFishState = NewGO<WaitForFishState>(0, "waitForFishState");
+		m_waitForFishState->Init();
 		break;
 	case hitUI:
 		m_hitUIState = NewGO<HitUIState>(0, "hitUIState");
+		m_hitUIState->Init();
 		break;
 	case sceneFightFish:
 		m_fightFishState = NewGO<FightFishState>(0, "fightFishState");
+		m_fightFishState->Init();
 		break;
 	default:
 		break;
@@ -215,7 +221,6 @@ void PlayFishing::Success() {
 void PlayFishing::Failure() {
 	switch (m_playFishingStatus) {
 	case playCastGauge:
-		DeleteGO(m_castGauge);
 		m_shouldChangeScene = true;
 		break;
 	case wait_for_fish:

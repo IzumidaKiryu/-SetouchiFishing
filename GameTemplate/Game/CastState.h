@@ -20,7 +20,8 @@ public:
 
 	/*using PlayFishingStateBase::Start;*/
 	void Update();
-	bool Start();
+	bool OnStart();
+	bool OnInit();
 	void CameraManagement()override;
 	void Cast();
 	void Rotation();
@@ -48,8 +49,6 @@ public:
 	float first_velocity_vector_z = 2;//初速ベクトルｚの値（ｙとｚの比率）。
 	Vector3 first_velocity_vector{ 0.0f,1.0f,first_velocity_vector_z };//初速ベクトル（ｙは必ず1にしておく）。
 
-	RodFloatMove* m_rodFloatMove;
-	PlayFishing* m_playFishing;
 	Quaternion m_floatRotation;
 
 	CastMoveState m_castMoveState;

@@ -5,13 +5,21 @@
 Character::Character()
 {
 
-	//キャラコンを初期化する。
-	characterController.Init(25.0f, 75.0f, m_position);
 }
 
 Character::~Character()
 {
 
+}
+
+bool Character::Init()
+{
+	
+	//キャラコンを初期化する。
+	characterController.Init(25.0f, 75.0f, m_position);
+
+	
+	return true;
 }
 
 //更新処理。

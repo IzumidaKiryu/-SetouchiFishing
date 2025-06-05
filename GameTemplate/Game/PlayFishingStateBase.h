@@ -18,7 +18,10 @@ public:
 
 	PlayFishingStateBase();
 	~PlayFishingStateBase();
-	bool Start();
+	bool Start()override final;
+	virtual bool OnStart()=0;
+	virtual bool Init()final;
+	virtual bool OnInit()=0;
 	void Update();
 	void ChangeState();
 	bool GetIsChengeState();
@@ -68,6 +71,7 @@ public:
 	Vector3 GetPlayerPos();
 	Vector3 GetFishModelPos();
 	Vector3 GetFloatModelPos();
+	void SetFloatGameObject(RodFloatMove* rodfloatmove);
 
 	enum FloatingPattern {
 		CameraPattern,
@@ -82,14 +86,14 @@ public:
 	Vector3 m_floating;
 
 
-	Vector3 m_init_fishModelPos;
-	Vector3 m_init_floatModelPos;
+	Vector3 m_init_fishModelPos = Vector3::Zero;
+	Vector3 m_init_floatModelPos = Vector3::Zero;
 
-	Vector3 m_sum_fishModelPos;
-	Vector3 m_sum_floatModelPos;
+	Vector3 m_sum_fishModelPos = Vector3::Zero;
+	Vector3 m_sum_floatModelPos = Vector3::Zero;
 
-	Vector3 m_cameraPos;
-	Vector3 m_cameraTarget;
+	Vector3 m_cameraPos = Vector3::Zero;
+	Vector3 m_cameraTarget = Vector3::Zero;
 
 	float m_current_fish_range_and_max_range_rate;//今の魚の距離と最大の魚の距離の割合（それぞれのクラスで船と魚の最大距離とこの割合を掛けて場所を表現する。）
 	float m_sum_current_float_range_max_range_rate;//今のウキの距離と最大のウキの距離の割合。
@@ -99,11 +103,11 @@ public:
 	float m_cameraTarget_t = 0;
 	float m_animation_t = 0;
 
-	Vector3 m_initCameraPos;
-	Vector3 m_endCameraPos;
+	Vector3 m_initCameraPos = Vector3::Zero;
+	Vector3 m_endCameraPos = Vector3::Zero;
 
-	Vector3 m_initCameraTarget;
-	Vector3 m_endCameraTarget;
+	Vector3 m_initCameraTarget = Vector3::Zero;
+	Vector3 m_endCameraTarget = Vector3::Zero;
 
 	GameCamera* m_gameCamera = nullptr;
 	FishModel* m_fishModel = nullptr;
