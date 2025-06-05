@@ -15,6 +15,8 @@ FishManager::FishManager()
 
 FishManager::~FishManager()
 {
+	m_ui = nullptr; // 先に無効化
+
 	if (m_fish) {
 		DeleteGO(m_fish);
 		m_fish = nullptr;
@@ -120,5 +122,10 @@ float FishManager::GetScore()
 float FishManager::GetTimeRatio()
 {
 	return m_timeRatio;
+}
+
+SpriteRender* FishManager::GetUI()
+{
+	return m_ui;
 }
 
