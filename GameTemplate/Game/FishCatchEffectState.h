@@ -7,7 +7,6 @@ class FishCatchEffectState :public PlayFishingStateBase
 public:
 	FishCatchEffectState();
 	~FishCatchEffectState();
-	bool Start();
 
 	Vector3 m_initCameraPos;
 

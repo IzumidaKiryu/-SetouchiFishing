@@ -157,11 +157,19 @@ void PositionSelection::ChangeSceneToPlayFishing() {
 void PositionSelection::NotifyCurrentArea() {
 	m_playFishing->SetCurrentFishManagerObjectName(m_inGameState->GetAreaName(static_cast<int>(m_currentArea)));
 }
+/// <summary>
+/// 敵が釣っていないときだけ、敵のターゲットエリアを決める
+/// </summary>
+void PositionSelection::DecideEnemyTargetAreaIfNotFishing()
+{
+
+
+}
 
 /// <summary>
-/// スコアの高い魚のいるエリアを探索し、敵のエリアとして記録。
+/// スコアの高い魚のいるエリアを探索する。
 /// </summary>
-void PositionSelection::FindFishHighScore() {
+Area PositionSelection::FindFishHighScore() {
 	Area bestArea = Area::A;
 	float maxScore = -1.0f;
 	for (int i = 0; i < 6; ++i) {
@@ -171,7 +179,8 @@ void PositionSelection::FindFishHighScore() {
 			bestArea = m_positionStateArray[i];
 		}
 	}
-	m_enemyArea = bestArea;
+	//m_enemyArea = bestArea;
+	return bestArea;
 }
 
 /// <summary>
@@ -199,7 +208,7 @@ void PositionSelection::UpdatePlayerArea() {
 			m_currentArea = Area::F;
 	}
 
-	if (m_currentArea == m_enemyArea)
+	if (m_currentArea == m_enemy->GetTargetFishinArea())
 		m_currentArea = Area::ENEMY_SAME_POSITION;
 
 	UpdateSlotFrameVisibility(m_currentArea);
@@ -209,7 +218,7 @@ void PositionSelection::UpdatePlayerArea() {
 /// スロットUIの枠の色変更などを行う。
 /// </summary>
 void PositionSelection::UpdateSlotFrameVisibility(Area position) {
-	m_fishSlot->UpdateSlotFrameVisibility(static_cast<int>(position), static_cast<int>(m_enemyArea));
+	m_fishSlot->UpdateSlotFrameVisibility(static_cast<int>(position), static_cast<int>(m_enemy->GetTargetFishinArea()));
 }
 
 
@@ -218,9 +227,4 @@ void PositionSelection::UpdateSlotFrameVisibility(Area position) {
 /// </summary>
 void PositionSelection::SetCountdownFinished(bool countdownFinished) {
 	m_isCountdownFinished = countdownFinished;
-}
-
-Area PositionSelection::GetEnemyArea()
-{
-	return m_enemyArea;
 }

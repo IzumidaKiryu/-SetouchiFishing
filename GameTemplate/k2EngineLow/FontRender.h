@@ -90,7 +90,6 @@ namespace nsK2EngineLow {
 	
 		void Draw(RenderContext& rc);
 
-		void OnDraw(RenderContext& rc);
 		
 		void SetShadowParam(bool isDrawShadow, float shadowOffset, const Vector4& shadowColor)
 		{
@@ -98,6 +97,16 @@ namespace nsK2EngineLow {
 		}
 
 	private:
+		void OnRender2D(RenderContext& rc) override
+		{
+			if (m_text == nullptr)
+			{
+				return;
+			}
+			m_font.Begin(rc);
+			m_font.Draw(m_text, Vector2(m_position.x, m_position.y), m_color, m_rotation, m_scale, m_pivot);
+			m_font.End(rc);
+		}
 		Vector3							m_position = Vector3::Zero;				
 		float							m_scale = 1.0f;						
 		Vector4							m_color = g_vec4White;				

@@ -4,17 +4,7 @@
 
 Character::Character()
 {
-	////アニメーションクリップをロードする。
-	//animationClips[enAnimationClip_Idle].Load("Assets/animData/idle.tka");
-	//animationClips[enAnimationClip_Idle].SetLoopFlag(true);
-	//animationClips[enAnimationClip_Walk].Load("Assets/animData/walk.tka");
-	//animationClips[enAnimationClip_Walk].SetLoopFlag(true);
 
-	////ユニティちゃんのモデルを読み込む。
-	//modelRender.Init("Assets/modelData/unityChan.tkm", animationClips, enAnimationClip_Num, enModelUpAxisY);
-
-	//キャラコンを初期化する。
-	characterController.Init(25.0f, 75.0f, m_position);
 }
 
 Character::~Character()
@@ -22,9 +12,20 @@ Character::~Character()
 
 }
 
+bool Character::Init()
+{
+	
+	//キャラコンを初期化する。
+	characterController.Init(25.0f, 75.0f, m_position);
+
+	
+	return true;
+}
+
 //更新処理。
 void Character::Update()
 {
+
 	//移動処理。
 	Move();
 
@@ -39,6 +40,7 @@ void Character::Update()
 
 	//絵描きさんの更新処理。
 	modelRender.Update();
+
 }
 /// <summary>
 		/// 通常描画用の初期化
@@ -75,9 +77,7 @@ void Character::SetMoveSpeed()
 
 void Character::Move()
 {
-	//xzの移動速度を0.0fにする。
-	moveSpeed.x = 0.0f;
-	moveSpeed.z = 0.0f;
+	moveSpeed = Vector3::Zero;
 
 
 	SetMoveSpeed();

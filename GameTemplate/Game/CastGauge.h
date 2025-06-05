@@ -20,6 +20,8 @@ class CastGauge :public IGameObject
 public:
 	CastGauge();
 	~CastGauge();
+	bool Init();
+	bool Start();
 	void Update();
 
 	//UIの処理。
