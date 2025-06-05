@@ -105,8 +105,10 @@ void nsK2EngineLow::RenderingEngine::Execute(RenderContext& rc)
 	////影。
 	m_shadow.Execute(rc, m_renderObjects);
 
-	//モデルの描画。
-	ModelDraw(rc);
+	if (isResultFlag == false) {
+		//モデルの描画。
+		ModelDraw(rc);
+	}
 
 	//エフェクトの描画。
 	//EffectEngine::GetInstance()->Draw();
@@ -116,6 +118,10 @@ void nsK2EngineLow::RenderingEngine::Execute(RenderContext& rc)
 
 	//画像と文字の描画。
 	SpriteFontDraw(rc);
+	//リザルト画面なうなら。
+	if (isResultFlag == true) {
+		ModelDraw(rc);
+	}
 	//メインレンダリングターゲットの絵をフレームバッファにコピー。
 	CopyMainRenderTargetToFrameBuffer(rc);
 

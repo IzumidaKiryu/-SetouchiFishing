@@ -65,6 +65,7 @@ namespace nsK2EngineLow {
 		{
 			return m_light.GetLightCamera();
 		}
+		bool isResultFlag = false;//リザルト画面かどうか。
 	private:
 		void InitMainRenderTarget();
 		void Init2DSprite();
