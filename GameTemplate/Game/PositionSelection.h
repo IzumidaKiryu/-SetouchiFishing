@@ -57,11 +57,11 @@ public:
 	void SetActivate();               ///< 関連オブジェクトをアクティブにする
 	float GetTime();
 	void NotifyCurrentArea();         ///< プレイシーンへエリア通知
-	void FindFishHighScore();         ///< 高スコア魚の検出
+	void DecideEnemyTargetAreaIfNotFishing();
+	Area FindFishHighScore();         ///< 高スコア魚の検出
 	void UpdatePlayerArea();          ///< プレイヤーの現在エリア更新
 	void UpdateSlotFrameVisibility(Area positon);
 	void SetCountdownFinished(bool countdownFinished);
-	Area GetEnemyArea();
 
 
 private:
