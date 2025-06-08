@@ -15,7 +15,8 @@ enum class Area {
 	E,
 	F,
 	INITIALSTATE,           ///< 初期状態
-	ENEMY_SAME_POSITION     ///< エネミーと同じ場所。
+	ENEMY_SAME_POSITION,    ///< エネミーと同じ場所。
+	NoneArea
 };
 
 // 前方宣言
@@ -64,6 +65,7 @@ public:
 	void UpdatePlayerArea();          ///< プレイヤーの現在エリア更新
 	void UpdateSlotFrameVisibility(Area positon);
 	void SetCountdownFinished(bool countdownFinished);
+	Area GetCurrentArea();
 
 
 private:
@@ -90,7 +92,7 @@ private:
 	Area m_positionStateArray[6] = {
 		Area::A, Area::B, Area::C, Area::D, Area::E, Area::F
 	};
-	Area m_currentArea;
+	Area m_playercurrentArea;
 	Area m_enemyArea = Area::INITIALSTATE;
 
 	// その他
