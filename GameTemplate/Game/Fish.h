@@ -64,7 +64,7 @@ public:
 	);
 
 
-	bool TimeCount();
+	void TimeCount();
 	//void SetIndividualValue();//個体値を設定
 	//void ShouldFishChange();//魚を変えるかどうか。
 	void ShouldFishChangeTrue();
@@ -91,8 +91,8 @@ public:
 	float m_nowTime;
 	float m_timeRatio = 0.0f;
 	SpriteRender m_ui;
-	PositionSelection* m_positionSelection;
-	InGameState* m_inGameState;
+	PositionSelection* m_positionSelection=nullptr;
+	InGameState* m_inGameState = nullptr;
 	FishData m_fishData;
 
 

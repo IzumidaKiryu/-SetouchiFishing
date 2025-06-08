@@ -160,7 +160,7 @@ void Fish::SetParameter(
 /// 時間をはかる。
 /// </summary>
 /// <returns></returns>
-bool Fish::TimeCount()
+void Fish::TimeCount()
 {
 	m_nowTime = m_inGameState->GetTime();
 
@@ -169,11 +169,9 @@ bool Fish::TimeCount()
 
 	if (m_initialTime - m_nowTime <= m_fishData.timeUntilEscape)
 	{
-		return true;
 	}
 	if(m_initialTime - m_nowTime >= m_fishData.timeUntilEscape) {
 		ShouldFishChangeTrue();
-		return false;
 	}
 }
 
@@ -191,11 +189,7 @@ bool Fish::TimeCount()
 
 void Fish::ShouldFishChangeTrue()
 {
-	//この魚が選択中の時は別の魚に変えない。
-	if (m_isSelected != true)
-	{
-		m_shouldFishChange = true;
-	}
+	m_shouldFishChange = true;
 }
 
 void Fish::ShouldFishChangeFalse()
@@ -203,15 +197,6 @@ void Fish::ShouldFishChangeFalse()
 	m_shouldFishChange = false;
 }
 
-void Fish::SetisSelectedTrue()
-{
-	m_isSelected = true;
-}
-
-void Fish::SetisSelectedFalse()
-{
-	m_isSelected = false;
-}
 
 bool Fish::GetShouldFishChange()
 {
