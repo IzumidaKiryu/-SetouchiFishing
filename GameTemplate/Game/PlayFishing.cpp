@@ -22,6 +22,7 @@
 #include "InGameState.h"
 #include "BackGround.h"
 #include "ScoreManager.h"
+#include"Enemy.h"
 
 // コンストラクタ・デストラクタ
 PlayFishing::PlayFishing() {}
@@ -124,11 +125,14 @@ float PlayFishing::GetFIshScore() {
 
 // ゲームオブジェクトの検索
 void PlayFishing::FindGameObjects() {
+	m_inGameState = FindGO<InGameState>("inGameState");
 	m_fishManager = FindGO<FishManager>(m_currentFishManagerobjectName.c_str());
 	m_positionSelection = FindGO<PositionSelection>("positionSelection");
 	m_backGround = FindGO<BackGround>("backGround");
 	m_gameCamera = FindGO<GameCamera>("PlayFishing");
 	m_scoreManager = FindGO<ScoreManager>("scoreManager");
+	m_enemy = FindGO<Enemy>("enemy");
+	m_player_positionselect = FindGO<Player>("player");
 }
 
 // NewGOで必要オブジェクトの生成
@@ -210,6 +214,7 @@ void PlayFishing::Success() {
 	case sceneFightFish:
 		DeleteGO(m_fightFishState);
 		DeleteThisClass();
+
 		m_scoreDisplay = NewGO<ScoreDisplay>(0, "scoreDisplay");
 		break;
 	default:
@@ -234,11 +239,16 @@ void PlayFishing::Failure() {
 	case sceneFightFish:
 		DeleteGO(m_fightFishState);
 		m_shouldChangeScene = true;
+
+		m_player_positionselect->SetIsFishingInArea(false);
+		//敵の釣りも終わらせる。
+		m_enemy->EndFishingAndDecideNext();
 		break;
 	default:
 		break;
 	}
 	if (m_shouldChangeScene) {
+			m_inGameState->ChangeFish(static_cast<int>(m_positionSelection->GetCurrentArea()));
 		ChangeScene();
 	}
 }
