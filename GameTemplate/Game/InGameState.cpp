@@ -131,25 +131,49 @@ void InGameState::SetHasCountdownClassJustFinished(bool flag)
 void InGameState::ChangeFish()
 {
 	for (int i = 0; i < 6; i++) {
+
+		Area b = static_cast<Area>(i);
+
 		//フィッシュマネージャーの生成。
-		if (m_fishManager[i]->GetShouldFishChange() == true) {
-
-			/// ★ UIポインタを先に無効化する！！
-			m_fishUI[i] = nullptr;
-
-
-			DeleteGO(m_fishManager[i]);
-
+		
+		//敵かプレイヤーがそこで釣りをしていなかったら。
+		if (m_enemy->GetIsFishingInArea(static_cast<Area>(i))==false
+			&&m_player->GetIsFishingInArea(static_cast<Area>(i)) == false)
+		{
+			if (m_fishManager[i]->GetShouldFishChange() == true)
+			{
 			//フィッシュマネージャーの生成。
-			m_fishManager[i] = NewGO<FishManager>(0, AreaName[i].c_str());
+				/// ★ UIポインタを先に無効化する！！
+				m_fishUI[i] = nullptr;
 
-			m_fishManager[i]->Init();
+
+				DeleteGO(m_fishManager[i]);
+
+				//フィッシュマネージャーの生成。
+				m_fishManager[i] = NewGO<FishManager>(0, AreaName[i].c_str());
+
+				m_fishManager[i]->Init();
 
 
-			SetFishUI(i);
+				SetFishUI(i);
+		}
 		}
 
 	}
+}
+
+void InGameState::ChangeFish(int Areaindex)
+{
+
+	DeleteGO(m_fishManager[Areaindex]);
+
+	//フィッシュマネージャーの生成。
+	m_fishManager[Areaindex] = NewGO<FishManager>(0, AreaName[Areaindex].c_str());
+
+	m_fishManager[Areaindex]->Init();
+
+
+	SetFishUI(Areaindex);
 }
 
 void InGameState::CreateInitialFish()
@@ -209,6 +233,8 @@ void InGameState::OnCountdownFinished()
 	m_stopwatch.Start();
 
 	CreateInitialFish();
+
+	m_enemy->DecideTargetFishingArea();
 
 	m_hasCountdownClassJustFinished = false;
 

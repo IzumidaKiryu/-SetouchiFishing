@@ -29,6 +29,7 @@ public:
 	void SetHasCountdownClassFinished(bool flag);
 	void SetHasCountdownClassJustFinished(bool flag);
 	void ChangeFish();
+	void ChangeFish(int Areaindex);
 	void CreateInitialFish();
 	float GerFishTimeRatio(int index);
 	void SetFishUI(int num);
