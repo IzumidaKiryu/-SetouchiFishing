@@ -47,6 +47,7 @@ class FishDetectionRadius;
 class InGameState;
 class BackGround;
 class ScoreManager;
+class Enemy;
 
 class PlayFishing : public IGameObject
 {
@@ -128,6 +129,7 @@ private:
 	FishingRodHP* m_fishingRodHP = nullptr;
 	ScoreDisplay* m_scoreDisplay = nullptr;
 	Player* m_player = nullptr;
+	Player* m_player_positionselect = nullptr;
 	SceneFightFish* m_sceneFightFish = nullptr;
 	FishModel* m_fshModel = nullptr;
 	RodFloatMove* m_rodFloatMove = nullptr;
@@ -141,4 +143,5 @@ private:
 	InGameState* m_inGameState = nullptr;
 	BackGround* m_backGround = nullptr;
 	ScoreManager* m_scoreManager = nullptr;
+	Enemy* m_enemy = nullptr;
 };

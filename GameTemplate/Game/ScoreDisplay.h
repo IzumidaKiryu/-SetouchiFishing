@@ -1,6 +1,9 @@
 #pragma once
 class PlayFishing;
 class PositionSelection;
+class InGameState;
+class Enemy;
+class Player;
 class ScoreDisplay : public IGameObject
 {
 public:
@@ -36,6 +39,8 @@ public:
 	SpriteRender m_hundredsPlaceUI;
 	SpriteRender m_scoreDisplay;
 	PositionSelection* m_positionSelection;
-
+	InGameState* m_inGameState;
+	Enemy* m_enemy;
+	Player* m_player;
 };
 
