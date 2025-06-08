@@ -128,8 +128,17 @@ private:
 	TensionGauge* m_tensionGauge = nullptr;
 	FishingRodHP* m_fishingRodHP = nullptr;
 	ScoreDisplay* m_scoreDisplay = nullptr;
+	/// <summary>
+	/// 表示用のプレイヤー
+	/// データの管理はこっちではしない。
+	/// </summary>
+	Player* playerVisual = nullptr;
+	/// <summary>
+	/// モデルは表示しない。
+	/// データはこっちで管理する。
+	/// ポジション選択シーンでのプレイヤーと同じオブジェクト。
+	/// </summary>
 	Player* m_player = nullptr;
-	Player* m_player_positionselect = nullptr;
 	SceneFightFish* m_sceneFightFish = nullptr;
 	FishModel* m_fshModel = nullptr;
 	RodFloatMove* m_rodFloatMove = nullptr;

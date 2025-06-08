@@ -55,7 +55,7 @@ void Enemy::Update()
 		if (IsFishingInactive() == true)//釣り中でなければ
 		{
 			//釣るエリアを決定。
-			DecideTargetFishingArea();
+			//SetTargetFishingArea(m_positionSelection->FindFishHighScore()/*スコアが一番高い魚を探す*/);
 
 		}
 	}
@@ -132,9 +132,9 @@ void Enemy::SetCountdownFinished(bool countdownFinished)
 /// プレイヤーの釣りの回数と敵の回数が同じになるようにする。
 /// プレイヤーが釣りに成功した瞬間と釣りに失敗した瞬間に呼び出す。
 /// </summary>
-void Enemy::DecideTargetFishingArea()
+void Enemy::SetTargetFishingArea(Area targetFishingArea)
 {
-	m_targetFishingArea=m_positionSelection->FindFishHighScore();
+	m_targetFishingArea = targetFishingArea;
 }
 
 Area Enemy::GetTargetFishinArea()
@@ -171,33 +171,18 @@ bool Enemy::GetIsFishingInArea(Area area)
 	return m_isFishingInArea[area];
 }
 
-void Enemy::EndFishingAndDecideNext()
+void Enemy::EndFishing()
 {
 	//釣り中？をfalseに。
 	SetIsFishingInArea(false);
+	SetTargetFishingArea(m_positionSelection->FindFishHighScore()/*スコアが一番高い魚を探す*/);
 
 	m_scoreManager->SetScore(m_targetFishData.score, m_targetFishData.fishType, CharacterType::enemy);
 
-	//釣る魚を決める。
-	DecideTargetFishingArea();
 }
 
 void Enemy::SetEnemyScore()
 {
 	m_targetFishData;
 }
-
-
-/// <summary>
-/// ゲーム開始後、最初に釣りに向かうターゲットエリアを決定する処理。
-/// この関数は1回のみ呼び出される。
-/// </summary>
-void Enemy::DecideInitialTargetFishingArea()
-{
-	if (!hasDecidedInitialTargetFishingArea) {
-		DecideTargetFishingArea();
-		hasDecidedInitialTargetFishingArea = true;
-	}
-}
-
 

@@ -25,13 +25,10 @@ public:
 	void SetMoveSpeed() override;
 	void Render(RenderContext& rc);
 	void SetCountdownFinished(bool countdownFinished);
-	void DecideTargetFishingArea();
+	void SetTargetFishingArea(Area targetFishingArea);
 	Area GetTargetFishinArea();
 	bool IsFishingInactive()const;
-	void CalculateFishingTime(FishType targetFish);
 	void SetTargetFishData(Area targetarea);
-	bool IsFishCaught();//魚を釣り上げているか
-	void ResetTimer();
 	/// <summary>
 	/// 渡されたエリアで釣り中かどうかを返す。
 	/// </summary>
@@ -40,11 +37,12 @@ public:
 	bool GetIsFishingInArea(Area area);
 
 	/// <summary>
-	/// 釣りを終えて次に釣る魚を決める
-	/// プレイヤーの釣りの回数と敵の回数が同じになるようにする。
+	/// 釣りを終えた後の処理をする。
+	/// プレイヤーの釣りの回数と敵の回数が同じになるようにプレイヤーの釣りが終わったら。
+	/// 敵も終わるようにする。
 	/// プレイヤーが釣りに成功した瞬間と釣りに失敗した瞬間に呼び出す。
 	/// </summary>
-	void EndFishingAndDecideNext();
+	void EndFishing();
 
 	void SetEnemyScore();
 
@@ -52,7 +50,6 @@ public:
 
 
 private:
-	void DecideInitialTargetFishingArea();
 
 	bool hasDecidedInitialTargetFishingArea=false;
 

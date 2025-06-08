@@ -30,7 +30,7 @@ PlayFishing::PlayFishing() {}
 PlayFishing::~PlayFishing()
 {
 	ReturnToPositionSelectCamera();
-	DeleteGO(m_player);
+	DeleteGO(playerVisual);
 	DeleteGO(m_fshModel);
 	DeleteGO(m_gameCamera);
 	DeleteGO(m_tensionGauge);
@@ -47,7 +47,7 @@ bool PlayFishing::Start()
 	FindGameObjects();
 	SetFishData();
 	NewGOGameObjects();
-	m_player->SetMoveDeActive();
+	playerVisual->SetMoveDeActive();
 	m_current_fish_range_and_max_range_rate = m_fishData.initPos;
 	StatusManager();
 	return true;
@@ -132,7 +132,7 @@ void PlayFishing::FindGameObjects() {
 	m_gameCamera = FindGO<GameCamera>("PlayFishing");
 	m_scoreManager = FindGO<ScoreManager>("scoreManager");
 	m_enemy = FindGO<Enemy>("enemy");
-	m_player_positionselect = FindGO<Player>("player");
+	m_player = FindGO<Player>("player");
 }
 
 // NewGOで必要オブジェクトの生成
@@ -146,9 +146,9 @@ void PlayFishing::NewGOGameObjects() {
 	m_fshModel = NewGO<FishModel>(0, "fishModel");
 	m_fshModel->Init();
 
-	m_player = NewGO<Player>(0, "player_Playfishing");
-	m_player->Init();
-	m_player->m_position = Vector3{ 0.0f,100.0f,250 };
+	playerVisual = NewGO<Player>(0, "player_Playfishing");
+	playerVisual->Init();
+	playerVisual->m_position = Vector3{ 0.0f,100.0f,250 };
 }
 
 // ステートマネージャー
@@ -240,9 +240,9 @@ void PlayFishing::Failure() {
 		DeleteGO(m_fightFishState);
 		m_shouldChangeScene = true;
 
-		m_player_positionselect->SetIsFishingInArea(false);
+		m_player->SetIsFishingInArea(false);
 		//敵の釣りも終わらせる。
-		m_enemy->EndFishingAndDecideNext();
+		m_enemy->EndFishing();
 		break;
 	default:
 		break;

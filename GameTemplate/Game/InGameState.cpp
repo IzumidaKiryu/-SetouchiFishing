@@ -234,7 +234,8 @@ void InGameState::OnCountdownFinished()
 
 	CreateInitialFish();
 
-	m_enemy->DecideTargetFishingArea();
+	//敵が最初に釣る場所を決める
+	m_enemy->SetTargetFishingArea(m_positionSelection->FindFishHighScore()/*スコアが一番高い魚を探す*/);
 
 	m_hasCountdownClassJustFinished = false;
 

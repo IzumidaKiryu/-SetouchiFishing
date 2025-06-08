@@ -41,7 +41,7 @@ ScoreDisplay::~ScoreDisplay()
 	m_inGameState->ChangeFish(static_cast<int>(m_positionSelection->GetCurrentArea()));
 	m_player->SetIsFishingInArea(false);
 
-	m_enemy->EndFishingAndDecideNext();
+	m_enemy->EndFishing();
 
 	m_positionSelection->SetisDisplayingTrue();
 

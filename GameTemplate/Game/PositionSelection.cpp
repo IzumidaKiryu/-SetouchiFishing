@@ -38,6 +38,7 @@ PositionSelection::~PositionSelection() {
 /// </summary>
 void PositionSelection::Init() {
 	m_stealPositionBar = NewGO<StealPositionBar>(0, "stealPositionBar");
+	m_stealPositionBar->Init();
 	g_soundEngine->ResistWaveFileBank(1, "Assets/sound/gamebgm.wav");
 	SetFishDisplayPosition();
 	m_fishSlot = NewGO<FishSlot>(0, "fishSlot");
@@ -183,6 +184,22 @@ Area PositionSelection::FindFishHighScore() {
 	}
 	//m_enemyArea = bestArea;
 	return bestArea;
+}
+
+Area PositionSelection::FindFishLowScore()
+{
+	Area worstArea = Area::A;
+	float minScore = FLT_MAX;  // 最大の float 値で初期化
+
+	for (int i = 0; i < 6; ++i) {
+		float score = m_inGameState->GetFishScore(i);
+		if (score < minScore) {
+			minScore = score;
+			worstArea = m_positionStateArray[i];
+		}
+	}
+
+	return worstArea;
 }
 
 /// <summary>
