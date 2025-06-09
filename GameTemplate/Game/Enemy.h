@@ -6,6 +6,7 @@
 class BackGround;
 class PositionSelection;
 class InGameState;
+class ScoreManager;
 class Enemy :public Character
 {
 public:
@@ -24,55 +25,53 @@ public:
 	void SetMoveSpeed() override;
 	void Render(RenderContext& rc);
 	void SetCountdownFinished(bool countdownFinished);
-	void SetTargetFishingArea();
+	void SetTargetFishingArea(Area targetFishingArea);
 	Area GetTargetFishinArea();
-	void SetIsFishingInArea(Area fishingArea,bool isFishingInArea);
 	bool IsFishingInactive()const;
-	void CalculateFishingTime(FishType targetFish);
 	void SetTargetFishData(Area targetarea);
-	bool IsFishCaught();//魚を釣り上げているか
-	void StartFishingTimer();
-	void ResetTimer();
-	void UpdateFishingElapsedTime();
+	/// <summary>
+	/// 渡されたエリアで釣り中かどうかを返す。
+	/// </summary>
+	/// <param name="area"></param>
+	/// <returns></returns>
+	bool GetIsFishingInArea(Area area);
+
+	/// <summary>
+	/// 釣りを終えた後の処理をする。
+	/// プレイヤーの釣りの回数と敵の回数が同じになるようにプレイヤーの釣りが終わったら。
+	/// 敵も終わるようにする。
+	/// プレイヤーが釣りに成功した瞬間と釣りに失敗した瞬間に呼び出す。
+	/// </summary>
+	void EndFishing();
+
+	void SetEnemyScore();
 
 	//Vector3 position = {200.0f,100.0f,1.0f};
 
 
 private:
-	enum class EnemyState {
 
+	bool hasDecidedInitialTargetFishingArea=false;
 
-	};
-	const Vector3 m_fishingAreaPosition[6]//敵の魚を釣る場所。
+	const std::array<Vector3,6> m_fishingAreaPosition//敵の魚を釣る場所。
 	{
-	 {-502.2f,1.65f,-317.0f},
-	 {31.5f,-43.5f,-276.3f},
-	 {500.0f,-43.4f,-300.0f},
-	 {-430.0f,-43.47f,-510.26f},
-	 {41.01f,-43.47f,-544.6f},
-	 {625.8f,-43.47f,-570.8f},
+	 Vector3( - 502.2f,1.65f,-317.0f),
+	 Vector3(31.5f,-43.5f,-276.3f),
+	 Vector3(500.0f,-43.4f,-300.0f),
+	 Vector3(-430.0f,-43.47f,-510.26f),
+	 Vector3(41.01f,-43.47f,-544.6f),
+	 Vector3(625.8f,-43.47f,-570.8f),
 	};
-	std::map< Area, bool> m_isFishingInArea =//各エリアで釣っているかどうか？ 
-	{
-		{Area::A,false},
-		{ Area::B,false },
-	{ Area::C,false },
-	{ Area::D,false },
-	{ Area::E,false },
-	{ Area::F,false },
-	};
-	bool m_isCountdownFinished = false; //カウントダウンが終わったかどうか。
+	bool m_isCountdownFinished = false; //ゲームスタートカウントダウンが終わったかどうか。
 
 	PositionSelection* m_positionSelection=nullptr;
 	BackGround* m_backGround=nullptr;
 	Area m_targetFishingArea= Area::INITIALSTATE;
 
-	float targetFishingTime =0.0f;//狙っている魚を釣るのにかかる時間。
-	float fishingElapsedTime = 0.0f;//今釣っている魚の釣り経過時間。
-	FishData m_TargetFishData;
+	FishData m_targetFishData;
 	InGameState* m_inGameState;
-	std::map<FishType, float> m_fishingBaseTimes;
-	Stopwatch m_stopwatch;
+	ScoreManager* m_scoreManager;
 
+	std::map<FishType, float> m_fishingBaseTimes;
 };
 

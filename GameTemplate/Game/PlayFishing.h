@@ -47,6 +47,7 @@ class FishDetectionRadius;
 class InGameState;
 class BackGround;
 class ScoreManager;
+class Enemy;
 
 class PlayFishing : public IGameObject
 {
@@ -127,6 +128,16 @@ private:
 	TensionGauge* m_tensionGauge = nullptr;
 	FishingRodHP* m_fishingRodHP = nullptr;
 	ScoreDisplay* m_scoreDisplay = nullptr;
+	/// <summary>
+	/// 表示用のプレイヤー
+	/// データの管理はこっちではしない。
+	/// </summary>
+	Player* playerVisual = nullptr;
+	/// <summary>
+	/// モデルは表示しない。
+	/// データはこっちで管理する。
+	/// ポジション選択シーンでのプレイヤーと同じオブジェクト。
+	/// </summary>
 	Player* m_player = nullptr;
 	SceneFightFish* m_sceneFightFish = nullptr;
 	FishModel* m_fshModel = nullptr;
@@ -141,4 +152,5 @@ private:
 	InGameState* m_inGameState = nullptr;
 	BackGround* m_backGround = nullptr;
 	ScoreManager* m_scoreManager = nullptr;
+	Enemy* m_enemy = nullptr;
 };

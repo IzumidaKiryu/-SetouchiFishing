@@ -124,7 +124,7 @@ void GameStartCountdown::SetUItexture()
 	m_countdownUI[static_cast<int>(CountdownState::Three)].Init("Assets/modelData/timelimit_three.DDS", 130, 130);
 	m_countdownUI[static_cast<int>(CountdownState::Two)].Init("Assets/modelData/timelimit_two.DDS", 130, 130);
 	m_countdownUI[static_cast<int>(CountdownState::One)].Init("Assets/modelData/timelimit_one.DDS", 130, 130);
-	m_countdownUI[static_cast<int>(CountdownState::Start)].Init("Assets/modelData/fish_display_ui_inside.DDS", 130, 130);
+	m_countdownUI[static_cast<int>(CountdownState::Start)].Init("Assets/modelData/GO!!.DDS", 250, 130);
 
 }
 

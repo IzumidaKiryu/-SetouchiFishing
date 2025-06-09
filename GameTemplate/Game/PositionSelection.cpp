@@ -38,6 +38,7 @@ PositionSelection::~PositionSelection() {
 /// </summary>
 void PositionSelection::Init() {
 	m_stealPositionBar = NewGO<StealPositionBar>(0, "stealPositionBar");
+	m_stealPositionBar->Init();
 	g_soundEngine->ResistWaveFileBank(1, "Assets/sound/gamebgm.wav");
 	SetFishDisplayPosition();
 	m_fishSlot = NewGO<FishSlot>(0, "fishSlot");
@@ -50,7 +51,9 @@ void PositionSelection::Init() {
 /// Start。ゲームオブジェクトの取得。
 /// </summary>
 bool PositionSelection::Start() {
+
 	FindGameObjects();
+
 	return true;
 }
 
@@ -61,15 +64,15 @@ void PositionSelection::Update() {
 	if (!m_isCountdownFinished) return;
 
 	UpdatePlayerArea();
-	if (!m_shouldPartiallyDeactivate && g_pad[0]->IsTrigger(enButtonA)) {
+	if (!m_shouldPartiallyDeactivate && g_pad[0]->IsTrigger(enButtonA))
+	{
+		m_player->SetIsFishingInArea(true,m_playercurrentArea);
 		ChangeSceneToPlayFishing();
 		m_gameCamera->Activate();
 	}
 	else {
 		m_gameCamera->Deactivate();
 	}
-
-	FindFishHighScore();
 }
 
 /// <summary>
@@ -142,7 +145,7 @@ float PositionSelection::GetTime() { return m_float_time; }
 /// プレイフィッシングシーンへ遷移。
 /// </summary>
 void PositionSelection::ChangeSceneToPlayFishing() {
-	if (m_currentArea == Area::ENEMY_SAME_POSITION) return;
+	if (m_playercurrentArea == Area::ENEMY_SAME_POSITION) return;
 
 	SetisDisplayingFalse();
 	m_playFishing = NewGO<PlayFishing>(0, "playFishing");
@@ -155,7 +158,7 @@ void PositionSelection::ChangeSceneToPlayFishing() {
 /// 現在のエリア名をプレイフィッシングに通知。
 /// </summary>
 void PositionSelection::NotifyCurrentArea() {
-	m_playFishing->SetCurrentFishManagerObjectName(m_inGameState->GetAreaName(static_cast<int>(m_currentArea)));
+	m_playFishing->SetCurrentFishManagerObjectName(m_inGameState->GetAreaName(static_cast<int>(m_playercurrentArea)));
 }
 /// <summary>
 /// 敵が釣っていないときだけ、敵のターゲットエリアを決める
@@ -183,6 +186,22 @@ Area PositionSelection::FindFishHighScore() {
 	return bestArea;
 }
 
+Area PositionSelection::FindFishLowScore()
+{
+	Area worstArea = Area::A;
+	float minScore = FLT_MAX;  // 最大の float 値で初期化
+
+	for (int i = 0; i < 6; ++i) {
+		float score = m_inGameState->GetFishScore(i);
+		if (score < minScore) {
+			minScore = score;
+			worstArea = m_positionStateArray[i];
+		}
+	}
+
+	return worstArea;
+}
+
 /// <summary>
 /// プレイヤーの位置に応じてエリアを更新。
 /// 敵と同じ位置なら特殊状態に。
@@ -193,25 +212,25 @@ void PositionSelection::UpdatePlayerArea() {
 
 	if (isFrontRow) {
 		if (playerPos.x < COLUMN_LEFT_BORDER)
-			m_currentArea = Area::A;
+			m_playercurrentArea = Area::A;
 		else if (playerPos.x <= COLUMN_RIGHT_BORDER)
-			m_currentArea = Area::B;
+			m_playercurrentArea = Area::B;
 		else
-			m_currentArea = Area::C;
+			m_playercurrentArea = Area::C;
 	}
 	else {
 		if (playerPos.x < COLUMN_LEFT_BORDER)
-			m_currentArea = Area::D;
+			m_playercurrentArea = Area::D;
 		else if (playerPos.x <= COLUMN_RIGHT_BORDER)
-			m_currentArea = Area::E;
+			m_playercurrentArea = Area::E;
 		else
-			m_currentArea = Area::F;
+			m_playercurrentArea = Area::F;
 	}
 
-	if (m_currentArea == m_enemy->GetTargetFishinArea())
-		m_currentArea = Area::ENEMY_SAME_POSITION;
+	if (m_playercurrentArea == m_enemy->GetTargetFishinArea())
+		m_playercurrentArea = Area::ENEMY_SAME_POSITION;
 
-	UpdateSlotFrameVisibility(m_currentArea);
+	UpdateSlotFrameVisibility(m_playercurrentArea);
 }
 
 /// <summary>
@@ -227,4 +246,9 @@ void PositionSelection::UpdateSlotFrameVisibility(Area position) {
 /// </summary>
 void PositionSelection::SetCountdownFinished(bool countdownFinished) {
 	m_isCountdownFinished = countdownFinished;
+}
+
+Area PositionSelection::GetCurrentArea()
+{
+	return m_playercurrentArea;
 }

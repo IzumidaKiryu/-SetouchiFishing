@@ -1,8 +1,8 @@
 #include "stdafx.h"
 #include "Player.h"
 #include "Enemy.h"
-#include "PositionSelection.h"
 #include"BackGround.h"
+#include"InGameState.h"
 
 
 Player::Player()

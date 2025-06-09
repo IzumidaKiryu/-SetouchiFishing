@@ -277,6 +277,7 @@
     <ClCompile Include="Tatiuo.cpp" />
     <ClCompile Include="TensionGauge.cpp" />
     <ClCompile Include="TimeLimitUI.cpp" />
+    <ClCompile Include="Timer.cpp" />
     <ClCompile Include="Title.cpp" />
     <ClCompile Include="WaitForFishState.cpp" />
   </ItemGroup>
@@ -326,6 +327,7 @@
     <ClInclude Include="Tatiuo.h" />
     <ClInclude Include="TensionGauge.h" />
     <ClInclude Include="TimeLimitUI.h" />
+    <ClInclude Include="Timer.h" />
     <ClInclude Include="Title.h" />
     <ClInclude Include="WaitForFishState.h" />
   </ItemGroup>

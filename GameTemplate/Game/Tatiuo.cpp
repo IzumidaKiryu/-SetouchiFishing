@@ -5,10 +5,15 @@ Tatiuo::Tatiuo()
 {
 
 	SetFishType(FishType::TATIUO);
-	SetBaseScore(120.0f);
-	SetScore();
-	SetTimeUntilEscape(10.0f);
-	SetInitPos(0.7f);
+	SetParameter(
+		12.0f,
+		5.0f,
+		120.0f,
+		0.7,
+		80,
+		30,
+		0.3f
+	);
 }
 
 Tatiuo::~Tatiuo()

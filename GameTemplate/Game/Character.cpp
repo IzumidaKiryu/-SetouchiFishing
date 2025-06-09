@@ -15,6 +15,7 @@ Character::~Character()
 bool Character::Init()
 {
 	
+	InitFishingInArea();
 	//キャラコンを初期化する。
 	characterController.Init(25.0f, 75.0f, m_position);
 
@@ -202,6 +203,32 @@ void Character::SetIdleAnimation()
 void Character::SetInitPosition(Vector3 pos)
 {
 	m_initpos = pos;
+}
+
+void Character::SetIsFishingInArea(bool isFishingInArea, Area fishingArea)
+{
+	for (int i = 0; i < 6; i++)
+	{
+		//他のところは自動的にfalse。
+		if (i == static_cast<int>(fishingArea)) {
+			m_isFishingInArea[fishingArea] = isFishingInArea;
+		}
+		else {
+			m_isFishingInArea[static_cast<Area>(i)] = false;
+		}
+	}
+}
+
+bool Character::GetIsFishingInArea(Area area)
+{
+	return m_isFishingInArea[area];
+}
+
+void Character::InitFishingInArea()
+{
+	for (int i = 0; i < 6; ++i) {
+		m_isFishingInArea[static_cast<Area>(i)] = false;
+	}
 }
 
 

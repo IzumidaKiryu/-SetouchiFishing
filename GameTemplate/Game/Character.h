@@ -1,4 +1,6 @@
 #pragma once
+#include"PositionSelection.h"
+
 class FishingAnimationState;
 class Character : public IGameObject
 {
@@ -40,13 +42,28 @@ public:
 	float GetAnimationRatio();
 	void SetIdleAnimation();
 	virtual void SetInitPosition(Vector3 pos)final;
+	void SetIsFishingInArea(bool isFishingInArea, Area fishingArea = Area::A);
+	bool GetIsFishingInArea(Area area);
+	void InitFishingInArea();
+
 
 	Vector3 m_initpos=Vector3::Zero;
 
+	
 	//メンバ変数。
+	std::map< Area, bool> m_isFishingInArea =//各エリアで釣っているかどうか？ 
+	{
+		{Area::A,false},
+		{ Area::B,false },
+	{ Area::C,false },
+	{ Area::D,false },
+	{ Area::E,false },
+	{ Area::F,false },
+	};
 	ModelRender modelRender;	//モデルレンダ―。
 	Vector3 m_position = { 0.0f,100.0f,-300.0f };			//座標。
-	enum EnAnimationClip {		//アニメーション。
+	enum EnAnimationClip 
+	{		//アニメーション。
 		enAnimationClip_Idle,
 		enAnimationClip_Walk,
 		//enAnimationClip_Jump,
