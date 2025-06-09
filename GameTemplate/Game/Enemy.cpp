@@ -4,7 +4,7 @@
 #include"BackGround.h"
 #include"Fish.h"
 #include"InGameState.h"
-
+#include"ScoreManager.h"
 
 Enemy::Enemy()
 {
@@ -22,10 +22,6 @@ bool Enemy::Init()
 	Character::Init();
 
 
-	InitFishingBaseTimes();
-
-
-	m_backGround = FindGO<BackGround>("backGround");
 
 
 	SetAnimationClipsLoad("Assets/animData/Enemy/EnamyIdle.tka",
@@ -43,7 +39,6 @@ bool Enemy::Start()
 
 	Character::Start();
 
-	m_inGameState = FindGO<InGameState>("inGameState");
 	FindGameObjects();
 	return true;
 }
@@ -52,30 +47,16 @@ void Enemy::Update()
 {
 
 	Character:: Update();
+
+
 	if (m_isCountdownFinished == true)		//カウントダウンが終われば。
 	{
 
 		if (IsFishingInactive() == true)//釣り中でなければ
 		{
 			//釣るエリアを決定。
-			SetTargetFishingArea();
+			//SetTargetFishingArea(m_positionSelection->FindFishHighScore()/*スコアが一番高い魚を探す*/);
 
-		}
-		else {//釣り中なら。
-
-			//今狙っている魚と戦っている時間を更新する。
-			UpdateFishingElapsedTime();
-		}
-
-
-		
-
-
-		if (IsFishCaught()) {//今狙っている魚を釣り上げたら。
-
-			//釣り中？をfalseに。
-			SetIsFishingInArea(m_targetFishingArea, false);
-			ResetTimer();
 		}
 	}
 
@@ -89,23 +70,12 @@ void Enemy::Update()
 
 void Enemy::FindGameObjects()
 {
-	m_positionSelection = FindGO<PositionSelection>("positionSelection");
 	m_backGround = FindGO<BackGround>("backGround");
-
+	m_inGameState = FindGO<InGameState>("inGameState");
+	m_positionSelection = FindGO<PositionSelection>("positionSelection");
+	m_scoreManager = FindGO<ScoreManager>("scoreManager");
 }
 
-void Enemy::InitFishingBaseTimes()
-{
-	m_fishingBaseTimes[FishType::TAI] = 50.0f;
-	m_fishingBaseTimes[FishType::BURI] = 30.0f;
-	m_fishingBaseTimes[FishType::HIRAME] = 30.0f;
-	m_fishingBaseTimes[FishType::TATIUO] = 30.0f;
-	m_fishingBaseTimes[FishType::SINJU] = 20.0f;
-	m_fishingBaseTimes[FishType::JAKOTENN] = 20.0f;
-
-
-
-}
 
 void Enemy::SetMoveSpeed()
 {
@@ -114,17 +84,13 @@ void Enemy::SetMoveSpeed()
 
 	if (m_isCountdownFinished == true)//カウントダウンが終わったら。
 	{
-		m_positionSelection = FindGO<PositionSelection>("positionSelection");
-
-
 		//釣り中でなければターゲットエリアに向かう。
 		if (IsFishingInactive() == true)
 		{
-			moveSpeed = Vector3::Zero;
 
+			moveSpeed = Vector3::Zero;
 			Vector3 fishingAreaPositionXZ = Vector3(m_fishingAreaPosition[static_cast<int>(m_targetFishingArea)].x,0.0f, m_fishingAreaPosition[static_cast<int>(m_targetFishingArea)].z);
 			Vector3 enemyPosXZ =Vector3(m_position.x,0.0f, m_position.z);
-
 			Vector3 range_of_enemy_and_position = fishingAreaPositionXZ - enemyPosXZ;//敵ポジションと選んでいるポジションの距離。
 
 
@@ -137,17 +103,13 @@ void Enemy::SetMoveSpeed()
 			}
 			else {//狙った魚の場所についたら。
 
-				//タイマーを開始。
-				StartFishingTimer();
-
 				//ターゲットの魚のFishDataをセットする。
 				SetTargetFishData(m_targetFishingArea);
 
-				//釣るのにかかる時間を決定する。
-				CalculateFishingTime(m_TargetFishData.fishType);
-
 				//ターゲットエリアについたらそのエリアで釣り中にする。
-				SetIsFishingInArea(m_targetFishingArea, true);
+				SetIsFishingInArea(true, m_targetFishingArea);
+
+
 			}
 		}
 	}
@@ -156,7 +118,6 @@ void Enemy::SetMoveSpeed()
 //描画処理。
 void Enemy::Render(RenderContext& rc)
 {
-	//ユニティちゃんを描画する。
 	modelRender.Draw(rc);
 }
 
@@ -164,12 +125,16 @@ void Enemy::SetCountdownFinished(bool countdownFinished)
 {
 	m_isCountdownFinished = countdownFinished;
 }
+
+
 /// <summary>
 /// 敵が釣るエリアを決める。
+/// プレイヤーの釣りの回数と敵の回数が同じになるようにする。
+/// プレイヤーが釣りに成功した瞬間と釣りに失敗した瞬間に呼び出す。
 /// </summary>
-void Enemy::SetTargetFishingArea()
+void Enemy::SetTargetFishingArea(Area targetFishingArea)
 {
-	m_targetFishingArea=m_positionSelection->FindFishHighScore();
+	m_targetFishingArea = targetFishingArea;
 }
 
 Area Enemy::GetTargetFishinArea()
@@ -177,31 +142,6 @@ Area Enemy::GetTargetFishinArea()
 	return m_targetFishingArea;
 }
 
-/// <summary>
-/// 敵が釣り中かどうかを設定する。
-/// </summary>
-/// <param name="fishingArea"></param>
-/// <param name="isfishing"></param>
-void Enemy::SetIsFishingInArea(Area fishingArea, bool isfishing)
-{
-
-
-	for (int i = 0; i < 6; i++)
-	{
-
-
-		//他のところは自動的にfalse。
-		if (i == static_cast<int>(fishingArea)) {
-			m_isFishingInArea[fishingArea] = isfishing;
-		}
-		else {
-			m_isFishingInArea[static_cast<Area>(i)] = false;
-		}
-	}
-
-
-
-}
 /// <summary>
 /// 釣りをしていないか？
 /// </summary>
@@ -214,59 +154,35 @@ bool Enemy::IsFishingInactive()const
 		[](const auto& pair) { return pair.second == false; }
 	);
 }
-/// <summary>
-/// 一回の釣りにかかる時間を決める。
-/// </summary>
-void Enemy::CalculateFishingTime(FishType targetFish)
-{
-	//ターゲットの魚を釣るのにかかる時間＝各魚の基準時間×個体差。
-	targetFishingTime=m_fishingBaseTimes[targetFish]*m_TargetFishData.individualFactor;
-}
 
 void Enemy::SetTargetFishData(Area targetarea)
 {
-	m_TargetFishData = m_inGameState->GetFishData(static_cast<int>(targetarea));
+	m_targetFishData = m_inGameState->GetFishData(static_cast<int>(targetarea));
 }
 /// <summary>
 /// 今のターゲットの魚を釣り上げたか。
 /// </summary>
-bool Enemy::IsFishCaught()
+
+
+
+
+bool Enemy::GetIsFishingInArea(Area area)
 {
-	if (!IsFishingInactive()/*釣りをしていない？*/) //釣りをしていれば。
-	{
-		if (targetFishingTime <= fishingElapsedTime) {//経過時間が釣るまでの時間より大きくなったら。
-			return true;
-		}
-		else {//まだつっている最中。
-			return false;
-		}
-	}
-	else //釣りをしていない。（移動中）
-	{
-		return false;
-	}
+	return m_isFishingInArea[area];
 }
 
-/// <summary>
-/// タイマーをスタートさせる。
-/// </summary>
-void Enemy::StartFishingTimer()
+void Enemy::EndFishing()
 {
-	m_stopwatch.Start();
+	//釣り中？をfalseに。
+	SetIsFishingInArea(false);
+	SetTargetFishingArea(m_positionSelection->FindFishHighScore()/*スコアが一番高い魚を探す*/);
+
+	m_scoreManager->SetScore(m_targetFishData.score, m_targetFishData.fishType, CharacterType::enemy);
+
 }
 
-void Enemy::ResetTimer()
+void Enemy::SetEnemyScore()
 {
-	m_stopwatch.Stop();
+	m_targetFishData;
 }
-
-/// <summary>
-/// 今狙っている魚を釣るのにかかった経過時間を更新する。
-/// </summary>
-void Enemy::UpdateFishingElapsedTime()
-{
-	fishingElapsedTime=m_stopwatch.GetElapsed();
-	m_stopwatch.Stop();
-}
-
 

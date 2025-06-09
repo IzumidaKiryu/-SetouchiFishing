@@ -18,7 +18,7 @@ public:
 	void SetMoveActive();
 	bool m_is_moveActive=true;
 
-
+private:
 	void Render(RenderContext& rc);
 	BackGround* m_backGround;
 };

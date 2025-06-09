@@ -2,6 +2,7 @@
 class PositionSelection;
 class InGameState;
 class FishManager;
+class Enemy;
 class FishSlot : public IGameObject
 {
 public:
@@ -51,5 +52,6 @@ public:
 	PositionSelection* m_positionSelection;
 	InGameState* m_inGameState;
 	FishManager* m_fishManager;
+	Enemy* m_enemy;
 };
 

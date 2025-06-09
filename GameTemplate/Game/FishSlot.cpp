@@ -3,6 +3,7 @@
 #include"PositionSelection.h"
 #include"InGameState.h"
 #include"FishManager.h"
+#include "Enemy.h"
 
 
 FishSlot::FishSlot()
@@ -32,6 +33,7 @@ void FishSlot::FindGameObjects()
 	m_positionSelection = FindGO<PositionSelection>("positionSelection");
 	m_inGameState = FindGO<InGameState>("inGameState");
 	m_fishManager = FindGO<FishManager>("fishManager");
+	m_enemy = FindGO<Enemy>("enemy");
 }
 
 void FishSlot::ThiscClassInit()
@@ -159,9 +161,10 @@ void FishSlot::ShowUI(RenderContext& rc)
 
 		m_fishDisplayInside[i].Draw(rc);
 
-		m_fishTimeUntilEscapeUI[i].Draw(rc);
-		//m_fishDisplayOutside[i].Draw(rc);
-		//	m_selectedFrameUI[i].Draw(rc);
+		if (static_cast<int>(m_enemy->GetTargetFishinArea()) != i) //敵のターゲットエリア以外のところに表示。
+		{
+			m_fishTimeUntilEscapeUI[i].Draw(rc);
+		}
 
 		if (m_selectedFrameUI[i].GetActive() == true)
 		{

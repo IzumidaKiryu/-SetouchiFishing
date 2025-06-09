@@ -2,11 +2,19 @@
 #include "ScoreDisplay.h"
 #include"PlayFishing.h"
 #include"PositionSelection.h"
+#include"InGameState.h"
+#include "Enemy.h"
+#include"Player.h"
 
 ScoreDisplay::ScoreDisplay()
 {
 
+	m_player = FindGO<Player>("player");
 	m_playFishing = FindGO<PlayFishing>("playFishing");
+
+	//追加
+	m_enemy = FindGO<Enemy>("enemy");
+
 	m_score = m_playFishing->GetFIshScore();
 
 	//1スコアのそれぞれの桁を求める。
@@ -29,7 +37,14 @@ ScoreDisplay::ScoreDisplay()
 ScoreDisplay::~ScoreDisplay()
 {
 	m_positionSelection = FindGO<PositionSelection>("positionSelection");
+	m_inGameState = FindGO<InGameState>("inGameState");
+	m_inGameState->ChangeFish(static_cast<int>(m_positionSelection->GetCurrentArea()));
+	m_player->SetIsFishingInArea(false);
+
+	m_enemy->EndFishing();
+
 	m_positionSelection->SetisDisplayingTrue();
+
 	//ポジションセレクトクラスのオブジェクトをアクティブにする
 	m_positionSelection->SetActivate();
 }

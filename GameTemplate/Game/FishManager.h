@@ -41,9 +41,9 @@ private:
 	FishData m_fishData;//フィッシュデータのポインタ
 
 	FishType m_fishType;
-	SpriteRender* m_ui;
+	SpriteRender* m_ui=nullptr;
 
-	Fish* m_fish;
+	Fish* m_fish=nullptr;
 	//Buri* m_buri;
 	//Tatiuo* m_tatiuo;
 	//Jakoten* m_jakoten;

@@ -22,6 +22,7 @@
 #include "InGameState.h"
 #include "BackGround.h"
 #include "ScoreManager.h"
+#include"Enemy.h"
 
 // コンストラクタ・デストラクタ
 PlayFishing::PlayFishing() {}
@@ -29,7 +30,7 @@ PlayFishing::PlayFishing() {}
 PlayFishing::~PlayFishing()
 {
 	ReturnToPositionSelectCamera();
-	DeleteGO(m_player);
+	DeleteGO(playerVisual);
 	DeleteGO(m_fshModel);
 	DeleteGO(m_gameCamera);
 	DeleteGO(m_tensionGauge);
@@ -46,7 +47,7 @@ bool PlayFishing::Start()
 	FindGameObjects();
 	SetFishData();
 	NewGOGameObjects();
-	m_player->SetMoveDeActive();
+	playerVisual->SetMoveDeActive();
 	m_current_fish_range_and_max_range_rate = m_fishData.initPos;
 	StatusManager();
 	return true;
@@ -124,11 +125,14 @@ float PlayFishing::GetFIshScore() {
 
 // ゲームオブジェクトの検索
 void PlayFishing::FindGameObjects() {
+	m_inGameState = FindGO<InGameState>("inGameState");
 	m_fishManager = FindGO<FishManager>(m_currentFishManagerobjectName.c_str());
 	m_positionSelection = FindGO<PositionSelection>("positionSelection");
 	m_backGround = FindGO<BackGround>("backGround");
 	m_gameCamera = FindGO<GameCamera>("PlayFishing");
 	m_scoreManager = FindGO<ScoreManager>("scoreManager");
+	m_enemy = FindGO<Enemy>("enemy");
+	m_player = FindGO<Player>("player");
 }
 
 // NewGOで必要オブジェクトの生成
@@ -142,9 +146,9 @@ void PlayFishing::NewGOGameObjects() {
 	m_fshModel = NewGO<FishModel>(0, "fishModel");
 	m_fshModel->Init();
 
-	m_player = NewGO<Player>(0, "player_Playfishing");
-	m_player->Init();
-	m_player->m_position = Vector3{ 0.0f,100.0f,250 };
+	playerVisual = NewGO<Player>(0, "player_Playfishing");
+	playerVisual->Init();
+	playerVisual->m_position = Vector3{ 0.0f,100.0f,250 };
 }
 
 // ステートマネージャー
@@ -210,6 +214,7 @@ void PlayFishing::Success() {
 	case sceneFightFish:
 		DeleteGO(m_fightFishState);
 		DeleteThisClass();
+
 		m_scoreDisplay = NewGO<ScoreDisplay>(0, "scoreDisplay");
 		break;
 	default:
@@ -234,11 +239,16 @@ void PlayFishing::Failure() {
 	case sceneFightFish:
 		DeleteGO(m_fightFishState);
 		m_shouldChangeScene = true;
+
+		m_player->SetIsFishingInArea(false);
+		//敵の釣りも終わらせる。
+		m_enemy->EndFishing();
 		break;
 	default:
 		break;
 	}
 	if (m_shouldChangeScene) {
+			m_inGameState->ChangeFish(static_cast<int>(m_positionSelection->GetCurrentArea()));
 		ChangeScene();
 	}
 }
