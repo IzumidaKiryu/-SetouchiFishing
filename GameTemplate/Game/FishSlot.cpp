@@ -4,6 +4,7 @@
 #include"InGameState.h"
 #include"FishManager.h"
 #include "Enemy.h"
+#include"StealPositionBar.h"
 
 
 FishSlot::FishSlot()
@@ -34,6 +35,7 @@ void FishSlot::FindGameObjects()
 	m_inGameState = FindGO<InGameState>("inGameState");
 	m_fishManager = FindGO<FishManager>("fishManager");
 	m_enemy = FindGO<Enemy>("enemy");
+	m_stealPositionBar = FindGO<StealPositionBar>("stealPositionBar");
 }
 
 void FishSlot::ThiscClassInit()
@@ -163,7 +165,9 @@ void FishSlot::ShowUI(RenderContext& rc)
 
 		if (static_cast<int>(m_enemy->GetTargetFishinArea()) != i) //敵のターゲットエリア以外のところに表示。
 		{
-			m_fishTimeUntilEscapeUI[i].Draw(rc);
+			if (!m_stealPositionBar->GetIsStealLockActive(static_cast<Area>(i))) {//敵から奪ったエリアの場合は表示しない。
+				m_fishTimeUntilEscapeUI[i].Draw(rc);
+			}
 		}
 
 		if (m_selectedFrameUI[i].GetActive() == true)
