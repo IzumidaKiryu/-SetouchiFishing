@@ -18,6 +18,7 @@ public:
 	void Init();
 	bool Start() override;
 	void Update();
+	void SetBaseUiScale();
 	void SelectFishType();
 	Fish* CreateFish(FishType type);
 
@@ -31,7 +32,7 @@ public:
 private:
 	void UIPopIn();
 
-	Vector3 m_uiScale{1.0f,1.0f,1.0f};
+	Vector3 m_baseUiScale=Vector3::One;
 	float m_uiPopIn_t=0;
 	bool m_shouldFishChange = false;//魚を変えるべきかどうか。
 	int m_randum;

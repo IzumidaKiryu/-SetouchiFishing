@@ -31,6 +31,9 @@ void FishManager::Init()
 
 	m_ui = &m_fish->GetUI();         // UI取得
 	m_fishData = m_fish->GetFishData();
+
+	SetBaseUiScale();
+
 }
 
 bool FishManager::Start()
@@ -45,6 +48,11 @@ void FishManager::Update()
 	m_fish->TimeCount();
 	m_timeRatio = m_fish->GetTimeRatio();
 	UIPopIn();
+}
+
+void FishManager::SetBaseUiScale()
+{
+	m_baseUiScale = m_ui->GetScale();
 }
 
 /// <summary>
@@ -102,7 +110,7 @@ void FishManager::UIPopIn()
 	if (scale < 0) {
 		scale = 0;
 	}
-	m_ui->SetScale(m_uiScale* scale);
+	m_ui->SetScale(m_baseUiScale* scale);
 	m_ui->Update();
 
 }
