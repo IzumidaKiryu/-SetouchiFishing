@@ -23,6 +23,7 @@
 #include "BackGround.h"
 #include "ScoreManager.h"
 #include"Enemy.h"
+#include"StealPositionBar.h"
 
 // コンストラクタ・デストラクタ
 PlayFishing::PlayFishing() {}
@@ -133,6 +134,7 @@ void PlayFishing::FindGameObjects() {
 	m_scoreManager = FindGO<ScoreManager>("scoreManager");
 	m_enemy = FindGO<Enemy>("enemy");
 	m_player = FindGO<Player>("player");
+	m_stealPositionBar = FindGO<StealPositionBar>("stealPositionBar");
 }
 
 // NewGOで必要オブジェクトの生成
@@ -240,15 +242,27 @@ void PlayFishing::Failure() {
 		DeleteGO(m_fightFishState);
 		m_shouldChangeScene = true;
 
-		m_player->SetIsFishingInArea(false);
-		//敵の釣りも終わらせる。
-		m_enemy->EndFishing();
 		break;
 	default:
 		break;
 	}
-	if (m_shouldChangeScene) {
-			m_inGameState->ChangeFish(static_cast<int>(m_positionSelection->GetCurrentArea()));
+	if (m_shouldChangeScene) {//シーンを変えてもいいなら。
+
+		//魚のロックをoffにする。
+		//敵からエリアを奪った場合、魚にロックがかかっていて、逃げないので、ロックをoffにする。
+		//別の場所でロックがかかっていても、有効。
+		//ロックがかかっていなくても問題はない。
+		m_stealPositionBar->SetIsStealLockActive(false);
+
+		//プレイヤーが釣りをしていないと伝える。
+		m_player->SetIsFishingInArea(false);
+
+		//敵の釣りも終わらせる。
+		m_enemy->EndFishing();
+
+		//魚をチェンジ。
+		m_inGameState->ChangeFish(static_cast<int>(m_positionSelection->GetCurrentArea()));
+
 		ChangeScene();
 	}
 }

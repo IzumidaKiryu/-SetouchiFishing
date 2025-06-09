@@ -115,6 +115,9 @@ FishData& FishManager::GetFishData()
 
 float FishManager::GetScore()
 {
+	if (m_fishData.score<=0) {
+		GetTimeRatio();
+	}
 	return m_fishData.score;
 }
 

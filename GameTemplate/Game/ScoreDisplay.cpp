@@ -5,12 +5,14 @@
 #include"InGameState.h"
 #include "Enemy.h"
 #include"Player.h"
+#include "StealPositionBar.h"
 
 ScoreDisplay::ScoreDisplay()
 {
 
 	m_player = FindGO<Player>("player");
 	m_playFishing = FindGO<PlayFishing>("playFishing");
+	m_stealPositionBar = FindGO<StealPositionBar>("stealPositionBar");
 
 	//追加
 	m_enemy = FindGO<Enemy>("enemy");
@@ -38,11 +40,22 @@ ScoreDisplay::~ScoreDisplay()
 {
 	m_positionSelection = FindGO<PositionSelection>("positionSelection");
 	m_inGameState = FindGO<InGameState>("inGameState");
+	//魚をチェンジ。
 	m_inGameState->ChangeFish(static_cast<int>(m_positionSelection->GetCurrentArea()));
+
+	//プレイヤーが釣りをしていないと伝える。
 	m_player->SetIsFishingInArea(false);
 
+	//魚のロックをoffにする。
+	//敵からエリアを奪った場合、魚にロックがかかっていて、逃げないので、ロックをoffにする。
+	//別の場所でロックがかかっていても、有効。
+	//ロックがかかっていなくても問題はない。
+	m_stealPositionBar->SetIsStealLockActive(false);
+
+	//敵の釣りが終わった後の処理をする。
 	m_enemy->EndFishing();
 
+	//選択画面を表示している？をtrueにする。
 	m_positionSelection->SetisDisplayingTrue();
 
 	//ポジションセレクトクラスのオブジェクトをアクティブにする

@@ -48,6 +48,7 @@ class InGameState;
 class BackGround;
 class ScoreManager;
 class Enemy;
+class StealPositionBar;
 
 class PlayFishing : public IGameObject
 {
@@ -153,4 +154,5 @@ private:
 	BackGround* m_backGround = nullptr;
 	ScoreManager* m_scoreManager = nullptr;
 	Enemy* m_enemy = nullptr;
+	StealPositionBar* m_stealPositionBar = nullptr;
 };

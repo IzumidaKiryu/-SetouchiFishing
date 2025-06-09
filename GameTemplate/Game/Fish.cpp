@@ -21,6 +21,8 @@ void Fish::Update()
 
 bool Fish::Init()
 {
+	SetRandomIndividualFactor();
+	OnInit();
 	return true;
 }
 
@@ -30,6 +32,14 @@ bool Fish::Start()
 	FindGameObjects();
 	m_initialTime = m_inGameState->GetTime();
 	return true;
+}
+
+void Fish::SetRandomIndividualFactor()
+{
+	std::random_device rd;
+	//個体値の倍率をランダムに決める。0.4%~1.2%の間で決まる。
+	m_fishData.individualFactor = (0.4f / 100) * (rd() % 100 + 1);//??????{??
+	m_fishData.individualFactor += 0.8;
 }
 
 void Fish::SetFishType(FishType fishtype)
@@ -49,11 +59,6 @@ void Fish::FindGameObjects()
 /// <param name="baseIndividualValue"></param>
 void Fish::SetScore()
 {
-	std::random_device rd;
-	//個体値の倍率をランダムに決める。0.4%~1.2%の間で決まる。
-	m_fishData.individualFactor = (0.4f / 100) * (rd() % 100 + 1);//??????{??
-	m_fishData.individualFactor += 0.8;
-
 	m_fishData.score = m_baseScore * m_fishData.individualFactor;//???X?R?A?~??????{???B
 }
 

@@ -5,6 +5,7 @@
 
 StealPositionBar::StealPositionBar()
 {
+	InitisStealLockActive();
 }
 
 void StealPositionBar::DisplayUI(RenderContext& rc)
@@ -77,8 +78,12 @@ void StealPositionBar::UpdateStealGauge(float addPoint)
 
 void StealPositionBar::UseStealGauge()
 {
-	//敵が釣りをしていと伝える。
+	//魚が逃げないように魚をロックする。
+	SetIsStealLockActive(true, m_enemy->GetTargetFishinArea());
+
+	//敵が釣りをしていないと伝える。
 	m_enemy->SetIsFishingInArea(false);
+
 	//敵のフィッシングエリアターゲットにスコアが低い魚がいる場所をセット。
 	m_enemy->SetTargetFishingArea(m_positionSelection->FindFishLowScore());
 }
@@ -96,8 +101,42 @@ bool StealPositionBar::CanUseGauge()
 		if (m_positionSelection->GetCurrentArea() == Area::ENEMY_SAME_POSITION) {
 			return true;
 		}
+		else {
+			return false;
+		}
+
 	}
 	else {
 		return false;
 	}
+}
+
+void StealPositionBar::SetIsStealLockActive(bool isActive, Area area)
+{
+	for (int i=0; i < 6; i++) {
+		//指定されたエリアの真偽値をセット。
+		if (static_cast<Area>(i) == area) {
+			m_isStealLockActive[static_cast<int>(area)] = isActive;
+		}
+		//指定されたもの以外すべてfalseにする。
+		else {
+			m_isStealLockActive[i] = false;
+		}
+	}
+}
+
+bool StealPositionBar::GetIsStealLockActive(Area area)
+{
+	return m_isStealLockActive[static_cast<int>(area)];
+}
+
+void StealPositionBar::InitisStealLockActive()
+{
+	m_isStealLockActive[static_cast<int>(Area::A)] = false;
+	m_isStealLockActive[static_cast<int>(Area::B)] = false;
+	m_isStealLockActive[static_cast<int>(Area::C)] = false;
+	m_isStealLockActive[static_cast<int>(Area::D)] = false;
+	m_isStealLockActive[static_cast<int>(Area::E)] = false;
+	m_isStealLockActive[static_cast<int>(Area::F)] = false;
+
 }

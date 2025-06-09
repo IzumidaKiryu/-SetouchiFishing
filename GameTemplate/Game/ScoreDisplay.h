@@ -4,6 +4,7 @@ class PositionSelection;
 class InGameState;
 class Enemy;
 class Player;
+class StealPositionBar;
 class ScoreDisplay : public IGameObject
 {
 public:
@@ -38,9 +39,10 @@ public:
 	SpriteRender m_tensPlaceUI;
 	SpriteRender m_hundredsPlaceUI;
 	SpriteRender m_scoreDisplay;
-	PositionSelection* m_positionSelection;
-	InGameState* m_inGameState;
-	Enemy* m_enemy;
-	Player* m_player;
+	PositionSelection* m_positionSelection = nullptr;
+	InGameState* m_inGameState=nullptr;
+	Enemy* m_enemy = nullptr;
+	Player* m_player = nullptr;
+	StealPositionBar* m_stealPositionBar = nullptr;
 };
 

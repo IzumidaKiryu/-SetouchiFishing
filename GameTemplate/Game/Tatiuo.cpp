@@ -4,6 +4,16 @@
 Tatiuo::Tatiuo()
 {
 
+
+}
+
+Tatiuo::~Tatiuo()
+{
+}
+
+bool Tatiuo::OnInit()
+{
+	SetUI("Assets/modelData/tatiuo.DDS",Vector3::One * m_fishData.individualFactor);
 	SetFishType(FishType::TATIUO);
 	SetParameter(
 		12.0f,
@@ -14,15 +24,5 @@ Tatiuo::Tatiuo()
 		30,
 		0.3f
 	);
-}
-
-Tatiuo::~Tatiuo()
-{
-	SetUI("Assets/modelData/tatiuo.DDS");
-}
-
-bool Tatiuo::Init()
-{
-	SetUI("Assets/modelData/tatiuo.DDS");
 	return true;
 }

@@ -6,7 +6,7 @@ class Hirame : public Fish
 public:
 	Hirame();
 	~Hirame();
-	bool Init() override;
+	bool OnInit() override;
 
 
 	void Effect()override;

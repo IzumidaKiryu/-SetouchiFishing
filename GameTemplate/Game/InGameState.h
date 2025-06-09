@@ -11,6 +11,7 @@ class TimeLimitUI;
 class FishManager;
 class ScoreManager;
 class FishSlot;
+class StealPositionBar;
 class InGameState :public GameStateBase
 {
 public:
@@ -58,6 +59,7 @@ private:
 	SpriteRender* m_fishUI[6];
 	ScoreManager* m_scoreManager;
 	FishSlot* m_fishSlot;
+	StealPositionBar* m_stealPositionBar;
 
 
 

@@ -13,7 +13,7 @@ struct FishData
 	FishType fishType;
 	float timeUntilEscape=0.5;//魚が逃げるまでの時間
 	float arrowSpeed = 5.0f;
-	float score = 0.0f;//個体値
+	float score = -10.0f;//個体値
 	float individualFactor = 0.0f; // 個体ごとのスコアやサイズに影響を与える補正係数（例：1.0 なら標準、1.2 なら20%増）
 	float initPos=1;
 
@@ -38,8 +38,15 @@ public:
 	~Fish();
 	//更新処理。
 	void Update();
-	virtual bool Init();
+	virtual bool Init()final;
+	virtual bool OnInit()=0;
 	bool Start();
+	/// <summary>
+	/// 個体ごとのばらつきを持たせるために、
+	/// individualFactor にランダムな値（0.804～1.2の範囲）を設定します。
+	/// ベース値 0.8 に 0.004～0.4 のランダムな補正を加算しています。
+	/// </summary>
+	void SetRandomIndividualFactor();
 	void SetFishType(FishType fishtype);
 	void SetScore();//フィッシュデータのスコアを設定する。
 	void FindGameObjects();

@@ -12,6 +12,7 @@
 #include "FishManager.h"
 #include "ScoreManager.h"
 #include"FishSlot.h"
+#include"StealPositionBar.h"
 
 
 
@@ -46,6 +47,7 @@ bool InGameState::Start()
 
 	m_scoreManager = NewGO<ScoreManager>(0, "scoreManager");
 	m_scoreManager->Init();
+
     return true;
 }
 
@@ -61,6 +63,9 @@ void InGameState::OnUpdate()
 	//一度でもポジションセレクトに入ったら。
 	if (m_hasCountdownClassFinished)
 	{
+		//ポジションセレクションクラスに入ってから探したいので、ここで探す。
+		m_stealPositionBar = FindGO<StealPositionBar>("stealPositionBar");
+
 		//タイマーを動かす。
 		Timer();
 
@@ -136,9 +141,13 @@ void InGameState::ChangeFish()
 
 		//フィッシュマネージャーの生成。
 		
-		//敵かプレイヤーがそこで釣りをしていなかったら。
-		if (m_enemy->GetIsFishingInArea(static_cast<Area>(i))==false
-			&&m_player->GetIsFishingInArea(static_cast<Area>(i)) == false)
+		if (//敵が釣り中じゃなければ。
+			m_enemy->GetIsFishingInArea(static_cast<Area>(i))==false
+			//プレイヤーが釣り中じゃなければ。
+			&&m_player->GetIsFishingInArea(static_cast<Area>(i)) == false
+			//stealPositionBarでロックされていなければ。
+			&& m_stealPositionBar->GetIsStealLockActive(static_cast<Area>(i))==false
+			)
 		{
 			if (m_fishManager[i]->GetShouldFishChange() == true)
 			{
