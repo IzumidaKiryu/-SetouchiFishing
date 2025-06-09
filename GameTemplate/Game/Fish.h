@@ -38,8 +38,15 @@ public:
 	~Fish();
 	//更新処理。
 	void Update();
-	virtual bool Init();
+	virtual bool Init()final;
+	virtual bool OnInit()=0;
 	bool Start();
+	/// <summary>
+	/// 個体ごとのばらつきを持たせるために、
+	/// individualFactor にランダムな値（0.804～1.2の範囲）を設定します。
+	/// ベース値 0.8 に 0.004～0.4 のランダムな補正を加算しています。
+	/// </summary>
+	void SetRandomIndividualFactor();
 	void SetFishType(FishType fishtype);
 	void SetScore();//フィッシュデータのスコアを設定する。
 	void FindGameObjects();

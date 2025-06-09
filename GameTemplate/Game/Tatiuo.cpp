@@ -18,11 +18,10 @@ Tatiuo::Tatiuo()
 
 Tatiuo::~Tatiuo()
 {
-	SetUI("Assets/modelData/tatiuo.DDS");
 }
 
-bool Tatiuo::Init()
+bool Tatiuo::OnInit()
 {
-	SetUI("Assets/modelData/tatiuo.DDS");
+	SetUI("Assets/modelData/tatiuo.DDS",Vector3::One * m_fishData.individualFactor);
 	return true;
 }

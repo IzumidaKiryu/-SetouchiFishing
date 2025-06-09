@@ -13,9 +13,9 @@ Buri::~Buri()
 
 }
 
-bool Buri::Init()
+bool Buri::OnInit()
 {
-	SetUI("Assets/modelData/buriUI.DDS");
+	SetUI("Assets/modelData/buriUI.DDS",Vector3::One * m_fishData.individualFactor);
 
 	return true;
 }

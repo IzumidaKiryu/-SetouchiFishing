@@ -21,8 +21,8 @@ Jakoten::~Jakoten()
 
 }
 
-bool Jakoten::Init()
+bool Jakoten::OnInit()
 {
-	SetUI("Assets/modelData/jakotenUI.DDS");
+	SetUI("Assets/modelData/jakotenUI.DDS", Vector3::One * m_fishData.individualFactor);
 	return true;
 }

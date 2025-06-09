@@ -4,6 +4,17 @@
 Hirame::Hirame()
 {
 
+
+}
+
+Hirame::~Hirame()
+{
+
+}
+
+
+bool Hirame::OnInit()
+{
 	SetFishType(FishType::HIRAME);
 	SetBaseScore(180);
 	SetParameter(
@@ -13,16 +24,7 @@ Hirame::Hirame()
 		0.7,
 		40,
 		60);
-}
-
-Hirame::~Hirame()
-{
-
-}
-
-bool Hirame::Init()
-{
-	SetUI("Assets/modelData/hirameUI.DDS");
+	SetUI("Assets/modelData/hirameUI.DDS",Vector3::One*m_fishData.individualFactor);
 
 	return true;
 }

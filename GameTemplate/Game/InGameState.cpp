@@ -138,7 +138,8 @@ void InGameState::ChangeFish()
 		
 		//敵かプレイヤーがそこで釣りをしていなかったら。
 		if (m_enemy->GetIsFishingInArea(static_cast<Area>(i))==false
-			&&m_player->GetIsFishingInArea(static_cast<Area>(i)) == false)
+			&&m_player->GetIsFishingInArea(static_cast<Area>(i)) == false
+			)
 		{
 			if (m_fishManager[i]->GetShouldFishChange() == true)
 			{

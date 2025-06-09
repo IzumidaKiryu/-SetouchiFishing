@@ -6,6 +6,6 @@ public:
 
 	Tai();
 	~Tai();
-	bool Init();
+	bool OnInit() override;
 };
 

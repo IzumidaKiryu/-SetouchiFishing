@@ -17,8 +17,8 @@ Tai::~Tai()
 
 }
 
-bool Tai::Init()
+bool Tai::OnInit()
 {
-	SetUI("Assets/modelData/taiUI.DDS");
+	SetUI("Assets/modelData/taiUI.DDS",Vector3::One*m_fishData.individualFactor);
 	return true;
 }
