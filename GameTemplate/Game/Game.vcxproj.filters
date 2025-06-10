@@ -57,6 +57,8 @@
     <ClCompile Include="InGameState.cpp" />
     <ClCompile Include="ScoreManager.cpp" />
     <ClCompile Include="Timer.cpp" />
+    <ClCompile Include="FishGetEffect.cpp" />
+    <ClCompile Include="GetEffect.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -109,5 +111,7 @@
     <ClInclude Include="InGameState.h" />
     <ClInclude Include="ScoreManager.h" />
     <ClInclude Include="Timer.h" />
+    <ClInclude Include="FishGetEffect.h" />
+    <ClInclude Include="GetEffect.h" />
   </ItemGroup>
 </Project>

@@ -237,6 +237,7 @@
     <ClCompile Include="Fish.cpp" />
     <ClCompile Include="FishCatchEffectState.cpp" />
     <ClCompile Include="FishDetectionRadius.cpp" />
+    <ClCompile Include="FishGetEffect.cpp" />
     <ClCompile Include="FishingAnimationState.cpp" />
     <ClCompile Include="FishingGauge.cpp" />
     <ClCompile Include="FishingRodHP.cpp" />
@@ -249,6 +250,7 @@
     <ClCompile Include="GameStartCountdown.cpp" />
     <ClCompile Include="GameStateBase.cpp" />
     <ClCompile Include="GaugeCastSuccessful.cpp" />
+    <ClCompile Include="GetEffect.cpp" />
     <ClCompile Include="GetRotation.cpp" />
     <ClCompile Include="Hirame.cpp" />
     <ClCompile Include="HitUIState.cpp" />
@@ -292,6 +294,7 @@
     <ClInclude Include="Fish.h" />
     <ClInclude Include="FishCatchEffectState.h" />
     <ClInclude Include="FishDetectionRadius.h" />
+    <ClInclude Include="FishGetEffect.h" />
     <ClInclude Include="FishingAnimationState.h" />
     <ClInclude Include="FishingGauge.h" />
     <ClInclude Include="FishingRodHP.h" />
@@ -304,6 +307,7 @@
     <ClInclude Include="GameStartCountdown.h" />
     <ClInclude Include="GameStateBase.h" />
     <ClInclude Include="GaugeCastSuccessful.h" />
+    <ClInclude Include="GetEffect.h" />
     <ClInclude Include="GetRotation.h" />
     <ClInclude Include="Hirame.h" />
     <ClInclude Include="HitUIState.h" />

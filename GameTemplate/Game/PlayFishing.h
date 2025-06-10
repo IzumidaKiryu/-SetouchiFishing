@@ -12,7 +12,8 @@ enum PlayFishingStatus {
 	wait_for_fish,
 	hitUI,
 	sceneFightFish,
-	wait_ceneFightFish
+	wait_ceneFightFish,
+	fishCatch
 };
 
 enum Successful_or_Failure {
@@ -48,6 +49,7 @@ class InGameState;
 class BackGround;
 class ScoreManager;
 class Enemy;
+class FishCatchEffectState;
 
 class PlayFishing : public IGameObject
 {
@@ -153,4 +155,5 @@ private:
 	BackGround* m_backGround = nullptr;
 	ScoreManager* m_scoreManager = nullptr;
 	Enemy* m_enemy = nullptr;
+	FishCatchEffectState* m_fishCatchEffectState = nullptr;
 };
