@@ -2,6 +2,7 @@
 #include"PositionSelection.h"
 
 class FishingAnimationState;
+class PlayFishing;
 class Character : public IGameObject
 {
 public:
@@ -18,11 +19,20 @@ public:
 		EnModelUpAxis enModelUpAxis,
 		bool shadowCast,
 		bool shadowDrop);
+	void SetRodModel(const char* filePath,
+		AnimationClip* animationClips,
+		int numAnimationClips,
+		EnModelUpAxis enModelUpAxis,
+		bool shadowCast,
+		bool shadowDrop);
+
 	void SetAnimationClipsLoad(
 		const char* animationClip_Idle,
 		const char* animationClip_Walk,
 		const char* animationClip_Cast
 	);
+
+	void SetRodAnimationClipsLoad(const char* animationClip_Rod);
 	//ムーブスピードを設定。
 	void virtual SetMoveSpeed();
 	//移動処理。
@@ -47,7 +57,7 @@ public:
 	void InitFishingInArea();
 
 
-	Vector3 m_initpos=Vector3::Zero;
+	Vector3 m_initpos = Vector3::Zero;
 
 	
 	//メンバ変数。
@@ -61,6 +71,7 @@ public:
 	{ Area::F,false },
 	};
 	ModelRender modelRender;	//モデルレンダ―。
+	ModelRender m_rodModel;
 	Vector3 m_position = { 0.0f,100.0f,-300.0f };			//座標。
 	enum EnAnimationClip 
 	{		//アニメーション。
@@ -68,14 +79,21 @@ public:
 		enAnimationClip_Walk,
 		//enAnimationClip_Jump,
 		enAnimationClip_Cast,
-		enAnimationClip_Num,
+		enAnimationClip_Num
 	};
-	AnimationClip animationClips[enAnimationClip_Num];		//アニメーションクリップ。
+	enum EnRodAnimationClip {
+		enAnimationClip_Rod,
+		enAnimationClip_RodNum
+	};
+
+	AnimationClip animationClips[enAnimationClip_Num];	//アニメーションクリップ。
+	AnimationClip m_rodAnimationClips[enAnimationClip_RodNum];	//ロッドのアニメーションクリップ。
 	CharacterController characterController;  //キャラクターコントローラー。
 	Vector3 moveSpeed = Vector3::Zero;		//移動速度。
 	Quaternion rotation;  //クォータニオン。
 	EnAnimationClip playerState;	//プレイヤーのステート(状態)を表す変数。
+	EnRodAnimationClip rodState;
 	FishingAnimationState* m_castAnimationState;
-
+	PlayFishing* m_playFishing;
+	
 };
-

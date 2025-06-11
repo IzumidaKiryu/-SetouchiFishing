@@ -76,7 +76,7 @@ public:
 	float m_distanceMultiplier;//距離によりる魚の力の倍率。
 	float m_upwardBiasPullForce = 0.04f;//魚が上を向いているときの引っ張るベースの力。
 	float m_downwardBiasPullForce = 0.02f;//魚が下を向いているときの引っ張るベースの力。
-
+	bool m_isFightActive = true;//失敗したらfalseにする。//キリュウ追加。
 	Vector3 fish3DPos;
 
 	FIshState m_fishState;

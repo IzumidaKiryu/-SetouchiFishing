@@ -14,6 +14,10 @@ FishModel::~FishModel()
 
 bool FishModel::Init()
 {
+	SetShadowAnimationClipsLoad(
+		"Assets/animData/Player/rod.tka"
+	);
+
 	SetAnimationClipsLoad();
 	m_fishModel.Init("Assets/modelData/fishShadow.tkm"/*, m_animationClips,1, enModelUpAxisY*/);
 	m_fishModel.SetPosition(Vector3{ 0.0f,0.0f,0.0f });
@@ -51,6 +55,12 @@ void FishModel::Update()
 	}
 }
 
+void FishModel::SetShadowAnimationClipsLoad(const char* animationClip_Shadow)
+{
+	m_ShadowAnimationClips[enAnimationClip_Shadow].Load(animationClip_Shadow);
+	m_ShadowAnimationClips[enAnimationClip_Shadow].SetLoopFlag(true);
+}
+
 void FishModel::Render(RenderContext& rc)
 {
 	m_fishModel.Draw(rc);
@@ -63,6 +73,7 @@ void FishModel::SetPosition(Vector3 position)
 	m_fishModel.SetPosition(position);
 	m_fishModel.Update();
 }
+
 
 void FishModel::SetInitPositon()
 {

@@ -10,6 +10,9 @@ public:
 	bool Start()override;
 	void Update();
 	ModelRender m_fishModel;
+
+	void SetShadowAnimationClipsLoad(const char* animationClip_Shadow);
+	
 	void Render(RenderContext& rc);
 	void SetPosition(Vector3 position);
 	void SetInitPositon();
@@ -25,10 +28,16 @@ public:
 	void SetISTurningDownwardTrue();
 	void SetScaleByIndividualFactor(float scale);
 
+	enum EnShadowAnimationClip {
+		enAnimationClip_Shadow,
+		enAnimationClip_ShadowNum
+	};
+
 	Vector3 m_scale=Vector3::One*0.5;
 	float m_limit_range_with_ship = 2010.1f;
 	Vector3 m_position;
 	AnimationClip m_animationClips;
+	AnimationClip m_ShadowAnimationClips[enAnimationClip_ShadowNum];	//ロッドのアニメーションクリップ。
 	float turn_t;
 	bool m_is_TurningUpward = false;//向きが上向きになるように回っているかどうか。
 	bool m_is_TurningDownward = false;//向きが下向きになるように回っているかどうか。

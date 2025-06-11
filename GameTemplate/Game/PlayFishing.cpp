@@ -22,6 +22,7 @@
 #include "BackGround.h"
 #include "ScoreManager.h"
 #include"Enemy.h"
+#include "FishCatchEffectState.h"
 #include"StealPositionBar.h"
 #include"BuffManager.h"
 
@@ -183,6 +184,9 @@ void PlayFishing::StatusManager() {
 		m_fightFishState = NewGO<FightFishState>(0, "fightFishState");
 		m_fightFishState->Init();
 		break;
+	case fishCatch:
+		m_fishCatchEffectState = NewGO<FishCatchEffectState>(0, "fishCatchEffectState");
+		m_fishCatchEffectState->Init();
 	default:
 		break;
 	}
@@ -218,13 +222,20 @@ void PlayFishing::Success() {
 		break;
 	case sceneFightFish:
 		DeleteGO(m_fightFishState);
-		DeleteThisClass();
+		m_playFishingStatus = fishCatch;
+		StatusManager();
 		//バフをバフマネジェーに渡す。
 		m_buffManager->ApplyBuffEffect(m_fishManager->GetBuffEffect(), m_fishManager->GetBuffType());
 
-		m_scoreDisplay = NewGO<ScoreDisplay>(0, "scoreDisplay");
-		m_scoreDisplay->Init();
 		break;
+		case fishCatch:
+			DeleteGO(m_fishCatchEffectState);
+			DeleteThisClass();
+			m_scoreManager->SetScore(m_fishData.score, m_fishData.fishType, CharacterType::Player);
+			m_scoreDisplay = NewGO<ScoreDisplay>(0, "scoreDisplay");
+			m_scoreDisplay->WhichFishUI(m_fishData.fishType);
+			break;
+
 	default:
 		break;
 	}

@@ -12,7 +12,8 @@ enum PlayFishingStatus {
 	wait_for_fish,
 	hitUI,
 	sceneFightFish,
-	wait_ceneFightFish
+	wait_ceneFightFish,
+	fishCatch
 };
 
 enum Successful_or_Failure {
@@ -49,6 +50,7 @@ class ScoreManager;
 class Enemy;
 class StealPositionBar;
 class BuffManager;
+class FishCatchEffectState;
 
 class PlayFishing : public IGameObject
 {
@@ -155,4 +157,5 @@ private:
 	Enemy* m_enemy = nullptr;
 	StealPositionBar* m_stealPositionBar = nullptr;
 	BuffManager* m_buffManager;
+	FishCatchEffectState* m_fishCatchEffectState = nullptr;
 };

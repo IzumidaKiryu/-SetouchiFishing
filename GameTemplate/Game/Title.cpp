@@ -21,7 +21,7 @@ bool Title::Start()
 
 bool Title::Init()
 {
-	spriteRender.Init("Assets/sprite/yattabe.DDS", 1920.0f, 1080.0f);
+	spriteRender.Init("Assets/sprite/title.DDS", 1920.0f, 1080.0f);
 	return true;
 }
 
