@@ -89,18 +89,18 @@ void FishSlot::SetPosition(int i)
 	m_fishDisplayOutside[i].SetPosition(m_fishDisplayPosition[i]);
 	m_selectedFrameUI[i].SetPosition(m_fishDisplayPosition[i]);
 	m_enemySelectedFrameUI[i].SetPosition(m_fishDisplayPosition[i]);
-	m_fishTimeUntilEscapeUI[i].SetPosition(m_fishDisplayPosition[i] + Vector3{ 0.0,130 / 2.0f,0.0f });
+	m_fishTimeUntilEscapeUI[i].SetPosition(m_fishDisplayPosition[i] + Vector3{ 0.0,130 / 2.0f,0.0f }*1.2);
 	m_fishUI[i]->SetPosition(m_fishDisplayPosition[i]);
 }
 
 void FishSlot::SetScale(int i)
 {
-	m_fishDisplayInside[i].SetScale(Vector3{ 1.0f, 1.0f, 1.0f });
-	m_fishDisplayOutside[i].SetScale(Vector3{ 1.0f, 1.0f, 1.0f });
-	m_selectedFrameUI[i].SetScale(Vector3{ 1.0f, 1.0f, 1.0f });
-	m_enemySelectedFrameUI[i].SetScale(Vector3{ 1.0f, 1.0f, 1.0f });
-	m_fishTimeUntilEscapeUI[i].SetScale(Vector3{ 1.0f, 1.0f, 1.0f });
-	m_fishUI[i]->SetScale(Vector3{ 1.0f, 1.0f, 1.0f });
+	m_fishDisplayInside[i].SetScale(Vector3::One*1.2);
+	m_fishDisplayOutside[i].SetScale(Vector3::One * 1.2);
+	m_selectedFrameUI[i].SetScale(Vector3::One * 1.2);
+	m_enemySelectedFrameUI[i].SetScale(Vector3::One * 1.2);
+	m_fishTimeUntilEscapeUI[i].SetScale(Vector3::One * 1.2);
+	m_fishUI[i]->SetScale(Vector3::One * 1.2);
 }
 
 void FishSlot::UIUpdate(int i)
@@ -279,8 +279,8 @@ void FishSlot::UpdateFishTimeUntilEscapeUISize()
 {
 	for (int i = 0; i < 6; i++) {
 		//float scale = m_positionSelection->GerFishTimeRatio(i);
-		float scale = m_inGameState->GerFishTimeRatio(i);
-			m_fishTimeUntilEscapeUI[i].SetScale(Vector3{ 1.0,scale, 1.0f });
+		float scale = m_inGameState->GerFishTimeRatio(i)*1.2;
+			m_fishTimeUntilEscapeUI[i].SetScale(Vector3{ 1.2,scale, 1.2f });
 			m_fishTimeUntilEscapeUI[i].Update();
 	}
 
