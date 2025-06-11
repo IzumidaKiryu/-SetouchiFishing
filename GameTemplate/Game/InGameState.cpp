@@ -76,9 +76,17 @@ void InGameState::OnUpdate()
 
 bool InGameState::ShouldChangeState()
 {
-	if (m_isCountdownFinished) {
-		SetNextName("gameResult");
-		return true;
+	if (m_isCountdownFinished) {//制限時間が無くなったら。
+
+		//プレイフィッシングシーンとスコアディスプレイ画面を探す。
+		m_scoreDisplay = FindGO<ScoreDisplay>("scoreDisplay");
+		m_playFishing = FindGO<PlayFishing>("playFishing");
+
+		//プレイフィッシングシーンかスコアディスプレイ画面じゃなければ。
+		if (m_playFishing == nullptr && m_scoreDisplay == nullptr) {
+			SetNextName("gameResult");
+			return true;
+		}
 	}
     return false;
 }
@@ -100,7 +108,7 @@ void InGameState::OnExit()
 void InGameState::Render(RenderContext& rc)
 {
 	if (m_hasCountdownClassFinished) {
-		m_timeLimitUI->m_timeFont.Draw(rc);
+		m_timeLimitUI->GetTimeFont().Draw(rc);
 	}
 
 }
