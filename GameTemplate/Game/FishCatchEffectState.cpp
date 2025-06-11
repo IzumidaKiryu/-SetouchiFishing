@@ -15,9 +15,9 @@ bool FishCatchEffectState::OnStart() {
 
 bool FishCatchEffectState::OnInit() {
 	//アニメーションの初期化。ここにアニメーションのファイルパスを入れてね。
-	SetAnim("Assets/animData/jump.tka");
+	SetAnim("Assets/animData/Fish/fishShadow.tka");
 	//モデルの設定。モデルの初期化をするよ！ファイルパスを直してね！
-	SetModel("Assets/modelData/unityChan.tkm", m_animClip, enAnimationClip_Num, enModelUpAxisZ, true, false);
+	SetModel("Assets/modelData/Fish/fishShadow.tkm", m_animClip, enAnimationClip_Num, enModelUpAxisZ, true, false);
 
 	return true;
 }
