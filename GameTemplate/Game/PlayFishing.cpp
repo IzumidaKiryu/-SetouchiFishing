@@ -225,6 +225,7 @@ void PlayFishing::Success() {
 			DeleteThisClass();
 			m_scoreManager->SetScore(m_fishData.score, m_fishData.fishType, CharacterType::Player);
 			m_scoreDisplay = NewGO<ScoreDisplay>(0, "scoreDisplay");
+			m_scoreDisplay->WhichFishUI(m_fishData.fishType);
 			break;
 	default:
 		break;

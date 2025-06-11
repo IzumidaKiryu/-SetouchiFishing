@@ -32,6 +32,8 @@ ScoreDisplay::ScoreDisplay()
 	m_scoreDisplay.SetPosition(Vector3{ 200.0f,0.0f,0.0f });
 	m_scoreDisplay.SetScale(Vector3{ 1.0f, 1.0f, 1.0f });
 	m_scoreDisplay.Update();
+
+	m_UIBackGround.Init("Assets/sprite/umiumiu.DDS", 1920, 1080);
 }
 
 ScoreDisplay::~ScoreDisplay()
@@ -216,10 +218,41 @@ void ScoreDisplay::ScoreUI()
 
 void ScoreDisplay::Render(RenderContext& rc)
 {
+	m_UIBackGround.Draw(rc);
 	m_scoreDisplay.Draw(rc);
 	m_onesPlaceUI.Draw(rc);
 	m_tensPlaceUI.Draw(rc);
 	m_hundredsPlaceUI.Draw(rc);
+	m_getFishTypeUI.Draw(rc);
 
+}
 
+//キリュウ追加。呼ばれたときに何の魚を釣ったか指定しUIを初期化する関数。
+void ScoreDisplay::WhichFishUI(FishType type)
+{
+	switch (type)
+	{
+	case FishType::BURI:
+		m_getFishTypeUI.Init("Assets/modelData/buriUI.DDS", 500, 500);
+		break;
+	case FishType::HIRAME:
+		m_getFishTypeUI.Init("Assets/modelData/hirameUI.DDS", 500, 500);
+		break;
+	case FishType::JAKOTENN:
+		m_getFishTypeUI.Init("Assets/modelData/jakotenUI.DDS", 500, 500);
+		break;
+	case FishType::SINJU:
+		m_getFishTypeUI.Init("Assets/modelData/sinnjuUI.DDS", 500, 500);
+		break;
+	case FishType::TAI:
+		m_getFishTypeUI.Init("Assets/modelData/taiUI.DDS", 500, 500);
+		break;
+	case FishType::TATIUO:
+		m_getFishTypeUI.Init("Assets/modelData/tatiuo.DDS", 500, 500);
+		break;
+	default:
+		break;
+	}
+	m_getFishTypeUI.SetPosition(Vector3(-400.0f, 0.0f, 0.0f));
+	m_getFishTypeUI.Update();
 }

@@ -1,9 +1,11 @@
 #pragma once
+#include "Fish.h"
 class PlayFishing;
 class PositionSelection;
 class InGameState;
 class Enemy;
 class Player;
+class Fish;
 class ScoreDisplay : public IGameObject
 {
 public:
@@ -21,8 +23,11 @@ public:
 	void SetHundredsPlaceUI();
 	void ScoreUI();
 	void Render(RenderContext& rc);
-
-
+	//追加
+	void WhichFishUI(FishType type);
+	SpriteRender m_getFishTypeUI;
+	SpriteRender m_UIBackGround;
+	//ここまで
 	int m_onesPlace;
 	int m_tensPlace;
 	int m_hundredsPlace;
