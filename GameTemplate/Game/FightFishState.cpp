@@ -78,6 +78,11 @@ void FightFishState::Update()
 
 	CheckFailure();//成功したかどうか.
 	CheckSuccess();//失敗したかどうか。
+	//キリュウ追加
+	if (m_fishingRodHP->m_Hp <= 0) {
+		m_isFightActive = false;
+	}
+	//ここまで
 }
 
 
@@ -160,11 +165,12 @@ void FightFishState::CalculateFishDisplacement()
 /// </summary>
 void FightFishState::FishDirectionChange()
 {
-	if (m_frameCount % 30 == 0) {//3０フレームに一回方向を変えるかどうか抽選をする。
-		std::random_device rd;
-		int randum = rd() % 100;
-		//if (randum == 0)//ゼロが出たら向く方向を変える。
-		//{
+	if (m_isFightActive == true) {//キリュウ追加この行
+		if (m_frameCount % 30 == 0) {//3０フレームに一回方向を変えるかどうか抽選をする。
+			std::random_device rd;
+			int randum = rd() % 100;
+			//if (randum == 0)//ゼロが出たら向く方向を変える。
+			//{
 			switch (m_fishFacing)
 			{
 
@@ -182,10 +188,17 @@ void FightFishState::FishDirectionChange()
 
 			default:
 				break;
-			/*}*/
-			m_fishChange_in_DirectionTimes++;//方向転換した数を数える。
+				/*}*/
+				m_fishChange_in_DirectionTimes++;//方向転換した数を数える。
+			}
 		}
 	}
+	//キリュウ追加
+	else {
+		m_fishFacing = Upward;
+		SetFishUpward();
+	}
+	//ここまで
 }
 
 //void FightFishState::InitFishDirection()

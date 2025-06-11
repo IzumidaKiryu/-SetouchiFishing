@@ -38,6 +38,8 @@ void Character::Update()
 
 	//アニメーションの再生。
 	PlayAnimation();
+	
+	//これ追加。
 
 	//絵描きさんの更新処理。
 	modelRender.Update();
@@ -54,7 +56,8 @@ void Character::Update()
 		/// <param name="ShadowDrop">trueなら影を受ける</param>
 void Character::SetModel(const char* filePath, AnimationClip* animationClips, int numAnimationClips, EnModelUpAxis enModelUpAxis, bool shadowCast=true,bool shadowDrop=false)
 {
-	//ユニティちゃんのモデルを読み込む。
+	//ユ
+	// ニティちゃんのモデルを読み込む。
 	modelRender.Init(filePath, animationClips, numAnimationClips, enModelUpAxis,shadowCast, shadowDrop);
 	modelRender.SetScale(Vector3{ 2.0f,2.0f,2.0f });
 }
