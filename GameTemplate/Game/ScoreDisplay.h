@@ -5,6 +5,7 @@ class InGameState;
 class Enemy;
 class Player;
 class StealPositionBar;
+class BuffManager;
 class ScoreDisplay : public IGameObject
 {
 public:
@@ -13,6 +14,8 @@ public:
 	~ScoreDisplay();
 
 	void Update();
+	bool Start();
+	bool Init();
 	void SetScore();
 	void SetOnesPlace();
 	void SetTensPlace();
@@ -44,5 +47,6 @@ public:
 	Enemy* m_enemy = nullptr;
 	Player* m_player = nullptr;
 	StealPositionBar* m_stealPositionBar = nullptr;
+	BuffManager* m_buffManager = nullptr;
 };
 

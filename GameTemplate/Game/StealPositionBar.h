@@ -2,6 +2,7 @@
 #include"PositionSelection.h"
 class PositionSelection;
 class Enemy;
+class BuffManager;
 class StealPositionBar :public IGameObject
 {
 public:
@@ -15,7 +16,7 @@ public:
 	/// ポイントを更新。
 	/// </summary>
 	/// <param name="addPoint"></param>
-	void UpdateStealGauge(float addPoint);
+	void UpdateStealGauge();
 
 	/// <summary>
 	/// ゲージを1つ消費して、敵のエリアを奪う処理を実行する。
@@ -49,16 +50,22 @@ public:
 	/// <returns>スティールロックが有効なら true、無効なら false。</returns>
 	bool GetIsStealLockActive(Area area);
 
+	void SetStockCounUI();
+
 	SpriteRender m_stealPositionBarInsideUI;
 	SpriteRender m_stealPositionBarOutsideUI;
 	SpriteRender m_stealPositionGaugeUI;
+	SpriteRender m_takeOver;
+	SpriteRender m_takeOver_gray;
+	SpriteRender m_clossUI;
+	FontRender m_stockCountUI;
 
 	float m_stealPoint = 0.0f;
 	float m_bar_Length = 0.0f;
 	int m_stockCount;//たまっているバーの本数。
 	float m_barRate;//バーの割合。
 	bool m_isCharged;//バーがチャージされているか？。
-	const float m_gaugeDeltaPerFrame = 1;/// 1フレームあたりにゲージへ加算される基本の増加量。
+	const float m_gaugeDeltaPerFrame = 0.03;/// 1フレームあたりにゲージへ加算される基本の増加量。
 	/// <summary>
 /// スティールバーを使用して敵の釣りエリアを奪ったときに、
 /// 対象の魚が変わらないように一時的にロックするフラグ。
@@ -76,8 +83,8 @@ public:
 	const float m_stealGaugeThreshold = 100;
 	const float m_max_barLength = 0.95;//バーの最大の長さ。
 
-
 	PositionSelection* m_positionSelection;
 	Enemy* m_enemy;
+	BuffManager* m_buffManager;
 };
 
