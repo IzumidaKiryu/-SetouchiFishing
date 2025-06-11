@@ -26,7 +26,6 @@ enum Successful_or_Failure {
 // 前日設定
 // ==============================
 class CastGauge;
-class FishingGauge;
 class GameCamera;
 class PlayFishingBackGround;
 class PositionSelection;
@@ -49,6 +48,8 @@ class InGameState;
 class BackGround;
 class ScoreManager;
 class Enemy;
+class StealPositionBar;
+class BuffManager;
 class FishCatchEffectState;
 
 class PlayFishing : public IGameObject
@@ -126,7 +127,6 @@ private:
 	// PlayFishingBackGround* m_playFishingBackGround = nullptr; // 未使用
 	PositionSelection* m_positionSelection = nullptr;
 	FishManager* m_fishManager = nullptr;
-	FishingGauge* m_fishingGauge = nullptr;
 	TensionGauge* m_tensionGauge = nullptr;
 	FishingRodHP* m_fishingRodHP = nullptr;
 	ScoreDisplay* m_scoreDisplay = nullptr;
@@ -155,5 +155,7 @@ private:
 	BackGround* m_backGround = nullptr;
 	ScoreManager* m_scoreManager = nullptr;
 	Enemy* m_enemy = nullptr;
+	StealPositionBar* m_stealPositionBar = nullptr;
+	BuffManager* m_buffManager;
 	FishCatchEffectState* m_fishCatchEffectState = nullptr;
 };

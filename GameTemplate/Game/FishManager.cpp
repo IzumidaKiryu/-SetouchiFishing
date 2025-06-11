@@ -25,12 +25,20 @@ FishManager::~FishManager()
 
 void FishManager::Init()
 {
-	SelectFishType();                // ランダムに種類決定
-	m_fish = CreateFish(m_fishType); // 生成
+	// ランダムに種類決定
+	SelectFishType();           
+
+	// 生成
+	m_fish = CreateFish(m_fishType); 
 	m_fish->Init();
 
-	m_ui = &m_fish->GetUI();         // UI取得
+	// UI取得
+	m_ui = &m_fish->GetUI();
 	m_fishData = m_fish->GetFishData();
+
+	//UIの基準サイズをセット。
+	SetBaseUiScale();
+
 }
 
 bool FishManager::Start()
@@ -41,10 +49,21 @@ bool FishManager::Start()
 
 void FishManager::Update()
 {
+	// 魚の変更判定を取得。
 	m_shouldFishChange = m_fish->GetShouldFishChange();
-	m_fish->TimeCount();
+
+	//魚が逃げるまでの時間を更新。
+	m_fish->UpdateEscapeTimer();
+
+	//時間の割合を取得。
 	m_timeRatio = m_fish->GetTimeRatio();
+
 	UIPopIn();
+}
+
+void FishManager::SetBaseUiScale()
+{
+	m_baseUiScale = m_ui->GetScale();
 }
 
 /// <summary>
@@ -102,7 +121,7 @@ void FishManager::UIPopIn()
 	if (scale < 0) {
 		scale = 0;
 	}
-	m_ui->SetScale(m_uiScale* scale);
+	m_ui->SetScale(m_baseUiScale* scale);
 	m_ui->Update();
 
 }
@@ -115,6 +134,9 @@ FishData& FishManager::GetFishData()
 
 float FishManager::GetScore()
 {
+	if (m_fishData.score<=0) {
+		GetTimeRatio();
+	}
 	return m_fishData.score;
 }
 
@@ -127,5 +149,16 @@ float FishManager::GetTimeRatio()
 SpriteRender* FishManager::GetUI()
 {
 	return m_ui;
+}
+
+
+std::map<BuffType, float>  FishManager::GetBuffEffect()const
+{
+	return  m_fishData.buffEffect;
+}
+
+BuffType FishManager::GetBuffType()const
+{
+	return m_fishData.buffType;
 }
 

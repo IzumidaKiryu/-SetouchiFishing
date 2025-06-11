@@ -7,6 +7,6 @@ public:
 
 	Buri();
 	~Buri();
-	bool Init();
+	bool OnInit() override;
 };
 

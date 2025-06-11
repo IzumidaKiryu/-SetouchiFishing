@@ -228,6 +228,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="BackGround.cpp" />
+    <ClCompile Include="BuffManager.cpp" />
     <ClCompile Include="Buri.cpp" />
     <ClCompile Include="CastGauge.cpp" />
     <ClCompile Include="CastState.cpp" />
@@ -283,6 +284,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BackGround.h" />
+    <ClInclude Include="BuffManager.h" />
     <ClInclude Include="Buri.h" />
     <ClInclude Include="CastGauge.h" />
     <ClInclude Include="CastState.h" />

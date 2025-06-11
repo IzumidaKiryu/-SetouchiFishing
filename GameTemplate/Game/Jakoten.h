@@ -7,6 +7,6 @@ public:
 
 	Jakoten();
 	~ Jakoten();
-	bool Init()override;
+	bool OnInit() override;
 };
 
