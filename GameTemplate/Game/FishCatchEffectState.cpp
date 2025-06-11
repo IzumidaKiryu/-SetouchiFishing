@@ -10,6 +10,8 @@ FishCatchEffectState::~FishCatchEffectState()
 }
 
 bool FishCatchEffectState::OnStart() {
+
+	SetCamera(Vector3(0.0f, 65.0f, -20.0f), Vector3(0.0f, 80.0f, 30.0f));
 	return true;
 }
 
@@ -48,7 +50,7 @@ void FishCatchEffectState::SetModel(const char* filePath, AnimationClip* animati
 {
 	//
 	m_modelRender.Init(filePath, animationClips, numAnimationClips, enModelUpAxis, shadowCast, shadowDrop);
-	m_modelRender.SetScale(Vector3{ 2.0f,2.0f,2.0f });
+	m_modelRender.SetScale(Vector3{ 0.2f,0.2f,0.2f });
 }
 
 void FishCatchEffectState::SetAnim(const char* activeAnim)
