@@ -29,7 +29,7 @@ bool BackGround::Init()
 
 	m_sea.SetPosition(/*m_positio*/Vector3{ 1.0f,1.0f,1.0f });
 	m_sea.SetScale(Vector3{ 1.0f,1.0f,1.0f }*10.0f);
-	m_sea.Init("Assets/modelData/sea_kari.tkm", nullptr, 0, enModelUpAxisZ, false, true);
+	m_sea.Init("Assets/modelData/sea_Kari.tkm", nullptr, 0, enModelUpAxisZ, false, true);
 	m_sea.Update();
 
 	m_isrand.Init("Assets/modelData/stage/shima.tkm", nullptr, 0, enModelUpAxisZ, true, false);

@@ -9,6 +9,8 @@
 
 CastState::CastState()
 {
+	/*CameraManagement();*/
+
 	////ウキを作成。
 	//m_rodFloatMove = NewGO<RodFloatMove>(0, "rodFloatMove");
 
