@@ -32,10 +32,8 @@ void Character::Update()
 
 	//回転処理。
 	Rotation();
-
 	//ステート管理。
 	ManageState();
-
 	//アニメーションの再生。
 	PlayAnimation();
 	
@@ -44,6 +42,8 @@ void Character::Update()
 	//絵描きさんの更新処理。
 	modelRender.Update();
 
+	//.SetPosition(m_rodPosition);
+	m_rodModel.Update();
 }
 /// <summary>
 		/// 通常描画用の初期化
@@ -54,31 +54,40 @@ void Character::Update()
 		/// <param name="enModelUpAxis">モデルの上方向</param>
 		/// <param name="shadowCast">trueなら影を描画する</param>
 		/// <param name="ShadowDrop">trueなら影を受ける</param>
-void Character::SetModel(const char* filePath, AnimationClip* animationClips, int numAnimationClips, EnModelUpAxis enModelUpAxis, bool shadowCast=true,bool shadowDrop=false)
+void Character::SetModel(const char* filePath, AnimationClip* animationClips, int numAnimationClips, EnModelUpAxis enModelUpAxis, bool shadowCast = true, bool shadowDrop = false)
 {
 	//ユ
 	// ニティちゃんのモデルを読み込む。
 	modelRender.Init(filePath, animationClips, numAnimationClips, enModelUpAxis,shadowCast, shadowDrop);
 	modelRender.SetScale(Vector3{ 2.0f,2.0f,2.0f });
 }
-
+void Character::SetRodModel(const char* filePath, AnimationClip* animationClips, int numAnimationClips, EnModelUpAxis enModelUpAxis, bool shadowCast, bool shadowDrop)
+{
+	// 修正:竿モデルの初期かなのにmodelRenderに上書きしていた。// AnimationClip の引数を nullptr に設定して、型の不一致を解消  
+	m_rodModel.Init(filePath, animationClips, numAnimationClips, enModelUpAxis, shadowCast, shadowDrop);
+	m_rodModel.SetScale(Vector3{ 2.0f, 2.0f, 2.0f });
+}
 void Character::SetAnimationClipsLoad(const char* animationClip_Idle, const char* animationClip_Walk, const char* animationClip_Cast)
 {
 	animationClips[enAnimationClip_Idle].Load(animationClip_Idle);
 	animationClips[enAnimationClip_Idle].SetLoopFlag(true);
-
 	animationClips[enAnimationClip_Walk].Load(animationClip_Walk);
 	animationClips[enAnimationClip_Walk].SetLoopFlag(true);
-
+	/*animationClips[enAnimationClip_Cast].Load(animationClip_Cast);
+	animationClips[enAnimationClip_Cast].SetLoopFlag(false);*/
 	animationClips[enAnimationClip_Cast].Load(animationClip_Cast);
 	animationClips[enAnimationClip_Cast].SetLoopFlag(false);
-}
 
+}
+void Character::SetRodAnimationClipsLoad(const char* animationClip_Rod)
+{
+	m_rodAnimationClips[enAnimationClip_Rod].Load(animationClip_Rod);
+	m_rodAnimationClips[enAnimationClip_Rod].SetLoopFlag(false);
+}
 void Character::SetMoveSpeed()
 {
 	//派生クラスで定義する。
 }
-
 void Character::Move()
 {
 	moveSpeed = Vector3::Zero;
@@ -101,7 +110,6 @@ void Character::Move()
 		//重力を発生させる。
 		moveSpeed.y -= 2.5f;
 	}
-
 	//キャラクターコントローラーを使って座標を移動させる。
 	m_position = m_initpos +characterController.Execute(moveSpeed, 1.0f / 60.0f);
 
@@ -120,25 +128,21 @@ void Character::Rotation()
 		modelRender.SetRotation(rotation);
 	}
 }
-
 //ステート管理。
 void Character::ManageState()
 {
 	m_castAnimationState = FindGO<FishingAnimationState>("fishingAnimationState");
-
 	//キャストアニメーションクラスが実行されていたら。
-	if (m_is_cast) {	
+	if (m_is_cast) {
 		playerState = enAnimationClip_Cast;
 		return;
 	}
-
 	//地面に付いていなかったら。
 	if (characterController.IsOnGround() == false)
 	{
 		//ここでManageStateの処理を終わらせる。
 		return;
 	}
-
 	//地面に付いていたら。
 	//xかzの移動速度があったら(スティックの入力があったら)。
 	if (fabsf(moveSpeed.x) >= 0.001f || fabsf(moveSpeed.z) >= 0.001f)
@@ -167,22 +171,20 @@ void Character::PlayAnimation()
 		//ジャンプアニメーションを再生する。
 		modelRender.PlayAnimation(enAnimationClip_Idle);
 		break;
-
 	case enAnimationClip_Walk:
 		//プレイヤーステートが2(歩き)だったら。
 		modelRender.PlayAnimation(enAnimationClip_Walk);
 		break;
 	case enAnimationClip_Cast:
 		modelRender.PlayAnimation(enAnimationClip_Cast);
-		
+		//きりゅう修正。竿のアニメーションの再生だから竿のモデルのアニメーションの設定。
+		m_rodModel.PlayAnimation(enAnimationClip_Rod);
 		break;
-
 	}
 
 }
 bool Character::SetChastAnimation()
 {
-
 	m_is_cast = true;
 	return modelRender.IsPlayingAnimation();
 }
@@ -207,6 +209,7 @@ void Character::SetInitPosition(Vector3 pos)
 {
 	m_initpos = pos;
 }
+
 
 void Character::SetIsFishingInArea(bool isFishingInArea, Area fishingArea)
 {
@@ -241,4 +244,3 @@ void Character::InitFishingInArea()
 //	//ユニティちゃんを描画する。
 //	modelRender.Draw(rc);
 //}
-
