@@ -7,13 +7,14 @@
 #include "PositionSelection.h"
 #include "PlayFishing.h"
 #include "Enemy.h"
-#include"PositionSelection.h"
 #include"TimeLimitUI.h"
 #include "FishManager.h"
 #include "ScoreManager.h"
 #include"FishSlot.h"
 #include"StealPositionBar.h"
-
+#include"BuffManager.h"
+#include "PlayFishing.h"
+#include"ScoreDisplay.h"
 
 
 
@@ -48,6 +49,8 @@ bool InGameState::Start()
 	m_scoreManager = NewGO<ScoreManager>(0, "scoreManager");
 	m_scoreManager->Init();
 
+	m_buffManager = NewGO<BuffManager>(0,"buffManager");
+
     return true;
 }
 
@@ -71,6 +74,8 @@ void InGameState::OnUpdate()
 
 		//魚を生成
 		ChangeFish();
+
+
 	}
 }
 
@@ -141,9 +146,9 @@ void InGameState::ChangeFish()
 
 		//フィッシュマネージャーの生成。
 		
-		if (//敵が釣り中じゃなければ。
+		if (//敵が釣り中じゃないかつ。
 			m_enemy->GetIsFishingInArea(static_cast<Area>(i))==false
-			//プレイヤーが釣り中じゃなければ。
+			//プレイヤーが釣り中じゃないかつ。
 			&&m_player->GetIsFishingInArea(static_cast<Area>(i)) == false
 			//stealPositionBarでロックされていなければ。
 			&& m_stealPositionBar->GetIsStealLockActive(static_cast<Area>(i))==false

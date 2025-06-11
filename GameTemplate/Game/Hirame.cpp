@@ -25,11 +25,7 @@ bool Hirame::OnInit()
 		40,
 		60);
 	SetUI("Assets/modelData/hirameUI.DDS",Vector3::One*m_fishData.individualFactor);
+	SetBuff(BuffType::StealBoostBuff,100.0f);
 
 	return true;
-}
-
-void Hirame::Effect()
-{
-
 }

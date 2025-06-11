@@ -16,7 +16,7 @@ Fish::~Fish()
 
 void Fish::Update()
 {
-	TimeCount();
+	UpdateEscapeTimer();
 }
 
 bool Fish::Init()
@@ -161,11 +161,16 @@ void Fish::SetParameter(
 	SetEscapeForce(escapeForce);
 }
 
+void Fish::SetBuff(BuffType bufftype,float buffValue)
+{
+	m_fishData.buffEffect[bufftype] = buffValue* m_fishData.individualFactor;
+}
+
 /// <summary>
-/// 時間をはかる。
+/// 魚が逃げるまでの時間を確認し、条件を満たせば変更フラグを立てる。
 /// </summary>
 /// <returns></returns>
-void Fish::TimeCount()
+void Fish::UpdateEscapeTimer()
 {
 	m_nowTime = m_inGameState->GetTime();
 

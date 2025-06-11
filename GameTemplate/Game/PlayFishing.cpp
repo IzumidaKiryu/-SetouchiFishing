@@ -4,7 +4,6 @@
 #include "CastGauge.h"
 #include "PositionSelection.h"
 #include "FishManager.h"
-#include "FishingGauge.h"
 #include "TensionGauge.h"
 #include "FishingRodHP.h"
 #include "ScoreDisplay.h"
@@ -24,9 +23,12 @@
 #include "ScoreManager.h"
 #include"Enemy.h"
 #include"StealPositionBar.h"
+#include"BuffManager.h"
+
 
 // コンストラクタ・デストラクタ
-PlayFishing::PlayFishing() {}
+PlayFishing::PlayFishing() {
+}
 
 PlayFishing::~PlayFishing()
 {
@@ -135,6 +137,7 @@ void PlayFishing::FindGameObjects() {
 	m_enemy = FindGO<Enemy>("enemy");
 	m_player = FindGO<Player>("player");
 	m_stealPositionBar = FindGO<StealPositionBar>("stealPositionBar");
+	m_buffManager = FindGO<BuffManager>("buffManager");
 }
 
 // NewGOで必要オブジェクトの生成
@@ -216,8 +219,11 @@ void PlayFishing::Success() {
 	case sceneFightFish:
 		DeleteGO(m_fightFishState);
 		DeleteThisClass();
+		//バフをバフマネジェーに渡す。
+		m_buffManager->ApplyBuffEffect(m_fishManager->GetBuffEffect(), m_fishManager->GetBuffType());
 
 		m_scoreDisplay = NewGO<ScoreDisplay>(0, "scoreDisplay");
+		m_scoreDisplay->Init();
 		break;
 	default:
 		break;
@@ -240,6 +246,7 @@ void PlayFishing::Failure() {
 		break;
 	case sceneFightFish:
 		DeleteGO(m_fightFishState);
+
 		m_shouldChangeScene = true;
 
 		break;
@@ -253,6 +260,7 @@ void PlayFishing::Failure() {
 		//別の場所でロックがかかっていても、有効。
 		//ロックがかかっていなくても問題はない。
 		m_stealPositionBar->SetIsStealLockActive(false);
+
 
 		//プレイヤーが釣りをしていないと伝える。
 		m_player->SetIsFishingInArea(false);

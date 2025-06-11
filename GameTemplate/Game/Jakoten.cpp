@@ -25,5 +25,6 @@ bool Jakoten::OnInit()
 		30,
 		0.3f
 	);
+	SetBuff(BuffType::StaminaRegenBuff,5);
 	return true;
 }

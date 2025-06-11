@@ -28,6 +28,8 @@ public:
 	float GetScore();
 	float GetTimeRatio();
 	SpriteRender* GetUI();
+	std::map<BuffType, float> GetBuffEffect()const;
+	BuffType GetBuffType()const;
 
 private:
 	void UIPopIn();
@@ -45,6 +47,8 @@ private:
 	SpriteRender* m_ui=nullptr;
 
 	Fish* m_fish=nullptr;
+
+	std::map<BuffType, float> buffEffect;
 	//Buri* m_buri;
 	//Tatiuo* m_tatiuo;
 	//Jakoten* m_jakoten;

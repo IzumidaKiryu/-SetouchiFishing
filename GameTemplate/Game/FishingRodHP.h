@@ -4,6 +4,7 @@ class PlayFishing;
 class PositionSelection;
 class SceneFightFish;
 class FightFishState;
+class BuffManager;
 
 class FishingRodHP :public IGameObject
 {
@@ -14,6 +15,7 @@ public:
 	~FishingRodHP();
 
 	void Update();
+	bool Start();
 	float CalculateRecoveryAmount();
 	void RecoverPower();
 	void SetFishingRodHP();
@@ -21,7 +23,6 @@ public:
 	void Render(RenderContext& rc);
 	void failure();//失敗。
 	void SetIs_playFishingFinishedTrue();
-	void AddStealPositionPoint();
 
 
 	void CalculatePowerMultiplier();
@@ -39,10 +40,12 @@ public:
 	SpriteRender m_RodHPGaugeInside;
 	SpriteRender m_RodHPGaugeOutside;
 	SpriteRender m_RodHPBar;
+	SpriteRender m_stamina;
 
 	PlayFishing* m_playFishing;
 	TensionGauge* m_tensionGauge;
 	PositionSelection* m_positionSelection;
 	FightFishState* m_fightFishState;
+	BuffManager* m_buffManager;
 };
 

@@ -6,40 +6,25 @@
 #include "Enemy.h"
 #include"Player.h"
 #include "StealPositionBar.h"
+#include"BuffManager.h"
 
 ScoreDisplay::ScoreDisplay()
 {
 
-	m_player = FindGO<Player>("player");
-	m_playFishing = FindGO<PlayFishing>("playFishing");
-	m_stealPositionBar = FindGO<StealPositionBar>("stealPositionBar");
 
-	//追加
-	m_enemy = FindGO<Enemy>("enemy");
 
-	m_score = m_playFishing->GetFIshScore();
 
-	//1スコアのそれぞれの桁を求める。
-	SetOnesPlace();
-	SetTensPlace();
-	SetHundredsPlace();
 
-	//それぞれの桁のUIを設定する。
-	SetOnesPlaceUI();
-	SetTensPlaceUI();
-	SetHundredsPlaceUI();
 
-	m_scoreDisplay.Init("Assets/modelData/score/fishStatus.DDS", 500, 500);
-	m_scoreDisplay.SetPivot(Vector2(0.5f, 0.5f));
-	m_scoreDisplay.SetPosition(Vector3{ 200.0f,0.0f,0.0f });
-	m_scoreDisplay.SetScale(Vector3{ 1.0f, 1.0f, 1.0f });
-	m_scoreDisplay.Update();
 }
 
 ScoreDisplay::~ScoreDisplay()
 {
-	m_positionSelection = FindGO<PositionSelection>("positionSelection");
-	m_inGameState = FindGO<InGameState>("inGameState");
+
+	
+
+
+
 	//魚をチェンジ。
 	m_inGameState->ChangeFish(static_cast<int>(m_positionSelection->GetCurrentArea()));
 
@@ -68,6 +53,44 @@ void ScoreDisplay::Update()
 	if (g_pad[0]->IsTrigger(enButtonA)) {
 		DeleteGO(this);
 	}
+}
+
+bool ScoreDisplay::Start()
+{
+	m_positionSelection = FindGO<PositionSelection>("positionSelection");
+	m_inGameState = FindGO<InGameState>("inGameState");
+	m_player = FindGO<Player>("player");
+	m_stealPositionBar = FindGO<StealPositionBar>("stealPositionBar");
+	m_enemy = FindGO<Enemy>("enemy");
+
+	return true;
+}
+
+bool ScoreDisplay::Init()
+{
+
+	//本来は、IGameObjectに依存する初期化はStartでするが
+//PlayFishingクラスが消える前に呼びたいのでここで呼ぶ。
+	m_playFishing = FindGO<PlayFishing>("playFishing");
+	m_score = m_playFishing->GetFIshScore();
+
+	//1スコアのそれぞれの桁を求める。
+	SetOnesPlace();
+	SetTensPlace();
+	SetHundredsPlace();
+
+	//それぞれの桁のUIを設定する。
+	SetOnesPlaceUI();
+	SetTensPlaceUI();
+	SetHundredsPlaceUI();
+
+	m_scoreDisplay.Init("Assets/modelData/score/fishStatus.DDS", 500, 500);
+	m_scoreDisplay.SetPivot(Vector2(0.5f, 0.5f));
+	m_scoreDisplay.SetPosition(Vector3{ 200.0f,0.0f,0.0f });
+	m_scoreDisplay.SetScale(Vector3{ 1.0f, 1.0f, 1.0f });
+	m_scoreDisplay.Update();
+
+	return true;
 }
 
 void ScoreDisplay::SetScore()

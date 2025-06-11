@@ -8,7 +8,5 @@ public:
 	~Hirame();
 	bool OnInit() override;
 
-
-	void Effect()override;
 };
 
