@@ -4,7 +4,6 @@
 #include "CastGauge.h"
 #include "PositionSelection.h"
 #include "FishManager.h"
-#include "FishingGauge.h"
 #include "TensionGauge.h"
 #include "FishingRodHP.h"
 #include "ScoreDisplay.h"
@@ -24,9 +23,13 @@
 #include "ScoreManager.h"
 #include"Enemy.h"
 #include "FishCatchEffectState.h"
+#include"StealPositionBar.h"
+#include"BuffManager.h"
+
 
 // コンストラクタ・デストラクタ
-PlayFishing::PlayFishing() {}
+PlayFishing::PlayFishing() {
+}
 
 PlayFishing::~PlayFishing()
 {
@@ -134,6 +137,8 @@ void PlayFishing::FindGameObjects() {
 	m_scoreManager = FindGO<ScoreManager>("scoreManager");
 	m_enemy = FindGO<Enemy>("enemy");
 	m_player = FindGO<Player>("player");
+	m_stealPositionBar = FindGO<StealPositionBar>("stealPositionBar");
+	m_buffManager = FindGO<BuffManager>("buffManager");
 }
 
 // NewGOで必要オブジェクトの生成
@@ -219,6 +224,9 @@ void PlayFishing::Success() {
 		DeleteGO(m_fightFishState);
 		m_playFishingStatus = fishCatch;
 		StatusManager();
+		//バフをバフマネジェーに渡す。
+		m_buffManager->ApplyBuffEffect(m_fishManager->GetBuffEffect(), m_fishManager->GetBuffType());
+
 		break;
 		case fishCatch:
 			DeleteGO(m_fishCatchEffectState);
@@ -227,6 +235,7 @@ void PlayFishing::Success() {
 			m_scoreDisplay = NewGO<ScoreDisplay>(0, "scoreDisplay");
 			m_scoreDisplay->WhichFishUI(m_fishData.fishType);
 			break;
+
 	default:
 		break;
 	}
@@ -248,17 +257,31 @@ void PlayFishing::Failure() {
 		break;
 	case sceneFightFish:
 		DeleteGO(m_fightFishState);
+
 		m_shouldChangeScene = true;
 
-		m_player->SetIsFishingInArea(false);
-		//敵の釣りも終わらせる。
-		m_enemy->EndFishing();
 		break;
 	default:
 		break;
 	}
-	if (m_shouldChangeScene) {
-			m_inGameState->ChangeFish(static_cast<int>(m_positionSelection->GetCurrentArea()));
+	if (m_shouldChangeScene) {//シーンを変えてもいいなら。
+
+		//魚のロックをoffにする。
+		//敵からエリアを奪った場合、魚にロックがかかっていて、逃げないので、ロックをoffにする。
+		//別の場所でロックがかかっていても、有効。
+		//ロックがかかっていなくても問題はない。
+		m_stealPositionBar->SetIsStealLockActive(false);
+
+
+		//プレイヤーが釣りをしていないと伝える。
+		m_player->SetIsFishingInArea(false);
+
+		//敵の釣りも終わらせる。
+		m_enemy->EndFishing();
+
+		//魚をチェンジ。
+		m_inGameState->ChangeFish(static_cast<int>(m_positionSelection->GetCurrentArea()));
+
 		ChangeScene();
 	}
 }

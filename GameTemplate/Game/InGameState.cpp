@@ -7,12 +7,14 @@
 #include "PositionSelection.h"
 #include "PlayFishing.h"
 #include "Enemy.h"
-#include"PositionSelection.h"
 #include"TimeLimitUI.h"
 #include "FishManager.h"
 #include "ScoreManager.h"
 #include"FishSlot.h"
-
+#include"StealPositionBar.h"
+#include"BuffManager.h"
+#include "PlayFishing.h"
+#include"ScoreDisplay.h"
 
 
 
@@ -46,6 +48,9 @@ bool InGameState::Start()
 
 	m_scoreManager = NewGO<ScoreManager>(0, "scoreManager");
 	m_scoreManager->Init();
+
+	m_buffManager = NewGO<BuffManager>(0,"buffManager");
+
     return true;
 }
 
@@ -61,19 +66,32 @@ void InGameState::OnUpdate()
 	//一度でもポジションセレクトに入ったら。
 	if (m_hasCountdownClassFinished)
 	{
+		//ポジションセレクションクラスに入ってから探したいので、ここで探す。
+		m_stealPositionBar = FindGO<StealPositionBar>("stealPositionBar");
+
 		//タイマーを動かす。
 		Timer();
 
 		//魚を生成
 		ChangeFish();
+
+
 	}
 }
 
 bool InGameState::ShouldChangeState()
 {
-	if (m_isCountdownFinished) {
-		SetNextName("gameResult");
-		return true;
+	if (m_isCountdownFinished) {//制限時間が無くなったら。
+
+		//プレイフィッシングシーンとスコアディスプレイ画面を探す。
+		m_scoreDisplay = FindGO<ScoreDisplay>("scoreDisplay");
+		m_playFishing = FindGO<PlayFishing>("playFishing");
+
+		//プレイフィッシングシーンかスコアディスプレイ画面じゃなければ。
+		if (m_playFishing == nullptr && m_scoreDisplay == nullptr) {
+			SetNextName("gameResult");
+			return true;
+		}
 	}
     return false;
 }
@@ -95,7 +113,7 @@ void InGameState::OnExit()
 void InGameState::Render(RenderContext& rc)
 {
 	if (m_hasCountdownClassFinished) {
-		m_timeLimitUI->m_timeFont.Draw(rc);
+		m_timeLimitUI->GetTimeFont().Draw(rc);
 	}
 
 }
@@ -136,9 +154,13 @@ void InGameState::ChangeFish()
 
 		//フィッシュマネージャーの生成。
 		
-		//敵かプレイヤーがそこで釣りをしていなかったら。
-		if (m_enemy->GetIsFishingInArea(static_cast<Area>(i))==false
-			&&m_player->GetIsFishingInArea(static_cast<Area>(i)) == false)
+		if (//敵が釣り中じゃないかつ。
+			m_enemy->GetIsFishingInArea(static_cast<Area>(i))==false
+			//プレイヤーが釣り中じゃないかつ。
+			&&m_player->GetIsFishingInArea(static_cast<Area>(i)) == false
+			//stealPositionBarでロックされていなければ。
+			&& m_stealPositionBar->GetIsStealLockActive(static_cast<Area>(i))==false
+			)
 		{
 			if (m_fishManager[i]->GetShouldFishChange() == true)
 			{

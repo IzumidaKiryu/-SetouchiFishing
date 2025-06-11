@@ -11,6 +11,10 @@ class TimeLimitUI;
 class FishManager;
 class ScoreManager;
 class FishSlot;
+class StealPositionBar;
+class BuffManager;
+class PlayFishing;
+class ScoreDisplay;
 class InGameState :public GameStateBase
 {
 public:
@@ -58,10 +62,15 @@ private:
 	SpriteRender* m_fishUI[6];
 	ScoreManager* m_scoreManager;
 	FishSlot* m_fishSlot;
+	StealPositionBar* m_stealPositionBar;
+	BuffManager* m_buffManager;
+	PlayFishing* m_playFishing;
+	ScoreDisplay* m_scoreDisplay;
 
 
 
-	float m_timelimit = 240;//時間制限
+
+	float m_timelimit = 10;//時間制限
 	float m_time = m_timelimit;//時間
 	float m_totalScore = 0.0f;//スコアの合計。
 	TimeLimitUI* m_timeLimitUI;

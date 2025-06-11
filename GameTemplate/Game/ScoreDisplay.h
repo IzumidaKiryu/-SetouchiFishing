@@ -5,6 +5,8 @@ class PositionSelection;
 class InGameState;
 class Enemy;
 class Player;
+class StealPositionBar;
+class BuffManager;
 class Fish;
 class ScoreDisplay : public IGameObject
 {
@@ -14,6 +16,8 @@ public:
 	~ScoreDisplay();
 
 	void Update();
+	bool Start();
+	bool Init();
 	void SetScore();
 	void SetOnesPlace();
 	void SetTensPlace();
@@ -43,9 +47,11 @@ public:
 	SpriteRender m_tensPlaceUI;
 	SpriteRender m_hundredsPlaceUI;
 	SpriteRender m_scoreDisplay;
-	PositionSelection* m_positionSelection;
-	InGameState* m_inGameState;
-	Enemy* m_enemy;
-	Player* m_player;
+	PositionSelection* m_positionSelection = nullptr;
+	InGameState* m_inGameState=nullptr;
+	Enemy* m_enemy = nullptr;
+	Player* m_player = nullptr;
+	StealPositionBar* m_stealPositionBar = nullptr;
+	BuffManager* m_buffManager = nullptr;
 };
 

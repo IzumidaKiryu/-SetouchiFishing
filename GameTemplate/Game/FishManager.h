@@ -18,6 +18,7 @@ public:
 	void Init();
 	bool Start() override;
 	void Update();
+	void SetBaseUiScale();
 	void SelectFishType();
 	Fish* CreateFish(FishType type);
 
@@ -27,11 +28,13 @@ public:
 	float GetScore();
 	float GetTimeRatio();
 	SpriteRender* GetUI();
+	std::map<BuffType, float> GetBuffEffect()const;
+	BuffType GetBuffType()const;
 
 private:
 	void UIPopIn();
 
-	Vector3 m_uiScale{1.0f,1.0f,1.0f};
+	Vector3 m_baseUiScale=Vector3::One;
 	float m_uiPopIn_t=0;
 	bool m_shouldFishChange = false;//魚を変えるべきかどうか。
 	int m_randum;
@@ -44,6 +47,8 @@ private:
 	SpriteRender* m_ui=nullptr;
 
 	Fish* m_fish=nullptr;
+
+	std::map<BuffType, float> buffEffect;
 	//Buri* m_buri;
 	//Tatiuo* m_tatiuo;
 	//Jakoten* m_jakoten;

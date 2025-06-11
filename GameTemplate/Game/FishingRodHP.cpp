@@ -5,6 +5,7 @@
 #include"PositionSelection.h"
 #include"SceneFightFish.h"
 #include"FightFishState.h"
+#include"BuffManager.h"
 
 
 FishingRodHP::FishingRodHP()
@@ -29,12 +30,22 @@ void FishingRodHP::Update()
 	m_previousFrameHP = m_Hp;
 }
 
+bool FishingRodHP::Start()
+{
+	m_fightFishState = FindGO<FightFishState>("fightFishState");
+	m_positionSelection = FindGO<PositionSelection>("m_PositionSelection");
+	m_buffManager= FindGO<BuffManager>("buffManager");
+
+	return true;
+}
+
 float FishingRodHP::CalculateRecoveryAmount()
 {
 
 	//今のスタミナの割合によって回復量を決める。
 	float recoveryMultiplier;
-	recoveryMultiplier=std::pow((m_Hp / m_MaxHp),1.5);
+	recoveryMultiplier=std::pow((m_Hp / m_MaxHp),1.5)+0.5;
+	recoveryMultiplier *= (1 + m_buffManager->GetTotalStaminaRegenBuff());
 
 	return recoveryMultiplier;
 }
@@ -52,7 +63,6 @@ void FishingRodHP::RecoverPower()
 
 void FishingRodHP::SetFishingRodHP()
 {
-	m_fightFishState = FindGO<FightFishState>("fightFishState");
 
 
 	if (m_fightFishState->m_fishFacing == Upward) {
@@ -85,23 +95,29 @@ void FishingRodHP::SetFishingRodHP()
 
 void FishingRodHP::SetUI()
 {
-	m_RodHPGaugeInside.Init("Assets/modelData/castGauge_inside.DDS", 500, 100);
+	m_RodHPGaugeInside.Init("Assets/modelData/castGauge_inside.DDS", 510, 110);
 	m_RodHPGaugeInside.SetPivot(Vector2(0.0f, 0.5f));
 	m_RodHPGaugeInside.SetPosition(Vector3(-450.0f, -300.0f, 0.0f));
-	m_RodHPGaugeInside.SetScale(Vector3{ 2.0f, 1.0f, 1.0f });
+	m_RodHPGaugeInside.SetScale(Vector3{ 1.5f, 1.0f, 1.0f });
 	m_RodHPGaugeInside.Update();
 
 	m_RodHPGaugeOutside.Init("Assets/modelData/landscape_gauge_outer.DDS", 510, 110);
 	m_RodHPGaugeOutside.SetPivot(Vector2(0.0f, 0.5f));
 	m_RodHPGaugeOutside.SetPosition(Vector3(-470.0f, -300.0f, 0.0f));
-	m_RodHPGaugeOutside.SetScale(Vector3{ 2.0f, 1.0f, 1.0f });
+	m_RodHPGaugeOutside.SetScale(Vector3{ 1.5f, 1.0f, 1.0f });
 	m_RodHPGaugeOutside.Update();
 
-	m_RodHPBar.Init("Assets/modelData/cast_successful.DDS", 500.0f, 100);
+	m_RodHPBar.Init("Assets/modelData/cast_successful.DDS", 510.0f, 100);
 	m_RodHPBar.SetPivot(Vector2(0.0f, 0.5f));
 	m_RodHPBar.SetPosition(Vector3(-450.0f, -300.0f, 0.0f));
-	m_RodHPBar.SetScale(Vector3{ 2.0f, 1.0f, 1.0f });
+	m_RodHPBar.SetScale(Vector3{ 1.5f, 1.0f, 1.0f });
+	m_RodHPBar.Update();
 
+	m_stamina.Init("Assets/modelData/Stamina/stamina.DDS", 300.0f, 150);
+	m_stamina.SetPivot(Vector2(0.0f, 0.0f));
+	m_stamina.SetPosition(Vector3(-100.0f, -300.0f, 0.0f));
+	m_stamina.SetScale(Vector3{ 1.0f, 1.0f, 1.0f });
+	m_stamina.Update();
 }
 
 void FishingRodHP::Render(RenderContext& rc)
@@ -109,6 +125,7 @@ void FishingRodHP::Render(RenderContext& rc)
 	m_RodHPGaugeInside.Draw(rc);
 	m_RodHPBar.Draw(rc);
 	m_RodHPGaugeOutside.Draw(rc);
+	m_stamina.Draw(rc);
 }
 
 void FishingRodHP::failure()
@@ -122,13 +139,6 @@ void FishingRodHP::failure()
 void FishingRodHP::SetIs_playFishingFinishedTrue()
 {
 	m_is_playFishingFinished = true;
-}
-
-void FishingRodHP::AddStealPositionPoint()
-{
-	/*m_positionSelection = NewGO<PositionSelection>(0, "m_PositionSelection");*/
-	m_positionSelection = FindGO<PositionSelection>("m_PositionSelection");
-	/*m_positionSelection->m_stealPositionPoint += m_Hp;*/
 }
 
 /// <summary>
