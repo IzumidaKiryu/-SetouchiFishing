@@ -21,8 +21,6 @@ ScoreDisplay::ScoreDisplay()
 	m_scoreDisplay.SetPosition(Vector3{ 200.0f,0.0f,0.0f });
 	m_scoreDisplay.SetScale(Vector3{ 1.0f, 1.0f, 1.0f });
 	m_scoreDisplay.Update();
-
-	m_UIBackGround.Init("Assets/sprite/umiumiu.DDS", 1920, 1080);
 }
 
 ScoreDisplay::~ScoreDisplay()

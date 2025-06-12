@@ -184,3 +184,33 @@ void StealPositionBar::InitisStealLockActive()
 	m_isStealLockActive[static_cast<int>(Area::F)] = false;
 
 }
+
+void StealPositionBar::SetIsStealLockActive(bool isActive, Area area)
+{
+	for (int i=0; i < 6; i++) {
+		//指定されたエリアの真偽値をセット。
+		if (static_cast<Area>(i) == area) {
+			m_isStealLockActive[static_cast<int>(area)] = isActive;
+		}
+		//指定されたもの以外すべてfalseにする。
+		else {
+			m_isStealLockActive[i] = false;
+		}
+	}
+}
+
+bool StealPositionBar::GetIsStealLockActive(Area area)
+{
+	return m_isStealLockActive[static_cast<int>(area)];
+}
+
+void StealPositionBar::InitisStealLockActive()
+{
+	m_isStealLockActive[static_cast<int>(Area::A)] = false;
+	m_isStealLockActive[static_cast<int>(Area::B)] = false;
+	m_isStealLockActive[static_cast<int>(Area::C)] = false;
+	m_isStealLockActive[static_cast<int>(Area::D)] = false;
+	m_isStealLockActive[static_cast<int>(Area::E)] = false;
+	m_isStealLockActive[static_cast<int>(Area::F)] = false;
+
+}
