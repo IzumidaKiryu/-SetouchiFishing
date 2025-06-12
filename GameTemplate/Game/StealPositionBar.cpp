@@ -204,6 +204,21 @@ bool StealPositionBar::GetIsStealLockActive(Area area)
 	return m_isStealLockActive[static_cast<int>(area)];
 }
 
+void StealPositionBar::SetStockCounUI()
+{
+		wchar_t wcsbuf[256];
+	swprintf_s(wcsbuf, 256, L"%d", int(m_stockCount));
+
+	//表示するテキストを設定。
+	m_stockCountUI.SetText(wcsbuf);
+	//フォントの位置を設定。
+	m_stockCountUI.SetPosition(Vector3(800.0f, 530.0f, 0.0f));
+	//フォントの大きさを設定。
+	m_stockCountUI.SetScale(3.0f);
+	//フォントの色を設定。
+	m_stockCountUI.SetColor({ 1.0f,0.3f,0.0f,1.0f });
+}
+
 void StealPositionBar::InitisStealLockActive()
 {
 	m_isStealLockActive[static_cast<int>(Area::A)] = false;
