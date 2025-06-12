@@ -90,6 +90,9 @@ bool ScoreDisplay::Init()
 	m_scoreDisplay.SetScale(Vector3{ 1.0f, 1.0f, 1.0f });
 	m_scoreDisplay.Update();
 
+	m_UIBackGround.Init("Assets/sprite/umiumiu.DDS", 1920, 1080);
+
+
 	return true;
 }
 
