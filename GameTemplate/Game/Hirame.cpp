@@ -3,7 +3,7 @@
 
 Hirame::Hirame()
 {
-
+	m_fishData.rarity = FishRarity::Common;
 
 }
 
@@ -16,11 +16,10 @@ Hirame::~Hirame()
 bool Hirame::OnInit()
 {
 	SetFishType(FishType::HIRAME);
-	SetBaseScore(180);
 	SetParameter(
 		15.0f,
 		10.0f,
-		120.0f,
+		0.0f,
 		0.7,
 		40,
 		60);
