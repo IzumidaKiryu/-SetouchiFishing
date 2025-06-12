@@ -58,6 +58,7 @@
     <ClCompile Include="ScoreManager.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="BuffManager.cpp" />
+    <ClCompile Include="Pearl.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -111,5 +112,6 @@
     <ClInclude Include="ScoreManager.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="BuffManager.h" />
+    <ClInclude Include="Pearl.h" />
   </ItemGroup>
 </Project>

@@ -256,6 +256,7 @@
     <ClCompile Include="InGameState.cpp" />
     <ClCompile Include="Jakoten.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Pearl.cpp" />
     <ClCompile Include="PlayCastGaugeState.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayFishing.cpp" />
@@ -311,6 +312,7 @@
     <ClInclude Include="HitUIState.h" />
     <ClInclude Include="InGameState.h" />
     <ClInclude Include="Jakoten.h" />
+    <ClInclude Include="Pearl.h" />
     <ClInclude Include="PlayCastGaugeState.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayFishing.h" />
