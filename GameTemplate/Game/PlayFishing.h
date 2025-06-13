@@ -1,5 +1,6 @@
 #pragma once
 #include "Fish.h"
+#include "sound/SoundSource.h"
 
 // ==============================
 // ステートと成功/失敗状態
@@ -115,7 +116,7 @@ private:
 	Successful_or_Failure m_successful_or_failure = unfixed;
 	FishData* p_fishData = &m_fishData;
 	std::string m_currentFishManagerobjectName;
-
+	SoundSource* m_sound;
 	float m_floating_t = 0.0f;
 	float m_casting_t = 0.0f;
 	bool m_shouldChangeScene = false;

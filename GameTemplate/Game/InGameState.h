@@ -1,5 +1,6 @@
 #pragma once
 #include "GameStateBase.h"
+#include "sound/SoundSource.h"
 #include"Fish.h"
 class GameCamera;
 class BackGround;
@@ -66,7 +67,7 @@ private:
 	BuffManager* m_buffManager;
 	PlayFishing* m_playFishing;
 	ScoreDisplay* m_scoreDisplay;
-
+	SoundSource* m_sound;
 
 
 

@@ -23,7 +23,7 @@ enum class Area {
 class Player;
 class GameCamera;
 class BackGround;
-class SoundSource;
+//class SoundSource;
 class FishManager;
 class PlayFishing;
 class TimeLimitUI;

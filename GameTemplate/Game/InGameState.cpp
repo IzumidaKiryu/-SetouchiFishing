@@ -31,6 +31,13 @@ bool InGameState::Start()
 	m_gameCamera = NewGO<GameCamera>(0, "gamecamera");
 	m_gameCamera->Init();
 
+	g_soundEngine->ResistWaveFileBank(1, "Assets/sound/mainGameBGM.wav");
+
+	m_sound = NewGO<SoundSource>(1);
+
+	m_sound->Init(1);
+
+	m_sound->Play(false);
 
 	//ポジション選択シーンのオブジェクトを作る。
 	m_positionSelection = NewGO<PositionSelection>(0, "positionSelection");
@@ -79,14 +86,15 @@ void InGameState::OnUpdate()
 	}
 }
 
+
 bool InGameState::ShouldChangeState()
 {
 	if (m_isCountdownFinished) {//制限時間が無くなったら。
-
+		
 		//プレイフィッシングシーンとスコアディスプレイ画面を探す。
 		m_scoreDisplay = FindGO<ScoreDisplay>("scoreDisplay");
 		m_playFishing = FindGO<PlayFishing>("playFishing");
-
+		DeleteGO(m_sound);
 		//プレイフィッシングシーンかスコアディスプレイ画面じゃなければ。
 		if (m_playFishing == nullptr && m_scoreDisplay == nullptr) {
 			SetNextName("gameResult");
@@ -95,7 +103,6 @@ bool InGameState::ShouldChangeState()
 	}
     return false;
 }
-
 void InGameState::OnEnter()
 {
     m_gameStartCountdown = NewGO<GameStartCountdown>(0, "GameStartCountdown");
