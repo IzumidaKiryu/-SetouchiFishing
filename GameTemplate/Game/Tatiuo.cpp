@@ -3,8 +3,7 @@
 
 Tatiuo::Tatiuo()
 {
-
-
+	m_fishData.rarity = FishRarity::Rare;
 }
 
 Tatiuo::~Tatiuo()

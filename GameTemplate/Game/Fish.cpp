@@ -163,6 +163,7 @@ void Fish::SetParameter(
 
 void Fish::SetBuff(BuffType bufftype,float buffValue)
 {
+	m_fishData.buffType= bufftype;
 	m_fishData.buffEffect[bufftype] = buffValue* m_fishData.individualFactor;
 }
 

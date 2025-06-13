@@ -44,16 +44,22 @@ public:
 
 
 	Vector3 m_fishDisplayPosition[6];
-	SpriteRender m_fishDisplayInside[6];
+	SpriteRender m_fishCommonDisplayInside[6];
+	SpriteRender m_fishRareDisplayInside[6];
+	SpriteRender m_fishSuperRareDisplayInside[6];
 	SpriteRender m_fishDisplayOutside[6];
+
 	SpriteRender m_selectedFrameUI[6];
 	SpriteRender m_enemySelectedFrameUI[6];
 	SpriteRender* m_fishUI[6];
 	SpriteRender m_fishTimeUntilEscapeUI[6];
-	PositionSelection* m_positionSelection;
-	InGameState* m_inGameState;
-	FishManager* m_fishManager;
-	Enemy* m_enemy;
-	StealPositionBar* m_stealPositionBar;
+	SpriteRender m_staminabuffUI[6];
+	SpriteRender m_takeOverBuffUI[6];
+	SpriteRender m_pullPowerBuffUI[6];
+	PositionSelection* m_positionSelection=nullptr;
+	InGameState* m_inGameState=nullptr;
+	FishManager* m_fishManager[6];
+	Enemy* m_enemy=nullptr;
+	StealPositionBar* m_stealPositionBar=nullptr;
 };
 

@@ -42,6 +42,9 @@ public:
 	SpriteRender m_RodHPBar;
 	SpriteRender m_stamina;
 
+	SpriteRender m_reelChanceUI;
+	SpriteRender m_rotateLStick;
+
 	PlayFishing* m_playFishing;
 	TensionGauge* m_tensionGauge;
 	PositionSelection* m_positionSelection;

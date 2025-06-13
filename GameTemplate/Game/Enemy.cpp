@@ -183,9 +183,14 @@ void Enemy::EndFishing()
 {
 	//釣り中？をfalseに。
 	SetIsFishingInArea(false);
+
+	//ターゲットエリアを変える前に魚を更新する
+	m_inGameState->ChangeFish();
+
 	SetTargetFishingArea(m_positionSelection->FindFishHighScore()/*スコアが一番高い魚を探す*/);
 
 	m_scoreManager->SetScore(m_targetFishData.score, m_targetFishData.fishType, CharacterType::enemy);
+
 
 }
 

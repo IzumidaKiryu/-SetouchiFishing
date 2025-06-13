@@ -70,7 +70,7 @@ private:
 
 
 
-	float m_timelimit = 10;//時間制限
+	float m_timelimit = 240;//時間制限
 	float m_time = m_timelimit;//時間
 	float m_totalScore = 0.0f;//スコアの合計。
 	TimeLimitUI* m_timeLimitUI;
