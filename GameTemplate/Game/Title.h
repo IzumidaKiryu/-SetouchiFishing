@@ -18,6 +18,7 @@ public:
 
 	void Render(RenderContext& rc)override;
 
+	SpriteRender m_pressA;
 	SpriteRender spriteRender ;
 	InGameState* m_inGameState;
 	//SoundSource* titleBGM;			//タイトルのBGM。

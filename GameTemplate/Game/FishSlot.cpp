@@ -70,7 +70,7 @@ void FishSlot::SetTexture(int i)
 
 	m_fishDisplayOutside[i].Init("Assets/modelData/FishSlot/fish_display_ui_outside.DDS", 130, 130);
 	m_selectedFrameUI[i].Init("Assets/modelData/FishSlot/fish_display_ui_outside_selection.DDS", 130, 130);
-	m_enemySelectedFrameUI[i].Init("Assets/modelData/castGauge_Outside.DDS", 130, 130);
+	m_enemySelectedFrameUI[i].Init("Assets/modelData/FishSlot/fish_display_ui_outside_enemy.DDS", 130, 130);
 	m_fishTimeUntilEscapeUI[i].Init("Assets/modelData/FishSlot/fishTimeUntilEscapeUI.DDS", 130, 130);
 	m_staminabuffUI[i].Init("Assets/modelData/FishSlot/staminaBaff.DDS", 203, 200);
 	m_takeOverBuffUI[i].Init("Assets/modelData/FishSlot/takeOverBaff.DDS", 203, 200);

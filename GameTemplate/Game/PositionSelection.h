@@ -97,6 +97,9 @@ private:
 	Area m_playercurrentArea;
 	Area m_enemyArea = Area::INITIALSTATE;
 
+	//UI
+	SpriteRender m_PressAtoSelect;
+
 	// その他
 	std::string fishHighScorePosition;
 	std::string select_by_with_position;
