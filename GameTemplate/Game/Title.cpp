@@ -3,6 +3,7 @@
 #include "Game.h"
 #include "GameStartCountdown.h"
 #include "sound/SoundEngine.h"
+#include "sound/SoundSource.h"
 #include"InGameState.h"
 
 
@@ -16,6 +17,13 @@ Title::~Title()
 
 bool Title::Start()
 {
+	g_soundEngine->ResistWaveFileBank(0,"Assets/sound/gameTiileBGM.wav");
+
+	m_sound = NewGO<SoundSource>(0);
+
+	m_sound->Init(0);
+
+	m_sound->Play(false);
 	return true;
 }
 
@@ -33,6 +41,7 @@ bool Title::Init()
 
 void Title::OnUpdate()
 {
+	
 }
 
 bool Title::ShouldChangeState()
@@ -42,8 +51,19 @@ bool Title::ShouldChangeState()
 	{
 
 		SetNextName("inGameState");
+
+		DeleteGO(m_sound);
+
+		g_soundEngine->ResistWaveFileBank(7, "Assets/sound/pushButton2.wav");
+		m_sound = NewGO<SoundSource>(7);
+		m_sound->Init(7);
+		m_sound->Play(false);
 		return true; // Aボタンが押されたら状態を変更する
+		
+
+
 	}
+
 	return false; // タイトル状態では状態を変更しない
 }
 

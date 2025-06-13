@@ -5,6 +5,7 @@
 #include"Enemy.h"
 #include"Player.h"
 #include"ScoreManager.h"
+#include "sound/SoundSource.h"
 //namespace {
 //	const float EASINGSTATE_PLAYER_X = -350.0f;
 //	const float EASINGSTATE_ENAMY_X = 0.0f;
@@ -22,6 +23,14 @@ GameResult::~GameResult()
 
 bool GameResult::Start()
 {
+	g_soundEngine->ResistWaveFileBank(2, "Assets/sound/gameResultBGM.wav");
+
+	m_sound = NewGO<SoundSource>(2);
+
+	m_sound->Init(2);
+
+	m_sound->Play(false);
+
 	for (int i = 0; i < num; i++)
 	{
 		m_vec[i] = Vector3(1050.0f,0.0f,0.0f);
@@ -181,6 +190,7 @@ bool GameResult::ShouldChangeState()
 	if (g_pad[0]->IsTrigger(enButtonA))
 	{
 		SetNextName("title");
+        DeleteGO(m_sound);
 		return true;
 	}
 	return false;
