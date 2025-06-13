@@ -1,9 +1,11 @@
 #pragma once
+#include "sound/SoundSource.h"
 class BackGround : public IGameObject
 {
 public:
 	BackGround();
 	~BackGround();
+	bool Start()override;
 	bool Init();
 	void Update();
 	void Float();
@@ -20,5 +22,6 @@ public:
 	ModelRender m_sea;
 	ModelRender m_isrand;
 	PhysicsStaticObject physicsStaticObject;
+	//SoundSource* m_sound;
 };
 

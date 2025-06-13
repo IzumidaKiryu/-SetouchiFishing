@@ -1,5 +1,6 @@
 #pragma once
 #include< memory >
+#include "sound/SoundSource.h"
 #include"InGameState.h"
 
 class InGameState;
@@ -136,6 +137,7 @@ public:
 	void SetVictory();//勝者の設定。
 	void PalyerModelPlayAnimation();
 	void EnemyModelPlayAnimation(); //敵のアニメーションを再生する関数。
+	SoundSource* m_sound;
 	
 	//ここまで
 };

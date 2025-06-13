@@ -23,7 +23,11 @@
 #include "ScoreManager.h"
 #include"Enemy.h"
 #include "FishCatchEffectState.h"
-#include "StealPositionBar.h"
+#include"StealPositionBar.h"
+#include"BuffManager.h"
+#include "sound/SoundEngine.h"
+#include "sound/SoundSource.h"
+
 
 
 // コンストラクタ・デストラクタ
@@ -200,11 +204,25 @@ void PlayFishing::Success() {
 		StatusManager();
 		break;
 	case castAnimasion:
+		g_soundEngine->ResistWaveFileBank(4, "Assets/sound/castingRod.wav");
+
+		m_sound = NewGO<SoundSource>(4);
+
+		m_sound->Init(4);
+
+		m_sound->Play(false);
 		DeleteGO(m_fishingAnimationState);
 		m_playFishingStatus = cast;
 		StatusManager();
 		break;
 	case cast:
+		g_soundEngine->ResistWaveFileBank(6, "Assets/sound/reelCoiling.wav");
+
+		m_sound = NewGO<SoundSource>(6);
+
+		m_sound->Init(6);
+
+		m_sound->Play(false);
 		DeleteGO(m_castState);
 		m_playFishingStatus = wait_for_fish;
 		StatusManager();
@@ -215,25 +233,39 @@ void PlayFishing::Success() {
 		StatusManager();
 		break;
 	case hitUI:
+		g_soundEngine->ResistWaveFileBank(5, "Assets/sound/fishFaight.wav");
+
+		m_sound = NewGO<SoundSource>(5);
+
+		m_sound->Init(5);
+
+		m_sound->Play(false);
 		DeleteGO(m_hitUIState);
 		m_playFishingStatus = sceneFightFish;
 		StatusManager();
 		break;
 	case sceneFightFish:
+
 		DeleteGO(m_fightFishState);
 		m_playFishingStatus = fishCatch;
 		StatusManager();
 		//バフをバフマネジェーに渡す。
 		m_buffManager->ApplyBuffEffect(m_fishManager->GetBuffEffect(), m_fishManager->GetBuffType());
 		break;
-	case fishCatch:
-		DeleteGO(m_fishCatchEffectState);
-		DeleteThisClass();
-		m_scoreManager->SetScore(m_fishData.score, m_fishData.fishType, CharacterType::Player);
-		m_scoreDisplay = NewGO<ScoreDisplay>(0, "scoreDisplay");
-		m_scoreDisplay->Init();
-		m_scoreDisplay->WhichFishUI(m_fishData.fishType);
-		break;
+		case fishCatch:
+			g_soundEngine->ResistWaveFileBank(3, "Assets/sound/fishFinish.wav");
+
+			m_sound = NewGO<SoundSource>(3);
+
+			m_sound->Init(3);
+
+			m_sound->Play(false);
+			DeleteGO(m_fishCatchEffectState);
+			DeleteThisClass();
+			m_scoreManager->SetScore(m_fishData.score, m_fishData.fishType, CharacterType::Player);
+			m_scoreDisplay = NewGO<ScoreDisplay>(0, "scoreDisplay");
+			m_scoreDisplay->WhichFishUI(m_fishData.fishType);
+			break;
 
 	}
 }

@@ -11,6 +11,18 @@ BackGround::~BackGround()
 
 }
 
+bool BackGround::Start()
+{
+	/*g_soundEngine->ResistWaveFileBank(1, "Assets/sound/mainGameBGM.wav");
+
+	m_sound = NewGO<SoundSource>(1);
+
+	m_sound->Init(1);
+
+	m_sound->Play(false);*/
+	return true;
+}
+
 bool BackGround::Init()
 {
 
