@@ -65,7 +65,7 @@ public:
 	int m_stockCount;//たまっているバーの本数。
 	float m_barRate;//バーの割合。
 	bool m_isCharged;//バーがチャージされているか？。
-	const float m_gaugeDeltaPerFrame = 0.03;/// 1フレームあたりにゲージへ加算される基本の増加量。
+	const float m_gaugeDeltaPerFrame = 0.02;/// 1フレームあたりにゲージへ加算される基本の増加量。
 	/// <summary>
 /// スティールバーを使用して敵の釣りエリアを奪ったときに、
 /// 対象の魚が変わらないように一時的にロックするフラグ。

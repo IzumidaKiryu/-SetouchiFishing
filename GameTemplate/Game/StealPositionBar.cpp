@@ -107,6 +107,8 @@ void StealPositionBar::UpdateStealGauge()
 
 void StealPositionBar::UseStealGauge()
 {
+	//ポイントを減らす。
+	m_stealPoint -= m_stealGaugeThreshold;
 	//魚が逃げないように魚をロックする。
 	SetIsStealLockActive(true, m_enemy->GetTargetFishinArea());
 

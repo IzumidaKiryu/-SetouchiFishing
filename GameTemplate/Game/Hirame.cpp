@@ -16,15 +16,17 @@ Hirame::~Hirame()
 bool Hirame::OnInit()
 {
 	SetFishType(FishType::HIRAME);
-	SetParameter(
-		15.0f,
-		10.0f,
-		0.0f,
-		0.7,
-		40,
-		60);
+	SetTimeUntilEscape(15.0f);
+	SetArrowSpeed(10.0f);
+	SetBaseScore(100.0f);
+	SetScore();
+	SetInitPos(0.7);
+	SetUpWardBias(60);
+	SetDownwardBias(80);
+	SetFishDetectionRadius(0.4);
+	SetEscapeForce(0.005);
 	SetUI("Assets/modelData/hirameUI.DDS",Vector3::One*m_fishData.individualFactor);
-	SetBuff(BuffType::StealBoostBuff,100.0f);
+	SetBuff(BuffType::StealBoostBuff,0.01f);
 
 	return true;
 }

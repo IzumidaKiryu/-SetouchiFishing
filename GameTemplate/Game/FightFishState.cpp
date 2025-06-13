@@ -421,6 +421,11 @@ void FightFishState::CameraManagement()
 	SetCamera(m_cameraPos, m_cameraTarget);
 }
 
+FishFacing FightFishState::GetFishFacing()
+{
+	return m_fishFacing;
+}
+
 
 
 //void TensionGauge::AnnounceChangeFishState()
