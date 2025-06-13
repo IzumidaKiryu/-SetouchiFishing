@@ -49,20 +49,20 @@ bool GameResult::Start()
 
 bool GameResult::Init()
 {
-	m_fishUI[Hamachi].Init("Assets/modelData/score/hamachiPoint.DDS", 530, 80);
-	m_fishUI[Tachiuo].Init("Assets/modelData/score/tachiuoPoint.DDS", 530, 80);
-	m_fishUI[Tai].Init("Assets/modelData/score/taiPoint.DDS", 530, 80);
-	m_fishUI[Hirame].Init("Assets/modelData/score/hiramePoint.DDS", 530, 80);
-	m_fishUI[Pearl].Init("Assets/modelData/score/pearlPoint.DDS", 530, 80);
-	m_fishUI[Jakoten].Init("Assets/modelData/score/jyakotenPoint.DDS", 530, 80);
+	m_fishUI[BURI].Init("Assets/modelData/score/hamachiPoint.DDS", 530, 80);
+	m_fishUI[TATIUO].Init("Assets/modelData/score/tachiuoPoint.DDS", 530, 80);
+	m_fishUI[TAI].Init("Assets/modelData/score/taiPoint.DDS", 530, 80);
+	m_fishUI[HIRAME].Init("Assets/modelData/score/hiramePoint.DDS", 530, 80);
+	m_fishUI[SINJU].Init("Assets/modelData/score/pearlPoint.DDS", 530, 80);
+	m_fishUI[JAKOTENN].Init("Assets/modelData/score/jyakotenPoint.DDS", 530, 80);
 	m_back.Init("Assets/modelData/score/fishResult.DDS", 1320, 780);
 	//泉田追加
-	m_enemyFishUI[Hamachi].Init("Assets/modelData/score/hamachiPoint.DDS", 530, 80);
-	m_enemyFishUI[Tachiuo].Init("Assets/modelData/score/tachiuoPoint.DDS", 530, 80);
-	m_enemyFishUI[Tai].Init("Assets/modelData/score/taiPoint.DDS", 530, 80);
-	m_enemyFishUI[Hirame].Init("Assets/modelData/score/hiramePoint.DDS", 530, 80);
-	m_enemyFishUI[Pearl].Init("Assets/modelData/score/pearlPoint.DDS", 530, 80);
-	m_enemyFishUI[Jakoten].Init("Assets/modelData/score/jyakotenPoint.DDS", 530, 80);
+	m_enemyFishUI[BURI].Init("Assets/modelData/score/hamachiPoint.DDS", 530, 80);
+	m_enemyFishUI[TATIUO].Init("Assets/modelData/score/tachiuoPoint.DDS", 530, 80);
+	m_enemyFishUI[TAI].Init("Assets/modelData/score/taiPoint.DDS", 530, 80);
+	m_enemyFishUI[HIRAME].Init("Assets/modelData/score/hiramePoint.DDS", 530, 80);
+	m_enemyFishUI[SINJU].Init("Assets/modelData/score/pearlPoint.DDS", 530, 80);
+	m_enemyFishUI[JAKOTENN].Init("Assets/modelData/score/jyakotenPoint.DDS", 530, 80);
 
 
 	m_animationClip[enAnimationClip_Idle].Load("Assets/animData/Player/Idle.tka");
@@ -96,29 +96,29 @@ void GameResult::OnUpdate()
 {
 	switch (nowFishName)
 	{
-	case GameResult::Hamachi:
-		Easing(Hamachi, m_fastPos[Hamachi], m_endPos[Hamachi]);
-		EasingEnemy(Hamachi, m_enemyUIFarstPos[Hamachi], m_enemyUIEndPos[Hamachi]);
+	case GameResult::BURI:
+		Easing(BURI, m_fastPos[BURI], m_endPos[BURI]);
+		EasingEnemy(BURI, m_enemyUIFarstPos[BURI], m_enemyUIEndPos[BURI]);
 		break;
-	case GameResult::Tachiuo:
-		Easing(Tachiuo, m_fastPos[Tachiuo], m_endPos[Tachiuo]);
-		EasingEnemy(Tachiuo, m_enemyUIFarstPos[Tachiuo], m_enemyUIEndPos[Tachiuo]);
+	case GameResult::TATIUO:
+		Easing(TATIUO, m_fastPos[TATIUO], m_endPos[TATIUO]);
+		EasingEnemy(TATIUO, m_enemyUIFarstPos[TATIUO], m_enemyUIEndPos[TATIUO]);
 		break;
-	case GameResult::Tai:
-		Easing(Tai, m_fastPos[Tai], m_endPos[Tai]);
-		EasingEnemy(Tai, m_enemyUIFarstPos[Tai], m_enemyUIEndPos[Tai]);
+	case GameResult::TAI:
+		Easing(TAI, m_fastPos[TAI], m_endPos[TAI]);
+		EasingEnemy(TAI, m_enemyUIFarstPos[TAI], m_enemyUIEndPos[TAI]);
 		break;
-	case GameResult::Hirame:
-		Easing(Hirame, m_fastPos[Hirame], m_endPos[Hirame]);
-		EasingEnemy(Hirame, m_enemyUIFarstPos[Hirame], m_enemyUIEndPos[Hirame]);
+	case GameResult::HIRAME:
+		Easing(HIRAME, m_fastPos[HIRAME], m_endPos[HIRAME]);
+		EasingEnemy(HIRAME, m_enemyUIFarstPos[HIRAME], m_enemyUIEndPos[HIRAME]);
 		break;
-	case GameResult::Pearl:
-		Easing(Pearl, m_fastPos[Pearl], m_endPos[Pearl]);
-		EasingEnemy(Pearl, m_enemyUIFarstPos[Pearl], m_enemyUIEndPos[Pearl]);
+	case GameResult::SINJU:
+		Easing(SINJU, m_fastPos[SINJU], m_endPos[SINJU]);
+		EasingEnemy(SINJU, m_enemyUIFarstPos[SINJU], m_enemyUIEndPos[SINJU]);
 		break;
-	case GameResult::Jakoten:
-		Easing(Jakoten, m_fastPos[Jakoten], m_endPos[Jakoten]);
-		EasingEnemy(Jakoten, m_enemyUIFarstPos[Jakoten], m_enemyUIEndPos[Jakoten]);
+	case GameResult::JAKOTENN:
+		Easing(JAKOTENN, m_fastPos[JAKOTENN], m_endPos[JAKOTENN]);
+		EasingEnemy(JAKOTENN, m_enemyUIFarstPos[JAKOTENN], m_enemyUIEndPos[JAKOTENN]);
 		break;
 	case GameResult::num:
 		break;
@@ -153,18 +153,18 @@ void GameResult::OnUpdate()
 	}
 	
 	//UIの更新
-	m_fishUI[Hamachi].Update();
-	m_fishUI[Tachiuo].Update();
-	m_fishUI[Tai].Update();
-	m_fishUI[Hirame].Update();
-	m_fishUI[Pearl].Update();
-	m_fishUI[Jakoten].Update();
-	m_enemyFishUI[Hamachi].Update();
-	m_enemyFishUI[Tachiuo].Update();
-	m_enemyFishUI[Tai].Update();
-	m_enemyFishUI[Hirame].Update();
-	m_enemyFishUI[Pearl].Update();
-	m_enemyFishUI[Jakoten].Update();
+	m_fishUI[BURI].Update();
+	m_fishUI[TATIUO].Update();
+	m_fishUI[TAI].Update();
+	m_fishUI[HIRAME].Update();
+	m_fishUI[SINJU].Update();
+	m_fishUI[JAKOTENN].Update();
+	m_enemyFishUI[BURI].Update();
+	m_enemyFishUI[TATIUO].Update();
+	m_enemyFishUI[TAI].Update();
+	m_enemyFishUI[HIRAME].Update();
+	m_enemyFishUI[SINJU].Update();
+	m_enemyFishUI[JAKOTENN].Update();
 	m_back.Update();
 	SetVictory();
 	PalyerModelPlayAnimation();
@@ -206,18 +206,18 @@ void GameResult::SetFastPos()
 void GameResult::Render(RenderContext& rc)
 {
 	m_back.Draw(rc);
-	m_fishUI[Hamachi].Draw(rc);
-	m_fishUI[Tachiuo].Draw(rc);
-	m_fishUI[Tai].Draw(rc);
-	m_fishUI[Hirame].Draw(rc);
-	m_fishUI[Pearl].Draw(rc);
-	m_fishUI[Jakoten].Draw(rc);
-	m_enemyFishUI[Hamachi].Draw(rc);
-	m_enemyFishUI[Tachiuo].Draw(rc);
-	m_enemyFishUI[Tai].Draw(rc);
-	m_enemyFishUI[Hirame].Draw(rc);
-	m_enemyFishUI[Pearl].Draw(rc);
-	m_enemyFishUI[Jakoten].Draw(rc);
+	m_fishUI[BURI].Draw(rc);
+	m_fishUI[TATIUO].Draw(rc);
+	m_fishUI[TAI].Draw(rc);
+	m_fishUI[HIRAME].Draw(rc);
+	m_fishUI[SINJU].Draw(rc);
+	m_fishUI[JAKOTENN].Draw(rc);
+	m_enemyFishUI[BURI].Draw(rc);
+	m_enemyFishUI[TATIUO].Draw(rc);
+	m_enemyFishUI[TAI].Draw(rc);
+	m_enemyFishUI[HIRAME].Draw(rc);
+	m_enemyFishUI[SINJU].Draw(rc);
+	m_enemyFishUI[JAKOTENN].Draw(rc);
 	for (int i = 0; i < 6; i++) {
 		m_fontRender[i].Draw(rc);
 		m_fontRender[i + 6].Draw(rc);
