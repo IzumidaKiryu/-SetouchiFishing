@@ -76,7 +76,6 @@ void FishDetectionRadius::DeletThis()
 
 SpriteRender& FishDetectionRadius::GetUI()
 {
-	// TODO: return ステートメントをここに挿入します
 	return m_fishDetectionRadiusUI;
 }
 

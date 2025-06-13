@@ -10,6 +10,12 @@ enum class FishType {
 	SINJU,
 };
 
+enum class FishRarity {
+	Common,      // 通常
+	Rare,        // レア
+	SuperRare    // スーパーレア
+};
+
 struct FishData
 {
 	FishType fishType;
@@ -44,6 +50,8 @@ struct FishData
 	std::map<BuffType,float> buffEffect;
 
 	BuffType buffType;
+
+	FishRarity rarity;
 };
 class PositionSelection;
 class InGameState;

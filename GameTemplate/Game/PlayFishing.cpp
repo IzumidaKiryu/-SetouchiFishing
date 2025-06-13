@@ -23,8 +23,7 @@
 #include "ScoreManager.h"
 #include"Enemy.h"
 #include "FishCatchEffectState.h"
-#include"StealPositionBar.h"
-#include"BuffManager.h"
+#include "StealPositionBar.h"
 
 
 // コンストラクタ・デストラクタ
@@ -226,18 +225,16 @@ void PlayFishing::Success() {
 		StatusManager();
 		//バフをバフマネジェーに渡す。
 		m_buffManager->ApplyBuffEffect(m_fishManager->GetBuffEffect(), m_fishManager->GetBuffType());
-
 		break;
-		case fishCatch:
-			DeleteGO(m_fishCatchEffectState);
-			DeleteThisClass();
-			m_scoreManager->SetScore(m_fishData.score, m_fishData.fishType, CharacterType::Player);
-			m_scoreDisplay = NewGO<ScoreDisplay>(0, "scoreDisplay");
-			m_scoreDisplay->WhichFishUI(m_fishData.fishType);
-			break;
-
-	default:
+	case fishCatch:
+		DeleteGO(m_fishCatchEffectState);
+		DeleteThisClass();
+		m_scoreManager->SetScore(m_fishData.score, m_fishData.fishType, CharacterType::Player);
+		m_scoreDisplay = NewGO<ScoreDisplay>(0, "scoreDisplay");
+		m_scoreDisplay->Init();
+		m_scoreDisplay->WhichFishUI(m_fishData.fishType);
 		break;
+
 	}
 }
 
@@ -276,11 +273,10 @@ void PlayFishing::Failure() {
 		//プレイヤーが釣りをしていないと伝える。
 		m_player->SetIsFishingInArea(false);
 
-		//敵の釣りも終わらせる。
-		m_enemy->EndFishing();
-
 		//魚をチェンジ。
 		m_inGameState->ChangeFish(static_cast<int>(m_positionSelection->GetCurrentArea()));
+		//敵の釣りも終わらせる。
+		m_enemy->EndFishing();
 
 		ChangeScene();
 	}

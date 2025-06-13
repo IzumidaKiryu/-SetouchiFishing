@@ -1,10 +1,10 @@
 #pragma once
 enum class BuffType {
+	NoBuff,
 	StealBoostBuff,//敵のエリアを奪うためのポイントが増える量を増やすバフ。
 	PullStrengthBuff,//魚を引く力を上げるバフ。
 	StaminaRegenBuff,//スタミナの回復量を上げるバフ。
-	RandumBuff,//三つのバフの中からランダムに適用される。
-	NoBuff
+	RandumBuff//三つのバフの中からランダムに適用される。
 };
 class BuffManager :public IGameObject
 {

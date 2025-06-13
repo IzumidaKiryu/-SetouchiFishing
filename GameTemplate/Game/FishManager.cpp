@@ -7,6 +7,7 @@
 #include "Hirame.h"
 #include "Tai.h"
 #include"Fish.h"
+#include"Pearl.h"
 #include <random>
 
 FishManager::FishManager()
@@ -74,20 +75,23 @@ void FishManager::SelectFishType()
 	std::random_device rd;
 	int randum = rd() % 100;
 	m_randum = randum;
-	if (0 <= randum && randum <= 20) {
+	if (0 <= randum && randum <= 22) {
 		m_fishType = FishType::BURI;
 	}
-	if (21 <= randum && randum <=30 ) {
+	if (23 <= randum && randum <=45 ) {
 		m_fishType = FishType:: TATIUO;
 	}
-	if (31 <= randum && randum <= 50){
+	if (46 <= randum && randum <= 68){
 		m_fishType = FishType::JAKOTENN;
 	}
-	if (51 <= randum && randum <= 90) {
+	if (69 <= randum && randum <= 80) {
 		m_fishType = FishType::HIRAME;
 	}
-	if (91 <= randum && randum <= 100) {
-
+	if (81 <= randum && randum <= 94) {
+		m_fishType = FishType::SINJU;
+	}
+	if (95 <= randum && randum < 100) {
+		m_fishType = FishType::TAI;
 	}
 }
 
@@ -100,6 +104,7 @@ Fish* FishManager::CreateFish(FishType type)
 	case FishType::TATIUO:  return NewGO<Tatiuo>(0, "tatiuo");
 	case FishType::HIRAME:  return NewGO<Hirame>(0, "hirame");
 	case FishType::JAKOTENN:return NewGO<Jakoten>(0, "jakoten");
+	case FishType::SINJU:return NewGO<Pearl>(0, "jakoten");
 	default:      return nullptr;
 	}
 }
@@ -134,9 +139,6 @@ FishData& FishManager::GetFishData()
 
 float FishManager::GetScore()
 {
-	if (m_fishData.score<=0) {
-		GetTimeRatio();
-	}
 	return m_fishData.score;
 }
 

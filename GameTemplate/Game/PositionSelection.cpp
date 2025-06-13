@@ -45,6 +45,12 @@ void PositionSelection::Init() {
 	m_fishSlot->ThiscClassInit();
 	SetCountdownFinished(true);
 	m_enemy->SetCountdownFinished(true);
+
+	m_PressAtoSelect.Init("Assets/modelData/PromptUI/PressAtoSelect.DDS", 300.0f, 300.0f);
+	m_PressAtoSelect.SetPivot(Vector2{ 0.0f,0.0f });
+	m_PressAtoSelect.SetPosition(Vector3{ 450.0f,-500.0f,0.0f });
+	m_PressAtoSelect.Update();
+
 }
 
 /// <summary>
@@ -82,9 +88,10 @@ void PositionSelection::Render(RenderContext& rc) {
 	if (!m_isCountdownFinished) return;
 
 	m_stealPositionBar->DisplayUI(rc);
-	if (!m_shouldPartiallyDeactivate) {
+	//if (!m_shouldPartiallyDeactivate) {
 		m_fishSlot->ShowUI(rc);
-	}
+		m_PressAtoSelect.Draw(rc);
+	//}
 }
 
 /// <summary>

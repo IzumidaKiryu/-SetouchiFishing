@@ -41,7 +41,7 @@ private:
 	const double e = 2.718281828459045;
 	float m_timeRatio=0;
 
-	FishData m_fishData;//フィッシュデータのポインタ
+	FishData m_fishData;
 
 	FishType m_fishType;
 	SpriteRender* m_ui=nullptr;

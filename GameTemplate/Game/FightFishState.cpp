@@ -78,11 +78,11 @@ void FightFishState::Update()
 
 	CheckFailure();//成功したかどうか.
 	CheckSuccess();//失敗したかどうか。
-	//キリュウ追加
-	if (m_fishingRodHP->m_Hp <= 0) {
-		m_isFightActive = false;
-	}
-	//ここまで
+	////キリュウ追加
+	//if (m_fishingRodHP->m_Hp <= 0) {
+	//	m_isFightActive = false;
+	//}
+	////ここまで
 }
 
 
@@ -165,7 +165,7 @@ void FightFishState::CalculateFishDisplacement()
 /// </summary>
 void FightFishState::FishDirectionChange()
 {
-	if (m_isFightActive == true) {//キリュウ追加この行
+	//if (m_isFightActive == true) {//キリュウ追加この行
 		if (m_frameCount % 30 == 0) {//3０フレームに一回方向を変えるかどうか抽選をする。
 			std::random_device rd;
 			int randum = rd() % 100;
@@ -192,12 +192,12 @@ void FightFishState::FishDirectionChange()
 				m_fishChange_in_DirectionTimes++;//方向転換した数を数える。
 			}
 		}
-	}
-	//キリュウ追加
-	else {
-		m_fishFacing = Upward;
-		SetFishUpward();
-	}
+	//}
+	////キリュウ追加
+	//else {
+	//	m_fishFacing = Upward;
+	//	SetFishUpward();
+	//}
 	//ここまで
 }
 
@@ -417,8 +417,13 @@ void FightFishState::Set3DFishPosition()
 void FightFishState::CameraManagement()
 {
 	//m_cameraPos = GetPlayerPos() + Vector3{ 0.0f,100.0f,100.0f } + Floating();
-	m_cameraTarget = GetFishModelPos();
+	m_cameraTarget = GetFishModelPos()+ Floating(ModelPattern)*5;
 	SetCamera(m_cameraPos, m_cameraTarget);
+}
+
+FishFacing FightFishState::GetFishFacing()
+{
+	return m_fishFacing;
 }
 
 
