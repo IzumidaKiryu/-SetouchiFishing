@@ -21,11 +21,13 @@ bool Title::Start()
 
 bool Title::Init()
 {
-	spriteRender.Init("Assets/sprite/title.DDS", 1920.0f, 1080.0f);
+  spriteRender.Init("Assets/sprite/title.DDS", 1650.0f, 900.0f);
 	m_pressA.Init("Assets/modelData/PromptUI/PressA.DDS", 600.0f, 600.0f);
 	m_pressA.SetPivot(Vector2{ 0.0f,0.0f });
 	m_pressA.SetPosition(Vector3{ 200.0f,-500.0f,0.0f });
 	m_pressA.Update();
+	
+
 	return true;
 }
 
