@@ -14,12 +14,12 @@ class GameResult :public GameStateBase
 {
 public:
 	enum FishName {
-		Hamachi,
-		Tachiuo,
-		Tai,
-		Hirame,
-		Pearl,
-		Jakoten,
+		TAI,
+		BURI,
+		TATIUO,
+		HIRAME,
+		JAKOTENN,
+		SINJU,
 		num
 	};
 	GameResult();
@@ -90,7 +90,7 @@ public:
 	SpriteRender m_fishUI[6];//収集した魚の表示用スプライトレンダー。
 	SpriteRender m_back;//リザルト画面の背景用スプライトレンダー。
 
-	int nowFishName = FishName::Hamachi;//イージングさせる魚のUI(初期設定はハマチ)。
+	int nowFishName = FishName::TAI;//イージングさせる魚のUI(初期設定はtai)。
 	InGameState* m_inGameState=nullptr;
 	Game* m_game=nullptr;
 	//泉田追加
