@@ -87,6 +87,7 @@ public:
 	FishingRodHP* m_fishingRodHP=nullptr;
 	PositionSelection* m_positionSelection;
 	FishFacing m_previous_fishFacing = Upward;//前のフレームで魚が上を向いていたかどうか。
+	BuffManager* m_buffManager;
 
 };
 

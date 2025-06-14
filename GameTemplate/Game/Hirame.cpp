@@ -21,7 +21,7 @@ bool Hirame::OnInit()
 	SetBaseScore(100.0f);
 	SetScore();
 	SetInitPos(0.7);
-	SetUpWardBias(60);
+	SetUpWardBias(50);
 	SetDownwardBias(80);
 	SetFishDetectionRadius(0.4);
 	SetEscapeForce(0.005);
