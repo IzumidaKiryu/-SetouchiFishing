@@ -15,6 +15,8 @@ Enemy::Enemy()
 	//各レアリティーの釣り上げる確率を設定。
 	SetInitRarityProbability();
 
+	SetInitPosition(Vector3{ 0.0f,0.0f,-200.0f });
+
 }
 
 Enemy::~Enemy()

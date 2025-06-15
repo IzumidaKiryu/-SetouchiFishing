@@ -10,7 +10,7 @@ public:
 	bool Start();
 	void Update();
 	void SetUI();
-	void Render(RenderContext& rc);
+	void DisplayUI(RenderContext& rc);
 
 private:
 	const float m_fontScale = 2.0f;

@@ -8,7 +8,7 @@
 
 Player::Player()
 {
-	SetInitPosition(Vector3{ 0.0f,0.0f,0 });
+	SetInitPosition(Vector3{ 0.0f,0.0f,0.0f });
 
 
 }
@@ -67,9 +67,9 @@ void Player::SetMoveSpeed()
 		stickL.x = g_pad[0]->GetLStickXF();
 		stickL.y = g_pad[0]->GetLStickYF();
 
-		//左スティックの入力量と120.0fを乗算。
-		right *= stickL.x * 250.0f;
-		forward *= stickL.y * 250.0f;
+		//左スティックの入力量と300.0fを乗算。
+		right *= stickL.x * 500.0f;
+		forward *= stickL.y * 500.0f;
 
 		//移動速度にスティックの入力量を加算する。
 		moveSpeed += right + forward;

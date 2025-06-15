@@ -97,58 +97,58 @@ void FishingRodHP::SetUI()
 {
 	m_RodHPGaugeInside.Init("Assets/modelData/landscape_gauge_inside.DDS", 510, 110);
 	m_RodHPGaugeInside.SetPivot(Vector2(0.0f, 0.5f));
-	m_RodHPGaugeInside.SetPosition(Vector3(-250.0f, -300.0f, 0.0f));
+	m_RodHPGaugeInside.SetPosition(Vector3(-450.0f, -300.0f, 0.0f));
 	m_RodHPGaugeInside.SetScale(Vector3{ 1.5f, 1.0f, 1.0f });
 	m_RodHPGaugeInside.Update();
 
 	m_RodHPGaugeOutside.Init("Assets/modelData/landscape_gauge_outer.DDS", 510, 110);
 	m_RodHPGaugeOutside.SetPivot(Vector2(0.0f, 0.5f));
-	m_RodHPGaugeOutside.SetPosition(Vector3(-270.0f, -300.0f, 0.0f));
+	m_RodHPGaugeOutside.SetPosition(Vector3(-450.0f, -300.0f, 0.0f));
 	m_RodHPGaugeOutside.SetScale(Vector3{ 1.5f, 1.0f, 1.0f });
 	m_RodHPGaugeOutside.Update();
 
-	m_RodHPBar.Init("Assets/modelData/cast_successful.DDS", 380.0f, 100);
+	m_RodHPBar.Init("Assets/modelData/cast_successful.DDS", 370.0f, 85);
 	m_RodHPBar.SetPivot(Vector2(0.0f, 0.5f));
-	m_RodHPBar.SetPosition(Vector3(-250.0f, -300.0f, 0.0f));
+	m_RodHPBar.SetPosition(Vector3(-440.0f, -300.0f, 0.0f));
 	m_RodHPBar.SetScale(Vector3{ 1.5f, 1.0f, 1.0f });
 	m_RodHPBar.Update();
 
 	m_stamina.Init("Assets/modelData/Stamina/stamina.DDS", 300.0f, 150);
 	m_stamina.SetPivot(Vector2(0.0f, 0.0f));
-	m_stamina.SetPosition(Vector3(-100.0f, -300.0f, 0.0f));
+	m_stamina.SetPosition(Vector3(-200.0f, -300.0f, 0.0f));
 	m_stamina.SetScale(Vector3{ 1.0f, 1.0f, 1.0f });
 	m_stamina.Update();
 
 	
 	m_reelChanceUI.Init("Assets/modelData/PromptUI/ReelChance.DDS", 200.0f, 200);
 	m_reelChanceUI.SetPivot(Vector2(0.0f, 0.0f));
-	m_reelChanceUI.SetPosition(Vector3(-400.0f, -300.0f, 0.0f));
+	m_reelChanceUI.SetPosition(Vector3(-600.0f, -300.0f, 0.0f));
 	m_reelChanceUI.SetScale(Vector3{ 1.0f, 1.0f, 1.0f });
 	m_reelChanceUI.Update();
 
 	
 	m_rotateLStick.Init("Assets/modelData/PromptUI/RotateLStick.DDS", 200.0f, 200);
 	m_rotateLStick.SetPivot(Vector2(0.0f, 0.0f));
-	m_rotateLStick.SetPosition(Vector3(-600.0f, -400.0f, 0.0f));
+	m_rotateLStick.SetPosition(Vector3(-800.0f, -400.0f, 0.0f));
 	m_rotateLStick.SetScale(Vector3{ 1.0f, 1.0f, 1.0f });
 	m_rotateLStick.Update();
 
 	
 	m_playerIcon.Init("Assets/modelData/PlayerIcon/PlayerUI.DDS", 150.0f, 150);
 	m_playerIcon.SetPivot(Vector2(0.0f, 0.0f));
-	m_playerIcon.SetPosition(Vector3(100.0f, -300.0f, 0.0f));
+	m_playerIcon.SetPosition(Vector3(0.0f, -300.0f, 0.0f));
 	m_playerIcon.SetScale(Vector3{ 1.0f, 1.0f, 1.0f });
 	m_playerIcon.Update();
 
 	m_playerIconFine.Init("Assets/modelData/PlayerIcon/PlayerUIFine.DDS", 150.0f, 150);
 	m_playerIconFine.SetPivot(Vector2(0.0f, 0.0f));
-	m_playerIconFine.SetPosition(Vector3(100.0f, -300.0f, 0.0f));
+	m_playerIconFine.SetPosition(Vector3(0.0f, -300.0f, 0.0f));
 	m_playerIconFine.SetScale(Vector3{ 1.0f, 1.0f, 1.0f });
 	m_playerIconFine.Update();
 
 	m_playerIconTired.Init("Assets/modelData/PlayerIcon/PlayerUITired.DDS", 150.0f, 150);
 	m_playerIconTired.SetPivot(Vector2(0.0f, 0.0f));
-	m_playerIconTired.SetPosition(Vector3(100.0f, -300.0f, 0.0f));
+	m_playerIconTired.SetPosition(Vector3(0.0f, -300.0f, 0.0f));
 	m_playerIconTired.SetScale(Vector3{ 1.0f, 1.0f, 1.0f });
 	m_playerIconTired.Update();
 

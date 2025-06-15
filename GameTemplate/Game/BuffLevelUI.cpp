@@ -51,13 +51,12 @@ void BuffLevelUI::SetUI()
 	m_buffLevelUI.Update();
 }
 
-void BuffLevelUI::Render(RenderContext& rc)
+void BuffLevelUI::DisplayUI(RenderContext& rc)
 {
 	m_buffLevelUI.Draw(rc);
 	m_buffLevelFont[BuffType::PullStrengthBuff].Draw(rc);
 	m_buffLevelFont[BuffType::StaminaRegenBuff].Draw(rc);
 	m_buffLevelFont[BuffType::StealBoostBuff].Draw(rc);
-
 }
 
 void BuffLevelUI::UpdateFont(BuffType type)
