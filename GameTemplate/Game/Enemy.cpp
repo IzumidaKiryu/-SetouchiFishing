@@ -225,6 +225,6 @@ void Enemy::SetInitRarityProbability()
 {
 	m_rarityProbability[FishRarity::Common] = 70;
 	m_rarityProbability[FishRarity::Rare] = 60;
-	m_rarityProbability[FishRarity::SuperRare] = 40;
+	m_rarityProbability[FishRarity::SuperRare] = 10;
 }
 
