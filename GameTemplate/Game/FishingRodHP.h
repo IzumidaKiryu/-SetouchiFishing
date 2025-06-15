@@ -45,6 +45,11 @@ public:
 	SpriteRender m_reelChanceUI;
 	SpriteRender m_rotateLStick;
 
+	SpriteRender m_playerIcon;
+	SpriteRender m_playerIconFine;
+	SpriteRender m_playerIconTired;
+
+
 	PlayFishing* m_playFishing;
 	TensionGauge* m_tensionGauge;
 	PositionSelection* m_positionSelection;

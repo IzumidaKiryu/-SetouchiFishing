@@ -21,9 +21,9 @@ bool Pearl::OnInit()
 	SetScore();
 	SetInitPos(0.7);
 	SetUpWardBias(60);
-	SetDownwardBias(60);
+	SetDownwardBias(80);
 	SetFishDetectionRadius(0.4);
 	SetEscapeForce(0.005);
-	SetBuff(BuffType::PullStrengthBuff, 5);
+	SetBuff(BuffType::PullStrengthBuff, 0.2);
 	return true;
 }

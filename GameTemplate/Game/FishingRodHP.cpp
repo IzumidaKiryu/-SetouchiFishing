@@ -46,7 +46,6 @@ float FishingRodHP::CalculateRecoveryAmount()
 	//今のスタミナの割合によって回復量を決める。
 	float recoveryMultiplier;
 	recoveryMultiplier=std::pow((m_Hp / m_MaxHp),1.5)+0.5;
-	recoveryMultiplier *= (1 + m_buffManager->GetTotalStaminaRegenBuff());
 
 	return recoveryMultiplier;
 }
@@ -58,7 +57,7 @@ void FishingRodHP::RecoverPower()
 
 	//コントローラーが回ってないときはHPを回復する。
 	if (m_rotationPower <= 0.0f) {
-		m_Hp += m_baseRecovery* CalculateRecoveryAmount();
+		m_Hp += m_baseRecovery* CalculateRecoveryAmount()* (1 + m_buffManager->GetTotalStaminaRegenBuff());
 	}
 }
 
@@ -69,13 +68,13 @@ void FishingRodHP::SetFishingRodHP()
 	if (m_fightFishState->m_fishFacing == Upward) {
 		//魚の向きが上なら。
 		//コントローラーを回した分だけ竿のHPが減る。
-		m_Hp -= m_fightFishState->GetRotationPower() * 15000.0f*m_playFishing->GetFishData().escapeForce;
+		m_Hp -= m_fightFishState->GetRotationPower() * 16000.0f*m_playFishing->GetFishData().escapeForce;
 	}
 	if (m_fightFishState->m_fishFacing == Downward) {
 		//魚の向きが下なら。
 		//コントローラーを回した分だけ竿のHP少しが減る。
 		/*m_Hp += 0.1;*/
-		m_Hp -= m_fightFishState->GetRotationPower() * 10.0f;
+		m_Hp -= m_fightFishState->GetRotationPower() * 20.0f;
 	}
 
 	if (m_Hp<0) {
@@ -98,41 +97,61 @@ void FishingRodHP::SetUI()
 {
 	m_RodHPGaugeInside.Init("Assets/modelData/landscape_gauge_inside.DDS", 510, 110);
 	m_RodHPGaugeInside.SetPivot(Vector2(0.0f, 0.5f));
-	m_RodHPGaugeInside.SetPosition(Vector3(-250.0f, -300.0f, 0.0f));
+	m_RodHPGaugeInside.SetPosition(Vector3(-450.0f, -300.0f, 0.0f));
 	m_RodHPGaugeInside.SetScale(Vector3{ 1.5f, 1.0f, 1.0f });
 	m_RodHPGaugeInside.Update();
 
 	m_RodHPGaugeOutside.Init("Assets/modelData/landscape_gauge_outer.DDS", 510, 110);
 	m_RodHPGaugeOutside.SetPivot(Vector2(0.0f, 0.5f));
-	m_RodHPGaugeOutside.SetPosition(Vector3(-270.0f, -300.0f, 0.0f));
+	m_RodHPGaugeOutside.SetPosition(Vector3(-450.0f, -300.0f, 0.0f));
 	m_RodHPGaugeOutside.SetScale(Vector3{ 1.5f, 1.0f, 1.0f });
 	m_RodHPGaugeOutside.Update();
 
-	m_RodHPBar.Init("Assets/modelData/cast_successful.DDS", 510.0f, 100);
+	m_RodHPBar.Init("Assets/modelData/cast_successful.DDS", 370.0f, 85);
 	m_RodHPBar.SetPivot(Vector2(0.0f, 0.5f));
-	m_RodHPBar.SetPosition(Vector3(-250.0f, -300.0f, 0.0f));
+	m_RodHPBar.SetPosition(Vector3(-440.0f, -300.0f, 0.0f));
 	m_RodHPBar.SetScale(Vector3{ 1.5f, 1.0f, 1.0f });
 	m_RodHPBar.Update();
 
 	m_stamina.Init("Assets/modelData/Stamina/stamina.DDS", 300.0f, 150);
 	m_stamina.SetPivot(Vector2(0.0f, 0.0f));
-	m_stamina.SetPosition(Vector3(-100.0f, -300.0f, 0.0f));
+	m_stamina.SetPosition(Vector3(-200.0f, -300.0f, 0.0f));
 	m_stamina.SetScale(Vector3{ 1.0f, 1.0f, 1.0f });
 	m_stamina.Update();
 
 	
 	m_reelChanceUI.Init("Assets/modelData/PromptUI/ReelChance.DDS", 200.0f, 200);
 	m_reelChanceUI.SetPivot(Vector2(0.0f, 0.0f));
-	m_reelChanceUI.SetPosition(Vector3(-400.0f, -300.0f, 0.0f));
+	m_reelChanceUI.SetPosition(Vector3(-600.0f, -300.0f, 0.0f));
 	m_reelChanceUI.SetScale(Vector3{ 1.0f, 1.0f, 1.0f });
 	m_reelChanceUI.Update();
 
 	
 	m_rotateLStick.Init("Assets/modelData/PromptUI/RotateLStick.DDS", 200.0f, 200);
 	m_rotateLStick.SetPivot(Vector2(0.0f, 0.0f));
-	m_rotateLStick.SetPosition(Vector3(-600.0f, -400.0f, 0.0f));
+	m_rotateLStick.SetPosition(Vector3(-800.0f, -400.0f, 0.0f));
 	m_rotateLStick.SetScale(Vector3{ 1.0f, 1.0f, 1.0f });
 	m_rotateLStick.Update();
+
+	
+	m_playerIcon.Init("Assets/modelData/PlayerIcon/PlayerUI.DDS", 150.0f, 150);
+	m_playerIcon.SetPivot(Vector2(0.0f, 0.0f));
+	m_playerIcon.SetPosition(Vector3(0.0f, -300.0f, 0.0f));
+	m_playerIcon.SetScale(Vector3{ 1.0f, 1.0f, 1.0f });
+	m_playerIcon.Update();
+
+	m_playerIconFine.Init("Assets/modelData/PlayerIcon/PlayerUIFine.DDS", 150.0f, 150);
+	m_playerIconFine.SetPivot(Vector2(0.0f, 0.0f));
+	m_playerIconFine.SetPosition(Vector3(0.0f, -300.0f, 0.0f));
+	m_playerIconFine.SetScale(Vector3{ 1.0f, 1.0f, 1.0f });
+	m_playerIconFine.Update();
+
+	m_playerIconTired.Init("Assets/modelData/PlayerIcon/PlayerUITired.DDS", 150.0f, 150);
+	m_playerIconTired.SetPivot(Vector2(0.0f, 0.0f));
+	m_playerIconTired.SetPosition(Vector3(0.0f, -300.0f, 0.0f));
+	m_playerIconTired.SetScale(Vector3{ 1.0f, 1.0f, 1.0f });
+	m_playerIconTired.Update();
+
 
 }
 
@@ -148,6 +167,17 @@ void FishingRodHP::Render(RenderContext& rc)
 	if (m_fightFishState->GetFishFacing() == Downward) {
 		m_reelChanceUI.Draw(rc);
 	}
+
+	if (m_Hp / m_MaxHp<0.2) {
+		m_playerIconTired.Draw(rc);
+	}
+	if (0.2<=m_Hp / m_MaxHp&& m_Hp / m_MaxHp<= 0.8) {
+		m_playerIcon.Draw(rc);
+	}
+	if (m_Hp / m_MaxHp > 0.8) {
+		m_playerIconFine.Draw(rc);
+	}
+
 }
 
 void FishingRodHP::failure()

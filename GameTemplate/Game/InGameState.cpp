@@ -252,6 +252,7 @@ void InGameState::DeleteGameObjects()
 	DeleteGO(m_player);
 	DeleteGO(m_enemy);
 	DeleteGO(m_timeLimitUI);
+	DeleteGO(m_buffManager);
 }
 
 /// <summary>

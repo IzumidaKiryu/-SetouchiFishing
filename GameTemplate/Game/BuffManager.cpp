@@ -36,6 +36,8 @@ void BuffManager::ApplyBuffEffect(const std::map<BuffType, float>& buffEffect ,c
             break;
         }
     }
+
+    m_buffCount[buffType]++;
 }
 
 float  BuffManager::GetBuffEffect(BuffType buffType) const
@@ -60,6 +62,11 @@ float BuffManager::GetTotalPullStrengthBuff()
 float BuffManager::GetTotalStaminaRegenBuff()
 {
     return m_buffEffect[BuffType::StaminaRegenBuff];
+}
+
+int BuffManager::GetBuffCount(BuffType buffType)
+{
+    return m_buffCount[buffType];
 }
 
 void BuffManager::InitSetBuffEffect()
