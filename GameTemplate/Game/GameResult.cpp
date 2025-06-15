@@ -172,6 +172,30 @@ void GameResult::OnUpdate()
 	//モデルの更新。
 	m_playerModel.Update();
 	m_enemyModel.Update();
+	wchar_t wcsbuf[256];
+
+	swprintf_s(wcsbuf, 256, L"SCORE: %d", int(playerTotalScore));
+
+	//表示するテキストを設定。
+	m_allScorePlayer.SetText(wcsbuf);
+	//フォントの位置を設定。
+	m_allScorePlayer.SetPosition(Vector3(-500.0f, -340.0f, 0.0f));
+	//フォントの大きさを設定。
+	m_allScorePlayer.SetScale(1.0f);
+	//フォントの色を設定。
+	m_allScorePlayer.SetColor({ 1.0f,0.0f,0.0f,1.0f });
+
+
+	wchar_t wcsbufk[256];
+	swprintf_s(wcsbufk, 256, L"SCORE: %d", int(enemyTotalScore));
+	//表示するテキストを設定。
+	m_allScoreEnemy.SetText(wcsbufk);
+	//フォントの位置を設定。
+	m_allScoreEnemy.SetPosition(Vector3(300.0f, -340.0f, 0.0f));
+	//フォントの大きさを設定。
+	m_allScoreEnemy.SetScale(1.0f);
+	//フォントの色を設定。
+	m_allScoreEnemy.SetColor({ 1.0f,0.0f,0.0f,1.0f });
 }
 
 void GameResult::OnEnter()
@@ -225,6 +249,8 @@ void GameResult::Render(RenderContext& rc)
 	//モデルの描画。
 	m_playerModel.Draw(rc);
 	m_enemyModel.Draw(rc);
+	m_allScorePlayer.Draw(rc);
+	m_allScoreEnemy.Draw(rc);
 }
 
 void GameResult::Easing(FishName name, Vector3 fastPos, Vector3 endPos)
@@ -278,8 +304,7 @@ void GameResult::SetFishScore()
 
 void GameResult::SetVictory()
 {
-	float playerTotalScore = 0.0f;
-	float enemyTotalScore = 0.0f;
+	
 	playerTotalScore=m_scoreManager->GetTotalScore(CharacterType::Player);
 	enemyTotalScore = m_scoreManager->GetTotalScore(CharacterType::enemy);
 

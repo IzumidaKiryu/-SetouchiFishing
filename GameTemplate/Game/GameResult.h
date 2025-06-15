@@ -138,6 +138,10 @@ public:
 	void PalyerModelPlayAnimation();
 	void EnemyModelPlayAnimation(); //敵のアニメーションを再生する関数。
 	SoundSource* m_sound;
+	FontRender m_allScoreEnemy; // リザルト画面のフォントレンダラー
+	FontRender m_allScorePlayer; // リザルト画面のフォントレンダラー2
+	float playerTotalScore = 0.0f;
+	float enemyTotalScore = 0.0f;
 	
 	//ここまで
 };

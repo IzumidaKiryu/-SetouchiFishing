@@ -49,6 +49,17 @@ ScoreDisplay::~ScoreDisplay()
 
 void ScoreDisplay::Update()
 {
+	wchar_t wcsbuf[256];
+	swprintf_s(wcsbuf, 256, L"%d", int(m_score));
+
+	//表示するテキストを設定。
+	m_scoreFontRender.SetText(wcsbuf);
+	//フォントの位置を設定。
+	m_scoreFontRender.SetPosition(Vector3(280.0f,140.0f,0.0f));
+	//フォントの大きさを設定。
+	m_scoreFontRender.SetScale(1.7f);
+	//フォントの色を設定。
+	m_scoreFontRender.SetColor({ 0.0f,1.0f,0.0f,1.0f });
 	SetOnesPlace();
 	if (g_pad[0]->IsTrigger(enButtonA)) {
 		DeleteGO(this);
@@ -257,10 +268,11 @@ void ScoreDisplay::Render(RenderContext& rc)
 {
 	m_UIBackGround.Draw(rc);
 	m_scoreDisplay.Draw(rc);
-	m_onesPlaceUI.Draw(rc);
+	/*m_onesPlaceUI.Draw(rc);
 	m_tensPlaceUI.Draw(rc);
-	m_hundredsPlaceUI.Draw(rc);
+	m_hundredsPlaceUI.Draw(rc);*/
 	m_getFishTypeUI.Draw(rc);
+	m_scoreFontRender.Draw(rc);
 
 }
 
