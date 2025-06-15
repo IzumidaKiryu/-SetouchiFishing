@@ -18,6 +18,7 @@ class GameStateBase;
 class Title;
 class InGameState;
 class GameResult;
+class GameGuide;
 
 enum class GameState
 {
@@ -68,5 +69,6 @@ public:
 	Title* m_title;
 	InGameState* m_inGameState;
 	GameResult* m_gameResult;
+	GameGuide* m_gameGuide;
 
 	};
