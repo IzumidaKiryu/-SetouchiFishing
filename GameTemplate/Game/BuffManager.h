@@ -16,8 +16,10 @@ public:
 	float GetTotalStealBoostBuff();
 	float GetTotalPullStrengthBuff();
 	float GetTotalStaminaRegenBuff();
+	int GetBuffCount(BuffType buffType);
 private:
 	std::map<BuffType, float> m_buffEffect;
+	std::map<BuffType, int> m_buffCount;
 	void InitSetBuffEffect();
 };
 

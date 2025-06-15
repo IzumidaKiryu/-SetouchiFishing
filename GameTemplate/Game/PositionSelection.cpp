@@ -12,6 +12,7 @@
 #include "FishSlot.h"
 #include "GameStartCountdown.h"
 #include "InGameState.h"
+#include "BuffLevelUI.h"
 #include <ctime>
 #include <string>
 #include <memory>
@@ -37,6 +38,8 @@ PositionSelection::~PositionSelection() {
 /// 初期化処理。BGMやUIの設定。
 /// </summary>
 void PositionSelection::Init() {
+	m_buffLevelUI = NewGO<BuffLevelUI>(0, "buffLevelUI");
+	m_buffLevelUI->Init();
 	m_stealPositionBar = NewGO<StealPositionBar>(0, "stealPositionBar");
 	m_stealPositionBar->Init();
 	g_soundEngine->ResistWaveFileBank(1, "Assets/sound/gamebgm.wav");

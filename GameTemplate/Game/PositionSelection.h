@@ -32,6 +32,7 @@ class StealPositionBar;
 class FishSlot;
 class GameStartCountdown;
 class InGameState;
+class BuffLevelUI;
 
 /// <summary>
 /// 位置選択シーンを管理するクラス。
@@ -117,6 +118,7 @@ private:
 	FishSlot* m_fishSlot = nullptr;
 	GameStartCountdown* m_gameStartCountdown = nullptr;
 	InGameState* m_inGameState = nullptr;
+	BuffLevelUI* m_buffLevelUI = nullptr;
 
 	// 区切り境界（位置決定用）
 	const float FRONT_BACK_Z_BORDER = -388.0f;
