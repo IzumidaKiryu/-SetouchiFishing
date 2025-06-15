@@ -60,6 +60,7 @@
     <ClCompile Include="BuffManager.cpp" />
     <ClCompile Include="Pearl.cpp" />
     <ClCompile Include="BuffLevelUI.cpp" />
+    <ClCompile Include="GameGuide.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -115,5 +116,6 @@
     <ClInclude Include="BuffManager.h" />
     <ClInclude Include="Pearl.h" />
     <ClInclude Include="BuffLevelUI.h" />
+    <ClInclude Include="GameGuide.h" />
   </ItemGroup>
 </Project>
