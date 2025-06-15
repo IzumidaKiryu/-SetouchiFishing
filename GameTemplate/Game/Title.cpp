@@ -30,18 +30,71 @@ bool Title::Start()
 bool Title::Init()
 {
   spriteRender.Init("Assets/sprite/title.DDS", 1650.0f, 900.0f);
-	m_pressA.Init("Assets/modelData/PromptUI/PressA.DDS", 600.0f, 600.0f);
+	m_pressA.Init("Assets/sprite/setumei/State.DDS", 600.0f, 150.0f);
 	m_pressA.SetPivot(Vector2{ 0.0f,0.0f });
-	m_pressA.SetPosition(Vector3{ 200.0f,-500.0f,0.0f });
+	m_pressA.SetPosition(Vector3{ 100.0f,-100.0f,0.0f });
 	m_pressA.Update();
-	
+
+	m_pressB.Init("Assets/sprite/setumei/Play.DDS", 600.0f, 150.0f);
+	m_pressB.SetPivot(Vector2{ 0.0f,0.0f });
+	m_pressB.SetPosition(Vector3{ 100.0f,-300.0f,0.0f });
+	m_pressB.Update();
+
+	m_bInfo.Init("Assets/sprite/setumei/setumei.DDS",1650.0f, 900.0f);
+    m_bInfo.SetPivot(Vector2{ 0.0f,0.0f });
+    m_bInfo.SetPosition(Vector3{ 100.0f, -100.0f, 0.0f });
+    m_bInfo.Update();
+
+	/*m_bInfo.Init("Assets/sprite/setumei/setumei_2.DDS", 1650.0f, 900.0f);
+	m_bInfo.SetPivot(Vector2{ 0.0f,0.0f });
+	m_bInfo.SetPosition(Vector3{ 100.0f, -100.0f, 0.0f });
+	m_bInfo.Update();
+
+	m_bInfo.Init("Assets/sprite/setumei/setumei_3.DDS", 1650.0f, 900.0f);
+	m_bInfo.SetPivot(Vector2{ 0.0f,0.0f });
+	m_bInfo.SetPosition(Vector3{ 100.0f, -100.0f, 0.0f });
+	m_bInfo.Update();
+
+	m_bInfo.Init("Assets/sprite/setumei/setumei_4.DDS", 1650.0f, 900.0f);
+	m_bInfo.SetPivot(Vector2{ 0.0f,0.0f });
+	m_bInfo.SetPosition(Vector3{ 100.0f, -100.0f, 0.0f });
+	m_bInfo.Update();
+
+	m_bInfo.Init("Assets/sprite/setumei/setumei_5.DDS", 1650.0f, 900.0f);
+	m_bInfo.SetPivot(Vector2{ 0.0f,0.0f });
+	m_bInfo.SetPosition(Vector3{ 100.0f, -100.0f, 0.0f });
+	m_bInfo.Update();
+
+	m_bInfo.Init("Assets/sprite/setumei/setumei_6.DDS", 1650.0f, 900.0f);
+	m_bInfo.SetPivot(Vector2{ 0.0f,0.0f });
+	m_bInfo.SetPosition(Vector3{ 100.0f, -100.0f, 0.0f });
+	m_bInfo.Update();
+
+	m_bInfo.Init("Assets/sprite/setumei/setumei_7.DDS", 1650.0f, 900.0f);
+	m_bInfo.SetPivot(Vector2{ 0.0f,0.0f });
+	m_bInfo.SetPosition(Vector3{ 100.0f, -100.0f, 0.0f });
+	m_bInfo.Update();
+
+	m_bInfo.Init("Assets/sprite/setumei/setumei_8.DDS", 1650.0f, 900.0f);
+	m_bInfo.SetPivot(Vector2{ 0.0f,0.0f });
+	m_bInfo.SetPosition(Vector3{ 100.0f, -100.0f, 0.0f });
+	m_bInfo.Update();
+
+	m_bInfo.Init("Assets/sprite/setumei/setumei_9.DDS", 1650.0f, 900.0f);
+	m_bInfo.SetPivot(Vector2{ 0.0f,0.0f });
+	m_bInfo.SetPosition(Vector3{ 100.0f, -100.0f, 0.0f });
+	m_bInfo.Update();*/
+
 
 	return true;
 }
 
 void Title::OnUpdate()
 {
-	
+    // Bボタンで表示切り替え
+    if (g_pad[0]->IsTrigger(enButtonB)) {
+        m_isShowBInfo = !m_isShowBInfo;
+    }
 }
 
 bool Title::ShouldChangeState()
@@ -80,4 +133,8 @@ void Title::Render(RenderContext& rc)
 	//なぜかm_isStartがfalseになっているから描画されない。
 	spriteRender.Draw(rc);
 	m_pressA.Draw(rc);
+	m_pressB.Draw(rc);
+	if (m_isShowBInfo) {
+        m_bInfo.Draw(rc);
+    }
 }

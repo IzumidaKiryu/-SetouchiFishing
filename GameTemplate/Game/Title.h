@@ -19,7 +19,10 @@ public:
 	void Render(RenderContext& rc)override;
 
 	SpriteRender m_pressA;
+	SpriteRender m_pressB;
 	SpriteRender spriteRender ;
+	SpriteRender m_bInfo; // Bボタン説明画像用
+	bool m_isShowBInfo = false; // 表示フラグ
 	InGameState* m_inGameState;
 	SoundSource* m_sound;
 	//SoundSource* titleBGM;			//タイトルのBGM。
