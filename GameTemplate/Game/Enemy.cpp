@@ -5,10 +5,17 @@
 #include"Fish.h"
 #include"InGameState.h"
 #include"ScoreManager.h"
+#include"random"
+#include "Fish.h"
 
 Enemy::Enemy()
 {
 	srand(time(NULL));
+
+	//各レアリティーの釣り上げる確率を設定。
+	SetInitRarityProbability();
+
+	SetInitPosition(Vector3{ 0.0f,0.0f,-200.0f });
 
 }
 
@@ -184,12 +191,18 @@ void Enemy::EndFishing()
 	//釣り中？をfalseに。
 	SetIsFishingInArea(false);
 
+
+	if (DecideFishingResult(m_targetFishData.rarity)) {//成功ならスコアを加算する。
+		m_scoreManager->SetScore(m_targetFishData.score, m_targetFishData.fishType, CharacterType::enemy);
+	}
+
 	//ターゲットエリアを変える前に魚を更新する
 	m_inGameState->ChangeFish();
 
+	//ターゲットを変える。
 	SetTargetFishingArea(m_positionSelection->FindFishHighScore()/*スコアが一番高い魚を探す*/);
 
-	m_scoreManager->SetScore(m_targetFishData.score, m_targetFishData.fishType, CharacterType::enemy);
+	
 
 
 }
@@ -197,5 +210,23 @@ void Enemy::EndFishing()
 void Enemy::SetEnemyScore()
 {
 	m_targetFishData;
+}
+
+bool Enemy::DecideFishingResult(FishRarity raritu)
+{
+	std::random_device rd;
+	int randum = rd() % 100;
+
+	if (m_rarityProbability[raritu] >= randum) {
+		return true;
+	}
+	return false;
+}
+
+void Enemy::SetInitRarityProbability()
+{
+	m_rarityProbability[FishRarity::Common] = 70;
+	m_rarityProbability[FishRarity::Rare] = 60;
+	m_rarityProbability[FishRarity::SuperRare] = 10;
 }
 

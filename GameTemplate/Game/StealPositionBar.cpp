@@ -101,7 +101,7 @@ void StealPositionBar::SetBarLength()
 
 void StealPositionBar::UpdateStealGauge()
 {
-	m_stealPoint += m_gaugeDeltaPerFrame+m_buffManager->GetTotalStealBoostBuff();
+	m_stealPoint += m_gaugeDeltaPerFrame*(1+m_buffManager->GetTotalStealBoostBuff());
 	SetStockCounUI();
 }
 

@@ -8,6 +8,7 @@
 #include"GameCamera.h"
 #include"PositionSelection.h"
 #include"FishingRodHP.h"
+#include"BuffManager.h"
 #include <random>
 
 
@@ -35,6 +36,7 @@ bool FightFishState::OnStart()
 {
 	m_fishingRodHP = NewGO<FishingRodHP>(0, "fishingRodHP");
 	m_getRotation = NewGO<GetRotation>(0, "getRotation");
+	m_buffManager = FindGO<BuffManager>("buffManager");
 
 	return true;
 }
@@ -121,7 +123,7 @@ void FightFishState::CalculateCalculateFishPullForce()
 	}
 
 	//プレイヤーの体力を考慮する。
-	m_forcePullFish -= basePullForce * m_fishingRodHP->GetPowerMultiplier();
+	m_forcePullFish -= (basePullForce * m_fishingRodHP->GetPowerMultiplier())*(1+m_buffManager->GetTotalPullStrengthBuff()/*バフを掛ける*/);
 
 	/*m_current_fish_range_and_max_range_rate = -(m_forcePullFish) + m_fishEscapePower;*/
 

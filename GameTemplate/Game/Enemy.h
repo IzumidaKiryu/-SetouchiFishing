@@ -46,10 +46,21 @@ public:
 
 	void SetEnemyScore();
 
+	/// <summary>
+	/// 釣りが成功するか、失敗するかを決める。
+	/// </summary>
+	/// <returns>成功ならtrue</returns>
+	bool DecideFishingResult(FishRarity raritu);
+
 	//Vector3 position = {200.0f,100.0f,1.0f};
 
 
 private:
+
+	/// <summary>
+	/// 各レアリティーの釣り上げる確率を設定。
+	/// </summary>
+	void SetInitRarityProbability();
 
 	bool hasDecidedInitialTargetFishingArea=false;
 
@@ -69,9 +80,13 @@ private:
 	Area m_targetFishingArea= Area::INITIALSTATE;
 
 	FishData m_targetFishData;
-	InGameState* m_inGameState;
-	ScoreManager* m_scoreManager;
+	InGameState* m_inGameState=nullptr;
+	ScoreManager* m_scoreManager=nullptr;
 
 	std::map<FishType, float> m_fishingBaseTimes;
+	/// <summary>
+	/// 各魚を釣り上げる確率（整数）
+	/// </summary>
+	std::map<FishRarity,int> m_rarityProbability;
 };
 
