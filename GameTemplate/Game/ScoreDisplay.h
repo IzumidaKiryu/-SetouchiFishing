@@ -31,6 +31,7 @@ public:
 	void WhichFishUI(FishType type);
 	SpriteRender m_getFishTypeUI;
 	SpriteRender m_UIBackGround;
+	FontRender m_scoreFontRender;
 	//ここまで
 	int m_onesPlace;
 	int m_tensPlace;
