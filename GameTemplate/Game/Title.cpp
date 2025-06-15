@@ -5,6 +5,7 @@
 #include "sound/SoundEngine.h"
 #include "sound/SoundSource.h"
 #include"InGameState.h"
+#include"GameGuide.h"
 
 
 Title::Title()
@@ -59,11 +60,14 @@ bool Title::ShouldChangeState()
 		m_sound->Init(7);
 		m_sound->Play(false);
 		return true; // Aボタンが押されたら状態を変更する
-		
-
-
 	}
 
+	if (g_pad[0]->IsTrigger(enButtonX))
+	{
+		SetNextName("gameGuide");
+		return true; // Aボタンが押されたら状態を変更する
+
+	}
 	return false; // タイトル状態では状態を変更しない
 }
 

@@ -1,6 +1,8 @@
 #pragma once
 #include "sound/SoundSource.h"
 #include "GameStateBase.h"
+#include"GameGuide.h"
+
 
 //タイトル。
 class InGameState;

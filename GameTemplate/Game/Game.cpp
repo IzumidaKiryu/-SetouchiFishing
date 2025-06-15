@@ -19,6 +19,7 @@
 #include"Title.h"
 #include"GameResult.h"
 #include"InGameState.h"
+#include"GameGuide.h"
 #include< memory >
 #include <iostream>
 
@@ -91,6 +92,8 @@ void Game::NewGOStateObjects()
 	m_gameResult = NewGO<GameResult>(0,"gameResult");
 	m_gameResult->Init();
 
+	m_gameGuide=NewGO<GameGuide>(0,"gameGuide");
+	m_gameGuide->Init();
 
 
 }
@@ -98,6 +101,7 @@ void Game::NewGOStateObjects()
 void Game::DeactivateGameObjects()
 {
 	m_inGameState->Deactivate();
+	m_gameResult->Deactivate();
 	m_gameResult->Deactivate();
 }
 
