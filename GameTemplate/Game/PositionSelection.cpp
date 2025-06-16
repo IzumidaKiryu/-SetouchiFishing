@@ -32,6 +32,7 @@ PositionSelection::~PositionSelection() {
 	DeleteGO(m_player);
 	DeleteGO(m_playFishing);
 	DeleteGO(m_fishSlot);
+	DeleteGO(m_buffLevelUI);
 }
 
 /// <summary>
