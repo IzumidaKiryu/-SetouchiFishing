@@ -115,6 +115,7 @@ public:
 		m_waitTimer += g_gameTime->GetFrameDeltaTime();
 		if (m_waitTimer >= seconds) {
 			m_waiting = false;
+			
 			return true; // 待ち完了
 		}
 
@@ -122,21 +123,11 @@ public:
 	}
 
 	RenderingEngine* m_renderingEngine = nullptr; // レンダリングエンジンのポインタ
-	ModelRender m_playerModel; // プレイヤーのモデルレンダー
-	ModelRender m_enemyModel; // 敵のモデルレンダー
-	enum EnAnimationClip {
-		enAnimationClip_Idle,//待機モーション。
-		enAnimationClip_Win,//勝った時の喜び。
-		enAnimationClip_Num
-	};
-	AnimationClip m_animationClip[enAnimationClip_Num];			//アニメーションクリップ
-	AnimationClip m_enemyAnimationClip[enAnimationClip_Num];	//敵のアニメーションクリップ
-
+	
 	bool m_plVictoryFlag = false;//trueの時Playerの勝ち。
 	bool m_enVictoryFlag = false;
 	void SetVictory();//勝者の設定。
-	void PalyerModelPlayAnimation();
-	void EnemyModelPlayAnimation(); //敵のアニメーションを再生する関数。
+
 	SoundSource* m_sound;
 	FontRender m_allScoreEnemy; // リザルト画面のフォントレンダラー
 	FontRender m_allScorePlayer; // リザルト画面のフォントレンダラー2
