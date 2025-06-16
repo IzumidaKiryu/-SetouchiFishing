@@ -42,7 +42,6 @@ bool GameResult::Start()
 	}
 	//泉田追加
 	m_scoreManager = FindGO<ScoreManager>("scoreManager");
-	//g_renderingEngine->isResultFlag = true;//後回し。プレイヤーのモデルをスプライト」の上に描画。
 	//泉田追加ここまで
 	return true;
 }
@@ -63,32 +62,6 @@ bool GameResult::Init()
 	m_enemyFishUI[HIRAME].Init("Assets/modelData/score/hiramePoint.DDS", 530, 80);
 	m_enemyFishUI[SINJU].Init("Assets/modelData/score/pearlPoint.DDS", 530, 80);
 	m_enemyFishUI[JAKOTENN].Init("Assets/modelData/score/jyakotenPoint.DDS", 530, 80);
-
-
-	m_animationClip[enAnimationClip_Idle].Load("Assets/animData/Player/Idle.tka");
-	m_animationClip[enAnimationClip_Idle].SetLoopFlag(true);
-	m_enemyAnimationClip[enAnimationClip_Idle].Load("Assets/animData/Enemy/EnamyIdle.tka");
-	m_enemyAnimationClip[enAnimationClip_Idle].SetLoopFlag(true);
-	m_animationClip[enAnimationClip_Win].Load("Assets/animData/Player/Walking.tka");
-	m_animationClip[enAnimationClip_Win].SetLoopFlag(true);
-	m_enemyAnimationClip[enAnimationClip_Win].Load("Assets/animData/Enemy/EnamyWalking.tka");
-	m_enemyAnimationClip[enAnimationClip_Win].SetLoopFlag(true);
-	//リザルト用のモデルの初期化。
-	m_playerModel.Init("Assets/modelData/Player/Player.tkm",m_animationClip,enAnimationClip_Num,enModelUpAxisZ);
-	m_enemyModel.Init("Assets/modelData/Enemy/Enemy.tkm",m_enemyAnimationClip,enAnimationClip_Idle,enModelUpAxisZ);
-	
-	//位置決め。
-	m_playerModel.SetPosition(Vector3(-350.0f, 0.0f, 0.0f));
-	m_enemyModel.SetPosition(Vector3(0.0f, 0.0f, 0.0f));
-	//回転初期化。
-	m_playerModel.SetRotation(Quaternion::Identity);
-	m_enemyModel.SetRotation(Quaternion::Identity);
-	//大きさ初期化。
-	m_playerModel.SetScale(Vector3(0.5f, 0.5f, 0.5f));
-	m_enemyModel.SetScale(Vector3(0.5f, 0.5f, 0.5f));
-
-	m_playerModel.Update();
-	m_enemyModel.Update();
 	return true;
 }
 
@@ -167,11 +140,6 @@ void GameResult::OnUpdate()
 	m_enemyFishUI[JAKOTENN].Update();
 	m_back.Update();
 	SetVictory();
-	PalyerModelPlayAnimation();
-	EnemyModelPlayAnimation();
-	//モデルの更新。
-	m_playerModel.Update();
-	m_enemyModel.Update();
 	wchar_t wcsbuf[256];
 
 	swprintf_s(wcsbuf, 256, L"SCORE: %d", int(playerTotalScore));
@@ -246,9 +214,6 @@ void GameResult::Render(RenderContext& rc)
 		m_fontRender[i].Draw(rc);
 		m_fontRender[i + 6].Draw(rc);
 	}
-	//モデルの描画。
-	m_playerModel.Draw(rc);
-	m_enemyModel.Draw(rc);
 	m_allScorePlayer.Draw(rc);
 	m_allScoreEnemy.Draw(rc);
 }
@@ -261,7 +226,7 @@ void GameResult::Easing(FishName name, Vector3 fastPos, Vector3 endPos)
 
 	if (m_t[name] > 1.0f) {
 		m_t[name] = 1.0f;
-		if (WaitSeconds(0.8f) == true) {
+		if (WaitSeconds(0.5f) == true) {
 			nowFishName++;
 		}
 	}
@@ -319,28 +284,4 @@ void GameResult::SetVictory()
 		m_enVictoryFlag = true;//エネミーの勝ち。
 	}
 }
-
-void GameResult::PalyerModelPlayAnimation()
-{
-	if (m_plVictoryFlag == true) {
-		m_playerModel.PlayAnimation(enAnimationClip_Win);
-
-	}
-	else {
-		m_playerModel.PlayAnimation(enAnimationClip_Idle);
-	}
-}
-
-void GameResult::EnemyModelPlayAnimation()
-{
-	if (m_enVictoryFlag == true) {
-		m_enemyModel.PlayAnimation(enAnimationClip_Win);
-	}
-	else {
-		m_enemyModel.PlayAnimation(enAnimationClip_Idle);
-
-	}
-}
-
-
 
