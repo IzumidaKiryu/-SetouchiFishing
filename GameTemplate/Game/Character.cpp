@@ -17,7 +17,7 @@ bool Character::Init()
 	
 	InitFishingInArea();
 	//キャラコンを初期化する。
-	characterController.Init(25.0f, 75.0f, m_position);
+	characterController.Init(25.0f, 75.0f, m_position+m_initpos);
 
 	
 	return true;
@@ -111,7 +111,7 @@ void Character::Move()
 		moveSpeed.y -= 2.5f;
 	}
 	//キャラクターコントローラーを使って座標を移動させる。
-	m_position = m_initpos +characterController.Execute(moveSpeed, 1.0f / 60.0f);
+	m_position = characterController.Execute(moveSpeed, 1.0f / 60.0f);
 
 	//絵描きさんに座標を教える。
 	modelRender.SetPosition(m_position);
