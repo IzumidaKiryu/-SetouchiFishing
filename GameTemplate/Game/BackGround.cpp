@@ -28,15 +28,21 @@ bool BackGround::Init()
 
 	//コメントアウトする。
 
-	/*PhysicsWorld::GetInstance()->EnableDrawDebugWireFrame();*/
+	PhysicsWorld::GetInstance()->EnableDrawDebugWireFrame();
+
 	m_ship.SetPosition(m_shipPosition);
 	m_ship.SetScale(Vector3{ 1.0f,1.0f,1.0f }*1.5f);
 	m_ship.Init("Assets/modelData/2Dship.tkm", nullptr, 0, enModelUpAxisZ, false, true);
 
-	//modelRender.Init("Assets/material/stera.tkm");
-	m_ship.Update();
+	m_hitBox.SetPosition(m_shipPosition);
+	m_hitBox.SetScale(Vector3{1.0f,1.0f,1.0f }*1.5f);
+	m_hitBox.Init("Assets/modelData/2DShipFloor.tkm", nullptr, 0, enModelUpAxisZ, false, true);
 
-	physicsStaticObject.CreateFromModel(m_ship.GetModel(), m_ship.GetModel().GetWorldMatrix());
+
+	//modelRender.Init("Assets/material/stera.tkm");
+	m_hitBox.Update();
+
+	physicsStaticObject.CreateFromModel(m_hitBox.GetModel(), m_hitBox.GetModel().GetWorldMatrix());
 
 
 	m_sea.SetPosition(/*m_positio*/Vector3{ 1.0f,1.0f,1.0f });
