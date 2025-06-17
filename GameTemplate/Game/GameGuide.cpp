@@ -11,25 +11,26 @@ GameGuide::~GameGuide()
 
 bool GameGuide::Start()
 {
-	return false;
+	return true;
 }
 
 bool GameGuide::Init()
 {
+	SetGuidSprite();
 	return true;
 }
 
 void GameGuide::SetGuidSprite()
 {
-	m_GuideSprite[0].Init("Assets/modelData/Guide_a.DDS", 1650.0f, 900.0f);
-	m_GuideSprite[1].Init("Assets/modelData/Guide_b.DDS", 1650.0f, 900.0f);
-	m_GuideSprite[2].Init("Assets/modelData/Guide_c.DDS", 1650.0f, 900.0f);
-	m_GuideSprite[3].Init("Assets/modelData/Guide_d.DDS", 1650.0f, 900.0f);
-	m_GuideSprite[4].Init("Assets/modelData/Guide_e.DDS", 1650.0f, 900.0f);
-	m_GuideSprite[5].Init("Assets/modelData/Guide_f.DDS", 1650.0f, 900.0f);
-	m_GuideSprite[6].Init("Assets/modelData/Guide_g.DDS", 1650.0f, 900.0f);
-	m_GuideSprite[7].Init("Assets/modelData/Guide_h.DDS", 1650.0f, 900.0f);
-	m_GuideSprite[8].Init("Assets/modelData/Guide_i.DDS", 1650.0f, 900.0f);
+	m_GuideSprite[0].Init("Assets/sprite/setumei/setumei_2.DDS", 1650.0f, 900.0f);
+	m_GuideSprite[1].Init("Assets/sprite/setumei/setumei_3.DDS", 1650.0f, 900.0f);
+	m_GuideSprite[2].Init("Assets/sprite/setumei/setumei_4.DDS", 1650.0f, 900.0f);
+	m_GuideSprite[3].Init("Assets/sprite/setumei/setumei_5.DDS", 1650.0f, 900.0f);
+	m_GuideSprite[4].Init("Assets/sprite/setumei/setumei_6.DDS", 1650.0f, 900.0f);
+	m_GuideSprite[5].Init("Assets/sprite/setumei/setumei_7.DDS", 1650.0f, 900.0f);
+	m_GuideSprite[6].Init("Assets/sprite/setumei/setumei_8.DDS", 1650.0f, 900.0f);
+	m_GuideSprite[7].Init("Assets/sprite/setumei/setumei_9.DDS", 1650.0f, 900.0f);
+	m_GuideSprite[8].Init("Assets/sprite/setumei/setumei.DDS", 1650.0f, 900.0f);
 
 
 }
@@ -51,7 +52,9 @@ void GameGuide::OnUpdate()
 
 bool GameGuide::ShouldChangeState()
 {
-	if (m_pageIndex <= 9) {
+	if (m_pageIndex >= 9) {
+		SetNextName("inGameState");
+
 		return true;
 	}
 	else {

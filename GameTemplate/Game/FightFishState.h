@@ -31,6 +31,7 @@ public:
 	void Update();
 
 	void FishDirectionChange();//魚が向いている方向を変える。
+	void SetInitFishDirection();
 
 	void CalculateDistanceMultiplier();//距離による魚の力の倍率を計算する。
 	void CalculateCalculateFishPullForce();//魚を引っ張る力を計算する。
