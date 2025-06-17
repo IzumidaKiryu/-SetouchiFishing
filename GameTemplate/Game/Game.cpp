@@ -102,7 +102,7 @@ void Game::DeactivateGameObjects()
 {
 	m_inGameState->Deactivate();
 	m_gameResult->Deactivate();
-	m_gameResult->Deactivate();
+	m_gameGuide->Deactivate();
 }
 
 void Game::ResetInGame()
