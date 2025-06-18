@@ -21,6 +21,7 @@ public:
 	void Render(RenderContext& rc)override;
 
 	SpriteRender m_pressA;
+	SpriteRender m_pressX;
 	SpriteRender spriteRender ;
 	InGameState* m_inGameState;
 	SoundSource* m_sound;
