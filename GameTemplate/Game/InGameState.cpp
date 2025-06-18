@@ -256,6 +256,8 @@ void InGameState::DeleteGameObjects()
 	for (int i = 0; i < 6; i++) {
 		DeleteGO(m_fishManager[i]);
 	}
+	DeleteGO(m_scoreManager);
+
 }
 
 /// <summary>
