@@ -176,12 +176,27 @@ void GameResult::OnExit()
 	m_game->ResetInGame();
 }
 
+void GameResult::Reset()
+{
+	for (int i = 0; i < num; i++) {
+		m_vec[i] = Vector3(1050.0f, 0.0f, 0.0f);
+		m_enemyVec[i] = Vector3(1050.0f, 0.0f, 0.0f);
+		m_t[i] = 0.0f;
+		m_enemyT[i] = 0.0f;
+		m_fishUI[i].SetPosition(m_vec[i]);
+		m_enemyFishUI[i].SetPosition(m_enemyVec[i]);
+		m_alpha[i] = 0.0f;
+		m_enemyAlpha[i] = 0.0f;
+		nowFishName = TAI;
+	}
+}
 
 bool GameResult::ShouldChangeState()
 {
 	if (g_pad[0]->IsTrigger(enButtonA))
 	{
 		SetNextName("title");
+		Reset();
         DeleteGO(m_sound);
 		return true;
 	}
