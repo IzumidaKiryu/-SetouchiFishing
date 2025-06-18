@@ -31,10 +31,16 @@ bool Title::Start()
 bool Title::Init()
 {
   spriteRender.Init("Assets/sprite/title.DDS", 1650.0f, 900.0f);
-	m_pressA.Init("Assets/modelData/PromptUI/PressA.DDS", 600.0f, 600.0f);
+
+	m_pressA.Init("Assets/sprite/setumei/stateUI.DDS", 600.0f, 150.0f);
 	m_pressA.SetPivot(Vector2{ 0.0f,0.0f });
-	m_pressA.SetPosition(Vector3{ 200.0f,-500.0f,0.0f });
+	m_pressA.SetPosition(Vector3{ 100.0f,-150.0f,0.0f });
 	m_pressA.Update();
+
+	m_pressX.Init("Assets/sprite/setumei/playUI.DDS", 600.0f, 150.0f);
+	m_pressX.SetPivot(Vector2{ 0.0f,0.0f });
+	m_pressX.SetPosition(Vector3{ 100.0f,-350.0f,0.0f });
+	m_pressX.Update();
 	
 
 	return true;
@@ -84,4 +90,5 @@ void Title::Render(RenderContext& rc)
 	//なぜかm_isStartがfalseになっているから描画されない。
 	spriteRender.Draw(rc);
 	m_pressA.Draw(rc);
+	m_pressX.Draw(rc);
 }
