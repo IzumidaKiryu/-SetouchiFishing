@@ -37,6 +37,7 @@ bool FightFishState::OnStart()
 	m_fishingRodHP = NewGO<FishingRodHP>(0, "fishingRodHP");
 	m_getRotation = NewGO<GetRotation>(0, "getRotation");
 	m_buffManager = FindGO<BuffManager>("buffManager");
+	SetInitFishDirection();
 
 	return true;
 }
@@ -201,6 +202,30 @@ void FightFishState::FishDirectionChange()
 	//	SetFishUpward();
 	//}
 	//ここまで
+}
+
+void FightFishState::SetInitFishDirection()
+{
+		std::random_device rd;
+		int randum = rd() % 2;
+
+		switch (randum)
+		{
+
+		case 0:
+				SetFishDownward();
+			break;
+
+		case 1:
+				SetFishUpward();
+			break;
+
+		default:
+			break;
+			/*}*/
+			m_fishChange_in_DirectionTimes++;//方向転換した数を数える。
+		}
+
 }
 
 //void FightFishState::InitFishDirection()

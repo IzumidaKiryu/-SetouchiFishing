@@ -21,6 +21,7 @@ public:
 	ModelRender m_ship;
 	ModelRender m_sea;
 	ModelRender m_isrand;
+	ModelRender m_hitBox;
 	PhysicsStaticObject physicsStaticObject;
 	//SoundSource* m_sound;
 };
