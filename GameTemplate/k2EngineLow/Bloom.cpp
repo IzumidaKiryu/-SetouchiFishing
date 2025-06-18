@@ -76,10 +76,10 @@ void nsK2EngineLow::Bloom::Render(RenderContext& rc, RenderTarget&renderTarget)
 	//luminanceRenderTarget終了。
 
 	//ガウシアンブラーの実行。
-	gaussianBulur[0].ExecuteOnGPU(rc, 7);
-	gaussianBulur[1].ExecuteOnGPU(rc, 7);
-	gaussianBulur[2].ExecuteOnGPU(rc, 7);
-	gaussianBulur[3].ExecuteOnGPU(rc, 7);
+	gaussianBulur[0].ExecuteOnGPU(rc, 20);
+	gaussianBulur[1].ExecuteOnGPU(rc, 20);
+	gaussianBulur[2].ExecuteOnGPU(rc, 20);
+	gaussianBulur[3].ExecuteOnGPU(rc, 20);
 
 	//mainRenderTargetのセット。
 	rc.WaitUntilToPossibleSetRenderTarget(renderTarget);

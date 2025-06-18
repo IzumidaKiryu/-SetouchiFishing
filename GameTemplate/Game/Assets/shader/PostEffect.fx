@@ -35,14 +35,14 @@ float4 PSSamplingLuminance(PSInput In):SV_Target0
     float4 color = mainRenderTargetTexture.Sample(Sampler, In.uv);
 
     // サンプリングしたカラーの明るさを計算
-    //float t = dot(color.xyz, float3(0.2125f, 0.7154f, 0.0721f));
-    float t = dot(color.xyz, float3(0.299f, 0.587f, 0.114f));
+    float t = dot(color.xyz, float3(0.2125f, 0.7154f, 0.0721f));
+    //float t = dot(color.xyz, float3(0.299f, 0.587f, 0.114f));
 
     // clip()関数は引数の値がマイナスになると、以降の処理をスキップする
     // なので、マイナスになるとピクセルカラーは出力されない
     // 今回の実装はカラーの明るさが1以下ならピクセルキルする
     //clip(t - 0.85f);//調整した値。
-    clip(t - 0.85f);//ブルーム確認用。
+    clip(t - 1.0f);//ブルーム確認用。
 
     return color;
 }
@@ -63,7 +63,7 @@ float4 PSBloomFinal(PSInput In) : SV_Target0
     combineColor += g_bokeTexture_3.Sample(Sampler, In.uv);
     combineColor /= 4.0f;
     //ブルームの強さを0.5倍に調整
-    combineColor.rgb *= 0.3f;
+    combineColor.rgb *= 0.5f;
     combineColor.a = 1.0f;
     return combineColor;
 }
