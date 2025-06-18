@@ -253,6 +253,9 @@ void InGameState::DeleteGameObjects()
 	DeleteGO(m_enemy);
 	DeleteGO(m_timeLimitUI);
 	DeleteGO(m_buffManager);
+	for (int i = 0; i < 6; i++) {
+		DeleteGO(m_fishManager[i]);
+	}
 }
 
 /// <summary>
