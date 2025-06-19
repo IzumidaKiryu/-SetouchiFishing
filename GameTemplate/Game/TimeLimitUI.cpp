@@ -33,7 +33,7 @@ void TimeLimitUI::Update()
 	//フォントの大きさを設定。
 	m_timeFont.SetScale(3.0f);
 	//フォントの色を設定。
-	m_timeFont.SetColor({ 0.0f,0.0f,0.0f,1.0f });
+	m_timeFont.SetColor({ 1.0f,1.0f,1.0f,1.0f });
 }
 void TimeLimitUI::SetTime(int time)
 {

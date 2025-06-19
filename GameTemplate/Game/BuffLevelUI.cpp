@@ -71,6 +71,6 @@ void BuffLevelUI::UpdateFont(BuffType type)
 	//フォントの大きさを設定。
 	m_buffLevelFont[type].SetScale(m_fontScale);
 	//フォントの色を設定。
-	m_buffLevelFont[type].SetColor({ 0.0f,0.0f,0.0f,1.0f });
+	m_buffLevelFont[type].SetColor({ 1.0f,1.0f,1.0f,1.0f });
 
 }
