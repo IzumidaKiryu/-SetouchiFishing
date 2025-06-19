@@ -122,7 +122,7 @@ void FishingRodHP::SetUI()
 	
 	m_reelChanceUI.Init("Assets/modelData/PromptUI/ReelChance.DDS", 200.0f, 200);
 	m_reelChanceUI.SetPivot(Vector2(0.0f, 0.0f));
-	m_reelChanceUI.SetPosition(Vector3(-600.0f, -300.0f, 0.0f));
+	m_reelChanceUI.SetPosition(Vector3(430.0f, -100.0f, 0.0f));
 	m_reelChanceUI.SetScale(Vector3{ 1.0f, 1.0f, 1.0f });
 	m_reelChanceUI.Update();
 
