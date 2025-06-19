@@ -32,7 +32,7 @@ bool BackGround::Init()
 
 	m_ship.SetPosition(m_shipPosition);
 	m_ship.SetScale(Vector3{ 1.0f,1.0f,1.0f }*1.5f);
-	m_ship.Init("Assets/modelData/2Dship.tkm", nullptr, 0, enModelUpAxisZ, false, true);
+	m_ship.Init("Assets/modelData/2DShip/2DNewShip.tkm", nullptr, 0, enModelUpAxisZ, false, true);
 
 	m_hitBox.SetPosition(m_shipPosition);
 	m_hitBox.SetScale(Vector3{1.0f,1.0f,1.0f }*1.5f);
