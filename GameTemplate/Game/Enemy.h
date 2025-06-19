@@ -7,6 +7,7 @@ class BackGround;
 class PositionSelection;
 class InGameState;
 class ScoreManager;
+class PlayFishing;
 class Enemy :public Character
 {
 public:

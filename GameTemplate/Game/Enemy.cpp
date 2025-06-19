@@ -7,6 +7,7 @@
 #include"ScoreManager.h"
 #include"random"
 #include "Fish.h"
+#include"PlayFishing.h"
 
 Enemy::Enemy()
 {
@@ -76,7 +77,6 @@ void Enemy::Update()
 	}
 
 	
-	
 
 
 	
@@ -133,7 +133,10 @@ void Enemy::SetMoveSpeed()
 //描画処理。
 void Enemy::Render(RenderContext& rc)
 {
-	modelRender.Draw(rc);
+	m_playFishing = FindGO<PlayFishing>("playFishing");
+	if (m_playFishing == nullptr) {
+		modelRender.Draw(rc);
+	}
 }
 
 void Enemy::SetCountdownFinished(bool countdownFinished)
@@ -191,6 +194,11 @@ void Enemy::EndFishing()
 	//釣り中？をfalseに。
 	SetIsFishingInArea(false);
 
+
+	
+	if (m_targetFishData.score < 0) {
+		m_scoreManager->SetScore(m_targetFishData.score, m_targetFishData.fishType, CharacterType::enemy);
+	}
 
 	if (DecideFishingResult(m_targetFishData.rarity)) {//成功ならスコアを加算する。
 		m_scoreManager->SetScore(m_targetFishData.score, m_targetFishData.fishType, CharacterType::enemy);

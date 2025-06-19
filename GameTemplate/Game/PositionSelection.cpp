@@ -92,11 +92,11 @@ void PositionSelection::Render(RenderContext& rc) {
 	if (!m_isCountdownFinished) return;
 
 	m_stealPositionBar->DisplayUI(rc);
-	if (!m_shouldPartiallyDeactivate) {
+	//if (!m_shouldPartiallyDeactivate) {
 		m_fishSlot->ShowUI(rc);
 		m_PressAtoSelect.Draw(rc);
 		m_buffLevelUI->DisplayUI(rc);
-	}
+	//}
 }
 
 /// <summary>
@@ -133,7 +133,7 @@ bool PositionSelection::GetisDisplaying() { return m_is_displaying; }
 /// </summary>
 void PositionSelection::SetDeactivate() {
 	m_player->Deactivate();
-	m_enemy->Deactivate();
+	//m_enemy->Deactivate();
 	m_gameCamera->Deactivate();
 	m_shouldPartiallyDeactivate = true;
 }
