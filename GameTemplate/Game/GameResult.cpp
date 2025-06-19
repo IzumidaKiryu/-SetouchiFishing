@@ -23,26 +23,7 @@ GameResult::~GameResult()
 
 bool GameResult::Start()
 {
-	g_soundEngine->ResistWaveFileBank(2, "Assets/sound/gameResultBGM.wav");
 
-	m_sound = NewGO<SoundSource>(2);
-
-	m_sound->Init(2);
-
-	m_sound->Play(false);
-
-	for (int i = 0; i < num; i++)
-	{
-		m_vec[i] = Vector3(1050.0f,0.0f,0.0f);
-		m_enemyVec[i] = Vector3(1050.0f, 0.0f, 0.0f);
-		m_t[i] = 0.0f;
-		m_enemyT[i] = 0.0f;
-		m_fishUI[i].SetPosition(m_vec[i]);
-		m_enemyFishUI[i].SetPosition(m_enemyVec[i]);
-	}
-	//泉田追加
-	m_scoreManager = FindGO<ScoreManager>("scoreManager");
-	//泉田追加ここまで
 	return true;
 }
 
@@ -100,6 +81,7 @@ void GameResult::OnUpdate()
 	}
 
 	SetFishScore();
+
 
 	//表示するテキストを設定。
 	for (int i = 0; i < 6; i++) {
@@ -167,11 +149,33 @@ void GameResult::OnUpdate()
 }
 
 void GameResult::OnEnter()
-{
+{	
+	g_soundEngine->ResistWaveFileBank(2, "Assets/sound/gameResultBGM.wav");
+
+	m_sound = NewGO<SoundSource>(2);
+
+	m_sound->Init(2);
+
+	m_sound->Play(false);
+
+	for (int i = 0; i < num; i++)
+	{
+		m_vec[i] = Vector3(1050.0f, 0.0f, 0.0f);
+		m_enemyVec[i] = Vector3(1050.0f, 0.0f, 0.0f);
+		m_t[i] = 0.0f;
+		m_enemyT[i] = 0.0f;
+		m_fishUI[i].SetPosition(m_vec[i]);
+		m_enemyFishUI[i].SetPosition(m_enemyVec[i]);
+	}
+	//泉田追加
+	m_scoreManager = FindGO<ScoreManager>("scoreManager");
+	//泉田追加ここまで
+
 }
 
 void GameResult::OnExit()
 {
+	DeleteGO(m_scoreManager);
 	m_game = FindGO<Game>("game");
 	m_game->ResetInGame();
 }

@@ -18,13 +18,6 @@ Title::~Title()
 
 bool Title::Start()
 {
-	g_soundEngine->ResistWaveFileBank(0,"Assets/sound/gameTiileBGM.wav");
-
-	m_sound = NewGO<SoundSource>(0);
-
-	m_sound->Init(0);
-
-	m_sound->Play(false);
 	return true;
 }
 
@@ -79,6 +72,13 @@ bool Title::ShouldChangeState()
 
 void Title::OnEnter()
 {
+	g_soundEngine->ResistWaveFileBank(0, "Assets/sound/gameTiileBGM.wav");
+
+	m_sound = NewGO<SoundSource>(0);
+
+	m_sound->Init(0);
+
+	m_sound->Play(false);
 }
 
 void Title::OnExit()
