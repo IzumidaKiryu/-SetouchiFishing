@@ -79,8 +79,10 @@ void Character::SetAnimationClipsLoad(const char* animationClip_Idle, const char
 	animationClips[enAnimationClip_Cast].SetLoopFlag(false);
 
 }
-void Character::SetRodAnimationClipsLoad(const char* animationClip_Rod)
+void Character::SetRodAnimationClipsLoad(const char* animationClip_Rod,const char*anim)
 {
+	m_rodAnimationClips[enAnimationClip_RodIdle].Load(anim);
+	m_rodAnimationClips[enAnimationClip_RodIdle].SetLoopFlag(true);
 	m_rodAnimationClips[enAnimationClip_Rod].Load(animationClip_Rod);
 	m_rodAnimationClips[enAnimationClip_Rod].SetLoopFlag(false);
 }

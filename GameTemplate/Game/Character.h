@@ -32,7 +32,7 @@ public:
 		const char* animationClip_Cast
 	);
 
-	void SetRodAnimationClipsLoad(const char* animationClip_Rod);
+	void SetRodAnimationClipsLoad(const char* animationClip_Rod,const char*anim);
 	//ムーブスピードを設定。
 	void virtual SetMoveSpeed();
 	//移動処理。
@@ -82,6 +82,7 @@ public:
 		enAnimationClip_Num
 	};
 	enum EnRodAnimationClip {
+		enAnimationClip_RodIdle,
 		enAnimationClip_Rod,
 		enAnimationClip_RodNum
 	};

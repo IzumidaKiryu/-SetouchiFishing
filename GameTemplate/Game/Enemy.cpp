@@ -38,9 +38,9 @@ bool Enemy::Init()
 		"Assets/animData/Player/FishingCast.tka"
 	);
 
-	SetRodAnimationClipsLoad(
-		"Assets/animData/Player/rod.tka"
-	);
+	//SetRodAnimationClipsLoad(
+	//	"Assets/animData/Player/rod.tka"
+	//);
 
 	//ユニティちゃんのモデルを読み込む。
 	SetModel("Assets/modelData/Enemy/Enemy.tkm", animationClips, enAnimationClip_Num, enModelUpAxisZ, true, false);

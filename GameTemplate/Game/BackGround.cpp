@@ -28,7 +28,7 @@ bool BackGround::Init()
 
 	//コメントアウトする。
 
-	PhysicsWorld::GetInstance()->EnableDrawDebugWireFrame();
+	//PhysicsWorld::GetInstance()->EnableDrawDebugWireFrame();
 
 	m_ship.SetPosition(m_shipPosition);
 	m_ship.SetScale(Vector3{ 1.0f,1.0f,1.0f }*1.5f);

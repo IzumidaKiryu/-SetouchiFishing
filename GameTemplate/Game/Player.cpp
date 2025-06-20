@@ -32,6 +32,7 @@ bool Player::Init()
 	);
 
 	SetRodAnimationClipsLoad(
+		"Assets/animData/Player/rod.tka",
 		"Assets/animData/Player/rod.tka"
 	/*	"Assets/animData/Player/akoyagaiFinishMorph.tka"*/
 	);
