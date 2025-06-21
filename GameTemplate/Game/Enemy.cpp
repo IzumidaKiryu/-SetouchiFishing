@@ -194,12 +194,6 @@ void Enemy::EndFishing()
 	//釣り中？をfalseに。
 	SetIsFishingInArea(false);
 
-
-	
-	if (m_targetFishData.score < 0) {
-		m_scoreManager->SetScore(m_targetFishData.score, m_targetFishData.fishType, CharacterType::enemy);
-	}
-
 	if (DecideFishingResult(m_targetFishData.rarity)) {//成功ならスコアを加算する。
 		m_scoreManager->SetScore(m_targetFishData.score, m_targetFishData.fishType, CharacterType::enemy);
 	}

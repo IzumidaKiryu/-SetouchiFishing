@@ -81,6 +81,8 @@ public:
 	FishData& GetFishData();
 	float GetFIshScore();
 
+	PlayFishingStatus GetPlayFishingStatus()const;
+
 	bool canNewGOFishingRodHP = true; // RodHPのNewGOを許可するか
 
 	// ==============================

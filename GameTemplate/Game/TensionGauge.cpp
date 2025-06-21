@@ -45,9 +45,18 @@ bool TensionGauge::Init()
 	m_tensionGaugeOutside.SetScale(Vector3{ 2.0f, 1.0f, 1.0f });
 	m_tensionGaugeOutside.Update();
 
-	m_signs_of_Fish.Init("Assets/modelData/new_signs_of_fish.DDS", 50, 50);
-	m_signs_of_Fish.SetPivot(Vector2(0.5f, 1.0f));
+	m_signs_of_Fish.Init("Assets/modelData/FishShadow/new_signs_of_fish.DDS", 50, 80);
+	m_signs_of_Fish.SetPivot(Vector2(0.5f, 0.8f));
 	m_signs_of_Fish.SetScale(Vector3{ 1.0f, 1.0f, 1.0f });
+
+	m_signs_of_Fish_FlappingFins[0];
+	m_signs_of_Fish_FlappingFins[0].Init("Assets/modelData/FishShadow/fish_FinFlap_a.DDS", 50, 80);
+	m_signs_of_Fish_FlappingFins[0].SetPivot(Vector2(0.5f, 0.8f));
+
+	m_signs_of_Fish_FlappingFins[1];
+	m_signs_of_Fish_FlappingFins[1].Init("Assets/modelData/FishShadow/fish_FinFlap_b.DDS", 50, 80);
+	m_signs_of_Fish_FlappingFins[1].SetPivot(Vector2(0.5f, 0.8f));
+
 
 
 	m_rodFloatUI.Init("Assets/modelData/rod_float.DDS", 50, 50);
@@ -74,6 +83,9 @@ void TensionGauge::Update()
 	/*SetFishUI_Position();*/
 	SetFloatScale();
 	/*SetFishUI_Position();*/
+	if (m_isFinFlapping) {
+		FishUIFinFlap();
+	}
 }
 
 void TensionGauge::FindGOGameObject()
@@ -136,6 +148,25 @@ void TensionGauge::FindGOFishDetectionRadius()
 void TensionGauge::FindGORodFloatMove()
 {
 	m_rodFloatMove = FindGO<RodFloatMove>("rodFloatMove");
+}
+
+void TensionGauge::FishUIFinFlap()
+{
+	m_flapElapsedTime ++;
+
+	if (m_flapElapsedTime > m_flapSwitchInterval) {
+		m_flapElapsedTime = 0.0f;
+		m_flapFrameType = (m_flapFrameType == FlapFrameType::A) ? FlapFrameType::B : FlapFrameType::A;
+	}
+	if (m_isFinFlapping) {//ヒレをパタパタさせる。
+		m_signs_of_Fish_FlappingFins[static_cast<int>(m_flapFrameType)].SetPosition(m_signs_of_Fish.GetPosition());
+	}
+	m_signs_of_Fish_FlappingFins[static_cast<int>(m_flapFrameType)].Update();
+}
+
+void TensionGauge::SetIsFinFlapping(bool isFinFlapping)
+{
+	m_isFinFlapping = isFinFlapping;
 }
 
 //void TensionGauge::Set_signs_of_Fish_UI()
@@ -297,12 +328,18 @@ void TensionGauge::SetUpwardFishUI()
 {
 	m_signs_of_Fish.SetRotation(m_upward);
 	m_signs_of_Fish.Update();
+	//シーンファイトフィッシュの時はヒレをパタパタさせる。
+	if (m_playFishing->GetPlayFishingStatus() == sceneFightFish) {
+		m_isFinFlapping = true; //上向きの魚影はひれをバタバタさせる。
+	}
 }
 
 void TensionGauge::SetDownwardFishUI()
 {
 	m_signs_of_Fish.SetRotation(m_downward);
 	m_signs_of_Fish.Update();
+
+		m_isFinFlapping = false;//下向きの魚影はヒレをパタパタさせない。
 }
 
 
@@ -317,8 +354,14 @@ void TensionGauge::Render(RenderContext& rc)
 
 	m_tensionGaugeOutside.Draw(rc);
 
-	m_signs_of_Fish.Draw(rc);
+	if (m_isFinFlapping) {
+		m_signs_of_Fish_FlappingFins[static_cast<int>(m_flapFrameType)].Draw(rc);
 
+	}
+	else {
+		m_signs_of_Fish.Draw(rc);
+
+	}
 
 	if (m_playFishing->m_playFishingStatus >= PlayFishingStatus::cast) {
 

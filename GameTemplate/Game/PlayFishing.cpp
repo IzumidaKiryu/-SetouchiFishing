@@ -130,6 +130,11 @@ float PlayFishing::GetFIshScore() {
 	return m_fishData.score;
 }
 
+PlayFishingStatus PlayFishing::GetPlayFishingStatus() const
+{
+	return m_playFishingStatus;
+}
+
 // ゲームオブジェクトの検索
 void PlayFishing::FindGameObjects() {
 	m_inGameState = FindGO<InGameState>("inGameState");
