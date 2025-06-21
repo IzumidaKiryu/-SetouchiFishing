@@ -4,6 +4,7 @@
 #include "FightFishState.h"
 
 
+
 class GetRotation;
 class PlayFishing;
 class FishingRodHP;
@@ -13,7 +14,11 @@ class FishDetectionRadius;
 class TensionGauge :public IGameObject
 {
 public:
-
+	enum class FlapFrameType {
+		A,
+		B,
+		Count // フレーム数としても使える
+	};
 	TensionGauge();
 	~TensionGauge();
 	bool Init();
@@ -35,11 +40,24 @@ public:
 	// 瞬間にこの関数を呼びFindGOする。
 	void FindGOFishDetectionRadius();
 	void FindGORodFloatMove();
+	void FishUIFinFlap();
+	void SetIsFinFlapping(bool isFinFlapping);
 
 
 	//void AnnounceChangeFishState();
 
+private:
 
+
+
+	FlapFrameType m_flapFrameType = FlapFrameType::A;
+	float m_flapElapsedTime = 0.0f;
+	const float m_flapSwitchInterval = 10;
+
+	/// <summary>
+	/// 魚のUIを初期化
+	/// </summary>
+	void InitFishUI();
 	float m_barBottom = -335.0f;//ゲージ下端。
 	float m_barTop = 317.0f;//ゲージの上端。
 	float m_bar_length = std::abs(m_barTop) + std::abs(m_barBottom);//バーの長さ。(abs()は絶対値を求める関数。)
@@ -50,11 +68,13 @@ public:
 	//円周率
 	double pie = 3.141592653589793;
 
+	bool m_isFinFlapping = false;
 	Vector3 m_baseSigns_of_FishUiSize = Vector3::One;
 	FIshState m_fishState;
 	SpriteRender m_tensionGaugeInside;
 	SpriteRender m_tensionGaugeOutside;
 	SpriteRender m_signs_of_Fish;//魚影
+	SpriteRender m_signs_of_Fish_FlappingFins[2];//魚影がひれをパタパタさせるUI
 	SpriteRender m_rodFloatUI;
 	PlayFishing* m_playFishing = nullptr;
 	FightFishState* m_fightFishState = nullptr;
@@ -64,4 +84,5 @@ public:
 	FishDetectionRadius* m_fishDetectionRadius = nullptr;
 
 	void Render(RenderContext& rc);
+
 };

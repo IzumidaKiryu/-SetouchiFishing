@@ -186,6 +186,7 @@ void FightFishState::FishDirectionChange()
 			case Downward:
 				if (randum < m_fishData.upwardBias) {
 					SetFishUpward();
+					m_tensionGauge->SetIsFinFlapping(true);//UIの魚のヒレを動かす。
 				}
 				break;
 
