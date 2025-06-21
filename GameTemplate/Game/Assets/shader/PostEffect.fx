@@ -1,8 +1,8 @@
-//cbuffer cb : register(b0)
-//{
-//    float4x4 mvp; //MVP行列。
-//    float4 mulColor; //乗算カラー。
-//};
+cbuffer cb : register(b0)
+{
+    float4x4 mvp; //MVP行列。
+    float4 mulColor; //乗算カラー。
+};
 
 struct VSInput
 {
@@ -20,7 +20,7 @@ struct PSInput
 PSInput VSMain(VSInput In)
 {
     PSInput psIn;
-    psIn.pos = In.pos; //mul(mvp, In.pos);
+    psIn.pos = mul(mvp, In.pos);
     psIn.uv = In.uv;
     return psIn;
 }
