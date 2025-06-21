@@ -92,11 +92,11 @@ void PositionSelection::Render(RenderContext& rc) {
 	if (!m_isCountdownFinished) return;
 
 	m_stealPositionBar->DisplayUI(rc);
-	//if (!m_shouldPartiallyDeactivate) {
+	if (!m_shouldPartiallyDeactivate) {
 		m_fishSlot->ShowUI(rc);
 		m_PressAtoSelect.Draw(rc);
 		m_buffLevelUI->DisplayUI(rc);
-	//}
+	}
 }
 
 /// <summary>

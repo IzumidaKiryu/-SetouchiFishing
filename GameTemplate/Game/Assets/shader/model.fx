@@ -205,29 +205,28 @@ SPSOut PSMain( SPSIn psIn,int isShadowReceiver ) : SV_Target0
      //複数個のライティング計算
     float3 pointLig[10];
     float3 spotLig[10];
-    for (int i = 0; i < 10; i++)
+  /*  for (int i = 0; i < 10; i++)
     {
         //ポイントライトの計算
         pointLig[i] = CalcLigFromPointLight(psIn, i, normalMap, speculerMap);
         //スポットライトの計算
         spotLig[i] = CalcLigFromSpotLight(psIn, i, normalMap, speculerMap);
-    }
+    }*/
     
     //リムライトの計算
     float3 limColor = CalcLimPower(psIn);
-    
     //半球ライトの計算
     float3 hemiLight = CalcLigFromHemiSphereLight(psIn);
    
     
 	//最終的な光を求める
-    float3 finalLig = directionLig  +ambientLig+ hemiLight/*+normalMap+speculerMap*/;
+    float3 finalLig = directionLig + ambientLig+ hemiLight/*+normalMap+speculerMap*/;
    
-    for (int j = 0; j < 10; j++)
+    /*for (int j = 0; j < 10; j++)
     {
         finalLig += pointLig[j];
         finalLig += spotLig[j];
-    }
+    }*/
    
     finalLig += limColor;
    
@@ -266,7 +265,7 @@ float3 CalcLambertDiffuse(float3 lightDire, float3 lightColor, float3 normal)
 {
     float t = dot(normal, lightDire) * -1.0f;
 
-    t = max(0.0f, t);
+    t = saturate( t);
 
     return lightColor * t;
 }
@@ -306,7 +305,7 @@ float3 CalcLigFromDirectionLight(SPSIn psIn, float3 normal, float specular)
     float3 specDirection = CalcPhongSpecular(directionLight.direction, directionLight.color, psIn.worldPos, normal, specular);
     
     //最終的な光
-    return diffDirection + specDirection;
+    return diffDirection /*+ specDirection*/;
 }
 //ポイントライト
 float3 CalcLigFromPointLight(SPSIn psIn, int num, float3 normal, float specular)
@@ -412,7 +411,7 @@ float3 CalcLimPower(SPSIn psIn)
     float power2 = 1.0f - max(0.0f, psIn.normalInView.z * -1.0f);
     
     //最終的なリムの強さを求める
-    float limPower = power1 * power2;
+    float limPower = power1 /** power2*/;
     
     //pow()を使用し強さの変化を指数関数的にする
     limPower = pow(limPower, 1.3f);
