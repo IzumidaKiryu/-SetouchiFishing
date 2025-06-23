@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "FishCatchEffectState.h"
 
+
 FishCatchEffectState::FishCatchEffectState()
 {
 }
@@ -16,10 +17,10 @@ bool FishCatchEffectState::OnStart() {
 }
 
 bool FishCatchEffectState::OnInit() {
-	//アニメーションの初期化。ここにアニメーションのファイルパスを入れてね。
-	SetAnim("Assets/animData/Fish/fishShadow.tka");
-	//モデルの設定。モデルの初期化をするよ！ファイルパスを直してね！
-	SetModel("Assets/modelData/Fish/fishShadow.tkm", m_animClip, enAnimationClip_Num, enModelUpAxisZ, true, false);
+	////アニメーションの初期化。ここにアニメーションのファイルパスを入れてね。
+	//SetAnim("Assets/animData/Fish/fishShadow.tka");
+	////モデルの設定。モデルの初期化をするよ！ファイルパスを直してね！
+	//SetModel("Assets/modelData/Fish/fishShadow.tkm", m_animClip, enAnimationClip_Num, enModelUpAxisZ, true, false);
 
 	return true;
 }
@@ -75,4 +76,35 @@ void FishCatchEffectState::PlayAnim()
 	default:
 		break;
 	}
+}
+
+void FishCatchEffectState::WitchFishType(FishType fishType)
+{
+	switch (fishType) {
+	case FishType::TAI:
+		SetAnim("Assets/animData/Fish/taiFinishMorph.tka");
+		SetModel("Assets/modelData/Fish/tai.tkm", m_animClip, enAnimationClip_Num,enModelUpAxisZ);
+		break;
+	case FishType::BURI:
+		SetAnim("Assets/animData/Fish/hamachiFinishMorph.tka");
+		SetModel("Assets/modelData/Fish/hamachi.tkm", m_animClip, enAnimationClip_Num, enModelUpAxisZ);
+		break;
+	case FishType::TATIUO:
+		SetAnim("Assets/animData/Fish/fishShadow.tka");
+		SetModel("Assets/modelData/Fish/fishShadow.tkm", m_animClip, enAnimationClip_Num, enModelUpAxisZ);
+		break;
+	case FishType::HIRAME:
+		SetAnim("Assets/animData/Fish/fishShadow.tka");
+		SetModel("Assets/modelData/Fish/fishShadow.tkm", m_animClip, enAnimationClip_Num, enModelUpAxisZ);
+		break;
+	case FishType::JAKOTENN:
+		SetAnim("Assets/animData/Fish/jyakotenFinishMorph.tka");
+		SetModel("Assets/modelData/Fish/jyakoten.tkm", m_animClip, enAnimationClip_Num, enModelUpAxisZ);
+		break;
+	case FishType::SINJU:
+		SetAnim("Assets/animData/Fish/akoyagaiFinishMorph.tka");
+		SetModel("Assets/modelData/Fish/akoyagai.tkm", m_animClip, enAnimationClip_Num, enModelUpAxisZ);
+		break;
+	}
+	m_modelRender.Update();
 }

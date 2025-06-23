@@ -1,6 +1,7 @@
 #pragma once
 #include "PlayFishingStateBase.h"
-
+#include "Fish.h"
+class FIsh;
 class FishCatchEffectState :public PlayFishingStateBase
 {
 public:
@@ -23,16 +24,16 @@ public:
 
 	void SetAnim(const char* activeAnim);
 	void PlayAnim();
-
-	enum GetFishType {
-		Hamachi,
-		Tachiuo,
-		Tai,
-		Hirame,
-		Pearl,
-		Jakoten,
-		num
-	};
+	void WitchFishType(FishType fishType);
+	//enum GetFishType {
+	//	TAI,
+	//	BURI,
+	//	TATIUO,
+	//	HIRAME,
+	//	JAKOTENN,
+	//	SINJU,
+	//	num
+	//};
 	enum EnAnimationClip
 	{		//アニメーション。
 		enAnimationClip_active,
@@ -42,7 +43,7 @@ public:
 	AnimationClip m_animClip[enAnimationClip_Num];
 	EnAnimationClip animeClip = enAnimationClip_active;
 	ModelRender m_modelRender;
-	GetFishType fishType = num;
+	//GetFishType fishType = num;
 
 	Vector3 m_pos = { 0.0f,0.0f,15.0f };
 
