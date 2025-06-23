@@ -27,7 +27,12 @@ public:
 
 	void CalculatePowerMultiplier();
 	float GetPowerMultiplier();
+	void UpdateStaminaGaugeColor();
 
+	Vector3 staminaGaugeColor=Vector3(0.0f, 0.0f, 0.0f);
+	const Vector3 m_highStaminaGaugeColor = Vector3(0.0f, 1.0f, 0.0f);//スタミナゲージの色。
+	const Vector3 m_midStaminaGaugeColor = Vector3(1.0f, 1.0f, 0.0f);//スタミナゲージの色。
+	const Vector3 m_lowStaminaGaugeColor = Vector3(1.0, 0.1f, 0.0f);//スタミナゲージの色。
 
 	float m_MaxHp = 200.0f;//HPの上限。
 	float m_Hp = m_MaxHp;//釣り竿のHP。

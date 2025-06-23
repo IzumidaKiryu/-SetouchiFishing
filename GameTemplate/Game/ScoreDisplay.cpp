@@ -70,6 +70,9 @@ bool ScoreDisplay::Start()
 {
 	m_positionSelection = FindGO<PositionSelection>("positionSelection");
 	m_inGameState = FindGO<InGameState>("inGameState");
+	if (m_inGameState == nullptr) {
+		m_positionSelection = FindGO<PositionSelection>("positionSelection");
+	}
 	m_player = FindGO<Player>("player");
 	m_stealPositionBar = FindGO<StealPositionBar>("stealPositionBar");
 	m_enemy = FindGO<Enemy>("enemy");
