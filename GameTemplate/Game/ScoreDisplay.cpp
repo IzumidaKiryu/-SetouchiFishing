@@ -6,10 +6,11 @@
 #include "Enemy.h"
 #include"Player.h"
 #include "StealPositionBar.h"
-#include"BuffManager.h"
 
 ScoreDisplay::ScoreDisplay()
 {
+	wchar_t wcsbuf[256];
+	swprintf_s(wcsbuf, 256, L"%d", int(m_score));
 
 
 
@@ -19,10 +20,7 @@ ScoreDisplay::ScoreDisplay()
 }
 
 ScoreDisplay::~ScoreDisplay()
-{
-
-	
-
+{	
 
 
 	//魚をチェンジ。
@@ -45,6 +43,9 @@ ScoreDisplay::~ScoreDisplay()
 
 	//ポジションセレクトクラスのオブジェクトをアクティブにする
 	m_positionSelection->SetActivate();
+
+	m_playFishing->DeleteThisClass();
+
 }
 
 void ScoreDisplay::Update()
@@ -70,33 +71,20 @@ bool ScoreDisplay::Start()
 {
 	m_positionSelection = FindGO<PositionSelection>("positionSelection");
 	m_inGameState = FindGO<InGameState>("inGameState");
-	if (m_inGameState == nullptr) {
-		m_positionSelection = FindGO<PositionSelection>("positionSelection");
-	}
 	m_player = FindGO<Player>("player");
 	m_stealPositionBar = FindGO<StealPositionBar>("stealPositionBar");
 	m_enemy = FindGO<Enemy>("enemy");
+	m_playFishing = FindGO<PlayFishing>("playFishing");
+
+	m_score = m_playFishing->GetFIshScore();
+
+
 
 	return true;
 }
 
 bool ScoreDisplay::Init()
 {
-
-	//本来は、IGameObjectに依存する初期化はStartでするが
-//PlayFishingクラスが消える前に呼びたいのでここで呼ぶ。
-	m_playFishing = FindGO<PlayFishing>("playFishing");
-	m_score = m_playFishing->GetFIshScore();
-
-	//1スコアのそれぞれの桁を求める。
-	SetOnesPlace();
-	SetTensPlace();
-	SetHundredsPlace();
-
-	//それぞれの桁のUIを設定する。
-	SetOnesPlaceUI();
-	SetTensPlaceUI();
-	SetHundredsPlaceUI();
 
 	m_scoreDisplay.Init("Assets/modelData/score/fishStatus.DDS", 500, 500);
 	m_scoreDisplay.SetPivot(Vector2(0.5f, 0.5f));

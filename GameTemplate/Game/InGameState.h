@@ -48,6 +48,8 @@ public:
 	std::string GetAreaName(int index);
 	FishData GetFishData(int index);
 
+	void NewGOScoreDisplay(FishType fishType);
+
 
 
 private:
