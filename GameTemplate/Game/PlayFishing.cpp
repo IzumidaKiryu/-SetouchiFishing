@@ -194,7 +194,9 @@ void PlayFishing::StatusManager() {
 		break;
 	case fishCatch:
 		m_fishCatchEffectState = NewGO<FishCatchEffectState>(0, "fishCatchEffectState");
+		m_fishCatchEffectState->WitchFishType(m_fishData.fishType);
 		m_fishCatchEffectState->Init();
+	
 	default:
 		break;
 	}
