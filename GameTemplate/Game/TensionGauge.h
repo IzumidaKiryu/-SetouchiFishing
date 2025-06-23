@@ -33,6 +33,9 @@ public:
 	void SetFloatUI_Position(float current_float_range_max_range_rate);
 	void SetFloatScale();
 	void SetFishUIScaleByIndividualFactor(float scale);
+	void SwayShipUIByWaves();
+
+
 
 	Vector3 GetFishUIPosition();
 
@@ -64,6 +67,9 @@ private:
 	bool m_should_change_fish_to_anger_ui = true;
 	Vector3 fish3DPos;
 	Vector3 m_fishUIPos = {0.0f,0.0f,0.0f};
+	Vector3 m_shipUIPos = { 650.0f, -400.0f, 0.0f };
+	Vector3 m_shipUIScale = Vector3::One * 2.5f;//船のUIの大きさ
+	float m_shipFloating_t;
 
 	//円周率
 	double pie = 3.141592653589793;
@@ -76,6 +82,7 @@ private:
 	SpriteRender m_signs_of_Fish;//魚影
 	SpriteRender m_signs_of_Fish_FlappingFins[2];//魚影がひれをパタパタさせるUI
 	SpriteRender m_rodFloatUI;
+	SpriteRender m_shipUI;
 	PlayFishing* m_playFishing = nullptr;
 	FightFishState* m_fightFishState = nullptr;
 	RodFloatMove* m_rodFloatMove=nullptr;

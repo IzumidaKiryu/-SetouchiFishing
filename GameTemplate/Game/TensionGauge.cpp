@@ -65,6 +65,14 @@ bool TensionGauge::Init()
 	m_rodFloatUI.SetScale(m_baseSigns_of_FishUiSize);
 	m_rodFloatUI.Update();
 
+	m_shipUI.Init("Assets/modelData/shipUI.DDS", 100, 50);
+	m_shipUI.SetPivot(Vector2(0.5f, 0.5f));
+	m_shipUI.SetPosition(m_shipUIPos);
+	m_shipUI.SetScale(Vector3{ 1.0f, 1.0f, 1.0f }*2.5f);
+	m_shipUI.Update();
+
+	
+
 	return true;
 }
 
@@ -82,6 +90,7 @@ void TensionGauge::Update()
 
 	/*SetFishUI_Position();*/
 	SetFloatScale();
+	SwayShipUIByWaves();
 	/*SetFishUI_Position();*/
 	if (m_isFinFlapping) {
 		FishUIFinFlap();
@@ -132,6 +141,13 @@ void TensionGauge::SetFloatScale()
 void TensionGauge::SetFishUIScaleByIndividualFactor(float scale)
 {
 	m_signs_of_Fish.SetScale(m_baseSigns_of_FishUiSize*scale);
+}
+
+void TensionGauge::SwayShipUIByWaves()
+{
+	m_shipFloating_t += 0.01f; // 波の揺れの時間を進める。0.01fは調整可能な値。
+	m_shipUI.SetScale(m_shipUIScale *(1+sin(m_shipFloating_t*2)* 0.05f)); // スケールを調整
+	m_shipUI.Update();
 }
 
 Vector3 TensionGauge::GetFishUIPosition()
@@ -362,6 +378,7 @@ void TensionGauge::Render(RenderContext& rc)
 		m_signs_of_Fish.Draw(rc);
 
 	}
+	m_shipUI.Draw(rc);
 
 	if (m_playFishing->m_playFishingStatus >= PlayFishingStatus::cast) {
 
@@ -371,5 +388,7 @@ void TensionGauge::Render(RenderContext& rc)
 
 	if (m_rodFloatMove != nullptr) {//ウキが作られていなに時は表示しない。
 	}
+
+
 
 }
