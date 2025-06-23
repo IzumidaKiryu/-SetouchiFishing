@@ -28,6 +28,9 @@ void FishingRodHP::Update()
 	CalculatePowerMultiplier();
 	failure();//失敗したかどうか。
 	m_previousFrameHP = m_Hp;
+
+	//ゲージの色を更新。
+	UpdateStaminaGaugeColor();
 }
 
 bool FishingRodHP::Start()
@@ -107,9 +110,9 @@ void FishingRodHP::SetUI()
 	m_RodHPGaugeOutside.SetScale(Vector3{ 1.5f, 1.0f, 1.0f });
 	m_RodHPGaugeOutside.Update();
 
-	m_RodHPBar.Init("Assets/modelData/cast_successful.DDS", 370.0f, 85);
+	m_RodHPBar.Init("Assets/sprite/staminaGauge.DDS", 365.0f, 85);
 	m_RodHPBar.SetPivot(Vector2(0.0f, 0.5f));
-	m_RodHPBar.SetPosition(Vector3(-440.0f, -300.0f, 0.0f));
+	m_RodHPBar.SetPosition(Vector3(-430.0f, -300.0f, 0.0f));
 	m_RodHPBar.SetScale(Vector3{ 1.5f, 1.0f, 1.0f });
 	m_RodHPBar.Update();
 
@@ -216,4 +219,17 @@ void FishingRodHP::CalculatePowerMultiplier()
 float FishingRodHP::GetPowerMultiplier()
 {
 	return m_powerMultiplier;
+}
+
+void FishingRodHP::UpdateStaminaGaugeColor()
+{
+	if ((m_Hp / m_MaxHp) > 0.5) {
+		float t = (m_Hp / m_MaxHp) - 0.5f;
+		staminaGaugeColor.Lerp(t, m_midStaminaGaugeColor,m_highStaminaGaugeColor);
+	}
+	else {
+		float t = (m_Hp / m_MaxHp) / 0.5f;
+		staminaGaugeColor.Lerp(t,m_lowStaminaGaugeColor, m_midStaminaGaugeColor);
+	}
+	m_RodHPBar.SetMulColor(staminaGaugeColor);
 }
