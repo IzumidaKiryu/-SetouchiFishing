@@ -42,7 +42,7 @@ bool Player::Init()
 	SetRodModel("Assets/modelData/Player/rod.tkm", m_rodAnimationClips, enAnimationClip_RodNum, enModelUpAxisZ, true, false);
 
 	//SetRodModel("Assets/modelData/Player/rod.tkm", m_rodAnimationClips, enAnimationClip_RodNum, enModelUpAxisZ, true, false);
-
+	m_rodModel.SetPosition(m_rodPosition); // ここで座標を反映
 
 	return true;
 }
@@ -102,7 +102,7 @@ void Player::Render(RenderContext& rc)
 	modelRender.Draw(rc);
 	if (m_playFishing != nullptr)
 	{
-		m_rodModel.SetPosition(m_rodPosition); // ここで座標を反映
+		
 		m_rodModel.Draw(rc);
 	}
 }

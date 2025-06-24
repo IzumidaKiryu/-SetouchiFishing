@@ -22,12 +22,10 @@ bool PlayCastGaugeState::OnInit()
 
 bool PlayCastGaugeState::OnStart()
 {
-
-
 	m_castGauge = NewGO<CastGauge>(0, "castGauge");
 	m_castGauge->Init();
-
-
+	m_player = FindGO<Player>("player_Playfishing");
+	m_playFishing = FindGO<PlayFishing>("playFishing");
 	SetArrowSpead();
 
 	return true;
@@ -35,8 +33,7 @@ bool PlayCastGaugeState::OnStart()
 
 void PlayCastGaugeState::Update()
 {
-	m_player = FindGO<Player>("player_Playfishing");
-	m_playFishing = FindGO<PlayFishing>("playFishing");
+	m_player->m_rodModel.PlayAnimation(m_player->enAnimationClip_RodIdle);
 	//カメラを管理する。
 	CameraManagement();
 	//魚の場所を決める。

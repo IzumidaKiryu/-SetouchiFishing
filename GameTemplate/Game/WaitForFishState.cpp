@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "WaitForFishState.h"
 #include "FishDetectionRadius.h"
+#include "Player.h"
 
 WaitForFishState::WaitForFishState()
 {
@@ -8,6 +9,7 @@ WaitForFishState::WaitForFishState()
 
 WaitForFishState::~WaitForFishState()
 {
+	m_player->EndCastAnimation();
 }
 
 bool WaitForFishState::OnInit()
@@ -22,7 +24,6 @@ bool WaitForFishState::OnStart()
 	m_initCameraTarget = m_cameraTarget;
 	m_fishDetectionRadius = FindGO<FishDetectionRadius>("fishDetectionRadius");
 	m_endCameraPos = m_init_floatModelPos + Vector3{ 200.0f,200.0f,200.0f };
-
 
 	SetGoFishInWhich();
 	IsFloatInDetectionRange();

@@ -25,5 +25,6 @@ public:
 	bool m_isFloatDetected=false;
 	go_fish_in_which m_go_fish_in_which;//どっちの方向に進むか。
 	FishDetectionRadius* m_fishDetectionRadius;
+
 };
 
