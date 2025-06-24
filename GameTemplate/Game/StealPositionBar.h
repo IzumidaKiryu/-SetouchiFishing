@@ -50,6 +50,15 @@ public:
 	/// <returns>スティールロックが有効なら true、無効なら false。</returns>
 	bool GetIsStealLockActive(Area area);
 
+	/// <summary>
+/// いずれかのエリアでスティールロックが有効かどうかを判定する。
+/// 少なくとも1つのエリアでロックが有効であれば true を返す。
+/// </summary>
+/// <returns>
+/// bool - true: どれかのエリアでロックが有効、false: 全エリアでロック無効
+/// </returns>
+	bool IsAnyStealLockActive();
+
 	void SetStockCounUI();
 
 	SpriteRender m_stealPositionBarInsideUI;

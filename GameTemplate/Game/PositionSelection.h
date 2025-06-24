@@ -62,6 +62,12 @@ public:
 	void DecideEnemyTargetAreaIfNotFishing();
 
 	Area FindFishHighScore();         ///< 高スコア魚の検出
+
+	/// <summary>
+	/// 二番目にスコアが高い魚がいるエリアを探す。
+	/// </summary>
+	/// <returns>二番目にスコアが高い魚がいるエリア</returns>
+	Area FindSecondFishHighScore();
 	Area FindFishLowScore();
 
 	void UpdatePlayerArea();          ///< プレイヤーの現在エリア更新
