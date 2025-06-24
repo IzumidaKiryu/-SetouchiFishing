@@ -6,7 +6,6 @@ class InGameState;
 class Enemy;
 class Player;
 class StealPositionBar;
-class BuffManager;
 class Fish;
 class ScoreDisplay : public IGameObject
 {
@@ -53,6 +52,5 @@ public:
 	Enemy* m_enemy = nullptr;
 	Player* m_player = nullptr;
 	StealPositionBar* m_stealPositionBar = nullptr;
-	BuffManager* m_buffManager = nullptr;
 };
 

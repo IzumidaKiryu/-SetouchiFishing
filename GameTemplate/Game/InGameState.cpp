@@ -283,3 +283,10 @@ FishData InGameState::GetFishData(int index)
 {
 	return m_fishManager[index]->GetFishData();
 }
+
+void InGameState::NewGOScoreDisplay(FishType fishType)
+{
+	m_scoreDisplay = NewGO<ScoreDisplay>(0, "scoreDisplay");
+	m_scoreDisplay->Init();
+	m_scoreDisplay->WhichFishUI(fishType);
+}
