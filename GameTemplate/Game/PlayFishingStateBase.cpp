@@ -45,7 +45,7 @@ bool PlayFishingStateBase::Start()
 		m_rodFloatMove->Init();
 	}
 
-	if (m_playFishing->m_playFishingStatus >= PlayFishingStatus::wait_for_fish)
+	if (m_playFishing->m_playFishingStatus >= PlayFishingStatus::successUI)
 	{
 		m_rodFloatMove = FindGO<RodFloatMove>("rodFloatMove");
 

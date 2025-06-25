@@ -17,6 +17,7 @@
 #include "FightFishState.h"
 #include "FishingAnimationState.h"
 #include "HitUIState.h"
+#include "SuccessUIState.h"
 #include "FishDetectionRadius.h"
 #include "InGameState.h"
 #include "BackGround.h"
@@ -180,6 +181,10 @@ void PlayFishing::StatusManager() {
 		m_castState = NewGO<CastState>(0, "castState");
 		m_castState->Init();
 		break;
+	case successUI:
+		m_successUIState = NewGO<SuccessUIState>(0, "successUIState");
+		m_successUIState->Init();
+		break;
 	case wait_for_fish:
 		m_waitForFishState = NewGO<WaitForFishState>(0, "waitForFishState");
 		m_waitForFishState->Init();
@@ -231,6 +236,18 @@ void PlayFishing::Success() {
 
 		m_sound->Play(false);
 		DeleteGO(m_castState);
+		m_playFishingStatus = successUI;
+		StatusManager();
+		break;
+	case successUI:
+		g_soundEngine->ResistWaveFileBank(12, "Assets/sound/niceVoice.wav");
+
+		m_sound = NewGO<SoundSource>(12);
+
+		m_sound->Init(12);
+
+		m_sound->Play(false);
+		DeleteGO(m_successUIState);
 		m_playFishingStatus = wait_for_fish;
 		StatusManager();
 		break;
@@ -285,6 +302,13 @@ void PlayFishing::Failure() {
 	case cast:
 		m_player->EndCastAnimation();
 	case wait_for_fish:
+		g_soundEngine->ResistWaveFileBank(11, "Assets/sound/failureVoice.wav");
+
+		m_sound = NewGO<SoundSource>(11);
+
+		m_sound->Init(11);
+
+		m_sound->Play(false);
 		m_rodFloatMove = FindGO<RodFloatMove>("rodFloatMove");
 		m_rodFloatMove->DeleteThisClass();
 		m_rodFloatMove = nullptr;
