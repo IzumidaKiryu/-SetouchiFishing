@@ -313,8 +313,6 @@ void PlayFishing::Failure() {
 
 		//魚をチェンジ。
 		m_inGameState->ChangeFish(static_cast<int>(m_positionSelection->GetCurrentArea()));
-		//敵の釣りも終わらせる。
-		m_enemy->EndFishing();
 
 		ChangeScene();
 	}

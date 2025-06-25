@@ -8,6 +8,8 @@
 #include"random"
 #include "Fish.h"
 #include"PlayFishing.h"
+#include"Player.h"
+#include"StealPositionBar.h"
 
 Enemy::Enemy()
 {
@@ -16,6 +18,10 @@ Enemy::Enemy()
 	//各レアリティーの釣り上げる確率を設定。
 	SetInitRarityProbability();
 
+	//各魚の釣り上げる時間を設定。
+	InitFishingBaseTimes();
+
+	//初期ポジションを設定。
 	SetInitPosition(Vector3{ 0.0f,0.0f,-200.0f });
 
 }
@@ -45,7 +51,7 @@ bool Enemy::Init()
 	//ユニティちゃんのモデルを読み込む。
 	SetModel("Assets/modelData/Enemy/Enemy.tkm", animationClips, enAnimationClip_Num, enModelUpAxisZ, true, false);
 
-	
+
 
 	return true;
 }
@@ -62,24 +68,60 @@ bool Enemy::Start()
 void Enemy::Update()
 {
 
-	Character:: Update();
+	Character::Update();
 
 
 	if (m_isCountdownFinished == true)		//カウントダウンが終われば。
 	{
 
-		if (IsFishingInactive() == true)//釣り中でなければ
-		{
-			//釣るエリアを決定。
-			//SetTargetFishingArea(m_positionSelection->FindFishHighScore()/*スコアが一番高い魚を探す*/);
+		//プレイヤーにエリアを取られた後じゃなければ。
+		if (!m_stealPositionBar->IsAnyStealLockActive()) {
+
+			//プレイヤーが一番スコアが高い魚のいるエリアで釣りをしているなら。
+			if (m_player->GetIsFishingInArea(m_positionSelection->FindFishHighScore())) {
+
+				//プレイヤーがいる場所以外で、今釣っている魚よりハイスコアな魚が居れば。
+				if (m_positionSelection->FindSecondFishHighScore() != m_targetFishingArea) {
+
+					//今の釣りを中断して、スコアが二番目に高い魚のいるエリアに移動する。
+					InterruptAndRelocateFishing(m_positionSelection->FindSecondFishHighScore()/*スコアが二番目に高い魚を探す*/);
+
+				}
+
+			}
+
+			//プレイヤーが一番スコアが高い魚のいるエリアで釣りをしていないなら。
+			else {
+
+				//今釣っている魚よりハイスコアな魚が居れば。
+				if (m_positionSelection->FindFishHighScore() != m_targetFishingArea) {
+
+					//今の釣りを中断して、スコアが一番高い魚のいるエリアに移動する。
+					InterruptAndRelocateFishing(m_positionSelection->FindFishHighScore()/*スコアが一番高い魚を探す*/);
+
+				}
+
+			}
 
 		}
+
+
+
+		//釣り中のエリアで釣りをしているなら。
+		if (GetIsFishingInArea(m_targetFishingArea) == true) {
+			m_targetFishData;
+			//釣りをしている時間が終わったかどうか？
+			if (m_inGameState->GetTime() - m_carryOverFishingTime <= m_fishingEndTime) {
+				//釣りを終える。
+				EndFishing();
+			}
+		}
+
+
+
+
+
 	}
-
-	
-
-
-	
 }
 
 
@@ -89,6 +131,22 @@ void Enemy::FindGameObjects()
 	m_inGameState = FindGO<InGameState>("inGameState");
 	m_positionSelection = FindGO<PositionSelection>("positionSelection");
 	m_scoreManager = FindGO<ScoreManager>("scoreManager");
+	m_player = FindGO<Player>("player");
+}
+
+void Enemy::FindStealPositionBarObjects()
+{
+	m_stealPositionBar = FindGO<StealPositionBar>("stealPositionBar");
+}
+
+void Enemy::InitFishingBaseTimes()
+{
+	//釣りのベース時間をセット。
+	m_fishingBaseTimes[FishRarity::Common] = 10.0f;
+	m_fishingBaseTimes[FishRarity::Rare] = 20.0f;
+	m_fishingBaseTimes[FishRarity::SuperRare] = 40.0f;
+
+
 }
 
 
@@ -104,8 +162,8 @@ void Enemy::SetMoveSpeed()
 		{
 
 			moveSpeed = Vector3::Zero;
-			Vector3 fishingAreaPositionXZ = Vector3(m_fishingAreaPosition[static_cast<int>(m_targetFishingArea)].x,0.0f, m_fishingAreaPosition[static_cast<int>(m_targetFishingArea)].z);
-			Vector3 enemyPosXZ =Vector3(m_position.x,0.0f, m_position.z);
+			Vector3 fishingAreaPositionXZ = Vector3(m_fishingAreaPosition[static_cast<int>(m_targetFishingArea)].x, 0.0f, m_fishingAreaPosition[static_cast<int>(m_targetFishingArea)].z);
+			Vector3 enemyPosXZ = Vector3(m_position.x, 0.0f, m_position.z);
 			Vector3 range_of_enemy_and_position = fishingAreaPositionXZ - enemyPosXZ;//敵ポジションと選んでいるポジションの距離。
 
 
@@ -118,12 +176,8 @@ void Enemy::SetMoveSpeed()
 			}
 			else {//狙った魚の場所についたら。
 
-				//ターゲットの魚のFishDataをセットする。
-				SetTargetFishData(m_targetFishingArea);
-
-				//ターゲットエリアについたらそのエリアで釣り中にする。
-				SetIsFishingInArea(true, m_targetFishingArea);
-
+				//釣りを開始する。
+				StartFishing(m_inGameState->GetTime());
 
 			}
 		}
@@ -145,14 +199,42 @@ void Enemy::SetCountdownFinished(bool countdownFinished)
 }
 
 
-/// <summary>
-/// 敵が釣るエリアを決める。
-/// プレイヤーの釣りの回数と敵の回数が同じになるようにする。
-/// プレイヤーが釣りに成功した瞬間と釣りに失敗した瞬間に呼び出す。
-/// </summary>
 void Enemy::SetTargetFishingArea(Area targetFishingArea)
 {
 	m_targetFishingArea = targetFishingArea;
+}
+
+void Enemy::InterruptAndRelocateFishing(Area targetFishingArea)
+{
+	//途中で釣りをやめたので、途中までつっていた経過時間を次に引き継ぐための。
+	//変数をセットする。
+	m_carryOverFishingTime = m_fishingStartTime - m_inGameState->GetTime();
+
+	//釣りをしていない？がfalseなら。
+	//（釣りをしているなら）。
+	if (IsFishingInactive() == false)
+	{
+		//釣り中？をfalseに。
+		SetIsFishingInArea(false);
+	}
+
+	//ターゲットエリアを変える。
+	SetTargetFishingArea(targetFishingArea);
+}
+
+void Enemy::StartFishing(float currentTime)
+{
+	//ターゲットの魚のFishDataをセットする。
+	SetTargetFishData(m_targetFishingArea);
+
+	//釣り中のエリアをセットする。
+	SetIsFishingInArea(true, m_targetFishingArea);
+
+	//釣りが終わる時間をセットする。
+	SetFishingEndTime(currentTime);
+
+	//釣りを開始した時間をセット。
+	m_fishingStartTime = currentTime;
 }
 
 Area Enemy::GetTargetFishinArea()
@@ -177,9 +259,17 @@ void Enemy::SetTargetFishData(Area targetarea)
 {
 	m_targetFishData = m_inGameState->GetFishData(static_cast<int>(targetarea));
 }
-/// <summary>
-/// 今のターゲットの魚を釣り上げたか。
-/// </summary>
+void Enemy::SetFishingEndTime(float currentTime)
+{
+	//釣りが終わる時間をセットする。
+	m_fishingEndTime = currentTime - m_fishingBaseTimes[m_targetFishData.rarity];
+}
+
+bool Enemy::IsEndCurrentFishing() const
+{
+	return false;
+}
+
 
 
 
@@ -191,27 +281,27 @@ bool Enemy::GetIsFishingInArea(Area area)
 
 void Enemy::EndFishing()
 {
+	m_carryOverFishingTime = 0.0f; //釣りを終えたので、経過時間をリセット。
+
 	//釣り中？をfalseに。
 	SetIsFishingInArea(false);
 
-	if (DecideFishingResult(m_targetFishData.rarity)) {//成功ならスコアを加算する。
+	if (DecideFishingResult(m_targetFishData.rarity)) {//成功なら。
+		//釣り上げた魚のスコアをセット。
 		m_scoreManager->SetScore(m_targetFishData.score, m_targetFishData.fishType, CharacterType::enemy);
 	}
 
 	//ターゲットエリアを変える前に魚を更新する
 	m_inGameState->ChangeFish();
+	if (m_stealPositionBar->IsAnyStealLockActive()) {//もしプレイヤーが敵からエリアを奪った後なら。
+		m_stealPositionBar->SetIsStealLockActive(false); //魚のロックをoffにする。
+	}
+	////ターゲットを変える。
+	//SetTargetFishingArea(m_positionSelection->FindFishHighScore()/*スコアが一番高い魚を探す*/);
 
-	//ターゲットを変える。
-	SetTargetFishingArea(m_positionSelection->FindFishHighScore()/*スコアが一番高い魚を探す*/);
-
-	
 
 
-}
 
-void Enemy::SetEnemyScore()
-{
-	m_targetFishData;
 }
 
 bool Enemy::DecideFishingResult(FishRarity raritu)
@@ -227,8 +317,8 @@ bool Enemy::DecideFishingResult(FishRarity raritu)
 
 void Enemy::SetInitRarityProbability()
 {
-	m_rarityProbability[FishRarity::Common] = 70;
-	m_rarityProbability[FishRarity::Rare] = 60;
-	m_rarityProbability[FishRarity::SuperRare] = 10;
+	m_rarityProbability[FishRarity::Common] = 80;
+	m_rarityProbability[FishRarity::Rare] = 70;
+	m_rarityProbability[FishRarity::SuperRare] = 20;
 }
 

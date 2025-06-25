@@ -8,6 +8,8 @@ class PositionSelection;
 class InGameState;
 class ScoreManager;
 class PlayFishing;
+class Player;
+class StealPositionBar;
 class Enemy :public Character
 {
 public:
@@ -20,16 +22,49 @@ public:
 
 	void FindGameObjects();
 
+	void FindStealPositionBarObjects();
+
 	void InitFishingBaseTimes();
 
 	//ムーブスピードを設定。
 	void SetMoveSpeed() override;
 	void Render(RenderContext& rc);
 	void SetCountdownFinished(bool countdownFinished);
+
+	/// <summary>
+/// 敵が釣るエリアを決める。
+/// </summary>
 	void SetTargetFishingArea(Area targetFishingArea);
+
+	/// <summary>
+	/// 釣りを中断して、別のエリアに移動する。
+	/// </summary>
+	void InterruptAndRelocateFishing(Area targetFishingArea);
+
+	/// <summary>
+	/// 釣りを開始する。
+	/// </summary>
+	/// <param name="currentTime"></param>
+	void StartFishing(float currentTime);
 	Area GetTargetFishinArea();
 	bool IsFishingInactive()const;
 	void SetTargetFishData(Area targetarea);
+
+	/// <summary>
+	/// 釣りが終わる時間を設定する。
+	/// </summary>
+	/// <param name="currentTime"></param>
+	void SetFishingEndTime(float currentTime);
+
+
+
+	/// <summary>
+	/// 釣りが終わったかどうか。
+	/// </summary>
+	/// <returns></returns>
+	bool IsEndCurrentFishing()const;
+
+
 	/// <summary>
 	/// 渡されたエリアで釣り中かどうかを返す。
 	/// </summary>
@@ -39,13 +74,8 @@ public:
 
 	/// <summary>
 	/// 釣りを終えた後の処理をする。
-	/// プレイヤーの釣りの回数と敵の回数が同じになるようにプレイヤーの釣りが終わったら。
-	/// 敵も終わるようにする。
-	/// プレイヤーが釣りに成功した瞬間と釣りに失敗した瞬間に呼び出す。
 	/// </summary>
 	void EndFishing();
-
-	void SetEnemyScore();
 
 	/// <summary>
 	/// 釣りが成功するか、失敗するかを決める。
@@ -63,6 +93,12 @@ private:
 	/// </summary>
 	void SetInitRarityProbability();
 
+	float m_fishingEndTime = 0.0f; //釣りが終わる時間。
+	float m_fishingStartTime = 0.0f; //釣りを開始した時間。
+	/// <summary>
+	/// 途中で釣りを中断した場合、次の釣りに持ち越す時間。
+	/// </summary>
+	float m_carryOverFishingTime;
 	bool hasDecidedInitialTargetFishingArea=false;
 
 	const std::array<Vector3,6> m_fishingAreaPosition//敵の魚を釣る場所。
@@ -83,8 +119,10 @@ private:
 	FishData m_targetFishData;
 	InGameState* m_inGameState=nullptr;
 	ScoreManager* m_scoreManager=nullptr;
+	Player* m_player = nullptr;
+	StealPositionBar* m_stealPositionBar = nullptr;
 
-	std::map<FishType, float> m_fishingBaseTimes;
+	std::map<FishRarity, float> m_fishingBaseTimes;
 	/// <summary>
 	/// 各魚を釣り上げる確率（整数）
 	/// </summary>

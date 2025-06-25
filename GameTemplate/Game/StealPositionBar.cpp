@@ -161,6 +161,16 @@ bool StealPositionBar::GetIsStealLockActive(Area area)
 	return m_isStealLockActive[static_cast<int>(area)];
 }
 
+bool StealPositionBar::IsAnyStealLockActive()
+{
+	for (int i = 0; i < 6; ++i) {
+		if (m_isStealLockActive[i]) {
+			return true;
+		}
+	}
+	return false;
+}
+
 void StealPositionBar::SetStockCounUI()
 {
 		wchar_t wcsbuf[256];

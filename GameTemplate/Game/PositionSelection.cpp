@@ -43,6 +43,7 @@ void PositionSelection::Init() {
 	m_buffLevelUI->Init();
 	m_stealPositionBar = NewGO<StealPositionBar>(0, "stealPositionBar");
 	m_stealPositionBar->Init();
+	m_enemy->FindStealPositionBarObjects();
 	g_soundEngine->ResistWaveFileBank(1, "Assets/sound/gamebgm.wav");
 	SetFishDisplayPosition();
 	m_fishSlot = NewGO<FishSlot>(0, "fishSlot");
@@ -92,11 +93,11 @@ void PositionSelection::Render(RenderContext& rc) {
 	if (!m_isCountdownFinished) return;
 
 	m_stealPositionBar->DisplayUI(rc);
-	if (!m_shouldPartiallyDeactivate) {
+	//if (!m_shouldPartiallyDeactivate) {
 		m_fishSlot->ShowUI(rc);
 		m_PressAtoSelect.Draw(rc);
 		m_buffLevelUI->DisplayUI(rc);
-	}
+	//}
 }
 
 /// <summary>
@@ -196,6 +197,41 @@ Area PositionSelection::FindFishHighScore() {
 	}
 	//m_enemyArea = bestArea;
 	return bestArea;
+}
+
+Area PositionSelection::FindSecondFishHighScore()
+{
+		int bestIndex = -1;
+		float maxScore = -1.0f;
+
+		//最も高いスコアとそのインデックスを見つける
+		for (int i = 0; i < 6; ++i) {
+			float score = m_inGameState->GetFishScore(i);
+			if (score > maxScore) {
+				maxScore = score;
+				bestIndex = i;
+			}
+		}
+
+		//そのインデックスを除いて2番目を探す
+		float secondMaxScore = -1.0f;
+		int secondIndex = -1;
+
+		for (int i = 0; i < 6; ++i) {
+			if (i == bestIndex) continue;  // 最も高いスコアのエリアを除外
+			float score = m_inGameState->GetFishScore(i);
+			if (score > secondMaxScore) {
+				secondMaxScore = score;
+				secondIndex = i;
+			}
+		}
+
+		// secondIndex が -1 のままだったら、候補が1つしかなかった場合
+		if (secondIndex == -1) {
+			return m_positionStateArray[bestIndex];  // 仕方なく1位を返す
+		}
+
+		return m_positionStateArray[secondIndex];
 }
 
 Area PositionSelection::FindFishLowScore()

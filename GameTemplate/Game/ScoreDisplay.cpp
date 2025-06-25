@@ -35,8 +35,6 @@ ScoreDisplay::~ScoreDisplay()
 	//ロックがかかっていなくても問題はない。
 	m_stealPositionBar->SetIsStealLockActive(false);
 
-	//敵の釣りが終わった後の処理をする。
-	m_enemy->EndFishing();
 
 	//選択画面を表示している？をtrueにする。
 	m_positionSelection->SetisDisplayingTrue();
