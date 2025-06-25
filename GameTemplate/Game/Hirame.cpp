@@ -21,10 +21,10 @@ bool Hirame::OnInit()
 	SetBaseScore(100.0f);
 	SetScore();
 	SetInitPos(0.7);
-	SetUpWardBias(50);
+	SetUpWardBias(45);
 	SetDownwardBias(80);
 	SetFishDetectionRadius(0.4);
-	SetEscapeForce(0.005);
+	SetEscapeForce(0.004);
 	SetUI("Assets/modelData/hirameUI.DDS",Vector3::One*m_fishData.individualFactor);
 	SetBuff(BuffType::StealBoostBuff,0.01f);
 
