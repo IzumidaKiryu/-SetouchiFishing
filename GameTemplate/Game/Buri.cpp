@@ -22,8 +22,8 @@ bool Buri::OnInit()
 	SetBaseScore(500.0f);
 	SetScore();
 	SetInitPos(0.7);
-	SetUpWardBias(30);
-	SetDownwardBias(50);
+	SetUpWardBias(50);
+	SetDownwardBias(70);
 	SetFishDetectionRadius(0.3);
 	SetEscapeForce(0.008);
 

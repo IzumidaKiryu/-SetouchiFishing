@@ -22,10 +22,10 @@ bool Jakoten::OnInit()
 	SetBaseScore(100.0f);
 	SetScore();
 	SetInitPos(0.7);
-	SetUpWardBias(60);
+	SetUpWardBias(45);
 	SetDownwardBias(80);
 	SetFishDetectionRadius(0.4);
-	SetEscapeForce(0.005);
+	SetEscapeForce(0.004);
 	//SetParameter(
 	//	12.0f,
 	//	5.0f,
