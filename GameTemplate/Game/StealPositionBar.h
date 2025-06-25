@@ -3,6 +3,8 @@
 class PositionSelection;
 class Enemy;
 class BuffManager;
+class Player; // 前方宣言
+
 class StealPositionBar :public IGameObject
 {
 public:
@@ -68,7 +70,8 @@ public:
 	SpriteRender m_takeOver_gray;
 	SpriteRender m_clossUI;
 	FontRender m_stockCountUI;
-
+	SoundSource* m_sound;
+	
 	float m_stealPoint = 0.0f;
 	float m_bar_Length = 0.0f;
 	int m_stockCount;//たまっているバーの本数。
@@ -95,5 +98,6 @@ public:
 	PositionSelection* m_positionSelection;
 	Enemy* m_enemy;
 	BuffManager* m_buffManager;
+	Player* m_player = nullptr; // 追加
 };
 
