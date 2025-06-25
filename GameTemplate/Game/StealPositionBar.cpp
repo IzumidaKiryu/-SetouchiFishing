@@ -124,11 +124,7 @@ void StealPositionBar::UseStealGauge()
 	//魚が逃げないように魚をロックする。
 	SetIsStealLockActive(true, m_enemy->GetTargetFishinArea());
 
-	//敵が釣りをしていないと伝える。
-	m_enemy->SetIsFishingInArea(false);
-
-	//敵のフィッシングエリアターゲットにスコアが低い魚がいる場所をセット。
-	m_enemy->SetTargetFishingArea(m_positionSelection->FindFishLowScore());
+	m_enemy->OnTakeOverGaugeUsed();
 }
 
 int StealPositionBar::GetStockCount()

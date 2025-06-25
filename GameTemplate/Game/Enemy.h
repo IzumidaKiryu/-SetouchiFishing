@@ -83,7 +83,16 @@ public:
 	/// <returns>成功ならtrue</returns>
 	bool DecideFishingResult(FishRarity raritu);
 
+	/// <summary>
+	/// 
+	/// </summary>
+	void ResetCarryOverFishingTime();
 	//Vector3 position = {200.0f,100.0f,1.0f};
+
+	/// <summary>
+	/// テイクオーバゲージが使われたときの処理。
+	/// </summary>
+	void OnTakeOverGaugeUsed();
 
 
 private:
@@ -99,6 +108,7 @@ private:
 	/// 途中で釣りを中断した場合、次の釣りに持ち越す時間。
 	/// </summary>
 	float m_carryOverFishingTime;
+	float m_extendedFishingTimeByTakeOver = 0.0f; //テイクオーバーゲージが使われたときに、釣り時間が延長される時間。
 	bool hasDecidedInitialTargetFishingArea=false;
 
 	const std::array<Vector3,6> m_fishingAreaPosition//敵の魚を釣る場所。
