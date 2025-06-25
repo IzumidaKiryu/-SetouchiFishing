@@ -8,6 +8,7 @@ enum EnAnimationClip
 	//enAnimationClip_Jump,
 	enAnimationClip_Cast,
 	enAnimationClip_Steal,
+	enAnimationClip_Korobu,
 	enAnimationClip_Num
 };
 
@@ -40,7 +41,8 @@ public:
 		const char* animationClip_Idle,
 		const char* animationClip_Walk,
 		const char* animationClip_Cast,
-		const char* animationClip_Steal
+		const char* animationClip_Steal,
+		const char* animationClip_Korobu
 	);
 
 	void SetRodAnimationClipsLoad(const char* animationClip_Rod,const char*anim);

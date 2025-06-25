@@ -42,7 +42,8 @@ bool Enemy::Init()
 		/*"Assets/animData/Enemy/EnamyWalking.tka",*/
 		"Assets/animData/Enemy/enemyWalk.tka",
 		"Assets/animData/Player/FishingCast.tka",
-		"Assets/animData/Player/yokodoriAnimation.tka"
+		"Assets/animData/Player/yokodoriAnimation.tka",
+		"Assets/animData/Enemy/korobu.tka"
 	);
 
 	//SetRodAnimationClipsLoad(
