@@ -67,7 +67,7 @@ void Character::SetRodModel(const char* filePath, AnimationClip* animationClips,
 	m_rodModel.Init(filePath, animationClips, numAnimationClips, enModelUpAxis, shadowCast, shadowDrop);
 	m_rodModel.SetScale(Vector3{ 2.0f, 2.0f, 2.0f });
 }
-void Character::SetAnimationClipsLoad(const char* animationClip_Idle, const char* animationClip_Walk, const char* animationClip_Cast)
+void Character::SetAnimationClipsLoad(const char* animationClip_Idle, const char* animationClip_Walk, const char* animationClip_Cast,const char* animationClip_Steal)
 {
 	animationClips[enAnimationClip_Idle].Load(animationClip_Idle);
 	animationClips[enAnimationClip_Idle].SetLoopFlag(true);
@@ -77,6 +77,8 @@ void Character::SetAnimationClipsLoad(const char* animationClip_Idle, const char
 	animationClips[enAnimationClip_Cast].SetLoopFlag(false);*/
 	animationClips[enAnimationClip_Cast].Load(animationClip_Cast);
 	animationClips[enAnimationClip_Cast].SetLoopFlag(false);
+	animationClips[enAnimationClip_Steal].Load(animationClip_Steal);
+	animationClips[enAnimationClip_Steal].SetLoopFlag(false);
 
 }
 void Character::SetRodAnimationClipsLoad(const char* animationClip_Rod,const char*anim)
@@ -139,6 +141,11 @@ void Character::ManageState()
 		playerState = enAnimationClip_Cast;
 		return;
 	}
+	if (m_is_steal) {
+		playerState = enAnimationClip_Steal;
+		return;
+	}
+
 	//地面に付いていなかったら。
 	if (characterController.IsOnGround() == false)
 	{
@@ -181,6 +188,12 @@ void Character::PlayAnimation()
 		modelRender.PlayAnimation(enAnimationClip_Cast);
 		//きりゅう修正。竿のアニメーションの再生だから竿のモデルのアニメーションの設定。
 		m_rodModel.PlayAnimation(enAnimationClip_Rod);
+		break; 
+	case enAnimationClip_Steal:
+		modelRender.PlayAnimation(enAnimationClip_Steal);
+		if (!modelRender.IsPlayingAnimation()) {
+			m_is_steal = false; // アニメーションが終了したら、m_is_stealをfalseに設定
+		}
 		break;
 	}
 
@@ -193,6 +206,10 @@ bool Character::SetChastAnimation()
 void Character::EndCastAnimation()
 {
 	m_is_cast = false;
+}
+void Character::SetIsSteal(bool isState)
+{
+	m_is_steal = isState;
 }
 Vector3 Character::GetPos()
 {

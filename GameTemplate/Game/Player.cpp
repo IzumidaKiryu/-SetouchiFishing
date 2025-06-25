@@ -28,7 +28,8 @@ bool Player::Init()
 		"Assets/animData/Player/Idle.tka",
 		/*"Assets/animData/Player/Walking.tka",*/
 		"Assets/animData/Player/playerWalk.tka",
-		"Assets/animData/Player/FishingCast.tka"
+		"Assets/animData/Player/FishingCast.tka",
+		"Assets/animData/Player/yokodoriAnimation.tka"
 	);
 
 	SetRodAnimationClipsLoad(
@@ -92,6 +93,11 @@ void Player::SetMoveActive()
 // Player.cpp に追加
 void Player::SetRodPosition(const Vector3& pos) {
     m_rodPosition = pos;
+}
+
+void Player::PlayYokodoriAnimation(){
+    playerState = enAnimationClip_Steal; // Steal用のenum値
+    //modelRender.PlayAnimation(enAnimationClip_Steal);
 }
 
 //描画処理。

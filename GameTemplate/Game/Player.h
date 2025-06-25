@@ -19,6 +19,7 @@ public:
 	bool m_is_moveActive=true;
 
 	void SetRodPosition(const Vector3& pos);
+    void PlayYokodoriAnimation();
 
 private:
 	void Render(RenderContext& rc);

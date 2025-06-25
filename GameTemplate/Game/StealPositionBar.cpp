@@ -3,6 +3,9 @@
 #include "PositionSelection.h"
 #include "Enemy.h"
 #include "BuffManager.h"
+#include "Player.h"
+#include "Character.h"
+#include "sound/SoundSource.h"
 
 StealPositionBar::StealPositionBar()
 {
@@ -70,6 +73,7 @@ bool StealPositionBar::Start()
 	m_positionSelection = FindGO<PositionSelection>("positionSelection");
 	m_enemy = FindGO<Enemy>("enemy");
 	m_buffManager = FindGO<BuffManager>("buffManager");
+	m_player = FindGO<Player>("player");
 	return true;
 }
 
@@ -83,6 +87,14 @@ void StealPositionBar::Update()
 	if (CanUseGauge()/*ゲージを使える状態か判定*/) {
 		if (g_pad[0]->IsTrigger(enButtonB)) {//Bボタンを押したら。
 			UseStealGauge();
+			g_soundEngine->ResistWaveFileBank(10, "Assets/sound/yokodori.wav");
+
+			m_sound = NewGO<SoundSource>(10);
+
+			m_sound->Init(10);
+
+			m_sound->Play(false);
+			m_player->SetIsSteal(true);
 		}
 	}
 	

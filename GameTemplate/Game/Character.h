@@ -1,6 +1,16 @@
 #pragma once
 #include"PositionSelection.h"
 
+enum EnAnimationClip
+{		//アニメーション。
+	enAnimationClip_Idle,
+	enAnimationClip_Walk,
+	//enAnimationClip_Jump,
+	enAnimationClip_Cast,
+	enAnimationClip_Steal,
+	enAnimationClip_Num
+};
+
 class FishingAnimationState;
 class PlayFishing;
 class Character : public IGameObject
@@ -29,7 +39,8 @@ public:
 	void SetAnimationClipsLoad(
 		const char* animationClip_Idle,
 		const char* animationClip_Walk,
-		const char* animationClip_Cast
+		const char* animationClip_Cast,
+		const char* animationClip_Steal
 	);
 
 	void SetRodAnimationClipsLoad(const char* animationClip_Rod,const char*anim);
@@ -48,6 +59,8 @@ public:
 	void EndCastAnimation();
 	//void SetIdleAnimation();
 	bool m_is_cast = false;
+	bool m_is_steal = false;
+	void SetIsSteal(bool isState);
 	Vector3 GetPos();
 	float GetAnimationRatio();
 	void SetIdleAnimation();
@@ -73,14 +86,7 @@ public:
 	ModelRender modelRender;	//モデルレンダ―。
 	ModelRender m_rodModel;
 	Vector3 m_position = { 0.0f,100.0f,-300.0f };			//座標。
-	enum EnAnimationClip 
-	{		//アニメーション。
-		enAnimationClip_Idle,
-		enAnimationClip_Walk,
-		//enAnimationClip_Jump,
-		enAnimationClip_Cast,
-		enAnimationClip_Num
-	};
+	
 	enum EnRodAnimationClip {
 		enAnimationClip_RodIdle,
 		enAnimationClip_Rod,
