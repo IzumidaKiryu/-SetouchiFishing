@@ -170,8 +170,8 @@ void Character::PlayAnimation()
 	switch (playerState) {
 		//プレイヤーステートが0(待機)だったら。
 	case enAnimationClip_Idle:
-		//ジャンプアニメーションを再生する。
 		modelRender.PlayAnimation(enAnimationClip_Idle);
+		//m_rodModel.PlayAnimation(enAnimationClip_RodIdle);
 		break;
 	case enAnimationClip_Walk:
 		//プレイヤーステートが2(歩き)だったら。

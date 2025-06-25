@@ -32,7 +32,6 @@ void CastState::Update()
 	CameraManagement();
 	StateManager();
 	Rotation();
-	m_player = FindGO<Player>("player_Playfishing");
 	SetFloat();
 	SumRodFloatPosition(m_rodFloatPosition + m_float_initPos);
 	

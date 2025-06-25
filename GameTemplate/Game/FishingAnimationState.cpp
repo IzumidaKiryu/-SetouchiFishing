@@ -9,7 +9,7 @@ FishingAnimationState::FishingAnimationState()
 
 FishingAnimationState::~FishingAnimationState()
 {
-	m_player->EndCastAnimation();
+	
 }
 
 bool FishingAnimationState::OnInit()

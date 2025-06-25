@@ -282,6 +282,8 @@ void PlayFishing::Failure() {
 	case playCastGauge:
 		m_shouldChangeScene = true;
 		break;
+	case cast:
+		m_player->EndCastAnimation();
 	case wait_for_fish:
 		m_rodFloatMove = FindGO<RodFloatMove>("rodFloatMove");
 		m_rodFloatMove->DeleteThisClass();
