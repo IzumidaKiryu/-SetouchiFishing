@@ -143,9 +143,9 @@ void Enemy::FindStealPositionBarObjects()
 void Enemy::InitFishingBaseTimes()
 {
 	//釣りのベース時間をセット。
-	m_fishingBaseTimes[FishRarity::Common] = 5.0f;
+	m_fishingBaseTimes[FishRarity::Common] = 4.0f;
 	m_fishingBaseTimes[FishRarity::Rare] = 15.0f;
-	m_fishingBaseTimes[FishRarity::SuperRare] = 40.0f;
+	m_fishingBaseTimes[FishRarity::SuperRare] = 30.0f;
 
 
 }
