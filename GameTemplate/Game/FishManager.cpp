@@ -75,22 +75,23 @@ void FishManager::SelectFishType()
 	std::random_device rd;
 	int randum = rd() % 100;
 	m_randum = randum;
-	if (0 <= randum && randum <= 22) {
-		m_fishType = FishType::BURI;
-	}
-	if (23 <= randum && randum <=45 ) {
-		m_fishType = FishType:: TATIUO;
-	}
-	if (46 <= randum && randum <= 68){
-		m_fishType = FishType::JAKOTENN;
-	}
-	if (69 <= randum && randum <= 80) {
-		m_fishType = FishType::HIRAME;
-	}
-	if (81 <= randum && randum <= 94) {
+
+	if (0 <= randum && randum <= 26) { // 27%
 		m_fishType = FishType::SINJU;
 	}
-	if (95 <= randum && randum < 100) {
+	else if (27 <= randum && randum <= 53) { // 27%
+		m_fishType = FishType::HIRAME;
+	}
+	else if (54 <= randum && randum <= 80) { // 27%
+		m_fishType = FishType::JAKOTENN;
+	}
+	else if (81 <= randum && randum <= 87) { // 7%
+		m_fishType = FishType::TATIUO;
+	}
+	else if (88 <= randum && randum <= 94) { // 7%
+		m_fishType = FishType::BURI;
+	}
+	else if (95 <= randum && randum <= 99) { // 5%
 		m_fishType = FishType::TAI;
 	}
 }
