@@ -84,7 +84,7 @@ bool ScoreDisplay::Start()
 bool ScoreDisplay::Init()
 {
 
-	m_scoreDisplay.Init("Assets/modelData/score/fishStatus.DDS", 500, 500);
+	m_scoreDisplay.Init("Assets/modelData/score/result.DDS", 500, 500);
 	m_scoreDisplay.SetPivot(Vector2(0.5f, 0.5f));
 	m_scoreDisplay.SetPosition(Vector3{ 200.0f,0.0f,0.0f });
 	m_scoreDisplay.SetScale(Vector3{ 1.0f, 1.0f, 1.0f });
