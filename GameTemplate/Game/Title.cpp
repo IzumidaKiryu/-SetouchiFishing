@@ -10,6 +10,7 @@
 
 Title::Title()
 {
+
 }
 
 Title::~Title()
@@ -18,6 +19,14 @@ Title::~Title()
 
 bool Title::Start()
 {
+	g_soundEngine->ResistWaveFileBank(0, "Assets/sound/gameTiileBGM.wav");
+
+	m_sound = NewGO<SoundSource>(0);
+
+	m_sound->Init(0);
+
+	m_sound->Play(false);
+
 	return true;
 }
 
