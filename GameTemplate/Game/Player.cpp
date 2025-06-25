@@ -29,7 +29,9 @@ bool Player::Init()
 		/*"Assets/animData/Player/Walking.tka",*/
 		"Assets/animData/Player/playerWalk.tka",
 		"Assets/animData/Player/FishingCast.tka",
-		"Assets/animData/Player/yokodoriAnimation.tka"
+		"Assets/animData/Player/yokodoriAnimation.tka",
+		"Assets/animData/Enemy/korobu.tka"
+
 	);
 
 	SetRodAnimationClipsLoad(

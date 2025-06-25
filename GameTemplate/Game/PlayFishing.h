@@ -10,6 +10,7 @@ enum PlayFishingStatus {
 	wait_castGauge,
 	castAnimasion,
 	cast,
+	successUI,
 	wait_for_fish,
 	hitUI,
 	sceneFightFish,
@@ -52,6 +53,7 @@ class Enemy;
 class StealPositionBar;
 class BuffManager;
 class FishCatchEffectState;
+class SuccessUIState;
 
 class PlayFishing : public IGameObject
 {
@@ -153,6 +155,7 @@ private:
 	FightFishState* m_fightFishState = nullptr;
 	FishingAnimationState* m_fishingAnimationState = nullptr;
 	HitUIState* m_hitUIState = nullptr;
+	SuccessUIState* m_successUIState = nullptr;
 	FishDetectionRadius* m_fishDetectionRadius = nullptr;
 	InGameState* m_inGameState = nullptr;
 	BackGround* m_backGround = nullptr;

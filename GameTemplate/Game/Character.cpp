@@ -67,7 +67,7 @@ void Character::SetRodModel(const char* filePath, AnimationClip* animationClips,
 	m_rodModel.Init(filePath, animationClips, numAnimationClips, enModelUpAxis, shadowCast, shadowDrop);
 	m_rodModel.SetScale(Vector3{ 2.0f, 2.0f, 2.0f });
 }
-void Character::SetAnimationClipsLoad(const char* animationClip_Idle, const char* animationClip_Walk, const char* animationClip_Cast,const char* animationClip_Steal)
+void Character::SetAnimationClipsLoad(const char* animationClip_Idle, const char* animationClip_Walk, const char* animationClip_Cast,const char* animationClip_Steal, const char* animationClip_Korobu)
 {
 	animationClips[enAnimationClip_Idle].Load(animationClip_Idle);
 	animationClips[enAnimationClip_Idle].SetLoopFlag(true);
@@ -79,7 +79,8 @@ void Character::SetAnimationClipsLoad(const char* animationClip_Idle, const char
 	animationClips[enAnimationClip_Cast].SetLoopFlag(false);
 	animationClips[enAnimationClip_Steal].Load(animationClip_Steal);
 	animationClips[enAnimationClip_Steal].SetLoopFlag(false);
-
+	animationClips[enAnimationClip_Korobu].Load(animationClip_Korobu);
+	animationClips[enAnimationClip_Korobu].SetLoopFlag(false);
 }
 void Character::SetRodAnimationClipsLoad(const char* animationClip_Rod,const char*anim)
 {
