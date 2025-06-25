@@ -112,7 +112,7 @@ void Enemy::Update()
 		if (GetIsFishingInArea(m_targetFishingArea) == true) {
 			m_targetFishData;
 			//釣りをしている時間が終わったかどうか？
-			if (m_inGameState->GetTime() - m_carryOverFishingTime <= m_fishingEndTime) {
+			if (m_inGameState->GetTime() - m_carryOverFishingTime+ m_extendedFishingTimeByTakeOver <= m_fishingEndTime) {
 				//釣りを終える。
 				EndFishing();
 			}
@@ -143,9 +143,9 @@ void Enemy::FindStealPositionBarObjects()
 void Enemy::InitFishingBaseTimes()
 {
 	//釣りのベース時間をセット。
-	m_fishingBaseTimes[FishRarity::Common] = 5.0f;
+	m_fishingBaseTimes[FishRarity::Common] = 4.0f;
 	m_fishingBaseTimes[FishRarity::Rare] = 15.0f;
-	m_fishingBaseTimes[FishRarity::SuperRare] = 40.0f;
+	m_fishingBaseTimes[FishRarity::SuperRare] = 30.0f;
 
 
 }
@@ -179,7 +179,6 @@ void Enemy::SetMoveSpeed()
 
 				//釣りを開始する。
 				StartFishing(m_inGameState->GetTime());
-
 			}
 		}
 	}
@@ -284,6 +283,9 @@ void Enemy::EndFishing()
 {
 	m_carryOverFishingTime = 0.0f; //釣りを終えたので、経過時間をリセット。
 
+	m_extendedFishingTimeByTakeOver = 0.0f; //テイクオーバーゲージが使われたときに、釣り時間が延長される時間をリセット。
+
+
 	//釣り中？をfalseに。
 	SetIsFishingInArea(false);
 
@@ -302,7 +304,6 @@ void Enemy::EndFishing()
 
 
 
-
 }
 
 bool Enemy::DecideFishingResult(FishRarity raritu)
@@ -314,6 +315,26 @@ bool Enemy::DecideFishingResult(FishRarity raritu)
 		return true;
 	}
 	return false;
+}
+
+void Enemy::ResetCarryOverFishingTime()
+{
+	m_carryOverFishingTime = 0.0f; //経過時間をリセット。
+}
+
+void Enemy::OnTakeOverGaugeUsed()
+{
+	//敵が釣りをしていないと伝える。
+	SetIsFishingInArea(false);
+
+	//敵のフィッシングエリアターゲットにスコアが低い魚がいる場所をセット。
+	SetTargetFishingArea(m_positionSelection->FindFishLowScore());
+
+	//エリアを奪われたときは、経過時間をリセットする。
+	m_carryOverFishingTime = 0;
+
+	m_extendedFishingTimeByTakeOver = 10.0f; //テイクオーバーゲージが使われたときに、釣り時間が延長される時間をセット。
+
 }
 
 void Enemy::SetInitRarityProbability()
