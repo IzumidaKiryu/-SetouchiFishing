@@ -90,12 +90,12 @@ void FishCatchEffectState::WitchFishType(FishType fishType)
 		SetModel("Assets/modelData/Fish/hamachi.tkm", m_animClip, enAnimationClip_Num, enModelUpAxisZ);
 		break;
 	case FishType::TATIUO:
-		SetAnim("Assets/animData/Fish/fishShadow.tka");
-		SetModel("Assets/modelData/Fish/fishShadow.tkm", m_animClip, enAnimationClip_Num, enModelUpAxisZ);
+		SetAnim("Assets/animData/Fish/tatiuoFinishMorph.tka");
+		SetModel("Assets/modelData/Fish/tatiuo.tkm", m_animClip, enAnimationClip_Num, enModelUpAxisZ);
 		break;
 	case FishType::HIRAME:
-		SetAnim("Assets/animData/Fish/fishShadow.tka");
-		SetModel("Assets/modelData/Fish/fishShadow.tkm", m_animClip, enAnimationClip_Num, enModelUpAxisZ);
+		SetAnim("Assets/animData/Fish/hirameFinishMorph.tka");
+		SetModel("Assets/modelData/Fish/hirame.tkm", m_animClip, enAnimationClip_Num, enModelUpAxisZ);
 		break;
 	case FishType::JAKOTENN:
 		SetAnim("Assets/animData/Fish/jyakotenFinishMorph.tka");
