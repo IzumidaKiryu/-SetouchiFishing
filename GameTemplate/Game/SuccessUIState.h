@@ -25,9 +25,9 @@ public:
 
 
 
-	float m_t;
-	Vector3 m_successUIPos;
-	Vector3 m_successUIBarPos;
+	float m_t=0.0f;
+	Vector3 m_successUIPos=Vector3::Zero;
+	Vector3 m_successUIBarPos=Vector3::Zero;
 
 	Vector3 m_initSuccessUIPos_in = { 1500.0f,0.0f,0.0f };
 	Vector3 m_initSuccessUIBarPos_in = { 1500.0f,0.0f,0.0f };

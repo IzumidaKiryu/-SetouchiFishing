@@ -38,9 +38,9 @@ public:
 	float m_Hp = m_MaxHp;//釣り竿のHP。
 	float m_baseRecovery=1.0f;
 	float m_previousFrameHP = 0.0f;//前のフレームでのHP。
-	float test;
+	float test=0.0f;
 	bool m_is_playFishingFinished = false;
-	float m_powerMultiplier;//HPの割合に比例して魚が引く力を変える。
+	float m_powerMultiplier=0.0f;//HPの割合に比例して魚が引く力を変える。
 
 	SpriteRender m_RodHPGaugeInside;
 	SpriteRender m_RodHPGaugeOutside;
@@ -55,10 +55,10 @@ public:
 	SpriteRender m_playerIconTired;
 
 
-	PlayFishing* m_playFishing;
-	TensionGauge* m_tensionGauge;
-	PositionSelection* m_positionSelection;
-	FightFishState* m_fightFishState;
-	BuffManager* m_buffManager;
+	PlayFishing* m_playFishing=nullptr;
+	TensionGauge* m_tensionGauge=nullptr;
+	PositionSelection* m_positionSelection=nullptr;
+	FightFishState* m_fightFishState=nullptr;
+	BuffManager* m_buffManager=nullptr;
 };
 

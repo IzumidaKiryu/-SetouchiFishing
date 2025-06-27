@@ -18,7 +18,7 @@ public:
 	void Render(RenderContext& rc);
 	float m_barUpperLimit = 237.0f;//バーの上限
 	float m_barLowerLimit = -237.0f;//バーの下限
-	float m_barSpead;//バーのスピード
+	float m_barSpead=0.0f;//バーのスピード
 	void Attack();
 	float m_attack = 1;
 	float m_hpMinimumDecreaseLimit = 1.0f;
@@ -27,8 +27,8 @@ public:
 	SpriteRender m_fishingGauge;
 	SpriteRender m_fishingGaugeFrame;
 	SpriteRender m_fishingGaugeBar;
-	TensionGauge* m_tensionGauge;
-	PlayFishing* m_playFishing;
+	TensionGauge* m_tensionGauge=nullptr;
+	PlayFishing* m_playFishing=nullptr;
 
 
 };

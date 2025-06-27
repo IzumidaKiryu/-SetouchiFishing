@@ -43,7 +43,7 @@ public:
 
 
 
-	Vector3 m_fishDisplayPosition[6];
+	Vector3 m_fishDisplayPosition[6] = {Vector3::Zero,Vector3::Zero, Vector3::Zero, Vector3::Zero, Vector3::Zero, Vector3::Zero};
 	SpriteRender m_fishCommonDisplayInside[6];
 	SpriteRender m_fishRareDisplayInside[6];
 	SpriteRender m_fishSuperRareDisplayInside[6];
@@ -58,7 +58,7 @@ public:
 	SpriteRender m_pullPowerBuffUI[6];
 	PositionSelection* m_positionSelection=nullptr;
 	InGameState* m_inGameState=nullptr;
-	FishManager* m_fishManager[6];
+	FishManager* m_fishManager[6] = {nullptr,nullptr, nullptr, nullptr, nullptr, nullptr};
 	Enemy* m_enemy=nullptr;
 	StealPositionBar* m_stealPositionBar=nullptr;
 };

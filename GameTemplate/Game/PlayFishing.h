@@ -98,12 +98,12 @@ public:
 	float m_current_float_range_max_range_rate = 0.0f;
 	float m_castStrength = 0.0f;
 
-	Vector3 m_floating;
-	Vector3 m_gameCameraTarget;
-	Vector3 m_rodFloatModelPos;
+	Vector3 m_floating=Vector3::Zero;
+	Vector3 m_gameCameraTarget = Vector3::Zero;
+	Vector3 m_rodFloatModelPos = Vector3::Zero;
 	Vector3 m_cameraPos{ 0.0f,0.0f,0.0f };
 	Vector3 m_cameraTarget{ 0.0f,0.0f,0.0f };
-	Vector3 m_fishModelPos;
+	Vector3 m_fishModelPos = Vector3::Zero;
 
 	PlayFishingStatus m_playFishingStatus = playCastGauge;
 
@@ -120,7 +120,7 @@ private:
 	Successful_or_Failure m_successful_or_failure = unfixed;
 	FishData* p_fishData = &m_fishData;
 	std::string m_currentFishManagerobjectName;
-	SoundSource* m_sound;
+	SoundSource* m_sound=nullptr;
 	float m_floating_t = 0.0f;
 	float m_casting_t = 0.0f;
 	bool m_shouldChangeScene = false;
@@ -162,6 +162,6 @@ private:
 	ScoreManager* m_scoreManager = nullptr;
 	Enemy* m_enemy = nullptr;
 	StealPositionBar* m_stealPositionBar = nullptr;
-	BuffManager* m_buffManager;
+	BuffManager* m_buffManager=nullptr;
 	FishCatchEffectState* m_fishCatchEffectState = nullptr;
 };

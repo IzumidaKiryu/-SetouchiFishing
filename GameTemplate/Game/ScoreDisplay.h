@@ -32,17 +32,17 @@ public:
 	SpriteRender m_UIBackGround;
 	FontRender m_scoreFontRender;
 	//ここまで
-	int m_onesPlace;
-	int m_tensPlace;
-	int m_hundredsPlace;
-	int m_prevTime;
-	int m_score;
+	int m_onesPlace=0;
+	int m_tensPlace=0;
+	int m_hundredsPlace=0;
+	int m_prevTime=0;
+	int m_score=0;
 
 	Vector3 m_hundredsPlaceUIPos = { 490.0f - 270.0f + 200.0f,100.0f,0.0f };
 	Vector3 m_tensPlaceUIPos = { 410.0f - 270.0f + 200.0f,100.0f,0.0f };
 	Vector3 m_onesPlaceUIPos = { 330.0f - 270.0f + 200.00f,100.0f,0.0f };
 
-	PlayFishing* m_playFishing;
+	PlayFishing* m_playFishing=nullptr;
 	SpriteRender m_onesPlaceUI;
 	SpriteRender m_tensPlaceUI;
 	SpriteRender m_hundredsPlaceUI;

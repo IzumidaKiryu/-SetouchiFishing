@@ -117,10 +117,10 @@ public:
 
 	bool m_shouldFishChange = false;//魚を変えるべきか？
 	bool m_isSelected = false;//選ばれているかどうか。（つられている最中かどうか）
-	float m_baseScore;//基準になるスコア。
+	float m_baseScore=0.0f;//基準になるスコア。
 	//float m_time = 0.0f;
 	float m_initialTime = 0.0f;//このクラスが作られたときの時間。
-	float m_nowTime;
+	float m_nowTime=0.0f;
 	float m_timeRatio = 0.0f;
 	SpriteRender m_ui;
 	PositionSelection* m_positionSelection=nullptr;

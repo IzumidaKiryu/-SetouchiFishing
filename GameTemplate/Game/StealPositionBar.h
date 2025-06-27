@@ -70,13 +70,13 @@ public:
 	SpriteRender m_takeOver_gray;
 	SpriteRender m_clossUI;
 	FontRender m_stockCountUI;
-	SoundSource* m_sound;
+	SoundSource* m_sound=nullptr;
 	
 	float m_stealPoint = 0.0f;
 	float m_bar_Length = 0.0f;
-	int m_stockCount;//たまっているバーの本数。
-	float m_barRate;//バーの割合。
-	bool m_isCharged;//バーがチャージされているか？。
+	int m_stockCount=0;//たまっているバーの本数。
+	float m_barRate=0.0f;//バーの割合。
+	bool m_isCharged=false;//バーがチャージされているか？。
 	const float m_gaugeDeltaPerFrame = 0.02;/// 1フレームあたりにゲージへ加算される基本の増加量。
 	/// <summary>
 /// スティールバーを使用して敵の釣りエリアを奪ったときに、
@@ -95,9 +95,9 @@ public:
 	const float m_stealGaugeThreshold = 100;
 	const float m_max_barLength = 0.95;//バーの最大の長さ。
 
-	PositionSelection* m_positionSelection;
-	Enemy* m_enemy;
-	BuffManager* m_buffManager;
+	PositionSelection* m_positionSelection=nullptr;
+	Enemy* m_enemy=nullptr;
+	BuffManager* m_buffManager=nullptr;
 	Player* m_player = nullptr; // 追加
 };
 

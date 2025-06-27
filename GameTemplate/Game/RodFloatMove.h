@@ -56,24 +56,24 @@ public:
 	Vector3 g{ 0.0f,-30.0f,0.0f };
 	Vector3 InitPos{ 0.0f,500.0f,10.0f };
 	Vector3 m_position= InitPos;
-	Vector3 m_sumPosition;
+	Vector3 m_sumPosition=Vector3::Zero;
 	ModelRender m_rodFloatModel;
 	//void SetRodFloatPositon();
 	GameCamera* m_gameCamera = nullptr;
 	//RodFloatState m_floatState;
-	float m_float_t;
-	float water_surface_position_y;
-	Vector3 m_floating;
+	float m_float_t=0.0f;
+	float water_surface_position_y=0.0f;
+	Vector3 m_floating=Vector3::Zero;
 	float m_cos=0.0f;
-	Vector3 landing_position;
+	Vector3 landing_position = Vector3::Zero;
 	float m_current_range_and_max_range_rate=1;//今の距離と限界の距離の割合。
 
 	
 	bool m_cast_end=false;//キャストが終わっているか。
 
 	float float_diameter=50.0f;
-	float m_water_contains_rate;//ウキが水につかっている割合（1なら100パーセント）
-	float float_volume;//ウキの体積。
+	float m_water_contains_rate=0.0f;//ウキが水につかっている割合（1なら100パーセント）
+	float float_volume=0.0f;//ウキの体積。
 	Vector3 m_range_with_fish={0.0f,0.0f,0.0f};
 	float m_limit_range_with_ship=2010.1f;//船との限界距離。
 

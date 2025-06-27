@@ -94,17 +94,17 @@ private:
 
 	const Vector3 m_initUIScale = Vector3::One*0.5;
 	const Vector3 m_endUIScale = Vector3::One*5;
-	Vector3 m_UIScale ;
+	Vector3 m_UIScale=Vector3::One ;
 
 
 	SpriteRender m_countdownUI[4];
 
 
-	Vector3 m_cameraPos;
-	Vector3 m_initCameraPos;
-	Vector3 m_endCameraPos;
+	Vector3 m_cameraPos=Vector3::Zero;
+	Vector3 m_initCameraPos=Vector3::Zero;
+	Vector3 m_endCameraPos=Vector3::Zero;
 
-	Vector3 m_cameraTarget;
+	Vector3 m_cameraTarget=Vector3::Zero;
 
 
 	float m_initCameraToShipDistance=0;
@@ -112,15 +112,15 @@ private:
 	float m_CameraToShipDistance=0;
 
 
-	Vector3 m_endCameraTarget;
+	Vector3 m_endCameraTarget = Vector3::Zero;
 
 	Stopwatch m_stopwatch;
 
-	PositionSelection* m_positionSelection;
-	FishSlot* m_fishSlot;
-	BackGround* m_backGround;
-	GameCamera* m_camera;
-	InGameState* m_inGameState;
+	PositionSelection* m_positionSelection=nullptr;
+	FishSlot* m_fishSlot = nullptr;
+	BackGround* m_backGround = nullptr;
+	GameCamera* m_camera = nullptr;
+	InGameState* m_inGameState = nullptr;
 
 };
 
