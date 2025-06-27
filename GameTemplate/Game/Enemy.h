@@ -107,7 +107,7 @@ private:
 	/// <summary>
 	/// 途中で釣りを中断した場合、次の釣りに持ち越す時間。
 	/// </summary>
-	float m_carryOverFishingTime;
+	float m_carryOverFishingTime=0.0f;
 	float m_extendedFishingTimeByTakeOver = 0.0f; //テイクオーバーゲージが使われたときに、釣り時間が延長される時間。
 	bool hasDecidedInitialTargetFishingArea=false;
 

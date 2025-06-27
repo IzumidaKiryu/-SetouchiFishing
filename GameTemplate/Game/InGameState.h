@@ -54,30 +54,30 @@ public:
 
 private:
 	
-	GameStartCountdown* m_gameStartCountdown;
-	Player* m_player;
-	GameCamera* m_gameCamera;
-	PositionSelection* m_positionSelection;//場所を選ぶ画面のクラス。
-	BackGround* m_backGround;
-	Enemy* m_enemy;
+	GameStartCountdown* m_gameStartCountdown=nullptr;
+	Player* m_player = nullptr;
+	GameCamera* m_gameCamera = nullptr;
+	PositionSelection* m_positionSelection = nullptr;//場所を選ぶ画面のクラス。
+	BackGround* m_backGround = nullptr;
+	Enemy* m_enemy = nullptr;
 	Stopwatch m_stopwatch;
 	FishManager* m_fishManager[6];
 	SpriteRender* m_fishUI[6];
-	ScoreManager* m_scoreManager;
-	FishSlot* m_fishSlot;
-	StealPositionBar* m_stealPositionBar;
-	BuffManager* m_buffManager;
-	PlayFishing* m_playFishing;
-	ScoreDisplay* m_scoreDisplay;
-	SoundSource* m_sound;
+	ScoreManager* m_scoreManager = nullptr;
+	FishSlot* m_fishSlot = nullptr;
+	StealPositionBar* m_stealPositionBar = nullptr;
+	BuffManager* m_buffManager = nullptr;
+	PlayFishing* m_playFishing = nullptr;
+	ScoreDisplay* m_scoreDisplay = nullptr;
+	SoundSource* m_sound = nullptr;
 
 
 
 	float m_timelimit = 300;//時間制限
 	float m_time = m_timelimit;//時間
 	float m_totalScore = 0.0f;//スコアの合計。
-	TimeLimitUI* m_timeLimitUI;
-	bool m_isCountdownFinished;//カウントダウンが終わったか（このクラスのカウントダウン）
+	TimeLimitUI* m_timeLimitUI=nullptr;
+	bool m_isCountdownFinished=false;//カウントダウンが終わったか（このクラスのカウントダウン）
 
 
 	bool m_hasCountdownClassFinished=false;//ゲームスタートカウントダウンクラスが終わったか。

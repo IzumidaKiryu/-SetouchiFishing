@@ -30,10 +30,10 @@ public:
 	void StateManager();
 
 
-	float t;
-	float swing_t;
-	float z_slope;
-	float y_slope;
+	float t=0.0f;
+	float swing_t=0.0f;
+	float z_slope=0.0f;
+	float y_slope=0.0f;
 	const float e=2.71828;
 
 	
@@ -45,14 +45,14 @@ public:
 	bool m_is_landing=false;
 	float HydraulicPressureDifference = 0;//水圧差
 	float water_surface_position_y = 0;//うみのy軸での場所。
-	float m_castStrength;//キャストの強さ（ウキのとび具合が変わる）
+	float m_castStrength=0.0f;//キャストの強さ（ウキのとび具合が変わる）
 	float first_velocity_vector_z = 2;//初速ベクトルｚの値（ｙとｚの比率）。
 	Vector3 first_velocity_vector{ 0.0f,1.0f,first_velocity_vector_z };//初速ベクトル（ｙは必ず1にしておく）。
 
-	Quaternion m_floatRotation;
+	Quaternion m_floatRotation=Quaternion::Identity;
 
 	CastMoveState m_castMoveState;
-	TensionGauge* m_tensionGauge;
+	TensionGauge* m_tensionGauge=nullptr;
 
 };
 

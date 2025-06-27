@@ -43,32 +43,32 @@ public:
 	void ResetInGame();//リザルト画面が終わったら呼ばれる。
 
 
-	GameStateBase* currentState;
+	GameStateBase* currentState=nullptr;
 
 
-	Vector3 m_rotationQuantity;
+	Vector3 m_rotationQuantity=Vector3::Zero;
 	Vector3 m_InsideScale{ 1.02f,1.0f,1.0f };
 
 	SpriteRender hpBarInSide;
-	GameCamera* gameCamera;
-	BackGround* backGround;
+	GameCamera* gameCamera=nullptr;
+	BackGround* backGround=nullptr;
 	/*SoundSource* gameBGM;*/
 	FontRender m_fontRender;
-	PositionSelection* positionSelection;//場所を選ぶ画面のクラス。
-	PlayFishing* m_playFishing;
+	PositionSelection* positionSelection=nullptr;//場所を選ぶ画面のクラス。
+	PlayFishing* m_playFishing=nullptr;
 	/*ScoreDisplay* m_scoreDisplay;*/
 	SkyCube* m_skyCube = nullptr;
-	BackGround* m_backGround;
-	FishSlot* m_fishSlot;
-	GameStartCountdown* m_gameStartCountdown;
-	Player* m_player;
-	Enemy* m_enemy;
-	PositionSelection* m_positionSelection;
+	BackGround* m_backGround=nullptr;
+	FishSlot* m_fishSlot=nullptr;
+	GameStartCountdown* m_gameStartCountdown=nullptr;
+	Player* m_player=nullptr;
+	Enemy* m_enemy=nullptr;
+	PositionSelection* m_positionSelection=nullptr;
 	GameState m_gameState = GameState::GameStartCountdown; //ゲームの状態を管理する変数
 
-	Title* m_title;
-	InGameState* m_inGameState;
-	GameResult* m_gameResult;
-	GameGuide* m_gameGuide;
+	Title* m_title=nullptr;
+	InGameState* m_inGameState=nullptr;
+	GameResult* m_gameResult=nullptr;
+	GameGuide* m_gameGuide=nullptr;
 
 	};

@@ -32,7 +32,7 @@ public:
 	Vector3 m_fishDetectionRadiusUIPos = { 0.0f, 0.0f, 0.0f };
 
 	SpriteRender m_fishDetectionRadiusUI;
-	PlayFishing* m_playFishing;
-	TensionGauge* m_tensionGauge;
+	PlayFishing* m_playFishing=nullptr;
+	TensionGauge* m_tensionGauge=nullptr;
 };
 

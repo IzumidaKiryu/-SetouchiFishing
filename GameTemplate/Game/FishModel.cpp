@@ -106,7 +106,7 @@ float FishModel::ChangePosition_Z(float current_fish_range_and_max_range_rate)
 
 float FishModel::GetCurrentFishRangeAndMaxRangeRate(float position_z)
 {
-	float current_fish_range_and_max_range_rate;
+	float current_fish_range_and_max_range_rate=0.0f;
 	current_fish_range_and_max_range_rate = position_z / m_limit_range_with_ship;
 	return current_fish_range_and_max_range_rate;
 }

@@ -35,13 +35,13 @@ public:
 
 	Vector3 m_scale=Vector3::One*0.5;
 	float m_limit_range_with_ship = 2010.1f;
-	Vector3 m_position;
+	Vector3 m_position=Vector3::Zero;
 	AnimationClip m_animationClips;
 	AnimationClip m_ShadowAnimationClips[enAnimationClip_ShadowNum];	//ロッドのアニメーションクリップ。
-	float turn_t;
+	float turn_t=0.0f;
 	bool m_is_TurningUpward = false;//向きが上向きになるように回っているかどうか。
 	bool m_is_TurningDownward = false;//向きが下向きになるように回っているかどうか。
 
-	PlayFishing* m_playFishing;
+	PlayFishing* m_playFishing=nullptr;
 };
 

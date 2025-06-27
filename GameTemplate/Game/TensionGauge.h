@@ -65,11 +65,11 @@ private:
 	float m_barTop = 317.0f;//ゲージの上端。
 	float m_bar_length = std::abs(m_barTop) + std::abs(m_barBottom);//バーの長さ。(abs()は絶対値を求める関数。)
 	bool m_should_change_fish_to_anger_ui = true;
-	Vector3 fish3DPos;
+	Vector3 fish3DPos=Vector3::Zero;
 	Vector3 m_fishUIPos = {0.0f,0.0f,0.0f};
 	Vector3 m_shipUIPos = { 650.0f, -400.0f, 0.0f };
 	Vector3 m_shipUIScale = Vector3::One * 2.5f;//船のUIの大きさ
-	float m_shipFloating_t;
+	float m_shipFloating_t=0.0f;
 
 	//円周率
 	double pie = 3.141592653589793;

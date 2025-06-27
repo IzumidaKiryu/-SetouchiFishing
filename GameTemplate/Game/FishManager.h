@@ -37,7 +37,7 @@ private:
 	Vector3 m_baseUiScale=Vector3::One;
 	float m_uiPopIn_t=0;
 	bool m_shouldFishChange = false;//魚を変えるべきかどうか。
-	int m_randum;
+	int m_randum = 0;
 	const double e = 2.718281828459045;
 	float m_timeRatio=0;
 

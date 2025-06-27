@@ -25,9 +25,9 @@ public:
 
 
 	
-	float m_t;
-	Vector3 m_hitUIPos;
-	Vector3 m_hitUIBarPos;
+	float m_t=0.0f;
+	Vector3 m_hitUIPos=Vector3::Zero;
+	Vector3 m_hitUIBarPos=Vector3::Zero;
 
 	Vector3 m_initHitUIPos_in = { 1500.0f,0.0f,0.0f };
 	Vector3 m_initHitUIBarPos_in = { 1500.0f,0.0f,0.0f };

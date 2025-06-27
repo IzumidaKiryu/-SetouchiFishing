@@ -80,11 +80,11 @@ public:
 	{ 400.0f,-230.0f,0.0f }
 	};
 
-	Vector3 m_vec[num];//各UIのポジション。
-	float m_t[num];			//補完率。
+	Vector3 m_vec[num] = {Vector3::Zero,Vector3::Zero, Vector3::Zero, Vector3::Zero, Vector3::Zero, Vector3::Zero};//各UIのポジション。
+	float m_t[num] = {0.0f,0.0f,0.0f,0.0f,0.0f,0.0f};			//補完率。
 
-	Vector3 m_enemyVec[num];//敵のUIのポジション。
-	float m_enemyT[num];	//敵のUIの補完率。
+	Vector3 m_enemyVec[num] = { Vector3::Zero,Vector3::Zero, Vector3::Zero, Vector3::Zero, Vector3::Zero, Vector3::Zero };//敵のUIのポジション。
+	float m_enemyT[num] = { 0.0f,0.0f,0.0f,0.0f,0.0f,0.0f };	//敵のUIの補完率。
 
 
 	SpriteRender m_fishUI[6];//収集した魚の表示用スプライトレンダー。
@@ -97,8 +97,8 @@ public:
 	ScoreManager* m_scoreManager = nullptr; // スコアマネージャーのポインタ
 	FontRender m_fontRender[12] = {}; // フォントレンダラー
 	wchar_t m_scoreText[12][256]; // スコア表示用のテキスト配列
-	float m_alpha[num] = {}; // アルファ値
-	float m_enemyAlpha[num] = {}; // 敵のUIのアルファ値
+	float m_alpha[num] = { 0.0f,0.0f,0.0f,0.0f,0.0f,0.0f }; // アルファ値
+	float m_enemyAlpha[num] = { 0.0f,0.0f,0.0f,0.0f,0.0f,0.0f }; // 敵のUIのアルファ値
 	SpriteRender m_enemyFishUI[6]; // 敵の魚のUI用スプライトレンダー
 	
 	float m_waitTimer = 0.0f;
@@ -128,7 +128,7 @@ public:
 	bool m_enVictoryFlag = false;
 	void SetVictory();//勝者の設定。
 
-	SoundSource* m_sound;
+	SoundSource* m_sound=nullptr;
 	FontRender m_allScoreEnemy; // リザルト画面のフォントレンダラー
 	FontRender m_allScorePlayer; // リザルト画面のフォントレンダラー2
 	float playerTotalScore = 0.0f;

@@ -53,15 +53,15 @@ public:
 	float m_gaugeUpperLimit = 237.0f;//ゲージの上限
 	float m_gaugeLowerLimit = -237.0f;//ゲージの下限
 	float  m_gauge_length= std::abs(m_gaugeUpperLimit)+ std::abs(m_gaugeLowerLimit);//absは絶対値を求める関数。
-	float m_gaugeSpead;
+	float m_gaugeSpead=0.0f;
 
 	float m_heightFirstGaugeCastSuccessful = 10.0f;//成功ゲージの最初の横幅。
 	bool is_ended = false;
 	float t = 0.0f;
 
 	float m_castStrength=0.0f;//今のウキの限界のウキの距離の割合。
-	Vector3 m_gameCameraTarget;
-	Vector3 m_gameCameraPos;
+	Vector3 m_gameCameraTarget=Vector3::Zero;
+	Vector3 m_gameCameraPos=Vector3::Zero;
 
 	bool m_is_thisClassEnd=false;
 
@@ -69,24 +69,24 @@ public:
 	SpriteRender m_castGaugeInside;
 	SpriteRender m_Arrow;
 	/*GaugeCastSuccessful* m_gaugeCastSuccessful = nullptr;*/
-	FishingGauge* m_fishingGauge;
+	FishingGauge* m_fishingGauge=nullptr;
 	TensionGauge* tensionGauge = nullptr;
-	PositionSelection* m_positionSelection;
-	PlayFishing* m_playFishing;
+	PositionSelection* m_positionSelection=nullptr;
+	PlayFishing* m_playFishing=nullptr;
 	ModelRender m_rodFloatModel;
 
 	Vector3 first_velocity_vector{ 1.0f,0.0f,0.0f };
-	Vector3 m_waveMotion;//波の動き
+	Vector3 m_waveMotion=Vector3::Zero;//波の動き
 	Vector3 g{ 0.0f,-30.0f,0.0f };
 	Vector3 m_rodFloatPosition{ 0.0f,500.0f,0.0f };
 	Vector3 InitPos{0.0f,500.0f,0.0f};
 
-	GameCamera* m_gameCamera;
-	RodFloatMove* m_rodFloatMove;
+	GameCamera* m_gameCamera=nullptr;
+	RodFloatMove* m_rodFloatMove=nullptr;
 	ChasutState m_chastState= playing;
 
-	Player* m_player;
-	SceneFightFish* m_sceneFightFish;
-	PlayCastGaugeState* m_playCastGaugeState;
+	Player* m_player=nullptr;
+	SceneFightFish* m_sceneFightFish=nullptr;
+	PlayCastGaugeState* m_playCastGaugeState=nullptr;
 };
 
