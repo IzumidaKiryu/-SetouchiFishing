@@ -11,7 +11,7 @@ public:
 	FontRender& GetTimeFont();
 
 private:
-	int m_time;
+	int m_time=0.0f;
 	const Vector3 m_clockUIPos = { -570.0f,300.0f,0.0f };
 	const Vector3 m_hundredsPlaceUIPos = { -490.0f,300.0f,0.0f };
 	const Vector3 m_tensPlaceUIPos = { -410.0f,300.0f,0.0f };

@@ -47,7 +47,7 @@ public:
 
 	Vector3 m_pos = { 0.0f,0.0f,15.0f };
 
-	Vector3 m_initCameraPos;
+	Vector3 m_initCameraPos=Vector3::Zero;
 
 };
 

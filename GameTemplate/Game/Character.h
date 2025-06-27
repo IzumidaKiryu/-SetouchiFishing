@@ -99,10 +99,10 @@ public:
 	AnimationClip m_rodAnimationClips[enAnimationClip_RodNum];	//ロッドのアニメーションクリップ。
 	CharacterController characterController;  //キャラクターコントローラー。
 	Vector3 moveSpeed = Vector3::Zero;		//移動速度。
-	Quaternion rotation;  //クォータニオン。
+	Quaternion rotation=Quaternion::Identity;  //クォータニオン。
 	EnAnimationClip playerState;	//プレイヤーのステート(状態)を表す変数。
 	EnRodAnimationClip rodState;
-	FishingAnimationState* m_castAnimationState;
-	PlayFishing* m_playFishing;
+	FishingAnimationState* m_castAnimationState=nullptr;
+	PlayFishing* m_playFishing=nullptr;
 	
 };

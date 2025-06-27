@@ -23,7 +23,7 @@ public:
 
 private:
 	void Render(RenderContext& rc);
-	BackGround* m_backGround;
+	BackGround* m_backGround=nullptr;
 	Vector3 m_rodPosition = Vector3{-110.0f, 20.0f, -180.0f};
 	//Vector3 m_rodPosition = Vector3{ 0.0f, 0.0f, 0.0f };
 	

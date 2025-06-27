@@ -9,8 +9,8 @@ public:
 	float CalculatingRotationQuantity();//回転量を計算
 	void GetRotationDirection();//回転方向を取得
 
-	Vector2 stickL;
-	Vector3 nowVector;//今のフレームで取得したベクトル。
+	Vector2 stickL=Vector2::Zero;
+	Vector3 nowVector=Vector3::Zero;//今のフレームで取得したベクトル。
 	Vector3 befreVector = { 0.0f,0.0f,0.0f };//前のフレームで取得したベクトル。
 	float rotationQuantity = 0.0f;//回転量
 	float nowFrameRotationQuantity = 0.0f;//今のフレームでの回転量。（回転量がマイナスの時は0）

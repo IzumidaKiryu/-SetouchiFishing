@@ -23,8 +23,8 @@ public:
 	SpriteRender m_pressA;
 	SpriteRender m_pressX;
 	SpriteRender spriteRender ;
-	InGameState* m_inGameState;
-	SoundSource* m_sound;
+	InGameState* m_inGameState=nullptr;
+	SoundSource* m_sound=nullptr;
 	//SoundSource* titleBGM;			//タイトルのBGM。
  // ゲームスタートカウントダウンのポインタ
 };

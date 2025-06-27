@@ -83,7 +83,7 @@ public:
 
 
 	float m_floating_t = 0.0f;
-	Vector3 m_floating;
+	Vector3 m_floating=Vector3::Zero;
 
 
 	Vector3 m_init_fishModelPos = Vector3::Zero;
@@ -121,7 +121,7 @@ public:
 	FishFacing m_fishFacing;
 
 //private:
-	Vector3 m_fishModelPos;
-	Vector3 m_floatModelPos;
+	Vector3 m_fishModelPos=Vector3::Zero;
+	Vector3 m_floatModelPos=Vector3::Zero;
 };
 

@@ -11,18 +11,10 @@ ScoreDisplay::ScoreDisplay()
 {
 	wchar_t wcsbuf[256];
 	swprintf_s(wcsbuf, 256, L"%d", int(m_score));
-
-
-
-
-
-
 }
 
 ScoreDisplay::~ScoreDisplay()
 {	
-
-
 	//魚をチェンジ。
 	m_inGameState->ChangeFish(static_cast<int>(m_positionSelection->GetCurrentArea()));
 

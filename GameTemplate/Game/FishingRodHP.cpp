@@ -47,7 +47,7 @@ float FishingRodHP::CalculateRecoveryAmount()
 {
 
 	//今のスタミナの割合によって回復量を決める。
-	float recoveryMultiplier;
+	float recoveryMultiplier=0.0f;
 	recoveryMultiplier=std::pow((m_Hp / m_MaxHp),1.5)+0.5;
 
 	return recoveryMultiplier;
