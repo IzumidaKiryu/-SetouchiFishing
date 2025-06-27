@@ -26,8 +26,8 @@ void TimeLimitUI::Update()
     wchar_t wcsbuf[256];
     swprintf_s(wcsbuf, 256, L"%d", int(m_time));
 
-    // 100秒以下になった瞬間にアニメーション開始
-    if (m_prevTime > 100 && m_time <= 100) {
+    // 60秒以下になった瞬間にアニメーション開始
+    if (m_prevTime > 60 && m_time <= 60) {
         m_isAnimActive = true;
         m_animTime = 0.0f;
     }
@@ -54,8 +54,8 @@ void TimeLimitUI::Update()
     m_timeFont.SetPosition(Vector3(-800.0f, 500.0f, 0.0f));
     //フォントの大きさを設定。
     m_timeFont.SetScale(scale);
-    // 残り時間が100秒以下なら赤色、それ以外は白色
-    if (m_time <= 100) {
+    // 残り時間が60秒以下なら赤色、それ以外は白色
+    if (m_time <= 60) {
         m_timeFont.SetColor({ 1.0f, 0.0f, 0.0f, 1.0f });
     }
     else {

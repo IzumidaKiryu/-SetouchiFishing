@@ -181,10 +181,6 @@ void PlayFishing::StatusManager() {
 		m_castState = NewGO<CastState>(0, "castState");
 		m_castState->Init();
 		break;
-	case successUI:
-		m_successUIState = NewGO<SuccessUIState>(0, "successUIState");
-		m_successUIState->Init();
-		break;
 	case wait_for_fish:
 		m_waitForFishState = NewGO<WaitForFishState>(0, "waitForFishState");
 		m_waitForFishState->Init();
@@ -236,11 +232,13 @@ void PlayFishing::Success() {
 
 		m_sound->Play(false);
 		DeleteGO(m_castState);
-		m_playFishingStatus = successUI;
+		m_playFishingStatus = wait_for_fish;
 		StatusManager();
+		/*m_successUIState = NewGO<SuccessUIState>(0, "successUIState");
+		m_successUIState->Init();*/
 		break;
-	case successUI:
-		g_soundEngine->ResistWaveFileBank(12, "Assets/sound/niceVoice.wav");
+	/*case successUI:
+		g_soundEngine->ResistWaveFileBank(12, "Assets/sound/successVoice.wav");
 
 		m_sound = NewGO<SoundSource>(12);
 
@@ -250,8 +248,14 @@ void PlayFishing::Success() {
 		DeleteGO(m_successUIState);
 		m_playFishingStatus = wait_for_fish;
 		StatusManager();
-		break;
+		break;*/
 	case wait_for_fish:
+		// ここでreelCoiling.wavを止める
+		if (m_sound) {
+			// m_soundがID:6のサウンドかどうか判定したい場合は、必要に応じて判定を追加
+			DeleteGO(m_sound);
+			m_sound = nullptr;
+		}
 		DeleteGO(m_waitForFishState);
 		m_playFishingStatus = hitUI;
 		StatusManager();
@@ -269,7 +273,11 @@ void PlayFishing::Success() {
 		StatusManager();
 		break;
 	case sceneFightFish:
-
+		// fishFaight.wav（ID:5）を停止
+		if (m_sound) {
+			DeleteGO(m_sound);
+			m_sound = nullptr;
+		}
 		DeleteGO(m_fightFishState);
 		m_playFishingStatus = fishCatch;
 		StatusManager();
