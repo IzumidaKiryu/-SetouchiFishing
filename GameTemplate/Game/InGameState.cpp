@@ -31,14 +31,6 @@ bool InGameState::Start()
 	m_gameCamera = NewGO<GameCamera>(0, "gamecamera");
 	m_gameCamera->Init();
 
-	g_soundEngine->ResistWaveFileBank(1, "Assets/sound/mainGameBGM.wav");
-
-	m_sound = NewGO<SoundSource>(1);
-
-	m_sound->Init(1);
-
-	m_sound->Play(false);
-
 	//ポジション選択シーンのオブジェクトを作る。
 	m_positionSelection = NewGO<PositionSelection>(0, "positionSelection");
 
@@ -263,15 +255,20 @@ void InGameState::DeleteGameObjects()
 /// </summary>
 void InGameState::OnCountdownFinished()
 {
-	m_stopwatch.Start();
+    m_stopwatch.Start();
 
-	CreateInitialFish();
+    CreateInitialFish();
 
-	//敵が最初に釣る場所を決める
-	m_enemy->SetTargetFishingArea(m_positionSelection->FindFishHighScore()/*スコアが一番高い魚を探す*/);
+    // 敵が最初に釣る場所を決める
+    m_enemy->SetTargetFishingArea(m_positionSelection->FindFishHighScore()/*スコアが一番高い魚を探す*/);
 
-	m_hasCountdownClassJustFinished = false;
+    m_hasCountdownClassJustFinished = false;
 
+    // カウントダウン終了後にBGM再生
+    g_soundEngine->ResistWaveFileBank(1, "Assets/sound/gameMainBGM.wav");
+    m_sound = NewGO<SoundSource>(1);
+    m_sound->Init(1);
+    m_sound->Play(false);
 }
 
 std::string InGameState::GetAreaName(int index)
