@@ -108,8 +108,8 @@ void PlayFishing::SetFishScaleByIndividualFactor() {
 
 // カメラやシーン切り替え
 void PlayFishing::ReturnToPositionSelectCamera() {
-	m_gameCamera->SetPosition(m_backGround->m_shipPosition + Vector3{ 0.0f,1500.0f,0.0f });
-	m_gameCamera->SetTarget(m_backGround->m_shipPosition + Vector3{ 0.0f,0.0f,100.0f });
+	m_gameCamera->SetPosition(m_backGround->GetShipPosition() + Vector3{ 0.0f,1500.0f,0.0f });
+	m_gameCamera->SetTarget(m_backGround->GetShipPosition() + Vector3{ 0.0f,0.0f,100.0f });
 }
 
 void PlayFishing::ChangeScene() {

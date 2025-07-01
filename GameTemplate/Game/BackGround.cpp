@@ -13,13 +13,6 @@ BackGround::~BackGround()
 
 bool BackGround::Start()
 {
-	/*g_soundEngine->ResistWaveFileBank(1, "Assets/sound/mainGameBGM.wav");
-
-	m_sound = NewGO<SoundSource>(1);
-
-	m_sound->Init(1);
-
-	m_sound->Play(false);*/
 	return true;
 }
 
@@ -39,7 +32,6 @@ bool BackGround::Init()
 	m_hitBox.Init("Assets/modelData/2DShipFloor.tkm", nullptr, 0, enModelUpAxisZ, false, true);
 
 
-	//modelRender.Init("Assets/material/stera.tkm");
 	m_hitBox.Update();
 
 	physicsStaticObject.CreateFromModel(m_hitBox.GetModel(), m_hitBox.GetModel().GetWorldMatrix());
@@ -55,41 +47,29 @@ bool BackGround::Init()
 	m_isrand.SetScale(Vector3(10.0f, 10.0f, 10.0f));
 	m_isrand.Update();
 
-	//船に当たり判定を反映。
-	//physicsStaticObject.CreateFromModel(m_ship.GetModel(), m_ship.GetModel().GetWorldMatrix());
 
 	return true;
 }
 
 void BackGround::Update()
 {
-	Float();
+	UpdateFloating();
 	m_ship.SetPosition(m_floating + m_shipPosition);
 	m_ship.Update();
 
 }
 
-void BackGround::Float()
+void BackGround::UpdateFloating()
 {
-	t += 0.05;
-	m_floating.y = (cos(t)) * 5;//上下に動かす
-	m_floating.x = (cos(t * 0.7/*周期をずらす*/) * 10);//左右に動かす
+	floatingTime += 0.05;
+	m_floating.y = (cos(floatingTime)) * 5;//上下に動かす
+	m_floating.x = (cos(floatingTime * 0.7/*周期をずらす*/) * 10);//左右に動かす
 }
 
-void BackGround::BackGroundDeactive()
+Vector3 BackGround::GetShipPosition() const
 {
-	if (m_isActive != true) {
-		physicsStaticObject.Release();
-	}
+	return m_shipPosition;
 }
-
-void BackGround::BackGroundActive()
-{
-	physicsStaticObject.CreateFromModel(m_ship.GetModel(), m_ship.GetModel().GetWorldMatrix());
-
-}
-
-
 
 void BackGround::Render(RenderContext& rc)
 {

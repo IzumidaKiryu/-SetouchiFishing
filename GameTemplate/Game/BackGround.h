@@ -8,12 +8,16 @@ public:
 	bool Start()override;
 	bool Init();
 	void Update();
-	void Float();
-	void BackGroundDeactive();
-	void BackGroundActive();
+	/// <summary>
+	/// 浮き沈みの更新処理。
+	/// </summary>
+	void UpdateFloating();
 
+    Vector3 GetShipPosition()const;
+
+private:
 	void Render(RenderContext& rc);
-	float t=0.0f;
+	float floatingTime=0.0f;
 	Vector3 m_shipPosition{ 0.0f,-100.0f,-400.0f };
 	Vector3 m_israndPosition {-500.0f, 0.0f, 4000.0f};
 	Vector3 m_seaPosition{ 100.0f,-100.0f,120.0f };
