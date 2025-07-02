@@ -40,7 +40,7 @@ void PlayCastGaugeState::Update()
 	SumFishModelPosition(m_current_fish_range_and_max_range_rate);
 	//場所を反映させる。
 	SetFish();
-	if (m_castGauge->GetIsThisClasEnd()) {
+	if (m_castGauge->GetIsCastInputComplete()) {
 		SetSuccess();
 	}
 }
