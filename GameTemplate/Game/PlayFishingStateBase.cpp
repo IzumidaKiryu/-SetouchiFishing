@@ -17,7 +17,7 @@ PlayFishingStateBase::PlayFishingStateBase()
 PlayFishingStateBase::~PlayFishingStateBase()
 {
 	if (m_rodFloatMove != nullptr) {
-		m_sum_current_float_range_max_range_rate = GetCurrent_Float_Range_Max_Range_Rate();
+		m_sumCurrentFloatRangeMaxRangeRate = GetCurrent_Float_Range_Max_Range_Rate();
 	}
 
 	if (m_playFishing != nullptr) {
@@ -90,17 +90,17 @@ bool PlayFishingStateBase::GetIsChengeState()
 
 void PlayFishingStateBase::SetSuccess()
 {
-	m_successful_or_Failure = success;
+	m_successfulOrFailure = success;
 }
 
 void PlayFishingStateBase::SetFailure()
 {
-	m_successful_or_Failure = failure;
+	m_successfulOrFailure = failure;
 }
 
 Successful_or_Failure PlayFishingStateBase::GetSuccessful_or_Failure()
 {
-	return m_successful_or_Failure;
+	return m_successfulOrFailure;
 }
 
 void PlayFishingStateBase::SetCamera(Vector3 position, Vector3 targete)
@@ -111,22 +111,22 @@ void PlayFishingStateBase::SetCamera(Vector3 position, Vector3 targete)
 
 void PlayFishingStateBase::SumFishModelPosition(Vector3 position)
 {
-	m_sum_fishModelPos += position;
+	m_sumFishModelPos += position;
 }
 
 void PlayFishingStateBase::SumFishModelPosition(float current_fish_range_and_max_range_rate)
 {
-	m_sum_fishModelPos += Vector3{ 0.0f,0.0f,m_fishModel->ChangePosition_Z(current_fish_range_and_max_range_rate) };
+	m_sumFishModelPos += Vector3{ 0.0f,0.0f,m_fishModel->ChangePosition_Z(current_fish_range_and_max_range_rate) };
 }
 
 void PlayFishingStateBase::SumRodFloatPosition(Vector3 position)
 {
-	m_sum_floatModelPos += position;
+	m_sumFloatModelPos += position;
 }
 
 void PlayFishingStateBase::SumRodFloatPosition(float current_float_range_max_range_rate)
 {
-	m_sum_floatModelPos += Vector3{ 0.0f,0.0f,m_rodFloatMove->ChangePosition_Z(current_float_range_max_range_rate) };
+	m_sumFloatModelPos += Vector3{ 0.0f,0.0f,m_rodFloatMove->ChangePosition_Z(current_float_range_max_range_rate) };
 }
 
 void PlayFishingStateBase::SetFishData()
@@ -150,12 +150,12 @@ void PlayFishingStateBase::SetFish()
 
 void PlayFishingStateBase::ResetFishModelPosition()
 {
-	m_sum_fishModelPos = Vector3{ 0.0f,0.0f,0.0f };
+	m_sumFishModelPos = Vector3{ 0.0f,0.0f,0.0f };
 }
 
 void PlayFishingStateBase::ResetFloatModelPosition()
 {
-	m_sum_floatModelPos = Vector3{ 0.0f,0.0f,0.0f };
+	m_sumFloatModelPos = Vector3{ 0.0f,0.0f,0.0f };
 }
 
 void PlayFishingStateBase::SetFloat()
@@ -170,14 +170,14 @@ void PlayFishingStateBase::SetFloat()
 
 void PlayFishingStateBase::SetFloatPosition()
 {
-	m_floatModelPos = m_init_floatModelPos + m_sum_floatModelPos;
+	m_floatModelPos = m_initFloatModelPos + m_sumFloatModelPos;
 	m_rodFloatMove->SetPosition(m_floatModelPos);
 }
 
 void PlayFishingStateBase::SetFishModelPos()
 {
 	
-	m_fishModelPos = m_sum_fishModelPos + m_init_fishModelPos;
+	m_fishModelPos = m_sumFishModelPos + m_initFishModelPos;
 	m_fishModel->SetPosition(m_fishModelPos);
 
 }
@@ -195,7 +195,7 @@ void PlayFishingStateBase::SetFloatUIPosition(float current_float_range_max_rang
 
 void PlayFishingStateBase::SetCurrentFishRangeAndMaxRangeRate(float current_fish_range_and_max_range_rate)
 {
-	m_current_fish_range_and_max_range_rate = current_fish_range_and_max_range_rate;
+	m_currentFishRangeAndMaxRangeRate = current_fish_range_and_max_range_rate;
 }
 
 Vector3 PlayFishingStateBase::GetRodPosition()
@@ -221,12 +221,12 @@ void PlayFishingStateBase::Failure()
 
 void PlayFishingStateBase::Pass_Current_Fish_Range_And_Max_Range_Rate()
 {
-	m_playFishing->m_current_fish_range_and_max_range_rate = m_current_fish_range_and_max_range_rate;
+	m_playFishing->m_current_fish_range_and_max_range_rate = m_currentFishRangeAndMaxRangeRate;
 }
 
 void PlayFishingStateBase::Pass_Current_Float_Range_And_Max_Range_Rate()
 {
-	m_playFishing->m_current_float_range_max_range_rate = m_sum_current_float_range_max_range_rate;
+	m_playFishing->m_current_float_range_max_range_rate = m_sumCurrentFloatRangeMaxRangeRate;
 
 }
 
@@ -253,25 +253,25 @@ void PlayFishingStateBase::Pass_CameraTarget()
 void PlayFishingStateBase::Set_Init_Current_Fish_Range_And_Max_Range_Rate()
 {
 
-	m_current_fish_range_and_max_range_rate = m_playFishing->m_current_fish_range_and_max_range_rate;
+	m_currentFishRangeAndMaxRangeRate = m_playFishing->m_current_fish_range_and_max_range_rate;
 }
 
 void PlayFishingStateBase::Set_Init_Current_Float_Range_And_Max_Range_Rate()
 {
 
-	m_sum_current_float_range_max_range_rate = m_playFishing->m_current_float_range_max_range_rate;
+	m_sumCurrentFloatRangeMaxRangeRate = m_playFishing->m_current_float_range_max_range_rate;
 }
 
 void PlayFishingStateBase::Set_Init_FishModelPos()
 {
 
-	m_init_fishModelPos = m_playFishing->m_fishModelPos;
+	m_initFishModelPos = m_playFishing->m_fishModelPos;
 }
 
 void PlayFishingStateBase::Set_Init_FloatModelPos()
 {
 	
-	m_init_floatModelPos = m_playFishing->m_rodFloatModelPos;
+	m_initFloatModelPos = m_playFishing->m_rodFloatModelPos;
 }
 
 void PlayFishingStateBase::Set_Init_CameraPos()
@@ -352,16 +352,16 @@ Vector3 PlayFishingStateBase::Floating(FloatingPattern floatingPattern)
 	switch (floatingPattern)
 	{
 	case PlayFishingStateBase::CameraPattern:
-		m_floating_t += 0.08;
-		m_floating.y = (cos(m_floating_t * 0.2)) * 12.0f;//上下に動かす
+		m_floatingTime += 0.08;
+		m_floating.y = (cos(m_floatingTime * 0.2)) * 12.0f;//上下に動かす
 		//m_floating.z = (cos(m_floating_t * 0.5/*周期をずらす*/) *8.0f);
-		m_floating.x = (cos(m_floating_t * 0.5) * 2.0f);//左右に動かす
+		m_floating.x = (cos(m_floatingTime * 0.5) * 2.0f);//左右に動かす
 		break;
 	case PlayFishingStateBase::ModelPattern:
-		m_floating_t += 0.05;
-		m_floating.y = (cos(m_floating_t * 0.9)) * 0.3;//上下に動かす
-		m_floating.z = (cos(m_floating_t * 0.7/*周期をずらす*/) * 0.5);
-		m_floating.x = (cos(m_floating_t * 0.3) * 0.2);//左右に動かす
+		m_floatingTime += 0.05;
+		m_floating.y = (cos(m_floatingTime * 0.9)) * 0.3;//上下に動かす
+		m_floating.z = (cos(m_floatingTime * 0.7/*周期をずらす*/) * 0.5);
+		m_floating.x = (cos(m_floatingTime * 0.3) * 0.2);//左右に動かす
 		break;
 	default:
 		break;

@@ -7,15 +7,16 @@
 #include"InGameState.h"
 #include"GameGuide.h"
 
-
-Title::Title()
+namespace
 {
-
+	static const float TITLE_SPRITE_SIZE_WIDE = 1650.0f;
+	static const float TITLE_SPRITE_SIZE_HIGH = 900.0f;
+	static const float SETUMEI_SPRITE_SIZE_WIDE = 600.0f;
+	static const float SETUMEI_SPRITE_SIZE_HIGH = 150.0f;
+	static
 }
-
-Title::~Title()
-{
-}
+Title::Title() = default;
+Title::~Title() = default;
 
 bool Title::Start()
 {
@@ -32,14 +33,14 @@ bool Title::Start()
 
 bool Title::Init()
 {
-  spriteRender.Init("Assets/sprite/title.DDS", 1650.0f, 900.0f);
+  spriteRender.Init("Assets/sprite/title.DDS", TITLE_SPRITE_SIZE_WIDE, TITLE_SPRITE_SIZE_HIGH);
 
-	m_pressA.Init("Assets/sprite/setumei/stateUI.DDS", 600.0f, 150.0f);
+	m_pressA.Init("Assets/sprite/setumei/stateUI.DDS", SETUMEI_SPRITE_SIZE_WIDE, SETUMEI_SPRITE_SIZE_HIGH);
 	m_pressA.SetPivot(Vector2{ 0.0f,0.0f });
 	m_pressA.SetPosition(Vector3{ 100.0f,-150.0f,0.0f });
 	m_pressA.Update();
 
-	m_pressX.Init("Assets/sprite/setumei/playUI.DDS", 600.0f, 150.0f);
+	m_pressX.Init("Assets/sprite/setumei/playUI.DDS", SETUMEI_SPRITE_SIZE_WIDE, SETUMEI_SPRITE_SIZE_HIGH);
 	m_pressX.SetPivot(Vector2{ 0.0f,0.0f });
 	m_pressX.SetPosition(Vector3{ 100.0f,-350.0f,0.0f });
 	m_pressX.Update();

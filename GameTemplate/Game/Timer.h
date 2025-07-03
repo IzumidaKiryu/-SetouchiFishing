@@ -8,7 +8,7 @@ public:
 
 	void TimerStop();
 
-	double GetElapsedSeconds() const;
+	float GetElapsedSeconds() const;
 
 private:
 	float m_time=0.0f;

@@ -82,26 +82,26 @@ public:
 
 
 
-	float m_floating_t = 0.0f;
+	float m_floatingTime = 0.0f;
 	Vector3 m_floating=Vector3::Zero;
 
 
-	Vector3 m_init_fishModelPos = Vector3::Zero;
-	Vector3 m_init_floatModelPos = Vector3::Zero;
+	Vector3 m_initFishModelPos = Vector3::Zero;
+	Vector3 m_initFloatModelPos = Vector3::Zero;
 
-	Vector3 m_sum_fishModelPos = Vector3::Zero;
-	Vector3 m_sum_floatModelPos = Vector3::Zero;
+	Vector3 m_sumFishModelPos = Vector3::Zero;
+	Vector3 m_sumFloatModelPos = Vector3::Zero;
 
 	Vector3 m_cameraPos = Vector3::Zero;
 	Vector3 m_cameraTarget = Vector3::Zero;
 
-	float m_current_fish_range_and_max_range_rate;//今の魚の距離と最大の魚の距離の割合（それぞれのクラスで船と魚の最大距離とこの割合を掛けて場所を表現する。）
-	float m_sum_current_float_range_max_range_rate;//今のウキの距離と最大のウキの距離の割合。
+	float m_currentFishRangeAndMaxRangeRate;//今の魚の距離と最大の魚の距離の割合（それぞれのクラスで船と魚の最大距離とこの割合を掛けて場所を表現する。）
+	float m_sumCurrentFloatRangeMaxRangeRate;//今のウキの距離と最大のウキの距離の割合。
 	bool m_isChengeState = false;
 
-	float m_cameraPos_t = 0;
-	float m_cameraTarget_t = 0;
-	float m_animation_t = 0;
+	float m_cameraPosTime = 0;
+	float m_cameraTargetTime = 0;
+	float m_animationTime = 0;
 
 	Vector3 m_initCameraPos = Vector3::Zero;
 	Vector3 m_endCameraPos = Vector3::Zero;
@@ -116,7 +116,7 @@ public:
 	TensionGauge* m_tensionGauge = nullptr;
 
 	FishData m_fishData;
-	Successful_or_Failure m_successful_or_Failure = unfixed;
+	Successful_or_Failure m_successfulOrFailure = unfixed;
 	Player* m_player = nullptr;
 	FishFacing m_fishFacing;
 
