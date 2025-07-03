@@ -6,19 +6,18 @@ namespace nsK2EngineLow {
 		static const int MAX_TEXT_SIZE = 256;
 		~FontRender()
 		{
-
 		}
-		
+		//テキストの設定。
 		void SetText(const wchar_t* text)
 		{
 			swprintf_s(m_text, text);
 		}
-		
+		//テキストを取得。
 		const wchar_t* GetText() const
 		{
 			return m_text;
 		}
-		
+		//ポジションの設定。
 		void SetPosition(float x, float y, float z)
 		{
 			SetPosition({ x, y, z });
@@ -28,22 +27,22 @@ namespace nsK2EngineLow {
 		{
 			m_position = position;
 		}
-		
+		// ポジションの取得。
 		const Vector3& GetPosition() const
 		{
 			return m_position;
 		}
-	
+		// スケールの設定。
 		void SetScale(const float scale)
 		{
 			m_scale = scale;
 		}
-		
+		// スケールの取得。
 		const float GetScale() const
 		{
 			return m_scale;
 		}
-		
+		// 色の設定。
 		void SetColor(float r, float g, float b, float a)
 		{
 			SetColor({ r, g, b, a });
@@ -52,42 +51,41 @@ namespace nsK2EngineLow {
 		{
 			m_color = color;
 		}
-	
+		// 色の取得。
 		const Vector4& GetColor() const
 		{
 			return m_color;
 		}
-	
+		// 回転の設定。
 		void SetRotation(const float rotation)
 		{
 			m_rotation = rotation;
 		}
-		
+		// 回転の取得。
 		const float GetRotation() const
 		{
 			return m_rotation;
 		}
-		
+		// ピボットの設定。
 		void SetPivot(float x, float y)
 		{
 			SetPivot({ x, y });
 		}
-		
 		void SetPivot(const Vector2& pivot)
 		{
 			m_pivot = pivot;
 		}
-	
+		// ピボットの取得。
 		const Vector2& GetPivot() const
 		{
 			return m_pivot;
 		}
-
+		//影を描画するかどうかの設定。
 		void SetisDrawShadow(bool isDrawShadow)
 		{
 			m_font.SetIsDrawShadow(isDrawShadow);
 		}
-	
+		//描画。
 		void Draw(RenderContext& rc);
 
 		

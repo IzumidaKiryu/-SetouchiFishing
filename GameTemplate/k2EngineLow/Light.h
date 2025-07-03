@@ -2,32 +2,32 @@
 namespace nsK2EngineLow {
 	struct DirectionLight {
 		Vector3 m_direction;//ライトの方向。3要素のベクトルで表現。
-		float pad0;
+		float pad0=0.0f;
 		Vector3 m_color;//ライトのカラー。光の3原色で表現。
-		float pad1;
+		float pad1 = 0.0f;
 	};
 
 	struct PointLight {
 		Vector3 m_position;//ライトの位置。3要素のベクトルで表現。
-		float pad0;//パティング。
+		float pad0 = 0.0f;//パティング。
 		Vector3 m_color;//ライトのカラー。光の3原色で表現。
-		float m_renge;//影響範囲。単位はメートル。
+		float m_renge = 0.0f;//影響範囲。単位はメートル。
 	};
 
 	struct SpotLight {
 		Vector3 m_position;//ライトの位置。3要素のベクトルで表現。
-		float pad0;
+		float pad0 = 0.0f;
 		Vector3 m_color;//ライトのカラー。光の3原色で表現。
-		float m_range;//影響範囲。単位はメートル。
+		float m_range = 0.0f;//影響範囲。単位はメートル。
 		Vector3 m_direction;//放射方向。3要素のベクトルで表現。
-		float m_angle;//放射角度。
+		float m_angle = 0.0f;//放射角度。
 	};
 
 	struct HemisphereLight {
 		Vector3 m_groundColor;
-		float pad0;
+		float pad0 = 0.0f;
 		Vector3 m_skyColor;
-		float pad1;
+		float pad1 = 0.0f;
 		Vector3 m_groundNormal;
 	};
 
@@ -35,13 +35,13 @@ namespace nsK2EngineLow {
 	{
 		DirectionLight directionLig;
 		Vector3 eyePos;
-		float pad0;
+		float pad0 = 0.0f;
 		Vector3 ambientLight;
-		float pad1;
+		float pad1 = 0.0f;
 		PointLight pointLig[10];
 		SpotLight spotLig[10];
 		HemisphereLight hemiLig;
-		float pad2;
+		float pad2 = 0.0f;
 		Matrix mLVP;//ライトビュー投影行列。
 	};
 

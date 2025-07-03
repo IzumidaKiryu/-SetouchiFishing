@@ -24,10 +24,4 @@ void nsK2EngineLow::SpriteRender::Draw(RenderContext& rc)
 
 }
 
-//void nsK2EngineLow::SpriteRender::OnDraw(RenderContext& rc)
-//{
-//	if (m_isActive) {
-//		m_sprite.Draw(rc);
-//	}
-//}
 

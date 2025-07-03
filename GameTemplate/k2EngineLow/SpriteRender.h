@@ -2,7 +2,7 @@
 #pragma once
 
 /// <summary>
-/// �X�v���C�g�������[�B
+/// スプライトクラス。
 /// </summary>
 namespace nsK2EngineLow {
 	class SpriteRender:public IRender
@@ -99,8 +99,6 @@ namespace nsK2EngineLow {
 		/// </summary>
 		/// <param name="rc">RenderContext</param>
 		void Draw(RenderContext& rc);
-
-		//void OnDraw(RenderContext& rc) override;
 		
 		void SetActive(bool isActive)
 		{
@@ -120,7 +118,7 @@ namespace nsK2EngineLow {
 		}
 		bool			m_isActive = true;
 		Sprite			m_sprite;								//スプライトクラスの参照
-		Vector3			m_position;								//座標
+		Vector3			m_position=Vector3::Zero;				//座標
 		Quaternion		m_rotation = Quaternion::Identity;		//向き
 		Vector3			m_scale = Vector3::One;					//大きさ
 		Vector2			m_pivot = Sprite::DEFAULT_PIVOT;		//画像の中点
