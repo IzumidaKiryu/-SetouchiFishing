@@ -6,9 +6,7 @@ Tatiuo::Tatiuo()
 	m_fishData.rarity = FishRarity::Rare;
 }
 
-Tatiuo::~Tatiuo()
-{
-}
+Tatiuo::~Tatiuo() = default;
 
 bool Tatiuo::OnInit()
 {
@@ -23,14 +21,5 @@ bool Tatiuo::OnInit()
 	SetDownwardBias(20);
 	SetFishDetectionRadius(0.3);
 	SetEscapeForce(0.004);
-	//SetParameter(
-	//	12.0f,
-	//	5.0f,
-	//	120.0f,
-	//	0.7,
-	//	80,
-	//	30,
-	//	0.3f
-	//);
 	return true;
 }

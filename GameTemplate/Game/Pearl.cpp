@@ -7,9 +7,7 @@ Pearl::Pearl()
 
 }
 
-Pearl::~Pearl()
-{
-}
+Pearl::~Pearl() = default;
 
 bool Pearl::OnInit()
 {
