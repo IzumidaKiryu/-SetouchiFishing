@@ -4,14 +4,14 @@
 
 // キャストゲージのUI設定用定数
 namespace {
-	constexpr float CAST_GAUGE_WIDTH = 100.0f;				// キャストゲージの幅
-	constexpr float CAST_GAUGE_HEIGHT = 500.0f;				// キャストゲージの高さ
-	const Vector2 CASTGAUGE_PIVOT(0.0f, 0.5f);     	// キャストゲージの基準位置
-	const Vector3 CASTGAUGE_POSITION(-500.0f, 0.0f, 0.0f); // キャストゲージの表示位置
+	static constexpr float CAST_GAUGE_WIDTH = 100.0f;				// キャストゲージの幅
+	static constexpr float CAST_GAUGE_HEIGHT = 500.0f;				// キャストゲージの高さ
+	static const Vector2 CASTGAUGE_PIVOT(0.0f, 0.5f);     	// キャストゲージの基準位置
+	static const Vector3 CASTGAUGE_POSITION(-500.0f, 0.0f, 0.0f); // キャストゲージの表示位置
 
-	constexpr float ARROW_WIDTH = 110.0f;   					// 矢印の幅
-	constexpr float ARROW_HEIGHT = 10.0f;   					// 矢印の高さ
-	const Vector2 ARROW_PIVOT(0.0f, 0.5f);				// 矢印の基準位置
+	static constexpr float ARROW_WIDTH = 110.0f;   					// 矢印の幅
+	static constexpr float ARROW_HEIGHT = 10.0f;   					// 矢印の高さ
+	static const Vector2 ARROW_PIVOT(0.0f, 0.5f);				// 矢印の基準位置
 }
 
 CastGauge::CastGauge() = default;
