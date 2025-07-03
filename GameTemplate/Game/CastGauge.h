@@ -62,6 +62,7 @@ private:
 	/// </summary>
 	void HandleCastInput();
 
+private:
 	// ゲージ動作設定
 	float m_arrowPosition = -237.0f;        // 矢印の初期位置
 	bool upState = true;                    // 上昇中フラグ
