@@ -23,29 +23,60 @@ public:
 	~CastState();
 
 	void Update();
-	bool OnStart();
-	bool OnInit();
-	void CameraManagement() override;
-	void Cast();
-	void Rotation();
-	void RiseUP();
-	void Swing();
-	void StateManager();
 
-private :
+	/// <summary>
+	/// オブジェクトがゲームに登場するタイミングで一度だけ実行される初期処理。
+	/// 依存するオブジェクトの取得や初期位置設定を行う。
+	/// </summary>
+	bool OnStart();
+
+	/// <summary>
+	/// 初期化処理。モデルやパラメータの初期値設定などを行う。
+	/// </summary>
+	bool OnInit();
+
+	/// <summary>
+	/// カメラの位置や向きを更新し、プレイヤーやウキの動きに追従させる。
+	/// </summary>
+	void CameraManagement() override;
+
+	/// <summary>
+	/// キャスト動作を開始し、ウキの初速度や方向を決定する。
+	/// </summary>
+	void Cast();
+
+	/// <summary>
+	/// ウキの回転角度を計算し、自然な落下を表現する。
+	/// </summary>
+	void Rotation();
+
+	/// <summary>
+	/// ウキが水面に上昇するアニメーションを制御。
+	/// </summary>
+	void RiseUP();
+
+	/// <summary>
+	/// ウキの揺れ（スイング）を表現するアニメーション制御。
+	/// </summary>
+	void Swing();
+
+	/// <summary>
+	/// 現在の釣り状態（キャスト、ヒット、巻き上げなど）を管理し、必要に応じて遷移を行う。
+	/// </summary>
+	void StateManager();
 
 private:
 	// 時間管理用変数
-	float t = 0.0f;
-	float swing_t = 0.0f;
+	float m_castTimer = 0.0f;
+	float m_swingTimer = 0.0f;
 
 	// 傾き
-	float z_slope = 0.0f;
-	float y_slope = 0.0f;
+	float m_zSlope = 0.0f;
+	float m_ySlope = 0.0f;
 
 	// 浮きの状態など
-	Vector3 m_float_initPos= { 0.0f, 500.0f, 10.0f };
-	Vector3 m_rodFloatPosition= { 0.0f, 500.0f, 10.0f };
+	Vector3 m_float_initPos= Vector3::Zero;
+	Vector3 m_rodFloatPosition=Vector3::Zero;
 	Vector3 forceVector = Vector3::Zero;
 
 	Quaternion m_floatRotation = Quaternion::Identity;

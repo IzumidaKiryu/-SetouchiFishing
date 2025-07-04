@@ -47,6 +47,8 @@ void CastState::Update()
 
 bool CastState::OnInit()
 {
+	m_float_initPos = INITIAL_FLOAT_POSITION;
+	m_rodFloatPosition = m_float_initPos;
 	return true;
 }
 
@@ -77,14 +79,14 @@ void CastState::CameraManagement()
 
 void CastState::Cast()
 {
-	t += 0.1f;
+	m_castTimer += 0.1f;
 	m_playFishing = FindGO<PlayFishing>("playFishing");
 
 	// ウキにかかる速度成分を計算（重力と初速の合成）
-	z_slope = GRAVITY.z * t + (100 * FIRST_VELOCITY.z * m_playFishing->m_castStrength) * 0.075f;
-	y_slope = (GRAVITY.y * t + (100 * FIRST_VELOCITY.y * m_playFishing->m_castStrength)) * 0.075f;
+	m_zSlope = GRAVITY.z * m_castTimer + (100 * FIRST_VELOCITY.z * m_playFishing->m_castStrength) * 0.075f;
+	m_ySlope = (GRAVITY.y * m_castTimer + (100 * FIRST_VELOCITY.y * m_playFishing->m_castStrength)) * 0.075f;
 
-	forceVector = { 0.0f, y_slope, z_slope };
+	forceVector = { 0.0f, m_ySlope, m_zSlope };
 	m_rodFloatPosition += forceVector;
 
 	// ウキが水面より下に到達したら次のフェーズへ
@@ -96,7 +98,7 @@ void CastState::Cast()
 void CastState::Rotation()
 {
 	// ウキの回転角度を力の傾きから算出
-	float floatAngle = GRAVITY.y * t + (100 * FIRST_VELOCITY.y * m_playFishing->m_castStrength);
+	float floatAngle = GRAVITY.y * m_castTimer + (100 * FIRST_VELOCITY.y * m_playFishing->m_castStrength);
 	floatAngle *= 0.01f;
 	floatAngle *= -1.0f;
 	floatAngle += M_PI;
@@ -107,9 +109,9 @@ void CastState::Rotation()
 
 void CastState::RiseUP()
 {
-	t += 0.1f;
-	z_slope = GRAVITY.z * t + (100 * FIRST_VELOCITY.z * m_playFishing->m_castStrength) * 0.075f;
-	y_slope = (GRAVITY.y * t + (100 * FIRST_VELOCITY.y * m_playFishing->m_castStrength)) * 0.075f;
+	m_castTimer += 0.1f;
+	m_zSlope = GRAVITY.z * m_castTimer + (100 * FIRST_VELOCITY.z * m_playFishing->m_castStrength) * 0.075f;
+	m_ySlope = (GRAVITY.y * m_castTimer + (100 * FIRST_VELOCITY.y * m_playFishing->m_castStrength)) * 0.075f;
 
 	// 水面との高低差から水圧差を計算
 	float sinkDistance = WATER_SURFACE_Y - m_rodFloatPosition.y;
@@ -130,15 +132,15 @@ void CastState::RiseUP()
 
 void CastState::Swing()
 {
-	swing_t += 0.08f;
+	m_swingTimer += 0.08f;
 
 	// 減衰するサイン波で上下運動を再現
-	float swing = -(std::pow(EULER_E, -0.3f * swing_t)) * std::abs(std::sin(swing_t));
+	float swing = -(std::pow(EULER_E, -0.3f * m_swingTimer)) * std::abs(std::sin(m_swingTimer));
 	m_rodFloatPosition.y = (swing * 100.0f) - 500.0f;
 	m_rodFloatPosition += Floating();
 
 	// 一定時間後にキャスト成功として処理を移行
-	if (swing_t >= 0.03f * 60.0f * 5.0f) {
+	if (m_swingTimer >= 0.03f * 60.0f * 5.0f) {
 		Success();
 	}
 }
