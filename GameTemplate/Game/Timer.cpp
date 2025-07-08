@@ -18,7 +18,7 @@ void Timer::TimerStop()
 	m_isTimerRunning = false;
 }
 
-double Timer::GetElapsedSeconds() const
+float Timer::GetElapsedSeconds() const
 {
 	return m_time;
 }

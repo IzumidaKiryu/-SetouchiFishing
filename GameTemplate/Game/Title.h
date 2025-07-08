@@ -14,18 +14,21 @@ public:
 	bool Start()override;
 	bool Init();
 	void OnUpdate();
-	bool ShouldChangeState(); // 状態を変更すべきかどうかを決定する純粋仮想関数
+	/// <summary>
+	/// 状態を変更すべきかどうかを決定する純粋仮想関数
+	/// </summary>
+	/// <returns></returns>
+	bool ShouldChangeState(); 
 	void OnEnter();
 	void OnExit();
-
 	void Render(RenderContext& rc)override;
 
+private:
 	SpriteRender m_pressA;
 	SpriteRender m_pressX;
 	SpriteRender spriteRender ;
 	InGameState* m_inGameState=nullptr;
 	SoundSource* m_sound=nullptr;
-	//SoundSource* titleBGM;			//タイトルのBGM。
  // ゲームスタートカウントダウンのポインタ
 };
 

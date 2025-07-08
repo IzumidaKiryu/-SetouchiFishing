@@ -35,12 +35,12 @@ bool FishingAnimationState::OnStart()
 void FishingAnimationState::CameraManagement()
 {
 	m_player = FindGO<Player>("player_Playfishing");
-	m_cameraPos_t += 0.06;
-	m_cameraTarget_t += 0.06;
+	m_cameraPosTime += 0.06;
+	m_cameraTargetTime += 0.06;
 
-	if (m_cameraPos_t <= 1) {
-		m_cameraPos.Lerp(m_cameraPos_t*m_cameraPos_t, m_initCameraPos, m_endCameraPos);
-		m_cameraTarget.Lerp(m_cameraTarget_t, m_initCameraTarget, m_endCameraTarget);
+	if (m_cameraPosTime <= 1) {
+		m_cameraPos.Lerp(m_cameraPosTime*m_cameraPosTime, m_initCameraPos, m_endCameraPos);
+		m_cameraTarget.Lerp(m_cameraTargetTime, m_initCameraTarget, m_endCameraTarget);
 	}
 	SetCamera(m_cameraPos, m_cameraTarget);
 }
@@ -56,8 +56,8 @@ void FishingAnimationState::Update()
 
 void FishingAnimationState::Count()
 {
-	m_animation_t++;
-	if (m_animation_t > 140) {
+	m_animationTime++;
+	if (m_animationTime > 140) {
 		Success();
 	};
 }

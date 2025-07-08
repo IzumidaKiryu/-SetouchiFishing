@@ -77,7 +77,7 @@ public:
 	int m_stockCount=0;//たまっているバーの本数。
 	float m_barRate=0.0f;//バーの割合。
 	bool m_isCharged=false;//バーがチャージされているか？。
-	const float m_gaugeDeltaPerFrame = 0.02;/// 1フレームあたりにゲージへ加算される基本の増加量。
+	const float m_gaugeDeltaPerFrame = 0.02f;/// 1フレームあたりにゲージへ加算される基本の増加量。
 	/// <summary>
 /// スティールバーを使用して敵の釣りエリアを奪ったときに、
 /// 対象の魚が変わらないように一時的にロックするフラグ。
@@ -91,9 +91,9 @@ public:
 	void InitisStealLockActive();
 
 	/// スティールゲージがこの値を超えると、ストックが1つ増加するしきい値。
-/// ゲージはこの値を上限として蓄積され、超過分は次の蓄積に持ち越される。
+	/// ゲージはこの値を上限として蓄積され、超過分は次の蓄積に持ち越される。
 	const float m_stealGaugeThreshold = 100;
-	const float m_max_barLength = 0.95;//バーの最大の長さ。
+	const float m_max_barLength = 0.95f;//バーの最大の長さ。
 
 	PositionSelection* m_positionSelection=nullptr;
 	Enemy* m_enemy=nullptr;

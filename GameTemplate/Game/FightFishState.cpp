@@ -71,10 +71,10 @@ void FightFishState::Update()
 
 
 
-	SumFishModelPosition(m_current_fish_range_and_max_range_rate);
-	m_sum_current_float_range_max_range_rate = m_current_fish_range_and_max_range_rate;
+	SumFishModelPosition(m_currentFishRangeAndMaxRangeRate);
+	m_sumCurrentFloatRangeMaxRangeRate = m_currentFishRangeAndMaxRangeRate;
 
-	SumRodFloatPosition(m_sum_current_float_range_max_range_rate);
+	SumRodFloatPosition(m_sumCurrentFloatRangeMaxRangeRate);
 
 	SetFish();
 	SetFloat();
@@ -100,7 +100,7 @@ void FightFishState::CalculateDistanceMultiplier()
 {
 	//1倍から0.5倍の範囲で魚が逃げる力を小さくする。
 	//遠ければ低い値、近ければ高い値になる。
-	m_distanceMultiplier = 1 - ((m_current_fish_range_and_max_range_rate) * 0.5);
+	m_distanceMultiplier = 1 - ((m_currentFishRangeAndMaxRangeRate) * 0.5);
 }
 
 void FightFishState::CalculateCalculateFishPullForce()
@@ -159,7 +159,7 @@ void FightFishState::CalculateFishDisplacement()
 	fishDisplacement=(m_forcePullFish)+m_fishEscapePower;
 
 
-	m_current_fish_range_and_max_range_rate = fishDisplacement;
+	m_currentFishRangeAndMaxRangeRate = fishDisplacement;
 }
 
 

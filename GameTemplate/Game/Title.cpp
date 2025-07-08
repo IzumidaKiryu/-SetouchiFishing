@@ -7,15 +7,19 @@
 #include"InGameState.h"
 #include"GameGuide.h"
 
-
-Title::Title()
+namespace
 {
-
+	static const float TITLE_SPRITE_SIZE_WIDE = 1650.0f;// タイトル画面のスプライトの幅
+	static const float TITLE_SPRITE_SIZE_HIGH = 900.0f;// タイトル画面のスプライトの高さ
+	static const float PRESS_SPRITE_SIZE_WIDE = 600.0f;// セレクトボタンのスプライトの幅
+	static const float PRESS_SPRITE_SIZE_HIGH = 150.0f;// セレクトボタンのスプライトの高さ
+	static const Vector2 PRESSA_SPRITE_PIVOT = { 0.0f,0.0f };// セレクトボタンのスプライトのピボット位置
+	static const Vector2 PRESSX_SPRITE_PIVOT = { 0.0f,0.0f };// セレクトボタンのスプライトのピボット位置
+	static const Vector3 PRESSA_SPRITE_POSITION = { 100.0f,-150.0f,0.0f };// セレクトボタンのスプライトの位置
+	static const Vector3 PRESSX_SPRITE_POSITION = { 100.0f,-350.0f,0.0f };// セレクトボタンのスプライトの位置
 }
-
-Title::~Title()
-{
-}
+Title::Title() = default;
+Title::~Title() = default;
 
 bool Title::Start()
 {
@@ -32,16 +36,16 @@ bool Title::Start()
 
 bool Title::Init()
 {
-  spriteRender.Init("Assets/sprite/title.DDS", 1650.0f, 900.0f);
+  spriteRender.Init("Assets/sprite/title.DDS", TITLE_SPRITE_SIZE_WIDE, TITLE_SPRITE_SIZE_HIGH);
 
-	m_pressA.Init("Assets/sprite/setumei/stateUI.DDS", 600.0f, 150.0f);
-	m_pressA.SetPivot(Vector2{ 0.0f,0.0f });
-	m_pressA.SetPosition(Vector3{ 100.0f,-150.0f,0.0f });
+	m_pressA.Init("Assets/sprite/setumei/stateUI.DDS", PRESS_SPRITE_SIZE_WIDE, PRESS_SPRITE_SIZE_HIGH);
+	m_pressA.SetPivot(PRESSA_SPRITE_PIVOT);
+	m_pressA.SetPosition(PRESSA_SPRITE_POSITION);
 	m_pressA.Update();
 
-	m_pressX.Init("Assets/sprite/setumei/playUI.DDS", 600.0f, 150.0f);
-	m_pressX.SetPivot(Vector2{ 0.0f,0.0f });
-	m_pressX.SetPosition(Vector3{ 100.0f,-350.0f,0.0f });
+	m_pressX.Init("Assets/sprite/setumei/playUI.DDS", PRESS_SPRITE_SIZE_WIDE, PRESS_SPRITE_SIZE_HIGH);
+	m_pressX.SetPivot(PRESSX_SPRITE_PIVOT);
+	m_pressX.SetPosition(PRESSX_SPRITE_POSITION);
 	m_pressX.Update();
 	
 
