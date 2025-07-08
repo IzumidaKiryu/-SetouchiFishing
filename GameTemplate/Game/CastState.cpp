@@ -63,19 +63,19 @@ void CastState::CameraManagement()
 {
 	m_endCameraPos = m_rodFloatMove->m_position+Vector3{ 300.0f,300.0f,-500.0f };
 
-	m_cameraPos_t += 0.02;
-	m_cameraTarget_t += 0.12;
+	m_cameraPosTime += 0.02;
+	m_cameraTargetTime += 0.12;
 
-	if (m_cameraPos_t >= 1.0f) {
-		m_cameraPos_t = 1;
+	if (m_cameraPosTime >= 1.0f) {
+		m_cameraPosTime = 1;
 	}
-	if (m_cameraTarget_t >= 1.0f) {
-		m_cameraTarget_t = 1;
+	if (m_cameraTargetTime >= 1.0f) {
+		m_cameraTargetTime = 1;
 	}
-	m_cameraPos.Lerp(m_cameraPos_t, m_initCameraPos, m_endCameraPos);
+	m_cameraPos.Lerp(m_cameraPosTime, m_initCameraPos, m_endCameraPos);
 
 	m_endCameraTarget = m_rodFloatMove->GetPosition();
-	m_cameraTarget.Lerp(m_cameraTarget_t, m_initCameraTarget, m_endCameraTarget);
+	m_cameraTarget.Lerp(m_cameraTargetTime, m_initCameraTarget, m_endCameraTarget);
 
 
 

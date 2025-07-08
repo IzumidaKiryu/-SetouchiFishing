@@ -10,7 +10,8 @@ FishCatchEffectState::~FishCatchEffectState()
 {
 }
 
-bool FishCatchEffectState::OnStart() {
+bool FishCatchEffectState::OnStart()
+{
 
 	SetCamera(Vector3(0.0f, 65.0f, -20.0f), Vector3(0.0f, 80.0f, 30.0f));
 	return true;
@@ -39,14 +40,14 @@ void FishCatchEffectState::Render(RenderContext& rc) {
 }
 
 /// <summary>
-		/// 通常描画用の初期化
-		/// </summary>
-		/// <param name="filePath">ファイルパス</param>
-		/// <param name="animationClips">アニメーションクリップ</param>
-		/// <param name="numAnimationClips">アニメーションクリップの数</param>
-		/// <param name="enModelUpAxis">モデルの上方向</param>
-		/// <param name="shadowCast">trueなら影を描画する</param>
-		/// <param name="ShadowDrop">trueなら影を受ける</param>
+/// 通常描画用の初期化
+/// </summary>
+/// <param name="filePath">ファイルパス</param>
+/// <param name="animationClips">アニメーションクリップ</param>
+/// <param name="numAnimationClips">アニメーションクリップの数</param>
+/// <param name="enModelUpAxis">モデルの上方向</param>
+/// <param name="shadowCast">trueなら影を描画する</param>
+/// <param name="ShadowDrop">trueなら影を受ける</param>
 void FishCatchEffectState::SetModel(const char* filePath, AnimationClip* animationClips, int numAnimationClips, EnModelUpAxis enModelUpAxis, bool shadowCast = true, bool shadowDrop = false)
 {
 	//

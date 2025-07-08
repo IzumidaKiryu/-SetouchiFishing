@@ -184,12 +184,12 @@ void PlayFishingStateBase::SetFishModelPos()
 
 void PlayFishingStateBase::SetFishUIPosition(float current_fish_range_and_max_range_rate)
 {
-	m_tensionGauge->SetFishUI_Position(current_fish_range_and_max_range_rate);
+	m_tensionGauge->SetFishUIPosition(current_fish_range_and_max_range_rate);
 }
 
 void PlayFishingStateBase::SetFloatUIPosition(float current_float_range_max_range_rate)
 {
-	m_tensionGauge->SetFloatUI_Position(current_float_range_max_range_rate);
+	m_tensionGauge->SetFloatUIPosition(current_float_range_max_range_rate);
 
 }
 
