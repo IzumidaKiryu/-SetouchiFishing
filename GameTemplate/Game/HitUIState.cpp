@@ -36,7 +36,7 @@ bool HitUIState::OnStart()
 {
 	m_initCameraPos = { m_cameraPos };
 	m_initCameraTarget = { m_cameraTarget };
-	m_endCameraTarget = { m_init_fishModelPos };
+	m_endCameraTarget = { m_initFishModelPos };
 	m_endCameraPos = { GetPlayerPos() + Vector3 {0.0f,100.0f,100.0f} };
 
 	return true;

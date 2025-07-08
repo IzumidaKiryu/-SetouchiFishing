@@ -23,7 +23,7 @@ bool WaitForFishState::OnStart()
 	m_initCameraPos = m_cameraPos;
 	m_initCameraTarget = m_cameraTarget;
 	m_fishDetectionRadius = FindGO<FishDetectionRadius>("fishDetectionRadius");
-	m_endCameraPos = m_init_floatModelPos + Vector3{ 200.0f,200.0f,200.0f };
+	m_endCameraPos = m_initFloatModelPos + Vector3{ 200.0f,200.0f,200.0f };
 
 	SetGoFishInWhich();
 	IsFloatInDetectionRange();
@@ -51,7 +51,7 @@ void WaitForFishState::IsFloatInDetectionRange()
 	{
 	case WaitForFishState::up:
 
-		if (m_sum_current_float_range_max_range_rate < m_fishDetectionRadius->GetFishDetectionRadius() + m_fishDetectionRadius->GetPos())
+		if (m_floatDistanceRate < m_fishDetectionRadius->GetFishDetectionRadius() + m_fishDetectionRadius->GetPos())
 		{
 			m_isFloatDetected = true;
 			m_fishDetectionRadius->DeletThis();
@@ -59,7 +59,7 @@ void WaitForFishState::IsFloatInDetectionRange()
 
 		break;
 	case WaitForFishState::down:
-		if (m_sum_current_float_range_max_range_rate > (-m_fishDetectionRadius->GetFishDetectionRadius() + m_fishDetectionRadius->GetPos())) {
+		if (m_floatDistanceRate > (-m_fishDetectionRadius->GetFishDetectionRadius() + m_fishDetectionRadius->GetPos())) {
 			m_isFloatDetected = true;
 			m_fishDetectionRadius->DeletThis();
 		}
@@ -74,12 +74,12 @@ void WaitForFishState::IsFloatInDetectionRange()
 
 void WaitForFishState::SetGoFishInWhich()
 {
-	//上に進むか下に進むか決める。j
-	if (m_current_fish_range_and_max_range_rate > m_sum_current_float_range_max_range_rate) {
+	//上に進むか下に進むか決める。
+	if (m_fishDistanceRate > m_floatDistanceRate) {
 		m_go_fish_in_which = down;
 	}
 
-	if (m_current_fish_range_and_max_range_rate < m_sum_current_float_range_max_range_rate) {
+	if (m_fishDistanceRate < m_floatDistanceRate) {
 		m_go_fish_in_which = up;
 	}
 }
@@ -129,16 +129,16 @@ void WaitForFishState::ComingFish()
 	{
 	case WaitForFishState::up:
 		SetFishUpward();
-		m_current_fish_range_and_max_range_rate += 0.001;
-		if (m_current_fish_range_and_max_range_rate - m_sum_current_float_range_max_range_rate >= 0) {
+		m_fishDistanceRate += 0.001;
+		if (m_fishDistanceRate - m_floatDistanceRate >= 0) {
 			Success();
 			return;
 		}
 		break;
 	case WaitForFishState::down:
 		SetFishDownward();
-		m_current_fish_range_and_max_range_rate -= 0.001;
-		if (-m_sum_current_float_range_max_range_rate + m_current_fish_range_and_max_range_rate <= 0) {
+		m_fishDistanceRate -= 0.001;
+		if (-m_floatDistanceRate + m_fishDistanceRate <= 0) {
 			Success();
 			return;
 		}
@@ -147,6 +147,6 @@ void WaitForFishState::ComingFish()
 		break;
 	}
 
-	SumFishModelPosition(m_current_fish_range_and_max_range_rate);
+	SumFishModelPosition(m_fishDistanceRate);
 	SetFish();
 }

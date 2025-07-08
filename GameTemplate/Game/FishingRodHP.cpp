@@ -68,12 +68,12 @@ void FishingRodHP::SetFishingRodHP()
 {
 
 
-	if (m_fightFishState->m_fishFacing == Upward) {
+	if (m_fightFishState->GetFishFacing() == Upward) {
 		//魚の向きが上なら。
 		//コントローラーを回した分だけ竿のHPが減る。
 		m_Hp -= m_fightFishState->GetRotationPower() * 16000.0f*m_playFishing->GetFishData().escapeForce;
 	}
-	if (m_fightFishState->m_fishFacing == Downward) {
+	if (m_fightFishState->GetFishFacing() == Downward) {
 		//魚の向きが下なら。
 		//コントローラーを回した分だけ竿のHP少しが減る。
 		/*m_Hp += 0.1;*/

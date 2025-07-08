@@ -25,11 +25,10 @@ public:
 	bool Start()override;
 	void Update();
 	void FindGOGameObject();
-	void Set_signs_of_Fish_UI();
 	void SetUpwardFishUI();
 	void SetDownwardFishUI();
 	void RightAndLeftManagement();
-	void SetFishUI_Position(float current_fish_range_and_max_range_rate);
+	void SetFishUI_Position(float currentFishDistanceRate);
 	void SetFloatUI_Position(float current_float_range_max_range_rate);
 	void SetFloatScale();
 	void SetFishUIScaleByIndividualFactor(float scale);
@@ -76,7 +75,6 @@ private:
 
 	bool m_isFinFlapping = false;
 	Vector3 m_baseSigns_of_FishUiSize = Vector3::One;
-	FIshState m_fishState;
 	SpriteRender m_tensionGaugeInside;
 	SpriteRender m_tensionGaugeOutside;
 	SpriteRender m_signs_of_Fish;//魚影

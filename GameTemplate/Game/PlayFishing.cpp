@@ -56,7 +56,7 @@ bool PlayFishing::Start()
 	SetFishData();
 	NewGOGameObjects();
 	playerVisual->SetMoveDeActive();
-	m_current_fish_range_and_max_range_rate = m_fishData.initPos;
+	m_fishDistanceRate = m_fishData.initPos;
 	StatusManager();
 	return true;
 }
@@ -90,11 +90,11 @@ void PlayFishing::SetCurrentFishManagerObjectName(std::string string_objectName)
 }
 
 void PlayFishing::SetCurrent_range_and_max_range_rate(float range_of_fish_and_ship) {
-	m_current_fish_range_and_max_range_rate = range_of_fish_and_ship;
+	m_fishDistanceRate = range_of_fish_and_ship;
 }
 
 void PlayFishing::SetRange_of_fish_and_float(float range_of_fish_and_float) {
-	m_current_float_range_max_range_rate = range_of_fish_and_float;
+	m_floatDistanceRate = range_of_fish_and_float;
 }
 
 void PlayFishing::SetCastStrength(float castStrength) {
