@@ -73,7 +73,7 @@ namespace nsK2EngineLow {
 			m_rotation = rotation;
 		}
 
-		Quaternion GetRotation()
+		const Quaternion GetRotation()
 		{
 			return m_rotation;
 		}
@@ -142,7 +142,7 @@ namespace nsK2EngineLow {
 		Model m_shadowModel;							//影描画用モデル
 		bool m_isUpdateAnimation = true;				//アニメーションを更新する？
 		Skeleton m_skeleton;							//骨
-		float m_animationSpeed = 1.0f;		//アニメーション再生速度
+		float m_animationSpeed = 1.0f;					//アニメーション再生速度
 		float m_alpha = 1.0f;
 };
 }

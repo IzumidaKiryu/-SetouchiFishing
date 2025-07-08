@@ -3,20 +3,16 @@ namespace nsK2EngineLow {
 	class Bloom:public IGameObject
 	{
 	public:
-		Bloom();
-		~Bloom();
+		Bloom();//コンストラクタ。
+		~Bloom();//デストラクタ。
 		//初期化
 		void Init(RenderTarget& renderTarget);
-		void Update();
+		void Update();//更新処理。
 		//描画。
 		void Render(RenderContext& rc, RenderTarget&renderTarget);
 
-
-
-
-		//RenderTarget* mainRenderTarget;
 		RenderTarget luminanceRenderTarget;
-		
+	private:
 		SpriteInitData luminanceSpriteInitData;
 		SpriteInitData finalSpriteInitData;
 		Sprite m_luminanceSprite;

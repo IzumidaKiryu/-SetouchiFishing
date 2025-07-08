@@ -3,16 +3,15 @@
 
 nsK2EngineLow::Bloom::Bloom()
 {
-
 }
 
 nsK2EngineLow::Bloom::~Bloom()
 {
-
 }
 
 void nsK2EngineLow::Bloom::Init(RenderTarget& renderTarget)
 {
+	//輝度抽出用スプライト用レンダーターゲットの作成。
 	luminanceRenderTarget.Create(
 		renderTarget.GetWidth(),
 		renderTarget.GetHeight(),
@@ -22,7 +21,7 @@ void nsK2EngineLow::Bloom::Init(RenderTarget& renderTarget)
 		DXGI_FORMAT_D32_FLOAT
 	);
 	
-	//輝度抽出スプライトの初期化
+	//輝度抽出スプライトの初期化。
 	luminanceSpriteInitData.m_fxFilePath = "Assets/shader/PostEffect.fx";
 	luminanceSpriteInitData.m_vsEntryPointFunc = "VSMain";
 	luminanceSpriteInitData.m_psEntryPoinFunc = "PSSamplingLuminance";

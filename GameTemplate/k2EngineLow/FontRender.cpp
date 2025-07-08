@@ -4,6 +4,7 @@
 
 void nsK2EngineLow::FontRender::Draw(RenderContext& rc)
 {
+	//テキストがない場合はリターン。
 	if (m_text == nullptr) {
 		return;
 	}
