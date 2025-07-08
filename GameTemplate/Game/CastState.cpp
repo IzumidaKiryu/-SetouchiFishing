@@ -42,13 +42,14 @@ void CastState::Update()
 	StateManager();
 	Rotation();
 	SetFloat();
-	SumRodFloatPosition(m_rodFloatPosition + m_float_initPos);
+	SumRodFloatPosition(m_floatOffset + m_float_initPos);
+
 }
 
 bool CastState::OnInit()
 {
 	m_float_initPos = INITIAL_FLOAT_POSITION;
-	m_rodFloatPosition = m_float_initPos;
+	m_floatOffset = m_float_initPos;
 	return true;
 }
 
@@ -87,10 +88,10 @@ void CastState::Cast()
 	m_ySlope = (GRAVITY.y * m_castTimer + (100 * FIRST_VELOCITY.y * m_playFishing->m_castStrength)) * 0.075f;
 
 	forceVector = { 0.0f, m_ySlope, m_zSlope };
-	m_rodFloatPosition += forceVector;
+	m_floatOffset += forceVector;
 
 	// ウキが水面より下に到達したら次のフェーズへ
-	if (m_rodFloatPosition.y + m_float_initPos.y <= WATER_SURFACE_Y) {
+	if (m_floatOffset.y + m_float_initPos.y <= WATER_SURFACE_Y) {
 		m_castMoveState = riseUP;
 	}
 }
@@ -114,18 +115,18 @@ void CastState::RiseUP()
 	m_ySlope = (GRAVITY.y * m_castTimer + (100 * FIRST_VELOCITY.y * m_playFishing->m_castStrength)) * 0.075f;
 
 	// 水面との高低差から水圧差を計算
-	float sinkDistance = WATER_SURFACE_Y - m_rodFloatPosition.y;
-	HydraulicPressureDifference += sinkDistance * 0.002f;
-	if (sinkDistance < 0.0f) HydraulicPressureDifference = 0.0f;
+	float sinkDistance = WATER_SURFACE_Y - m_floatOffset.y;
+	m_hydraulicPressureDifference += sinkDistance * 0.002f;
+	if (sinkDistance < 0.0f) m_hydraulicPressureDifference = 0.0f;
 
 	// 水圧に応じて浮力を反映
-	forceVector.z *= 1.0f / (HydraulicPressureDifference * 0.8f);
-	forceVector.y += HydraulicPressureDifference;
+	forceVector.z *= 1.0f / (m_hydraulicPressureDifference * 0.8f);
+	forceVector.y += m_hydraulicPressureDifference;
 
-	m_rodFloatPosition += forceVector;
+	m_floatOffset += forceVector;
 
 	// ウキが再度水面に到達したら次のフェーズへ
-	if (m_rodFloatPosition.y + m_float_initPos.y >= WATER_SURFACE_Y) {
+	if (m_floatOffset.y + m_float_initPos.y >= WATER_SURFACE_Y) {
 		m_castMoveState = swing;
 	}
 }
@@ -136,8 +137,8 @@ void CastState::Swing()
 
 	// 減衰するサイン波で上下運動を再現
 	float swing = -(std::pow(EULER_E, -0.3f * m_swingTimer)) * std::abs(std::sin(m_swingTimer));
-	m_rodFloatPosition.y = (swing * 100.0f) - 500.0f;
-	m_rodFloatPosition += Floating();
+	m_floatOffset.y = (swing * 100.0f) - 500.0f;
+	m_floatOffset += Floating();
 
 	// 一定時間後にキャスト成功として処理を移行
 	if (m_swingTimer >= 0.03f * 60.0f * 5.0f) {

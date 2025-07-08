@@ -76,12 +76,13 @@ private:
 
 	// 浮きの状態など
 	Vector3 m_float_initPos= Vector3::Zero;
-	Vector3 m_rodFloatPosition=Vector3::Zero;
+	Vector3 m_floatOffset=Vector3::Zero;
 	Vector3 forceVector = Vector3::Zero;
 
 	Quaternion m_floatRotation = Quaternion::Identity;
 
-	float HydraulicPressureDifference = 0.0f;
+	//水圧差
+	float m_hydraulicPressureDifference = 0.0f;
 
 	CastMoveState m_castMoveState;
 
