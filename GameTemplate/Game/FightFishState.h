@@ -34,15 +34,7 @@ public:
 
 	float GetRotationPower();
 
-	void SetWhen_State_Announce_Should_State();
-	void NormalState();//魚が普通の状態の時の処理。
-	void When_State_Angry_or_exhausted_Shoul();
-	void AnnounceState();
-	void Change_Angry_or_Exhausted_State();
-	void AngerState();//魚が怒っているときの処理。
 	void ExhaustedState();//魚が疲弊しているときの処理。
-	void FrameCount();
-	void Set3DFishPosition();
 	void CameraManagement()override;
 	FishFacing GetFishFacing();
 
