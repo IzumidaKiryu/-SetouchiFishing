@@ -276,7 +276,6 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Preview|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="StealPositionBar.cpp" />
-    <ClCompile Include="SuccessUIState.cpp" />
     <ClCompile Include="system\system.cpp" />
     <ClCompile Include="Tai.cpp" />
     <ClCompile Include="Tatiuo.cpp" />
@@ -331,7 +330,6 @@
     <ClInclude Include="Star.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="StealPositionBar.h" />
-    <ClInclude Include="SuccessUIState.h" />
     <ClInclude Include="system\system.h" />
     <ClInclude Include="Tai.h" />
     <ClInclude Include="Tatiuo.h" />

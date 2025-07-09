@@ -61,7 +61,6 @@
     <ClCompile Include="Pearl.cpp" />
     <ClCompile Include="BuffLevelUI.cpp" />
     <ClCompile Include="GameGuide.cpp" />
-    <ClCompile Include="SuccessUIState.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -118,6 +117,5 @@
     <ClInclude Include="Pearl.h" />
     <ClInclude Include="BuffLevelUI.h" />
     <ClInclude Include="GameGuide.h" />
-    <ClInclude Include="SuccessUIState.h" />
   </ItemGroup>
 </Project>

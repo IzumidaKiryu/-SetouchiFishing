@@ -17,7 +17,6 @@
 #include "FightFishState.h"
 #include "FishingAnimationState.h"
 #include "HitUIState.h"
-#include "SuccessUIState.h"
 #include "FishDetectionRadius.h"
 #include "InGameState.h"
 #include "BackGround.h"
