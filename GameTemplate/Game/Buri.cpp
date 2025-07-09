@@ -4,19 +4,13 @@
 Buri::Buri()
 {
 	m_fishData.rarity = FishRarity::Rare;
-
-
 }
 
-Buri::~Buri()
-{
-
-}
+Buri::~Buri() = default;
 
 bool Buri::OnInit()
 {
 	SetFishType(FishType::BURI);
-	//SetParameter(10.0f, 5.0f, 100.0f, 0.6, 50, 50);
 	SetTimeUntilEscape(10.0f);
 	SetArrowSpeed(15.0f);
 	SetBaseScore(500.0f);

@@ -1,17 +1,12 @@
 #include "stdafx.h"
 #include "Tai.h"
 
-
-
 Tai::Tai()
 {
 	m_fishData.rarity=FishRarity::SuperRare;
 }
 
-Tai::~Tai()
-{
-
-}
+Tai::~Tai() = default;
 
 bool Tai::OnInit()
 {

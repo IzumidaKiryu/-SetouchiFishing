@@ -1,6 +1,9 @@
 #pragma once
 #include "BuffManager.h"
 
+/// <summary>
+/// 魚の種類
+/// </summary>
 enum class FishType {
 	TAI,
 	BURI,
@@ -10,123 +13,162 @@ enum class FishType {
 	SINJU,
 };
 
+/// <summary>
+/// 魚のレア度
+/// </summary>
 enum class FishRarity {
 	Common,      // 通常
 	Rare,        // レア
 	SuperRare    // スーパーレア
 };
 
-struct FishData
-{
+/// <summary>
+/// 魚のパラメータ構造体
+/// </summary>
+struct FishData {
 	FishType fishType;
-	float timeUntilEscape=0.5;//魚が逃げるまでの時間
-	float arrowSpeed = 5.0f;
-	//個体値
-	float score = -10.0f;
-
-	// 個体ごとのスコアやサイズに影響を与える補正係数（例：1.0 なら標準、1.2 なら20%増）
-	float individualFactor = 0.0f;
-
-	//初期ポジション。
-	float initPos=1;
-
-	//上を向いている時下向きに変える確率。(0～100の範囲の整数値)。
-	//一定の間隔の時間で向きを変えるかどうか抽選される。その時に変える確率。
-	//なので100と書いてもずっと上を向くわけではない。
-	int upwardBias=50;
-
-	//下を向いている時上向きに変える確率。(0～100の範囲の整数値)。
-	//一定の間隔の時間で向きを変えるかどうか抽選される。その時に変える確率。
-	//なので100と書いてもずっと下を向くわけではない。
-	int downwardBias=50;
-
-	//ウキを感知する範囲(0～1)
-	float fishDetectionRadius=0;
-
-	//逃げる力。
-	float escapeForce = 1.0f;
-
-	//釣ったときにかかるバフ。
-	std::map<BuffType,float> buffEffect;
-
-	BuffType buffType;
-
-	FishRarity rarity;
+	float timeUntilEscape = 0.5f; //魚が逃げるまでの時間
+	float arrowSpeed = 5.0f; //矢印のスピード
+	float score = -10.0f; //スコア
+	float individualFactor = 0.0f; //個体補正係数
+	float initPos = 1.0f; //初期ポジション
+	int upwardBias = 50; //上方向へのバイアス（0～100）
+	int downwardBias = 50; //下方向へのバイアス（0～100）
+	float fishDetectionRadius = 0.0f; //ウキの検知範囲（0～1）
+	float escapeForce = 1.0f; //逃げる力
+	std::map<BuffType, float> buffEffect; //バフ効果
+	BuffType buffType; //バフの種類
+	FishRarity rarity; //レア度
 };
+
 class PositionSelection;
 class InGameState;
-class Fish : public IGameObject
-{
+
+/// <summary>
+/// 魚の基本クラス。各魚はこのクラスを継承して独自の動作を持つ。
+/// </summary>
+class Fish : public IGameObject {
 public:
 	Fish();
 	~Fish();
-	//更新処理。
+
 	void Update();
-	virtual bool Init()final;
-	virtual bool OnInit()=0;
-	bool Start();
+
+	virtual bool Init() final;
+
 	/// <summary>
-	/// 個体ごとのばらつきを持たせるために、
-	/// individualFactor にランダムな値（0.804～1.2の範囲）を設定します。
-	/// ベース値 0.8 に 0.004～0.4 のランダムな補正を加算しています。
+	/// 派生クラスで実装される初期化処理
 	/// </summary>
-	void SetRandomIndividualFactor();
-	void SetFishType(FishType fishtype);
-	void SetScore();//フィッシュデータのスコアを設定する。
-	void FindGameObjects();
-	void SetTimeUntilEscape(float timeUntilEscape);//逃げるまでの時間の設定。
-	void SetArrowSpeed(float spead);
-	void SetBaseScore(float baseScore);//基準になるスコア。
-	void SetInitPos(float initpos);
-	void SetUpWardBias(float bias);
-	void SetDownwardBias(float bias);
-	void SetFishDetectionRadius(float fishDetectionRadius);
-	void SetEscapeForce(float escapeForce);
-	virtual void SetUI(std::string filePath, Vector3 scale=Vector3::One)final;
+	virtual bool OnInit() = 0;
 
-	void SetParameter(float timeUntilEscape, 
-		float spead,
-		float baseScore,
-		float initpos,
-		float upwardBias,
-		float downwardBias,
-		float fishDetectionRadius=0.2f,
-		float escapeForce = 0.005f
-	);
+	bool Start();
 
-	void SetBuff(BuffType bufftype, float buffValue);
+	/// <summary>
+	/// 魚が逃げるまでの時間を確認し、条件を満たせば変更フラグを立てる
+	/// </summary>
 	void UpdateEscapeTimer();
-	//void SetIndividualValue();//個体値を設定
-	//void ShouldFishChange();//魚を変えるかどうか。
-	void ShouldFishChangeTrue();
-	void ShouldFishChangeFalse();
-	void SetisSelectedTrue();
-	void SetisSelectedFalse();
+
+	/// <summary>
+	/// 魚を変更する必要があるかどうかを取得
+	/// </summary>
 	bool GetShouldFishChange();
 
-	
+	/// <summary>
+	/// 魚が逃げるまでの時間の割合（経過比率）を取得
+	/// </summary>
 	float GetTimeRatio();
 
-
-
-
-	virtual void Effect();//釣った後の効果。
+	/// <summary>
+	/// 魚のデータ構造体を参照返却
+	/// </summary>
 	FishData& GetFishData();
 
+	/// <summary>
+	/// UIスプライトを参照返却
+	/// </summary>
 	SpriteRender& GetUI();
 
-	bool m_shouldFishChange = false;//魚を変えるべきか？
-	bool m_isSelected = false;//選ばれているかどうか。（つられている最中かどうか）
-	float m_baseScore=0.0f;//基準になるスコア。
-	//float m_time = 0.0f;
-	float m_initialTime = 0.0f;//このクラスが作られたときの時間。
-	float m_nowTime=0.0f;
-	float m_timeRatio = 0.0f;
+protected:
+	/// <summary>
+	/// 個体値（0.804～1.2）をランダムに設定
+	/// </summary>
+	void SetRandomIndividualFactor();
+
+	/// <summary>
+	/// 魚の種類を設定
+	/// </summary>
+	void SetFishType(FishType fishtype);
+
+	/// <summary>
+	/// 個体値を反映したスコアを設定
+	/// </summary>
+	void SetScore();
+
+	/// <summary>
+	/// 関連するゲームオブジェクトを取得
+	/// </summary>
+	void FindGameObjects();
+
+	/// <summary>
+	/// 魚が逃げるまでの時間を設定
+	/// </summary>
+	void SetTimeUntilEscape(float timeUntilEscape);
+
+	/// <summary>
+	/// 矢印の移動速度を設定
+	/// </summary>
+	void SetArrowSpeed(float spead);
+
+	/// <summary>
+	/// 基本スコアを設定（個体値による倍率前）
+	/// </summary>
+	void SetBaseScore(float baseScore);
+
+	/// <summary>
+	/// 初期位置を設定
+	/// </summary>
+	void SetInitPos(float initpos);
+
+	/// <summary>
+	/// 上方向バイアスを設定（0～100に制限）
+	/// </summary>
+	void SetUpWardBias(float bias);
+
+	/// <summary>
+	/// 下方向バイアスを設定（0～100に制限）
+	/// </summary>
+	void SetDownwardBias(float bias);
+
+	/// <summary>
+	/// ウキを検知する半径（0～0.5）を設定
+	/// </summary>
+	void SetFishDetectionRadius(float fishDetectionRadius);
+
+	/// <summary>
+	/// 逃げる力を設定
+	/// </summary>
+	void SetEscapeForce(float escapeForce);
+
+	/// <summary>
+	/// UI用のスプライトを初期化
+	/// </summary>
+	virtual void SetUI(std::string filePath, Vector3 scale = Vector3::One) final;
+
+	/// <summary>
+	/// バフ効果とタイプを設定（個体補正含む）
+	/// </summary>
+	void SetBuff(BuffType bufftype, float buffValue);
+
+	protected:
+	bool m_shouldFishChange = false; ///< 魚を変更する必要があるかどうか
+	bool m_isSelected = false; ///< 選択中の魚かどうか
+	float m_baseScore = 0.0f; ///< 基本スコア
+	float m_initialTime = 0.0f; ///< 初期化時の時刻
+	float m_nowTime = 0.0f; ///< 現在時刻
+	float m_timeRatio = 0.0f; ///< 経過比率（逃げるまでの時間）
+
 	SpriteRender m_ui;
-	PositionSelection* m_positionSelection=nullptr;
+	PositionSelection* m_positionSelection = nullptr;
 	InGameState* m_inGameState = nullptr;
 	FishData m_fishData;
-
-
 };
-

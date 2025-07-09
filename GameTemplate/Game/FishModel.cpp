@@ -84,7 +84,7 @@ void FishModel::SetInitPositon()
 /// </summary>
 void FishModel::SetPosition()
 {
-	m_fishModel.SetPosition({ 0.0f,3.0f, m_playFishing->m_current_fish_range_and_max_range_rate * m_limit_range_with_ship });
+	m_fishModel.SetPosition({ 0.0f,3.0f, m_playFishing->m_fishDistanceRate * m_limit_range_with_ship });
 	m_fishModel.Update();
 }
 
@@ -96,19 +96,19 @@ void FishModel::SetSumPosition(Vector3 position)
 /// <summary>
 /// 最大距離と今いる距離の割合いからZ軸のポジションを求める。
 /// </summary>
-/// <param name="current_fish_range_and_max_range_rate"></param>
+/// <param name="currentFishDistanceRate"></param>
 /// <returns></returns>
-float FishModel::ChangePosition_Z(float current_fish_range_and_max_range_rate)
+float FishModel::ChangePosition_Z(float currentFishDistanceRate)
 {
-	float position_z = m_limit_range_with_ship * current_fish_range_and_max_range_rate;
+	float position_z = m_limit_range_with_ship * currentFishDistanceRate;
 	return position_z;
 }
 
-float FishModel::GetCurrentFishRangeAndMaxRangeRate(float position_z)
+float FishModel::GetCurrentFishDistanceRate(float positionZ)
 {
-	float current_fish_range_and_max_range_rate=0.0f;
-	current_fish_range_and_max_range_rate = position_z / m_limit_range_with_ship;
-	return current_fish_range_and_max_range_rate;
+	float currentFishDistanceRate=0.0f;
+	currentFishDistanceRate = positionZ / m_limit_range_with_ship;
+	return currentFishDistanceRate;
 }
 
 Vector3 FishModel::GetPosistion()

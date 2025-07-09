@@ -19,7 +19,6 @@ GameStateBase* GameStateBase::ChangeState()
 	if (nextState) {
 		nextState->SetActive(true);
 	}
-	//K2_ASSERT(nextState != nullptr, "持つからない");
 	return nextState;
 }
 void GameStateBase::SetNextName(const char* nextStateName)

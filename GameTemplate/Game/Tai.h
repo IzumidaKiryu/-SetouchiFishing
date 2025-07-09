@@ -3,7 +3,6 @@
 class Tai : public Fish
 {
 public:
-
 	Tai();
 	~Tai();
 	bool OnInit() override;

@@ -38,10 +38,10 @@ void Fish::SetRandomIndividualFactor()
 {
 	std::random_device rd;
 	//個体値の倍率をランダムに決める。0.4%~1.2%の間で決まる。
-	m_fishData.individualFactor = (0.4f / 100) * (rd() % 100 + 1);//??????{??
+	m_fishData.individualFactor = (0.4f / 100) * (rd() % 100 + 1);
 	m_fishData.individualFactor += 0.8;
 }
-
+								
 void Fish::SetFishType(FishType fishtype)
 {
 	m_fishData.fishType = fishtype;;
@@ -53,20 +53,13 @@ void Fish::FindGameObjects()
 }
 
 
-/// <summary>
-/// ???l??????B
-/// </summary>
-/// <param name="baseIndividualValue"></param>
+
 void Fish::SetScore()
 {
-	m_fishData.score = m_baseScore * m_fishData.individualFactor;//???X?R?A?~??????{???B
+	//基準のスコアに個体値を掛ける。
+	m_fishData.score = m_baseScore * m_fishData.individualFactor;
 }
 
-
-/// <summary>
-/// 逃げるまでの時間を設定する。
-/// </summary>
-/// <param name="timeUntilEscape"></param>
 void Fish::SetTimeUntilEscape(float timeUntilEscape)
 {
 	m_fishData.timeUntilEscape = timeUntilEscape;
@@ -93,7 +86,6 @@ void Fish::SetUpWardBias(float bias)
 	if (bias < 0) {
 		bias = 0;
 	}
-
 	if (bias > 100) {
 		bias = 100;
 	}
@@ -140,37 +132,12 @@ void Fish::SetUI(std::string filePath,Vector3 scale)
 	m_ui.Update();
 }
 
-void Fish::SetParameter(
-	float timeUntilEscape,
-	float arrowspeed, 
-	float baseScore,
-	float initpos,
-	float upwardBias,
-	float downwardBias,
-	float fishDetectionRadius,
-	float escapeForce)
-{
-	SetTimeUntilEscape(timeUntilEscape);
-	SetArrowSpeed(arrowspeed);
-	SetBaseScore(baseScore);
-	SetScore();
-	SetInitPos(initpos);
-	SetUpWardBias(upwardBias);
-	SetDownwardBias(downwardBias);
-	SetFishDetectionRadius(fishDetectionRadius);
-	SetEscapeForce(escapeForce);
-}
-
 void Fish::SetBuff(BuffType bufftype,float buffValue)
 {
 	m_fishData.buffType= bufftype;
 	m_fishData.buffEffect[bufftype] = buffValue* m_fishData.individualFactor;
 }
 
-/// <summary>
-/// 魚が逃げるまでの時間を確認し、条件を満たせば変更フラグを立てる。
-/// </summary>
-/// <returns></returns>
 void Fish::UpdateEscapeTimer()
 {
 	m_nowTime = m_inGameState->GetTime();
@@ -182,30 +149,8 @@ void Fish::UpdateEscapeTimer()
 	{
 	}
 	if(m_initialTime - m_nowTime >= m_fishData.timeUntilEscape) {
-		ShouldFishChangeTrue();
+		m_shouldFishChange = true;
 	}
-}
-
-/// <summary>
-/// 魚を別の魚に変えていいか判断する関数
-/// </summary>
-//void Fish::ShouldFishChange()
-//{
-//	//この魚が選択中の時は別の魚に変えない。
-//	if (m_isSelected =! true)
-//	{
-//		ShouldFishChangeTrue();
-//	}
-//}
-
-void Fish::ShouldFishChangeTrue()
-{
-	m_shouldFishChange = true;
-}
-
-void Fish::ShouldFishChangeFalse()
-{
-	m_shouldFishChange = false;
 }
 
 
@@ -218,16 +163,6 @@ float Fish::GetTimeRatio()
 {
 	return m_timeRatio;
 }
-
-
-/// <summary>
-/// 釣った後の効果。
-/// </summary>
-void Fish::Effect()
-{
-}
-
-
 
 FishData& Fish::GetFishData()
 {

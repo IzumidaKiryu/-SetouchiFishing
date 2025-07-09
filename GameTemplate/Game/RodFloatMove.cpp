@@ -158,17 +158,17 @@ void RodFloatMove::SetPosition(Vector3 position)
 	m_rodFloatModel.Update();
 }
 
-float RodFloatMove::ChangePosition_Z(float current_float_range_max_range_rate)
+float RodFloatMove::ChangePosition_Z(float currentFloatDistanceRate)
 {
-	float positon_z = m_limit_range_with_ship * current_float_range_max_range_rate;
+	float positon_z = m_limit_range_with_ship * currentFloatDistanceRate;
 	return positon_z;
 }
 
-float RodFloatMove::GetCurrent_Float_Range_Max_Range_Rate(float position_x)
+float RodFloatMove::GetCurrentFloatDistanceRate(float position_x)
 {
-	float current_float_range_max_range_rate;
-	current_float_range_max_range_rate = position_x / m_limit_range_with_ship;
-	return current_float_range_max_range_rate;
+	float currentFloatDistanceRate;
+	currentFloatDistanceRate = position_x / m_limit_range_with_ship;
+	return currentFloatDistanceRate;
 }
 
 void RodFloatMove::SetRotation(Quaternion rot)
@@ -183,7 +183,7 @@ void RodFloatMove::SetPosition()
 	if (m_playFishing->m_playFishingStatus != cast/*, m_playFishing->m_playFishingStatus != wait_castGauge*/) {
 		Float();
 		//ポジションを反映する。
-		m_position = /*m_floating*/m_sumPosition + Vector3{ 0.0f,0.0f, m_playFishing->m_current_float_range_max_range_rate * m_limit_range_with_ship } + m_floating;
+		m_position = /*m_floating*/m_sumPosition + Vector3{ 0.0f,0.0f, m_playFishing->m_floatDistanceRate * m_limit_range_with_ship } + m_floating;
 	}
 	m_sumPosition = { 0.0f,0.0f,0.0f };
 }

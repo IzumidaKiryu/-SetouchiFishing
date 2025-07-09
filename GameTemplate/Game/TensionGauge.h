@@ -23,16 +23,18 @@ public:
 	bool Start()override;
 	void Update();
 	void FindGOGameObject();
-	void SetSignsOfFishUI();
 	void SetUpwardFishUI();
 	void SetDownwardFishUI();
-	void RightAndLeftManagement();
-	void SetFishUIPosition(float current_fish_range_and_max_range_rate);
-	void SetFloatUIPosition(float current_float_range_max_range_rate);
+	void SetFishUI_Position(float currentFishDistanceRate);
+	void SetFloatUI_Position(float current_float_range_max_range_rate);
 	void SetFloatScale();
 	void SetFishUIScaleByIndividualFactor(float scale);
 	void SwayShipUIByWaves();
-	/// <summary>
+
+
+
+	Vector3 GetFishUIPosition();
+
 	//途中でNewGOされるクラスのオブジェクトがNewGOされた
 	// 瞬間にこの関数を呼びFindGOする。
 	/// </summary>
@@ -40,7 +42,6 @@ public:
 	void FindGORodFloatMove();
 	void FishUIFinFlap();
 	void SetIsFinFlapping(bool isFinFlapping);
-	Vector3 GetFishUIPosition();
 	//void AnnounceChangeFishState();
 
 private:
@@ -64,7 +65,6 @@ private:
 
 	bool m_isFinFlapping = false;
 	Vector3 m_baseSignsOfFishUiSize = Vector3::One;
-	//FIshState m_fishState;
 	SpriteRender m_tensionGaugeInside;
 	SpriteRender m_tensionGaugeOutside;
 	SpriteRender m_signsOfFish;//魚影
