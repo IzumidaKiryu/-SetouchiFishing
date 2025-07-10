@@ -23,8 +23,11 @@ public:
 	Fish* CreateFish(FishType type);
 
 	bool GetShouldFishChange();
-
-	FishData& GetFishData();//フィッシュデータを得るための関数。
+	/// <summary>
+	/// フィッシュデータを取得する。
+	/// </summary>
+	/// <returns></returns>
+	FishData& GetFishData();
 	float GetScore();
 	float GetTimeRatio();
 	SpriteRender* GetUI();
@@ -49,10 +52,6 @@ private:
 	Fish* m_fish=nullptr;
 
 	std::map<BuffType, float> buffEffect;
-	//Buri* m_buri;
-	//Tatiuo* m_tatiuo;
-	//Jakoten* m_jakoten;
-	//Hirame* m_hirame;
-	//Tai* m_tai;
+
 };
 

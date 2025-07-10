@@ -40,7 +40,6 @@ public:
 
 
 	float m_forcePullFish=0.0f;//魚を引っ張る力。
-	//bool is_fish_suited_for_upper_side = true;//魚が上側を向いているかどうか。
 	float m_initRangeRate=0.0f;
 	float m_fishEscapePower = 0.0f;//魚が逃げようとする力。
 	int m_fishChange_in_DirectionTimes = 0;//魚が方向転換した数。

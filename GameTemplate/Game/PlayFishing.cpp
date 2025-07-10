@@ -234,21 +234,8 @@ void PlayFishing::Success() {
 		DeleteGO(m_castState);
 		m_playFishingStatus = wait_for_fish;
 		StatusManager();
-		/*m_successUIState = NewGO<SuccessUIState>(0, "successUIState");
-		m_successUIState->Init();*/
 		break;
-	/*case successUI:
-		g_soundEngine->ResistWaveFileBank(12, "Assets/sound/successVoice.wav");
 
-		m_sound = NewGO<SoundSource>(12);
-
-		m_sound->Init(12);
-
-		m_sound->Play(false);
-		DeleteGO(m_successUIState);
-		m_playFishingStatus = wait_for_fish;
-		StatusManager();
-		break;*/
 	case wait_for_fish:
 		// ここでreelCoiling.wavを止める
 		if (m_sound) {
