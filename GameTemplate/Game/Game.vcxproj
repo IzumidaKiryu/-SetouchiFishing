@@ -251,7 +251,6 @@
     <ClCompile Include="GameResult.cpp" />
     <ClCompile Include="GameStartCountdown.cpp" />
     <ClCompile Include="GameStateBase.cpp" />
-    <ClCompile Include="GaugeCastSuccessful.cpp" />
     <ClCompile Include="GetRotation.cpp" />
     <ClCompile Include="Hirame.cpp" />
     <ClCompile Include="HitUIState.cpp" />
@@ -311,7 +310,6 @@
     <ClInclude Include="GameResult.h" />
     <ClInclude Include="GameStartCountdown.h" />
     <ClInclude Include="GameStateBase.h" />
-    <ClInclude Include="GaugeCastSuccessful.h" />
     <ClInclude Include="GetRotation.h" />
     <ClInclude Include="Hirame.h" />
     <ClInclude Include="HitUIState.h" />
