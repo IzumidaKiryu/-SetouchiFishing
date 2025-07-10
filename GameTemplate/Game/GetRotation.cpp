@@ -42,13 +42,14 @@ void GetRotation::SetVectorA()
 float GetRotation::CalculatingRotationQuantity()
 {
 	GetRotationDirection();//回転の向きを取得。
-	if (int(nowVector.x * 100) != int(befreVector.x * 100) || int(nowVector.y * 100) != int(befreVector.y * 100)) {//取得したベクトルが前と同じベクトルの時は計算しない。
+	//取得したベクトルが前と同じベクトルの時は計算しない。
+	if (int(nowVector.x * 100) != int(befreVector.x * 100) || int(nowVector.y * 100) != int(befreVector.y * 100)) {
 
 		float t = Dot(nowVector, befreVector);
 		t = min(1.0f, t);
 		t = max(-1.0f, t);
 		if (rotationDirection == RightTurn) {//右回転の時は回転量にプラスする。
-			rotationQuantity += acos(t) / 20;//なぜか内積が1以上-1以下になるから÷2をした。
+			rotationQuantity += acos(t) / 20;
 			nowFrameRotationQuantity = acos(t) / 20;
 		}
 		if (rotationDirection == LeftTurn) {//左回転ならマイナスする。
@@ -60,7 +61,7 @@ float GetRotation::CalculatingRotationQuantity()
 
 void GetRotation::GetRotationDirection()
 {
-	if (Cross(nowVector, befreVector).z < 0)//
+	if (Cross(nowVector, befreVector).z < 0)
 	{
 		rotationDirection = LeftTurn;//左回転
 	}

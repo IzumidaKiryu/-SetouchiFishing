@@ -22,7 +22,7 @@ FightFishState::~FightFishState()
 	DeleteGO(m_tensionGauge);
 	DeleteGO(m_fishingRodHP);
 	DeleteGO(m_rodFloatMove);
-	m_fishingRodHP->SetIs_playFishingFinishedTrue();
+	m_fishingRodHP->SetIsFishingEnded(true);
 }
 
 bool FightFishState::OnInit()
