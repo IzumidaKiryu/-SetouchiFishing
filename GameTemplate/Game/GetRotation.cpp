@@ -8,65 +8,75 @@ GetRotation::GetRotation()
 
 GetRotation::~GetRotation()
 {
+}
 
+float GetRotation::GetFrameRotationDelta() const
+{
+	return m_frameRotationDelta;
 }
 
 void GetRotation::Update()
 {
-	nowFrameRotationQuantity = 0.0f;
+	//フレームの回転量をリセット
+	m_frameRotationDelta = 0.0f;
 
-	SetVectorA();
-	if (befreVector.x != 0 || befreVector.y != 0 || befreVector.z != 0) {//入力があったら。
-		CalculatingRotationQuantity();//回転の計算をする。
+	//スティックの入力量を更新する。
+	UpdateStickInputVector();
+
+	//入力があったら。
+	if (m_prevVector.x != 0 || m_prevVector.y != 0 || m_prevVector.z != 0) {
+		//回転の計算をする。
+		CalculateRotationAmount();
 	}
-	befreVector = nowVector;
-	befreVector.Normalize();
+
+	//前のフレームのベクトルを更新する。
+	m_prevVector = m_currentVector;
+
+	//前のフレームのベクトルを正規化する。
+	m_prevVector.Normalize();
 }
 
-void GetRotation::SetVectorA()
+void GetRotation::UpdateStickInputVector()
 {
-	//Lスティックの入力を取得。
-	stickL.x = g_pad[0]->GetLStickXF();
-	stickL.y = g_pad[0]->GetLStickYF();
+	//Lスティックの入力を取得するための変数。
+	Vector2 leftStickInput = Vector2::Zero;
 
-	//nowVectorにセットする。
-	nowVector.x = stickL.x;
-	nowVector.y = stickL.y;
-	nowVector.z = 0.0f;
+	//Lスティックの入力を取得。
+	leftStickInput.x = g_pad[0]->GetLStickXF();
+	leftStickInput.y = g_pad[0]->GetLStickYF();
+
+	//currentVectorにセットする。
+	m_currentVector.x = leftStickInput.x;
+	m_currentVector.y = leftStickInput.y;
+	m_currentVector.z = 0.0f;
 
 	//正規化する
-	nowVector.Normalize();
-
+	m_currentVector.Normalize();
 }
 
-float GetRotation::CalculatingRotationQuantity()
+void GetRotation::CalculateRotationAmount()
 {
-	GetRotationDirection();//回転の向きを取得。
+	UpdateRotationDirection();//回転の向きを取得。
 	//取得したベクトルが前と同じベクトルの時は計算しない。
-	if (int(nowVector.x * 100) != int(befreVector.x * 100) || int(nowVector.y * 100) != int(befreVector.y * 100)) {
+	if (int(m_currentVector.x * 100) != int(m_prevVector.x * 100) || int(m_currentVector.y * 100) != int(m_prevVector.y * 100)) {
 
-		float t = Dot(nowVector, befreVector);
+		float t = Dot(m_currentVector, m_prevVector);
 		t = min(1.0f, t);
 		t = max(-1.0f, t);
-		if (rotationDirection == RightTurn) {//右回転の時は回転量にプラスする。
-			rotationQuantity += acos(t) / 20;
-			nowFrameRotationQuantity = acos(t) / 20;
-		}
-		if (rotationDirection == LeftTurn) {//左回転ならマイナスする。
-			rotationQuantity -= acos(t) / 20;
+		if (m_rotationDirection == RightTurn) {//右回転の時は回転量にプラスする。
+			m_frameRotationDelta = acos(t) / 20;
 		}
 	}
-	return 0.0f;
 }
 
-void GetRotation::GetRotationDirection()
+void GetRotation::UpdateRotationDirection()
 {
-	if (Cross(nowVector, befreVector).z < 0)
+	if (Cross(m_currentVector, m_prevVector).z < 0)
 	{
-		rotationDirection = LeftTurn;//左回転
+		m_rotationDirection = LeftTurn;//左回転
 	}
-	if (Cross(nowVector, befreVector).z > 0)
+	if (Cross(m_currentVector, m_prevVector).z > 0)
 	{
-		rotationDirection = RightTurn;//右回転
+		m_rotationDirection = RightTurn;//右回転
 	}
 }

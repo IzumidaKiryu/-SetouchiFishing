@@ -213,7 +213,7 @@ void FightFishState::CheckSuccess()
 
 float FightFishState::GetRotationPower()
 {
-	return m_getRotation->nowFrameRotationQuantity;
+	return m_getRotation->GetFrameRotationDelta();
 
 }
 
@@ -224,7 +224,7 @@ void FightFishState::ExhaustedState()
 {
 	m_angerState_frame_count++;
 	if (m_reduce_Hp_when_angry == true) {//連続で二度以上処理されないようにする。
-		m_forcePullFish -= m_getRotation->nowFrameRotationQuantity * 200 * 1.3 * 20;
+		m_forcePullFish -= m_getRotation->GetFrameRotationDelta() * 200 * 1.3 * 20;
 		m_reduce_Hp_when_angry = false;
 	}
 }
