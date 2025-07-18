@@ -62,8 +62,8 @@ float4 PSBloomFinal(PSInput In) : SV_Target0
     combineColor += g_bokeTexture_2.Sample(Sampler, In.uv);
     combineColor += g_bokeTexture_3.Sample(Sampler, In.uv);
     combineColor /= 4.0f;
-    //ブルームの強さを0.5倍に調整
-    combineColor.rgb *= 0.5f;
+    //ブルームの強さを1.5倍に調整
+    combineColor.rgb *= 1.5f;
     combineColor.a = 1.0f;
     return combineColor;
 }
