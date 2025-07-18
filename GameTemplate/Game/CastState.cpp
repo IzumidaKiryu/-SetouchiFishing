@@ -6,6 +6,7 @@
 #include"PlayFishing.h"
 #define _USE_MATH_DEFINES
 #include <math.h>
+#include "graphics/effect/EffectEmitter.h"
 
 CastState::CastState()
 {
@@ -47,8 +48,10 @@ bool CastState::OnInit()
 
 bool CastState::OnStart()
 {
+	m_initCameraPos = m_rodFloatMove->m_position + INITIAL_CAMERA_OFFSET;
 
-
+	//エフェクトを読み込む。
+	EffectEngine::GetInstance()->ResistEffect(0, u"Assets/effect/splash.efk");
 
 	//PlayFishingStateBase::Start();
 
@@ -265,6 +268,11 @@ void CastState::RiseUP()
 		HydraulicPressureDifference = 0;
 	}
 
+	EffectEmitter* effectEmitter = NewGO<EffectEmitter>(0);
+	effectEmitter->Init(0);
+	effectEmitter->SetScale({ 50.0f,50.0f,50.0f });
+	effectEmitter->SetPosition(m_rodFloatPosition + m_float_initPos);
+	effectEmitter->Play();
 	//水圧を考慮する。
 
 	forceVector.z *= 1 / (HydraulicPressureDifference * 0.8);
@@ -297,7 +305,12 @@ void CastState::Swing()
 	////水圧を考慮する。
 
 	//forceVector.z *= 1 / (HydraulicPressureDifference * 0.8);
-
+	EffectEmitter* effectEmitter = NewGO<EffectEmitter>(0);
+	effectEmitter->Init(0);
+	effectEmitter->SetScale({ 50.0f,50.0f,50.0f });
+	effectEmitter->SetPosition(m_floatModelPos);
+	effectEmitter->Update();
+	effectEmitter->Play();
 
 	//m_rodFloatPosition += forceVector;
 
