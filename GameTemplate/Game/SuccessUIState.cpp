@@ -16,13 +16,12 @@ void SuccessUIState::Update()
 
 bool SuccessUIState::OnInit()
 {
-
-	m_successUI.Init("Assets/modelData/SuccessUI.DDS", 500, 200);
+	m_successUI.Init("Assets/modelData/newSuccessUI.DDS", 500, 200);
 	m_successUI.SetPivot(Vector2(0.5f, 0.5f));
 	m_successUI.SetScale(Vector3{ 1.0f, 1.0f, 1.0f });
 	m_successUI.Update();
 
-	m_successUI_Bar.Init("Assets/modelData/Hit!_UI_Bar.DDS", 1500, 300);
+	m_successUI_Bar.Init("Assets/modelData/newSuccessUIBack.DDS", 1500, 300);
 	m_successUI_Bar.SetPivot(Vector2(0.5f, 0.5f));
 	m_successUI_Bar.SetScale(Vector3{ 1.0f, 1.0f, 1.0f });
 	m_successUI_Bar.Update();
@@ -34,7 +33,7 @@ bool SuccessUIState::OnStart()
 {
 	m_initCameraPos = { m_cameraPos };
 	m_initCameraTarget = { m_cameraTarget };
-	m_endCameraTarget = { m_init_fishModelPos };
+	m_endCameraTarget = { m_initFishModelPos };
 	m_endCameraPos = { GetPlayerPos() + Vector3 {0.0f,100.0f,100.0f} };
 
 	return true;

@@ -94,8 +94,8 @@ public:
 	void Failure();
 
 	// パラメータ/ビジュアル
-	float m_current_fish_range_and_max_range_rate = 0.0f;
-	float m_current_float_range_max_range_rate = 0.0f;
+	float m_fishDistanceRate = 0.0f;
+	float m_floatDistanceRate = 0.0f;
 	float m_castStrength = 0.0f;
 
 	Vector3 m_floating=Vector3::Zero;

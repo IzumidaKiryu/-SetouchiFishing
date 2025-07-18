@@ -25,17 +25,10 @@ public:
 	void SetAnim(const char* activeAnim);
 	void PlayAnim();
 	void WitchFishType(FishType fishType);
-	//enum GetFishType {
-	//	TAI,
-	//	BURI,
-	//	TATIUO,
-	//	HIRAME,
-	//	JAKOTENN,
-	//	SINJU,
-	//	num
-	//};
+	
+	//アニメーション。
 	enum EnAnimationClip
-	{		//アニメーション。
+	{	
 		enAnimationClip_active,
 		enAnimationClip_Num,
 	};
@@ -43,10 +36,8 @@ public:
 	AnimationClip m_animClip[enAnimationClip_Num];
 	EnAnimationClip animeClip = enAnimationClip_active;
 	ModelRender m_modelRender;
-	//GetFishType fishType = num;
 
 	Vector3 m_pos = { 0.0f,0.0f,15.0f };
-
 	Vector3 m_initCameraPos=Vector3::Zero;
 
 };

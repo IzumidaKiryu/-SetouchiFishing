@@ -1,160 +1,102 @@
 #include "stdafx.h"
 #include "CastGauge.h"
-#include "GaugeCastSuccessful.h"
-#include "TensionGauge.h"
-#include "FishingGauge.h"
-#include "PositionSelection.h"
 #include "PlayFishing.h"
-#include"GameCamera.h"
-#include"RodFloatMove.h"
-#include"Player.h"
-#include"RodFloatMove.h"
-#include"SceneFightFish.h"
-#include"PlayCastGaugeState.h"
 
+// キャストゲージのUI設定用定数
+namespace {
+	static constexpr float CAST_GAUGE_WIDTH = 100.0f;				// キャストゲージの幅
+	static constexpr float CAST_GAUGE_HEIGHT = 500.0f;				// キャストゲージの高さ
+	static const Vector2 CASTGAUGE_PIVOT(0.0f, 0.5f);     	// キャストゲージの基準位置
+	static const Vector3 CASTGAUGE_POSITION(-500.0f, 0.0f, 0.0f); // キャストゲージの表示位置
 
-
-CastGauge::CastGauge()
-{
-
-
-
+	static constexpr float ARROW_WIDTH = 110.0f;   					// 矢印の幅
+	static constexpr float ARROW_HEIGHT = 10.0f;   					// 矢印の高さ
+	static const Vector2 ARROW_PIVOT(0.0f, 0.5f);				// 矢印の基準位置
 }
 
+CastGauge::CastGauge() = default;
+CastGauge::~CastGauge() = default;
 
-CastGauge::~CastGauge()
-{
-}
-
-bool CastGauge::Init()
-{
-	m_castGaugeOutside.Init("Assets/modelData/castGauge_Outside.DDS", 100, 500);
-	m_castGaugeOutside.SetPivot(Vector2(0.0f, 0.5f));
-	m_castGaugeOutside.SetPosition(m_initGaugePos);
-	m_castGaugeOutside.SetScale(Vector3{ 1.0f, 1.0f, 1.0f });
+bool CastGauge::Init() {
+	m_castGaugeOutside.Init("Assets/modelData/castGauge_Outside.DDS", CAST_GAUGE_WIDTH, CAST_GAUGE_HEIGHT);
+	m_castGaugeOutside.SetPivot(CASTGAUGE_PIVOT);
+	m_castGaugeOutside.SetPosition(CASTGAUGE_POSITION);
 	m_castGaugeOutside.Update();
 
-	m_castGaugeInside.Init("Assets/modelData/new_castgauge.DDS", 100, 500);
-	m_castGaugeInside.SetPivot(Vector2(0.0f, 0.5f));
-	m_castGaugeInside.SetPosition(m_initGaugePos);
-	m_castGaugeInside.SetScale(Vector3{ 1.0f, 1.0f, 1.0f });
+	m_castGaugeInside.Init("Assets/modelData/new_castgauge.DDS", CAST_GAUGE_WIDTH, CAST_GAUGE_HEIGHT);
+	m_castGaugeInside.SetPivot(CASTGAUGE_PIVOT);
+	m_castGaugeInside.SetPosition(CASTGAUGE_POSITION);
 	m_castGaugeInside.Update();
 
-	m_Arrow.Init("Assets/modelData/castGauge_arrow.DDS", 110, 10);
-	m_Arrow.SetPivot(Vector2(0.0f, 0.5f));
-	m_Arrow.SetScale(Vector3{ 1.0f, 1.0f, 1.0f });
-
+	m_Arrow.Init("Assets/modelData/castGauge_arrow.DDS", ARROW_WIDTH, ARROW_HEIGHT);
+	m_Arrow.SetPivot(ARROW_PIVOT);
 
 	return true;
 }
 
-bool CastGauge::Start()
-{
-
-	m_positionSelection = FindGO<PositionSelection>("positionSelection");
-
-
+bool CastGauge::Start() {
+	m_playFishing = FindGO<PlayFishing>("playFishing");
 	return true;
 }
 
-void CastGauge::Update()
-{
-	UpAndDownManagement();
-	SetArrowPosition();//矢印の場所を決める。
-	m_Arrow.Update();//矢印の描画を更新する。
-	HitTest();
+void CastGauge::Update() {
+	UpAndDownManagement();		// ゲージの上下制御
+	UpdateArrowPosition();		// 矢印の位置更新
+	m_Arrow.Update();
+	HandleCastInput();		// Aボタンの入力処理
 }
 
-/// <summary>
-/// 矢印の場所を設定
-/// </summary>
-void CastGauge::SetArrowPosition()
-{
-	m_Arrow.SetPosition(m_initGaugePos+Vector3(-10.0f, m_arrowPosition, 0.0f));
+void CastGauge::UpdateArrowPosition() {
+	m_Arrow.SetPosition(CASTGAUGE_POSITION + Vector3(-10.0f, m_arrowPosition, 0.0f));
 }
 
-/// <summary>
-/// 矢印を上に動かすか下に動かすか決める。
-/// </summary>
-void CastGauge::UpAndDownManagement()
-{
-	if (upState == false) {
-		DownwardOperation();
-	}
-	if (upState == true) {
+void CastGauge::UpAndDownManagement() {
+	if (upState)
 		UpwardOperation();
-	}
+	else
+		DownwardOperation();
 }
-/// <summary>
-/// 矢印を上に移動。
-/// </summary>
-void CastGauge::UpwardOperation()
-{
+
+void CastGauge::UpwardOperation() {
 	m_arrowPosition += m_gaugeSpead;
 	if (m_arrowPosition >= m_gaugeUpperLimit) {
-		m_arrowPosition = (-m_arrowPosition + m_gaugeUpperLimit) + m_gaugeUpperLimit;//上限を通り過ぎたらその分戻る処理。
+		// 上限を超えたら反転して戻る
+		m_arrowPosition = (-m_arrowPosition + m_gaugeUpperLimit) + m_gaugeUpperLimit;
 		upState = false;
 	}
 }
 
-/// <summary>
-/// 矢印を下に移動
-/// </summary>
-void CastGauge::DownwardOperation()
-{
+void CastGauge::DownwardOperation() {
 	m_arrowPosition -= m_gaugeSpead;
 	if (m_arrowPosition <= m_gaugeLowerLimit) {
-		m_arrowPosition = (-m_arrowPosition + m_gaugeLowerLimit) + m_gaugeLowerLimit;//下限を通り過ぎたらその分戻る処理。
+		// 下限を超えたら反転して戻る
+		m_arrowPosition = (-m_arrowPosition + m_gaugeLowerLimit) + m_gaugeLowerLimit;
 		upState = true;
 	}
 }
 
-
-/// <summary>
-/// 矢印のスピードを設定
-/// </summary>
-
-void CastGauge::SetArrowSpead(float spead)
-{
+void CastGauge::SetArrowSpead(float spead) {
 	m_gaugeSpead = spead;
 }
 
-/// <summary>
-/// 当たり判定を確かめる
-/// </summary>
-void CastGauge::HitTest()
-{
+void CastGauge::HandleCastInput() {
 	if (g_pad[0]->IsTrigger(enButtonA)) {
-
-		//ウキの距離を計算。
+		// 強さを0.0〜1.0の範囲で計算
 		m_castStrength = (m_arrowPosition - m_gaugeLowerLimit) / m_gauge_length;
+		m_isCastInputComplete = true;
 
-		m_playFishing = FindGO<PlayFishing>("playFishing");
-		m_is_thisClassEnd = true;
-		//プレイフィッシングクラスにキャストの強さを渡す。
+		// フィッシングクラスに通知
 		m_playFishing->SetCastStrength(m_castStrength);
-
-		m_playFishing->SetSuccess();//プレイフィッシングクラスのステートを進める。
-		//
-		m_chastState = chast;
-
-
-		is_ended = true;
+		m_playFishing->SetSuccess();
 	}
 }
 
-
-bool CastGauge::GetIsThisClasEnd()
-{
-	return m_is_thisClassEnd;
+bool CastGauge::GetIsCastInputComplete() const {
+	return m_isCastInputComplete;
 }
 
-void CastGauge::Render(RenderContext& rc)
-{
-	if (m_chastState == playing) {
-		m_castGaugeInside.Draw(rc);
-		/*	m_gaugeCastSuccessful->m_gaugeCastSuccessfulSprite.Draw(rc);*/
-		m_Arrow.Draw(rc);
-		m_castGaugeOutside.Draw(rc);
-	}
+void CastGauge::Render(RenderContext& rc) {
+	m_castGaugeInside.Draw(rc);
+	m_Arrow.Draw(rc);
+	m_castGaugeOutside.Draw(rc);
 }

@@ -3,8 +3,6 @@
 
 #include "FightFishState.h"
 
-
-
 class GetRotation;
 class PlayFishing;
 class FishingRodHP;
@@ -25,11 +23,9 @@ public:
 	bool Start()override;
 	void Update();
 	void FindGOGameObject();
-	void Set_signs_of_Fish_UI();
 	void SetUpwardFishUI();
 	void SetDownwardFishUI();
-	void RightAndLeftManagement();
-	void SetFishUI_Position(float current_fish_range_and_max_range_rate);
+	void SetFishUI_Position(float currentFishDistanceRate);
 	void SetFloatUI_Position(float current_float_range_max_range_rate);
 	void SetFloatScale();
 	void SetFishUIScaleByIndividualFactor(float scale);
@@ -41,26 +37,19 @@ public:
 
 	//途中でNewGOされるクラスのオブジェクトがNewGOされた
 	// 瞬間にこの関数を呼びFindGOする。
+	/// </summary>
 	void FindGOFishDetectionRadius();
 	void FindGORodFloatMove();
 	void FishUIFinFlap();
 	void SetIsFinFlapping(bool isFinFlapping);
-
-
 	//void AnnounceChangeFishState();
 
 private:
-
-
-
+	void Render(RenderContext& rc);
+private:
 	FlapFrameType m_flapFrameType = FlapFrameType::A;
 	float m_flapElapsedTime = 0.0f;
 	const float m_flapSwitchInterval = 10;
-
-	/// <summary>
-	/// 魚のUIを初期化
-	/// </summary>
-	void InitFishUI();
 	float m_barBottom = -335.0f;//ゲージ下端。
 	float m_barTop = 317.0f;//ゲージの上端。
 	float m_bar_length = std::abs(m_barTop) + std::abs(m_barBottom);//バーの長さ。(abs()は絶対値を求める関数。)
@@ -72,15 +61,14 @@ private:
 	float m_shipFloating_t=0.0f;
 
 	//円周率
-	double pie = 3.141592653589793;
+	float pie = 3.141592653589793;//利用なし。
 
 	bool m_isFinFlapping = false;
-	Vector3 m_baseSigns_of_FishUiSize = Vector3::One;
-	FIshState m_fishState;
+	Vector3 m_baseSignsOfFishUiSize = Vector3::One;
 	SpriteRender m_tensionGaugeInside;
 	SpriteRender m_tensionGaugeOutside;
-	SpriteRender m_signs_of_Fish;//魚影
-	SpriteRender m_signs_of_Fish_FlappingFins[2];//魚影がひれをパタパタさせるUI
+	SpriteRender m_signsOfFish;//魚影
+	SpriteRender m_signsOfFishFlappingFins[2];//魚影がひれをパタパタさせるUI
 	SpriteRender m_rodFloatUI;
 	SpriteRender m_shipUI;
 	PlayFishing* m_playFishing = nullptr;
@@ -90,6 +78,6 @@ private:
 	Quaternion m_downward;
 	FishDetectionRadius* m_fishDetectionRadius = nullptr;
 
-	void Render(RenderContext& rc);
+	
 
 };

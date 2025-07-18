@@ -12,8 +12,12 @@ public:
 	};
 
 	HitUIState();
-	void Update();
+	
 	bool OnInit();
+	void Render(RenderContext& rc);
+
+private:
+	void Update();
 	bool OnStart();
 	void UIMoveStateManager();
 	void SetPosition();
@@ -21,10 +25,8 @@ public:
 	void Wait();
 	void Out();
 	void CameraManagement();
-	void Render(RenderContext& rc);
 
-
-	
+private:
 	float m_t=0.0f;
 	Vector3 m_hitUIPos=Vector3::Zero;
 	Vector3 m_hitUIBarPos=Vector3::Zero;

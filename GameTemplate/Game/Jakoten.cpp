@@ -8,10 +8,7 @@ Jakoten::Jakoten()
 
 }
 
-Jakoten::~Jakoten()
-{
-
-}
+Jakoten::~Jakoten() = default;
 
 bool Jakoten::OnInit()
 {
@@ -26,15 +23,6 @@ bool Jakoten::OnInit()
 	SetDownwardBias(80);
 	SetFishDetectionRadius(0.4);
 	SetEscapeForce(0.004);
-	//SetParameter(
-	//	12.0f,
-	//	5.0f,
-	//	120.0f,
-	//	0.7,
-	//	80,
-	//	30,
-	//	0.3f
-	//);
 	SetBuff(BuffType::StaminaRegenBuff,1);
 	return true;
 }

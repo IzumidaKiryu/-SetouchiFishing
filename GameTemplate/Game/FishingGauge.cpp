@@ -22,9 +22,6 @@ FishingGauge::FishingGauge()
 	m_fishingGaugeBar.Init("Assets/modelData/fishingGaugeBar.DDS", 110, 10);
 	m_fishingGaugeBar.SetPivot(Vector2(0.0f, 0.5f));
 	m_fishingGaugeBar.SetScale(Vector3{ 1.0f, 1.0f, 1.0f });
-
-	/*m_gaugeBarSuccessful = NewGO<GaugeCastSuccessful>(0, "gaugeCastSuccessful");
-	m_gaugeBarSuccessful->Init(10.0f, 10.0f);*/
 }
 
 FishingGauge::~FishingGauge()
@@ -55,12 +52,7 @@ void FishingGauge::SetBarPosition()
 /// </summary>
 void FishingGauge::UpAndDownManagement()
 {
-	/*if (upState == false) {*/
 	DownwardOperation();
-	//}
-	//if (upState == true) {
-	//	UpwardOperation();
-	//}
 }
 /// <summary>
 /// 矢印を上に移動。
@@ -91,7 +83,7 @@ void FishingGauge::DownwardOperation()
 /// </summary>
 void FishingGauge::SetBarSpead()
 {
-	m_barSpead = /*(237.0f*2.0f)/10*/9;
+	m_barSpead =9;
 }
 
 /// <summary>
@@ -103,8 +95,6 @@ void FishingGauge::HitTest()
 		Attack();
 		m_playFishing = FindGO<PlayFishing>("playFishing");
 		m_playFishing->SetSuccess();
-		/*m_playFishing->StatusManager();*/
-	/*	DeleteGO(this);*/
 	}
 
 }
@@ -112,7 +102,6 @@ void FishingGauge::HitTest()
 void FishingGauge::Render(RenderContext& rc)
 {
 	m_fishingGauge.Draw(rc);
-	//m_gaugeCastSuccessful->m_gaugeCastSuccessfulSprite.Draw(rc);
 	m_fishingGaugeBar.Draw(rc);
 	m_fishingGaugeFrame.Draw(rc);
 }

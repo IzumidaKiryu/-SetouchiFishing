@@ -46,14 +46,14 @@ void Character::Update()
 	m_rodModel.Update();
 }
 /// <summary>
-		/// 通常描画用の初期化
-		/// </summary>
-		/// <param name="filePath">ファイルパス</param>
-		/// <param name="animationClips">アニメーションクリップ</param>
-		/// <param name="numAnimationClips">アニメーションクリップの数</param>
-		/// <param name="enModelUpAxis">モデルの上方向</param>
-		/// <param name="shadowCast">trueなら影を描画する</param>
-		/// <param name="ShadowDrop">trueなら影を受ける</param>
+/// 通常描画用の初期化
+/// </summary>
+/// <param name="filePath">ファイルパス</param>
+/// <param name="animationClips">アニメーションクリップ</param>
+/// <param name="numAnimationClips">アニメーションクリップの数</param>
+/// <param name="enModelUpAxis">モデルの上方向</param>
+/// <param name="shadowCast">trueなら影を描画する</param>
+/// <param name="ShadowDrop">trueなら影を受ける</param>
 void Character::SetModel(const char* filePath, AnimationClip* animationClips, int numAnimationClips, EnModelUpAxis enModelUpAxis, bool shadowCast = true, bool shadowDrop = false)
 {
 	//ユ

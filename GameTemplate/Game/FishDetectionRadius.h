@@ -4,7 +4,6 @@ class TensionGauge;
 class FishDetectionRadius:public IGameObject
 {
 public:
-	float t = 0.0f;
 	FishDetectionRadius();
 	~FishDetectionRadius();
 	bool Init();
@@ -12,13 +11,6 @@ public:
 	void Update();
 	void CalculateDetectionRange();
 	void CalculateDetectionRangePos();
-	//void SetFishDetectionRadiusPosition(Vector3 position);
-	//Vector3 GetFishDetectionRadiusPosition();
-	//float GetFishDetectionRadius();
-	//void SetFishDetectionRadiusScale(Vector3 scale);
-
-	//void SetFishDetectionRadiusRotation(Vector3 rotation);
-
 	void CalculateFishDetectionRadiusUIScale();
 	float GetFishDetectionRadius();
 	float GetPos();

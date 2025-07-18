@@ -13,16 +13,11 @@ BuffLevelUI::~BuffLevelUI()
 bool BuffLevelUI::Init()
 {
 	SetUI();
-	SetInitBuffPos();
+	SetInitFontPos();
 	return true;
 }
 
-void BuffLevelUI::SetInitFont()
-{
-
-}
-
-void BuffLevelUI::SetInitBuffPos()
+void BuffLevelUI::SetInitFontPos()
 {
 	m_fontPos[BuffType::StealBoostBuff] = Vector3{ -650.0f,120.0f,0.0f };
 	m_fontPos[BuffType::PullStrengthBuff] = Vector3{-650.0f,-30.0f,0.0f};

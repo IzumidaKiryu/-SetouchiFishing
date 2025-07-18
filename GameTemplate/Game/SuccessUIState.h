@@ -22,9 +22,7 @@ public:
 	void Out();
 	//void CameraManagement();
 	void Render(RenderContext& rc);
-
-
-
+private:
 	float m_t=0.0f;
 	Vector3 m_successUIPos=Vector3::Zero;
 	Vector3 m_successUIBarPos=Vector3::Zero;

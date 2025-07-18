@@ -7,10 +7,7 @@ Hirame::Hirame()
 
 }
 
-Hirame::~Hirame()
-{
-
-}
+Hirame::~Hirame()=default;
 
 
 bool Hirame::OnInit()
