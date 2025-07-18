@@ -111,7 +111,7 @@ void nsK2EngineLow::RenderingEngine::Execute(RenderContext& rc)
 	}
 
 	//エフェクトの描画。
-	//EffectEngine::GetInstance()->Draw();
+	EffectEngine::GetInstance()->Draw();
 
 	//ブルームの適用。
 	m_bloom.Render(rc, m_mainRenderingTarget);

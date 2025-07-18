@@ -78,12 +78,12 @@ public:
 	//メンバ変数。
 	std::map< Area, bool> m_isFishingInArea =//各エリアで釣っているかどうか？ 
 	{
-		{Area::A,false},
+		{ Area::A,false },
 		{ Area::B,false },
-	{ Area::C,false },
-	{ Area::D,false },
-	{ Area::E,false },
-	{ Area::F,false },
+		{ Area::C,false },
+		{ Area::D,false },
+		{ Area::E,false },
+		{ Area::F,false },
 	};
 	ModelRender modelRender;	//モデルレンダ―。
 	ModelRender m_rodModel;

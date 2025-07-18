@@ -6,6 +6,7 @@
 #include "PlayFishing.h"
 #define _USE_MATH_DEFINES
 #include <math.h>
+#include "graphics/effect/EffectEmitter.h"
 
 namespace {
 
@@ -56,6 +57,15 @@ bool CastState::OnInit()
 bool CastState::OnStart()
 {
 	m_initCameraPos = m_rodFloatMove->m_position + INITIAL_CAMERA_OFFSET;
+
+	//エフェクトを読み込む。
+	EffectEngine::GetInstance()->ResistEffect(0, u"Assets/effect/splash.efk");
+
+	//PlayFishingStateBase::Start();
+
+
+	m_initCameraPos = m_rodFloatMove->m_position + Vector3{ 300.0f,300.0f,-500.0f };;
+
 	m_initCameraTarget = m_rodFloatMove->GetPosition();
 	m_endCameraTarget = m_rodFloatMove->GetPosition();
 	return true;
@@ -128,6 +138,11 @@ void CastState::RiseUP()
 	forceVector.z *= 1.0f / (m_hydraulicPressureDifference * 0.8f);
 	forceVector.y += m_hydraulicPressureDifference;
 
+	EffectEmitter* effectEmitter = NewGO<EffectEmitter>(0);
+	effectEmitter->Init(0);
+	effectEmitter->SetScale({ 50.0f,50.0f,50.0f });
+	effectEmitter->SetPosition(m_rodFloatPosition + m_float_initPos);
+	effectEmitter->Play();
 	m_floatOffset += forceVector;
 
 	// ウキが再度水面に到達したら次のフェーズへ
@@ -138,7 +153,17 @@ void CastState::RiseUP()
 
 void CastState::Swing()
 {
+
+	//forceVector.z *= 1 / (HydraulicPressureDifference * 0.8);
+	EffectEmitter* effectEmitter = NewGO<EffectEmitter>(0);
+	effectEmitter->Init(0);
+	effectEmitter->SetScale({ 50.0f,50.0f,50.0f });
+	effectEmitter->SetPosition(m_floatModelPos);
+	effectEmitter->Update();
+	effectEmitter->Play();
+
 	m_swingTimer += 0.08f;
+
 
 	// 減衰するサイン波で上下運動を再現
 	float swing = -(std::pow(EULER_E, -0.3f * m_swingTimer)) * std::abs(std::sin(m_swingTimer));
