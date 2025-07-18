@@ -29,6 +29,5 @@ private:
 	SpriteRender spriteRender ;
 	InGameState* m_inGameState=nullptr;
 	SoundSource* m_sound=nullptr;
- // ゲームスタートカウントダウンのポインタ
 };
 

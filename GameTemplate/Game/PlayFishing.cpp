@@ -56,7 +56,7 @@ bool PlayFishing::Start()
 	SetFishData();
 	NewGOGameObjects();
 	playerVisual->SetMoveDeActive();
-	m_current_fish_range_and_max_range_rate = m_fishData.initPos;
+	m_fishDistanceRate = m_fishData.initPos;
 	StatusManager();
 	return true;
 }
@@ -90,11 +90,11 @@ void PlayFishing::SetCurrentFishManagerObjectName(std::string string_objectName)
 }
 
 void PlayFishing::SetCurrent_range_and_max_range_rate(float range_of_fish_and_ship) {
-	m_current_fish_range_and_max_range_rate = range_of_fish_and_ship;
+	m_fishDistanceRate = range_of_fish_and_ship;
 }
 
 void PlayFishing::SetRange_of_fish_and_float(float range_of_fish_and_float) {
-	m_current_float_range_max_range_rate = range_of_fish_and_float;
+	m_floatDistanceRate = range_of_fish_and_float;
 }
 
 void PlayFishing::SetCastStrength(float castStrength) {
@@ -108,8 +108,8 @@ void PlayFishing::SetFishScaleByIndividualFactor() {
 
 // カメラやシーン切り替え
 void PlayFishing::ReturnToPositionSelectCamera() {
-	m_gameCamera->SetPosition(m_backGround->m_shipPosition + Vector3{ 0.0f,1500.0f,0.0f });
-	m_gameCamera->SetTarget(m_backGround->m_shipPosition + Vector3{ 0.0f,0.0f,100.0f });
+	m_gameCamera->SetPosition(m_backGround->GetShipPosition() + Vector3{ 0.0f,1500.0f,0.0f });
+	m_gameCamera->SetTarget(m_backGround->GetShipPosition() + Vector3{ 0.0f,0.0f,100.0f });
 }
 
 void PlayFishing::ChangeScene() {
@@ -234,21 +234,8 @@ void PlayFishing::Success() {
 		DeleteGO(m_castState);
 		m_playFishingStatus = wait_for_fish;
 		StatusManager();
-		/*m_successUIState = NewGO<SuccessUIState>(0, "successUIState");
-		m_successUIState->Init();*/
 		break;
-	/*case successUI:
-		g_soundEngine->ResistWaveFileBank(12, "Assets/sound/successVoice.wav");
 
-		m_sound = NewGO<SoundSource>(12);
-
-		m_sound->Init(12);
-
-		m_sound->Play(false);
-		DeleteGO(m_successUIState);
-		m_playFishingStatus = wait_for_fish;
-		StatusManager();
-		break;*/
 	case wait_for_fish:
 		// ここでreelCoiling.wavを止める
 		if (m_sound) {

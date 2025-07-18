@@ -6,7 +6,7 @@ class SuccessUIState;
 class WaitForFishState :public PlayFishingStateBase
 {
 public:
-	enum go_fish_in_which {
+	enum FishMovementDirection {
 		up,
 		down,
 	};
@@ -23,7 +23,7 @@ public:
 
 private:
 	bool m_isFloatDetected=false;
-	go_fish_in_which m_goFishInWhich=down;//どっちの方向に進むか。
+	FishMovementDirection m_fishMovementDirection=down;//どっちの方向に進むか。
 	FishDetectionRadius* m_fishDetectionRadius=nullptr;
 	SuccessUIState* m_successUIState=nullptr;
 

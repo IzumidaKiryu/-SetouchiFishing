@@ -1,15 +1,5 @@
 #pragma once
 #include "PlayFishingStateBase.h"
-enum FIshState
-{
-	setWhen_State_Announce_Should,//いつアナウンスするかを設定する。
-	normal,//普通。
-	setWhen_State_Angry_or_exhausted_Should,//いつステートをAngryかexhaustedに変えるか。
-	announce,//状態の変化をアナウンスする。
-	change_Angry_or_exhausted,
-	angry,//怒っている。
-	exhausted,//疲弊している。
-};
 
 class GetRotation;
 class PlayFishing;
@@ -44,25 +34,12 @@ public:
 
 	float GetRotationPower();
 
-	void SetWhen_State_Announce_Should_State();
-	void NormalState();//魚が普通の状態の時の処理。
-	void When_State_Angry_or_exhausted_Shoul();
-	void AnnounceState();
-	void Change_Angry_or_Exhausted_State();
-	void AngerState();//魚が怒っているときの処理。
 	void ExhaustedState();//魚が疲弊しているときの処理。
-	void FishStateAdminister();
-	void SetRodFloatModel();
-	void FrameCount();
-	void Set3DFishPosition();
-	void SetRangeRate();
 	void CameraManagement()override;
-	void GetDistanceMultiplier();
 	FishFacing GetFishFacing();
 
 
 	float m_forcePullFish=0.0f;//魚を引っ張る力。
-	//bool is_fish_suited_for_upper_side = true;//魚が上側を向いているかどうか。
 	float m_initRangeRate=0.0f;
 	float m_fishEscapePower = 0.0f;//魚が逃げようとする力。
 	int m_fishChange_in_DirectionTimes = 0;//魚が方向転換した数。
@@ -81,7 +58,6 @@ public:
 	bool m_isFightActive = true;//失敗したらfalseにする。//キリュウ追加。
 	Vector3 fish3DPos=Vector3::Zero;
 
-	FIshState m_fishState;
 	SpriteRender m_tensionGaugeOutside;
 	SpriteRender m_signs_of_Fish;//魚影
 	GetRotation* m_getRotation=nullptr;

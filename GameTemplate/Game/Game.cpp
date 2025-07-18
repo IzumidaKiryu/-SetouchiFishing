@@ -32,10 +32,7 @@ Game::~Game()
 	DeleteGO(positionSelection);
 	DeleteGO(m_backGround);
 	DeleteGO(m_skyCube);
-	//DeleteGO(player);
 	DeleteGO(gameCamera);
-	
-	//DeleteGO(backGround);
 }
 
 bool Game::Start()

@@ -1,58 +1,91 @@
 #pragma once
 #include "PlayFishingStateBase.h"
 
-
 class RodFloatMove;
 class PlayFishing;
 class TensionGauge;
-class CastState :public PlayFishingStateBase
-{
-public:
-	enum CastMoveState {
-		cast,
-		riseUP,
-		swing
-	};
 
+/// <summary>
+/// キャスト状態を管理するステート。
+/// </summary>
+class CastState : public PlayFishingStateBase {
+public:
+	/// <summary>
+	/// キャスト状態のフェーズ
+	/// </summary>
+	enum CastMoveState {
+		cast,      ///< 投げ中
+		riseUP,    ///< 浮き上がり中
+		swing      ///< 揺れ中
+	};
 
 	CastState();
 	~CastState();
 
-	/*using PlayFishingStateBase::Start;*/
 	void Update();
+
+	/// <summary>
+	/// オブジェクトがゲームに登場するタイミングで一度だけ実行される初期処理。
+	/// 依存するオブジェクトの取得や初期位置設定を行う。
+	/// </summary>
 	bool OnStart();
+
+	/// <summary>
+	/// 初期化処理。モデルやパラメータの初期値設定などを行う。
+	/// </summary>
 	bool OnInit();
-	void CameraManagement()override;
+
+	/// <summary>
+	/// カメラの位置や向きを更新し、プレイヤーやウキの動きに追従させる。
+	/// </summary>
+	void CameraManagement() override;
+
+	/// <summary>
+	/// キャスト動作を開始し、ウキの初速度や方向を決定する。
+	/// </summary>
 	void Cast();
+
+	/// <summary>
+	/// ウキの回転角度を計算し、自然な落下を表現する。
+	/// </summary>
 	void Rotation();
-	void RiseUP();//浮力の計算。
+
+	/// <summary>
+	/// ウキが水面に上昇するアニメーションを制御。
+	/// </summary>
+	void RiseUP();
+
+	/// <summary>
+	/// ウキの揺れ（スイング）を表現するアニメーション制御。
+	/// </summary>
 	void Swing();
+
+	/// <summary>
+	/// 現在の釣り状態（キャスト、ヒット、巻き上げなど）を管理し、必要に応じて遷移を行う。
+	/// </summary>
 	void StateManager();
 
+private:
+	// 時間管理用変数
+	float m_castTimer = 0.0f;
+	float m_swingTimer = 0.0f;
 
-	float t=0.0f;
-	float swing_t=0.0f;
-	float z_slope=0.0f;
-	float y_slope=0.0f;
-	const float e=2.71828;
+	// 傾き
+	float m_zSlope = 0.0f;
+	float m_ySlope = 0.0f;
 
-	
+	// 浮きの状態など
+	Vector3 m_float_initPos= Vector3::Zero;
+	Vector3 m_floatOffset=Vector3::Zero;
+	Vector3 forceVector = Vector3::Zero;
 
-	Vector3 g{ 0.0f,-30.0f,0.0f };//重力。
-	Vector3 m_float_initPos{ 0.0f,500.0f,10.0f };
-	Vector3 m_rodFloatPosition = m_float_initPos;
-	Vector3 forceVector = { 0.0f,0.0f,0.0f };
-	bool m_is_landing=false;
-	float HydraulicPressureDifference = 0;//水圧差
-	float water_surface_position_y = 0;//うみのy軸での場所。
-	float m_castStrength=0.0f;//キャストの強さ（ウキのとび具合が変わる）
-	float first_velocity_vector_z = 2;//初速ベクトルｚの値（ｙとｚの比率）。
-	Vector3 first_velocity_vector{ 0.0f,1.0f,first_velocity_vector_z };//初速ベクトル（ｙは必ず1にしておく）。
+	Quaternion m_floatRotation = Quaternion::Identity;
 
-	Quaternion m_floatRotation=Quaternion::Identity;
+	//水圧差
+	float m_hydraulicPressureDifference = 0.0f;
 
 	CastMoveState m_castMoveState;
-	TensionGauge* m_tensionGauge=nullptr;
 
+	// ゲージやプレイ情報
+	TensionGauge* m_tensionGauge = nullptr;
 };
-

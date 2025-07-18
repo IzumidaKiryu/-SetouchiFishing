@@ -86,10 +86,10 @@ bool InGameState::ShouldChangeState()
 		//プレイフィッシングシーンとスコアディスプレイ画面を探す。
 		m_scoreDisplay = FindGO<ScoreDisplay>("scoreDisplay");
 		m_playFishing = FindGO<PlayFishing>("playFishing");
-		DeleteGO(m_sound);
 		//プレイフィッシングシーンかスコアディスプレイ画面じゃなければ。
 		if (m_playFishing == nullptr && m_scoreDisplay == nullptr) {
 			SetNextName("gameResult");
+			DeleteGO(m_sound);
 			return true;
 		}
 	}

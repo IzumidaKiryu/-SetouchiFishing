@@ -179,7 +179,7 @@ void GameStartCountdown::SetCameraPosition(Vector3 pos)
 void GameStartCountdown::SetInitCameraToShipDistance()
 {
 
-	Vector2 shipPos2D = Vector2(m_backGround->m_shipPosition.x, m_backGround->m_shipPosition.z);
+	Vector2 shipPos2D = Vector2(m_backGround->GetShipPosition().x, m_backGround->GetShipPosition().z);
 	Vector2 cameraPos2D = Vector2(m_initCameraPos.z, m_initCameraPos.x);
 
 	//最初の船とカメラの間のベクトル
@@ -275,20 +275,20 @@ float GameStartCountdown::GetCameraToShipDistance()
 
 void GameStartCountdown::SetCameraTarget()
 {
-	m_cameraTarget = m_backGround->m_shipPosition + Vector3{0.0f,0.0f,10.0f};
+	m_cameraTarget = m_backGround->GetShipPosition() + Vector3{0.0f,0.0f,10.0f};
 	m_camera->SetTarget(m_cameraTarget);
 }
 
 void GameStartCountdown::SetInitCameraPos()
 {
-	m_initCameraPos = m_backGround->m_shipPosition + Vector3{ 0.0f,200.0f,-2500.0f };
+	m_initCameraPos = m_backGround->GetShipPosition() + Vector3{ 0.0f,200.0f,-2500.0f };
 	SetCameraPosition(m_initCameraPos);
 
 }
 
 void GameStartCountdown::SetEndCameraPos()
 {
-	m_endCameraPos = m_backGround->m_shipPosition + Vector3{ 0.0f,1500.0f,-100.0f };
+	m_endCameraPos = m_backGround->GetShipPosition() + Vector3{ 0.0f,1500.0f,-100.0f };
 }
 
 void GameStartCountdown::SetInitCameraRotation()

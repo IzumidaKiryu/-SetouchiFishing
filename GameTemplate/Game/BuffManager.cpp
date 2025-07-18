@@ -20,24 +20,15 @@ void BuffManager::ApplyBuffEffect(const std::map<BuffType, float>& buffEffect ,c
         switch (buffType)
         {
         case BuffType::StealBoostBuff:
-            m_buffEffect[buffType] += it->second;
-            break;
         case BuffType::PullStrengthBuff:
-            m_buffEffect[buffType] += it->second;
-            break;
         case BuffType::StaminaRegenBuff:
             m_buffEffect[buffType] += it->second;
-            break;
-        case BuffType::RandumBuff:
-            break;
-        case BuffType::NoBuff:
+            m_buffCount[buffType]++;
             break;
         default:
             break;
         }
     }
-
-    m_buffCount[buffType]++;
 }
 
 float  BuffManager::GetBuffEffect(BuffType buffType) const
@@ -54,7 +45,7 @@ float BuffManager::GetTotalStealBoostBuff()
     return m_buffEffect[BuffType::StealBoostBuff];
 }
 
-float BuffManager::GetTotalPullStrengthBuff()
+float BuffManager::GetTotalPullStrengthBuff() 
 {
     return m_buffEffect[BuffType::PullStrengthBuff];
 }
@@ -74,6 +65,5 @@ void BuffManager::InitSetBuffEffect()
     m_buffEffect[BuffType::PullStrengthBuff] = 0.0f;
     m_buffEffect[BuffType::StaminaRegenBuff] = 0.0f;
     m_buffEffect[BuffType::StaminaRegenBuff] = 0.0f;
-    m_buffEffect[BuffType::RandumBuff] = 0.0f;
     m_buffEffect[BuffType::NoBuff] = 0.0f;
 }

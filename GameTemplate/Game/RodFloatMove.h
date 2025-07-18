@@ -35,8 +35,8 @@ public:
 	void SetScalar_multiply_in_first_velocity_vector(float scalar_multiply_in_first_velocity_vector);*/
 	void SetPosition();
 	void SetPosition(Vector3 position);
-	float ChangePosition_Z(float current_float_range_max_range_rate);
-	float GetCurrent_Float_Range_Max_Range_Rate(float position_z);
+	float ChangePosition_Z(float currentFloatDistanceRate);
+	float GetCurrentFloatDistanceRate(float position_z);
 	void SetRotation(Quaternion rot);
 
 	void SetSumPosition(Vector3 positon);//ポジションを足し算する。

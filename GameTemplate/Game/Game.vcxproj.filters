@@ -24,7 +24,6 @@
     <ClCompile Include="FishManager.cpp" />
     <ClCompile Include="GameCamera.cpp" />
     <ClCompile Include="GameResult.cpp" />
-    <ClCompile Include="GaugeCastSuccessful.cpp" />
     <ClCompile Include="GetRotation.cpp" />
     <ClCompile Include="PlayFishing.cpp" />
     <ClCompile Include="PlayFishingBackGround.cpp" />
@@ -81,7 +80,6 @@
     <ClInclude Include="FishManager.h" />
     <ClInclude Include="GameCamera.h" />
     <ClInclude Include="GameResult.h" />
-    <ClInclude Include="GaugeCastSuccessful.h" />
     <ClInclude Include="GetRotation.h" />
     <ClInclude Include="PlayFishing.h" />
     <ClInclude Include="PlayFishingBackGround.h" />

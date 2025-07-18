@@ -81,7 +81,7 @@ SpriteRender& FishDetectionRadius::GetUI()
 
 void FishDetectionRadius::CalculateDetectionRangePos()
 {
-	m_fishDetectionRadiusPos= m_playFishing->m_current_fish_range_and_max_range_rate;
+	m_fishDetectionRadiusPos= m_playFishing->m_fishDistanceRate;
 	
 	SetFishDetectionRadiusUIPosition();
 }
