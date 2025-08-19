@@ -43,14 +43,14 @@ void CastState::Update()
 	StateManager();
 	Rotation();
 	SetFloat();
-	SumRodFloatPosition(m_floatOffset + m_float_initPos);
+	SumRodFloatPosition(m_floatOffset + m_floatInitPos);
 
 }
 
 bool CastState::OnInit()
 {
-	m_float_initPos = INITIAL_FLOAT_POSITION;
-	m_floatOffset = m_float_initPos;
+	m_floatInitPos = INITIAL_FLOAT_POSITION;
+	m_floatOffset = m_floatInitPos;
 	return true;
 }
 
@@ -106,7 +106,7 @@ void CastState::Cast()
 	m_floatOffset += forceVector;
 
 	// ウキが水面より下に到達したら次のフェーズへ
-	if (m_floatOffset.y + m_float_initPos.y <= WATER_SURFACE_Y) {
+	if (m_floatOffset.y + m_floatInitPos.y <= WATER_SURFACE_Y) {
 		m_castMoveState = riseUP;
 	}
 }
@@ -141,12 +141,12 @@ void CastState::RiseUP()
 	EffectEmitter* effectEmitter = NewGO<EffectEmitter>(0);
 	effectEmitter->Init(0);
 	effectEmitter->SetScale({ 50.0f,50.0f,50.0f });
-	effectEmitter->SetPosition(m_rodFloatPosition + m_float_initPos);
+	effectEmitter->SetPosition(m_floatOffset + m_floatInitPos);
 	effectEmitter->Play();
 	m_floatOffset += forceVector;
 
 	// ウキが再度水面に到達したら次のフェーズへ
-	if (m_floatOffset.y + m_float_initPos.y >= WATER_SURFACE_Y) {
+	if (m_floatOffset.y + m_floatInitPos.y >= WATER_SURFACE_Y) {
 		m_castMoveState = swing;
 	}
 }
