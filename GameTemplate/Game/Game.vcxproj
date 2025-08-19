@@ -234,6 +234,7 @@
     <ClCompile Include="CastGauge.cpp" />
     <ClCompile Include="CastState.cpp" />
     <ClCompile Include="Character.cpp" />
+    <ClCompile Include="EffectManager.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="FightFishState.cpp" />
     <ClCompile Include="Fish.cpp" />
@@ -293,6 +294,7 @@
     <ClInclude Include="CastGauge.h" />
     <ClInclude Include="CastState.h" />
     <ClInclude Include="Character.h" />
+    <ClInclude Include="EffectManager.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="FightFishState.h" />
     <ClInclude Include="Fish.h" />

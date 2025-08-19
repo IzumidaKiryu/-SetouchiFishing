@@ -61,6 +61,7 @@
     <ClCompile Include="BuffLevelUI.cpp" />
     <ClCompile Include="GameGuide.cpp" />
     <ClCompile Include="SuccessUIState.cpp" />
+    <ClCompile Include="EffectManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -117,5 +118,6 @@
     <ClInclude Include="BuffLevelUI.h" />
     <ClInclude Include="GameGuide.h" />
     <ClInclude Include="SuccessUIState.h" />
+    <ClInclude Include="EffectManager.h" />
   </ItemGroup>
 </Project>
