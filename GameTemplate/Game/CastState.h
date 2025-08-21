@@ -75,7 +75,7 @@ private:
 	float m_ySlope = 0.0f;
 
 	// 浮きの状態など
-	Vector3 m_float_initPos= Vector3::Zero;
+	Vector3 m_floatInitPos= Vector3::Zero;
 	Vector3 m_floatOffset=Vector3::Zero;
 	Vector3 forceVector = Vector3::Zero;
 
